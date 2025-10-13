@@ -1,0 +1,6 @@
+# Typst debug/intermediate outputs
+**/*.typst
+
+# Ad-hoc test files created during docs work
+foldseek_docs/test.md
+

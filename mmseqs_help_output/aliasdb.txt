@@ -1,0 +1,7 @@
+usage: mmseqs aliasdb <i:srcDB> <o:dstDB> [options]
+ By Milot Mirdita <milot@mirdita.de>
+options: common: 
+ -v INT   Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info [3]
+
+references:
+ - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)

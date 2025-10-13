@@ -1,0 +1,19 @@
+usage: foldseek createmultimerreport <i:queryDb> <i:targetDb> <i:complexDB> <o:complexFile> [options]
+ By Woosub Kim <woosubgo@snu.ac.kr>
+options: common:          
+ --threads INT     Number of CPU-cores used (all by default) [10]
+ -v INT            Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info [3]
+expert:          
+ --db-output BOOL  Return a result DB instead of a text file [0]
+
+examples:
+ # Create output in tsv format (9 columns):  qComplexName.c_str(), tComplexName.c_str(), qChainString.c_str(), tChainString.c_str(), qTMScore, tTMScore, u, t, assId
+ #  (1,2) identifiers for query and target multimers,
+ #  (3,4) chains of query multimer and target multimer,
+ #  (5,6) tm score based on query and target residue length,
+ #  (8,9) u and t,
+ #  (9) assignment id
+ foldseek createmultimerreport queryDB targetDB complexDB result.tsv
+ 
+references:
+ - Kim, W., Mirdita, M., Levy Karin, E., Gilchrist, C.L.M., Schweke, H., Söding, J., Levy, E., and Steinegger, M. Rapid and Sensitive Protein Complex Alignment with Foldseek-Multimer. bioRxiv, doi:10.1101/2024.04.14.589414 (2024)

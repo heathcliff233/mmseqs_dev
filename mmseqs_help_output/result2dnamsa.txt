@@ -1,0 +1,11 @@
+usage: mmseqs result2dnamsa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]
+ By Martin Steinegger (martin.steinegger@snu.ac.kr)
+options: common:           
+ --threads INT      Number of CPU-cores used (all by default) [10]
+ --compressed INT   Write compressed output [0]
+ -v INT             Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info [3]
+expert:           
+ --skip-query BOOL  Skip the query sequence [0]
+
+references:
+ - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
