@@ -1,86 +1,331 @@
+# Taxonomy
 
-# Taxonomy Modules
+Modules for taxonomy DB preparation, assignment, filtering, and reporting workflows.
 
-This document describes the taxonomy submodules of MMseqs2.
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
+```
+
+```{=typst}
+#doc_warning[
+Validate database-type and sidecar compatibility before chaining modules. Most pipeline failures come from DB contract mismatches.
+]
+```
+
+## `addtaxonomy`
+
+Add taxonomic labels to result DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
+| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easytaxonomy.sh` |
+
+Reference links: [Full CLI](../reference/addtaxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-addtaxonomy).
+
+## `aggregatetax`
+
+Aggregate multiple taxon labels to a single label.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/aggregatetax.md), [Dependency map](../reference/dependency_map.md#cmd-aggregatetax).
+
+## `aggregatetaxweights`
+
+Aggregate multiple taxon labels to a single label.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `taxpercontig.sh` |
+
+Reference links: [Full CLI](../reference/aggregatetaxweights.md), [Dependency map](../reference/dependency_map.md#cmd-aggregatetaxweights).
+
+## `createbintaxmapping`
+
+Create binary taxonomy mapping from tabular taxonomy mapping.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/createbintaxmapping.md), [Dependency map](../reference/dependency_map.md#cmd-createbintaxmapping).
+
+## `createbintaxonomy`
+
+Create binary taxonomy from NCBI input.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
+| Called by modules | [`createtaxdb`](../reference/createtaxdb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `createtaxdb.sh` |
+
+Reference links: [Full CLI](../reference/createbintaxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-createbintaxonomy).
+
+## `createdmptaxonomy`
+
+Create dmp files from binary taxonomy.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/createdmptaxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-createdmptaxonomy).
+
+## `createtaxdb`
+
+Add taxonomic labels to sequence DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createtaxdb <i:sequenceDB> <tmpDir> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | [`databases`](../reference/databases.md) |
+| Calls modules | [`createbintaxonomy`](../reference/createbintaxonomy.md) |
+| Related functional groups | [`database`](./database.md) |
+| Workflow script usage | `databases.sh` |
+
+Reference links: [Full CLI](../reference/createtaxdb.md), [Dependency map](../reference/dependency_map.md#cmd-createtaxdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--ncbi-tax-dump` | tax dump directory. The tax dump can be downloaded here "ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz" |
+| `--tax-mapping-file` | File to map sequence identifier to taxonomical identifier |
+| `--tax-mapping-mode` | Map taxonomy based on sequence database 0: .lookup file 1: .source file |
+| `--tax-db-mode` | Create taxonomy database as: 0: .dmp flat files (human readable) 1: binary dump (faster readin) |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `filtertaxdb`
+
+Filter taxonomy result database.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs filtertaxdb <i:targetDB> <i:taxDB> <o:taxDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/filtertaxdb.md), [Dependency map](../reference/dependency_map.md#cmd-filtertaxdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--taxon-list` | Taxonomy ID, possibly multiple values separated by ',' |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `filtertaxseqdb`
+
+Filter taxonomy sequence database.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs filtertaxseqdb <i:taxSeqDB> <o:taxSeqDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/filtertaxseqdb.md), [Dependency map](../reference/dependency_map.md#cmd-filtertaxseqdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--taxon-list` | Taxonomy ID, possibly multiple values separated by ',' |
+| `--subdb-mode` | Subdb mode 0: copy data 1: soft link data and write index |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `lca`
+
+Compute the lowest common ancestor.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs lca <i:targetDB> <i:resultDB> <o:taxaDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `taxonomy.sh` |
+
+Reference links: [Full CLI](../reference/lca.md), [Dependency map](../reference/dependency_map.md#cmd-lca).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--lca-ranks` | Add column with specified ranks (',' separated) |
+| `--blacklist` | Comma separated list of ignored taxa in LCA computation |
+| `--tax-lineage` | 0: don't show, 1: add all lineage names, 2: add all lineage taxids |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `lcaalign`
+
+Efficient gapped alignment for lca computation.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs lcaalign <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY` |
+| Called by modules | [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/lcaalign.md), [Dependency map](../reference/dependency_map.md#cmd-lcaalign).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `-a` | Add backtrace string (convert to alignments with mmseqs convertalis module) |
+| `--alignment-mode` | How to compute the alignment: |
+| `--alignment-output-mode` | How to compute the alignment: |
+| `--wrapped-scoring` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+
+## `majoritylca`
+
+Compute the lowest common ancestor using majority voting.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/majoritylca.md), [Dependency map](../reference/dependency_map.md#cmd-majoritylca).
+
+## `nrtotaxmapping`
+
+Create taxonomy mapping for NR database.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SPECIAL` |
+| Called by modules | [`databases`](../reference/databases.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`database`](./database.md) |
+| Workflow script usage | `databases.sh` |
+
+Reference links: [Full CLI](../reference/nrtotaxmapping.md), [Dependency map](../reference/dependency_map.md#cmd-nrtotaxmapping).
 
 ## `taxonomy`
 
-**Description:**
+Taxonomic classification.
 
-> Taxonomic classification
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MAIN` |
+| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | [`aggregatetax`](../reference/aggregatetax.md), [`aggregatetaxweights`](../reference/aggregatetaxweights.md), [`createsubdb`](../reference/createsubdb.md), [`extractorfs`](../reference/extractorfs.md), [`filterdb`](../reference/filterdb.md), [`lca`](../reference/lca.md), [`mergeresultsbyset`](../reference/mergeresultsbyset.md), [`mvdb`](../reference/mvdb.md), [`prefilter`](../reference/prefilter.md), [`recoverlongestorf`](../reference/recoverlongestorf.md), [`rescorediagonal`](../reference/rescorediagonal.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md), [`swapdb`](../reference/swapdb.md), [`taxonomy`](../reference/taxonomy.md) |
+| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`easy_workflows`](./easy_workflows.md), [`multi_hit`](./multi_hit.md), [`prefiltering`](./prefiltering.md), [`search_workflows`](./search.md), [`sequence_manipulation`](./sequence_manipulation.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `easytaxonomy.sh`, `taxpercontig.sh` |
 
-**Usage:**
-```bash
-mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]
-```
+Reference links: [Full CLI](../reference/taxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-taxonomy).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-| `--seed-sub-mat <TWIN>` | Substitution matrix file for k-mer generation | `aa:VTML80.out,nucl:nucleotide.out` |
-| `-s <FLOAT>` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive | `2.000` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--target-search-mode <INT>` | target search mode (0: regular k-mer, 1: similar k-mer) | `0` |
-| `--k-score <TWIN>` | k-mer threshold for generating similar k-mer lists | `seq:2147483647,prof:2147483647` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--max-seqs <INT>` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) | `300` |
-| `--split <INT>` | Split input into N equally distributed chunks. 0: set the best split automatically | `0` |
-| `--split-mode <INT>` | 0: split target db; 1: split query db; 2: auto, depending on main memory | `2` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-| `--diag-score <BOOL>` | Use ungapped diagonal scoring during prefilter | `1` |
-| `--exact-kmer-matching <INT>` | Extract only exact k-mers for matching (range 0-1) | `0` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `1` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `--min-ungapped-score <INT>` | Accept only matches with ungapped alignment score above threshold | `15` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `1` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `--local-tmp <STR>` | Path where some of the temporary files will be created | `[]` |
-| `--disk-space-limit <BYTE>` | Set max disk space to use for reverse profile searches. E.g. 800B, 5K, 10M, 1G. Default (0) to all available disk space in the temp folder | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--seed-sub-mat` | Substitution matrix file for k-mer generation |
+| `-s` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
+| `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment | `1` |
-| `--alignment-output-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment, 5: score only (output) cluster format | `0` |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E+00` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length, 1: shorter, 2: longer sequence | `0` |
-| `--alt-ali <INT>` | Show up to this many alternative alignments | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--max-rejected <INT>` | Maximum rejected alignments before alignment calculation for a query is stopped | `5` |
-| `--max-accept <INT>` | Maximum accepted alignments before alignment calculation for a query is stopped | `30` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--realign <BOOL>` | Compute more conservative, shorter alignments (scores and E-values not changed) | `0` |
-| `--realign-score-bias <FLOAT>` | Additional bias when computing realignment | `-0.200` |
-| `--realign-max-seqs <INT>` | Maximum number of results to return in realignment | `2147483647` |
-| `--corr-score-weight <FLOAT>` | Weight of backtrace correlation score that is added to the alignment score | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-| `--exhaustive-search-filter <INT>` | Filter result during search: 0: do not filter, 1: filter | `0` |
+## `taxonomyreport`
 
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-| `--mask-profile <INT>` | Mask query sequence of profile using tantan [0,1] | `1` |
-| `--e-profile <DOUBLE>` | Include sequences matches with < E-value thr. into the profile (>=0.0) | `1.000E-03` |
-| `--wg <BOOL>` | Use global sequence weighting for profile calculation | `0` |
-| `--filter-msa <INT>` | Filter msa: 0: do not filter, 1: filter | `1` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of
+Create a taxonomy report in Kraken or Krona format.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs taxonomyreport <i:seqTaxDB> <i:taxResultDB/resultDB/sequenceDB> <o:taxonomyReport> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_TAXONOMY | COMMAND_FORMAT_CONVERSION` |
+| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easytaxonomy.sh` |
+
+Reference links: [Full CLI](../reference/taxonomyreport.md), [Dependency map](../reference/dependency_map.md#cmd-taxonomyreport).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--report-mode` | Taxonomy report mode 0: Kraken 1: Krona |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+

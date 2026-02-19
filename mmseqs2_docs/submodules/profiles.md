@@ -1,240 +1,290 @@
-# Profiles Modules
+# Profiles
 
-This document describes the profiles submodules of MMseqs2.
+Modules for profile/MSA conversion, profile construction, and profile-driven workflow components.
 
-## `msa2profile`
-
-**Description:**
-
-> Convert a MSA DB to a profile DB
-
-**Usage:**
-```bash
-mmseqs msa2profile <i:msaDB> <o:profileDB> [options]
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
 ```
 
-**Parameters:**
+## `convertca3m`
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
+Convert a cA3M DB to a result DB.
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_PROFILE_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--match-mode <INT>` | 0: Columns that have a residue in the first sequence are kept, 1: columns that have a residue in --match-ratio of all sequences are kept | `0` |
-| `--match-ratio <FLOAT>` | Columns that have a residue in this ratio of all sequences are kept | `0.500` |
-| `--pseudo-cnt-mode <INT>` | use 0: substitution-matrix or 1: context-specific pseudocounts | `0` |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-| `--wg <BOOL>` | Use global sequence weighting for profile calculation | `0` |
-| `--filter-msa <INT>` | Filter msa: 0: do not filter, 1: filter | `1` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--msa-type <INT>` | MSA Type: 0: cA3M, 1: A3M, 2: FASTA | `2` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--skip-query <BOOL>` | Skip the query sequence | `0` |
-
-**Examples:**
-```bash
-
-# Convert globally aligned MSAs to profiles
-
-# Defines columns as match columns if more than 50% of residues are not gaps
-
-# Non-match columns are discarded
-mmseqs msa2profile msaDB profileDB --match-mode 1 --match-ratio 0.5
-
-# Assign match-columns through the first sequence
-
-# Gaps in query sequence define non-match columns and are discarded
-mmseqs msa2profile msaDB profileDB --match-mode 0
-```
-
-## `msa2result`
-
-**Description:**
-
-> Convert a MSA DB to a profile DB
-
-**Usage:**
-```bash
-mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--match-mode <INT>` | 0: Columns that have a residue in the first sequence are kept, 1: columns that have a residue in --match-ratio of all sequences are kept | `0` |
-| `--match-ratio <FLOAT>` | Columns that have a residue in this ratio of all sequences are kept | `0.500` |
-| `--pseudo-cnt-mode <INT>` | use 0: substitution-matrix or 1: context-specific pseudocounts | `0` |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-| `--wg <BOOL>` | Use global sequence weighting for profile calculation | `0` |
-| `--filter-msa <INT>` | Filter msa: 0: do not filter, 1: filter | `1` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--msa-type <INT>` | MSA Type: 0: cA3M, 1: A3M, 2: FASTA | `2` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--skip-query <BOOL>` | Skip the query sequence | `0` |
-
-## `result2profile`
-
-**Description:**
-
-> Compute profile DB from a result DB
-
-**Usage:**
-```bash
-mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--mask-profile <INT>` | Mask query sequence of profile using tantan [0,1] | `1` |
-| `--e-profile <DOUBLE>` | Include sequences matches with < E-value thr. into the profile (>=0.0) | `1.000E-03` |
-| `--wg <BOOL>` | Use global sequence weighting for profile calculation | `0` |
-| `--filter-msa <INT>` | Filter msa: 0: do not filter, 1: filter | `1` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
-| `--pseudo-cnt-mode <INT>` | use 0: substitution-matrix or 1: context-specific pseudocounts | `0` |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-| `--profile-output-mode <INT>` | Profile output mode: 0: binary log-odds 1: human-readable frequencies | `0` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--allow-deletion <BOOL>` | Allow deletions in a MSA | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+Reference links: [Full CLI](../reference/convertca3m.md), [Dependency map](../reference/dependency_map.md#cmd-convertca3m).
 
 ## `convertmsa`
 
-**Description:**
+Convert Stockholm/PFAM MSA file to a MSA DB.
 
-> Convert STOCKHOLM file to MSA DB
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs convertmsa <i:msaFile.sto[.gz]> <o:msaDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION` |
+| Called by modules | [`databases`](../reference/databases.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`database`](./database.md) |
+| Workflow script usage | `databases.sh` |
 
-**Usage:**
-```bash
-mmseqs convertmsa <i:msaFile.sto[.gz]> <o:msaDB> [options]
-```
+Reference links: [Full CLI](../reference/convertmsa.md), [Dependency map](../reference/dependency_map.md#cmd-convertmsa).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--identifier-field <INT>` | Field from STOCKHOLM comments for choosing the MSA identifier: 0: ID, 1: AC. If the respective comment does not exist, the name of the first sequence will become the identifier | `1` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--identifier-field` | Field from STOCKHOLM comments for choosing the MSA identifier: 0: ID, 1: AC. If the respective comment does not exist, the name of the first sequence will become the identifier |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-- Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
+## `convertprofiledb`
+
+Convert a HH-suite HHM DB to a profile DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/convertprofiledb.md), [Dependency map](../reference/dependency_map.md#cmd-convertprofiledb).
+
+## `expand2profile`
+
+Expand an alignment result based on another and create a profile.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_PROFILE_PROFILE` |
+| Called by modules | [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `iterativepp.sh` |
+
+Reference links: [Full CLI](../reference/expand2profile.md), [Dependency map](../reference/dependency_map.md#cmd-expand2profile).
+
+## `msa2profile`
+
+Convert a MSA DB to a profile DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs msa2profile <i:msaDB> <o:profileDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE | COMMAND_DATABASE_CREATION` |
+| Called by modules | [`databases`](../reference/databases.md), [`pickconsensusrep`](../reference/pickconsensusrep.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md) |
+| Workflow script usage | `databases.sh`, `pickconsensusrep.sh` |
+
+Reference links: [Full CLI](../reference/msa2profile.md), [Dependency map](../reference/dependency_map.md#cmd-msa2profile).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--match-mode` | 0: Columns that have a residue in the first sequence are kept, 1: columns that have a residue in --match-ratio of all sequences are kept |
+| `--match-ratio` | Columns that have a residue in this ratio of all sequences are kept |
+| `--pseudo-cnt-mode` | use 0: substitution-matrix or 1: context-specific pseudocounts |
+| `--pca` | Pseudo count admixture strength |
+
+## `msa2result`
+
+Convert a MSA DB to a profile DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE | COMMAND_EXPERT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/msa2result.md), [Dependency map](../reference/dependency_map.md#cmd-msa2result).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--match-mode` | 0: Columns that have a residue in the first sequence are kept, 1: columns that have a residue in --match-ratio of all sequences are kept |
+| `--match-ratio` | Columns that have a residue in this ratio of all sequences are kept |
+| `--pseudo-cnt-mode` | use 0: substitution-matrix or 1: context-specific pseudocounts |
+| `--pca` | Pseudo count admixture strength |
+
+## `pairaln`
+
+Pair sequences to match best protein A and B from a species.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_EXPERT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/pairaln.md), [Dependency map](../reference/dependency_map.md#cmd-pairaln).
+
+## `profile2consensus`
+
+Extract consensus sequence DB from a profile DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `iterativepp.sh` |
+
+Reference links: [Full CLI](../reference/profile2consensus.md), [Dependency map](../reference/dependency_map.md#cmd-profile2consensus).
+
+## `profile2neff`
+
+Convert a profile DB to a tab-separated list of Neff scores.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/profile2neff.md), [Dependency map](../reference/dependency_map.md#cmd-profile2neff).
+
+## `profile2pssm`
+
+Convert a profile DB to a tab-separated PSSM file.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/profile2pssm.md), [Dependency map](../reference/dependency_map.md#cmd-profile2pssm).
+
+## `profile2repseq`
+
+Extract representative sequence DB from a profile DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/profile2repseq.md), [Dependency map](../reference/dependency_map.md#cmd-profile2repseq).
+
+## `result2profile`
+
+Compute profile DB from a result DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `blastpgp.sh`, `enrich.sh` |
+
+Reference links: [Full CLI](../reference/result2profile.md), [Dependency map](../reference/dependency_map.md#cmd-result2profile).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--mask-profile` | Mask query sequence of profile using tantan [0,1] |
+| `--e-profile` | Include sequences matches with < E-value thr. into the profile (>=0.0) |
+| `--wg` | Use global sequence weighting for profile calculation |
+
+## `sequence2profile`
+
+Turn sequence into profile by adding context specific pseudo counts.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/sequence2profile.md), [Dependency map](../reference/dependency_map.md#cmd-sequence2profile).
 
 ## `tsv2exprofiledb`
 
-**Description:**
+Create a expandable profile db from TSV files.
 
-> Convert TSV files to extended profile DB
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_PROFILE_PROFILE` |
+| Called by modules | `n/a` |
+| Calls modules | [`aliasdb`](../reference/aliasdb.md), [`compress`](../reference/compress.md), [`mvdb`](../reference/mvdb.md), [`rmdb`](../reference/rmdb.md), [`tsv2db`](../reference/tsv2db.md) |
+| Related functional groups | [`database`](./database.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]
-```
+Reference links: [Full CLI](../reference/tsv2exprofiledb.md), [Dependency map](../reference/dependency_map.md#cmd-tsv2exprofiledb).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gpu <INT>` | Use GPU (CUDA) if possible | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `1` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--gpu` | Use GPU (CUDA) if possible |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+

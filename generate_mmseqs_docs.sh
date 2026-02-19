@@ -1,126 +1,66 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Check if the mmseqs executable path is provided
-if [ -z "$1" ]; then
+if [ -z "${1:-}" ]; then
     echo "Usage: $0 <path_to_mmseqs_executable>"
     exit 1
 fi
 
 MMSEQS_EXEC="$1"
+if [ ! -x "$MMSEQS_EXEC" ]; then
+    echo "Error: '$MMSEQS_EXEC' is not executable"
+    exit 1
+fi
 
-# Create a directory to store the help output
-mkdir -p mmseqs_help_output
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_CPP="$ROOT_DIR/MMseqs2/src/MMseqsBase.cpp"
+OUT_DIR="$ROOT_DIR/mmseqs_help_output"
 
-# List of all MMseqs2 modules (obtained from CommandDeclarations.h)
-MODULES=(
-    "align"
-    "alignall"
-    "alignbykmer"
-    "aliasdb"
-    "apply"
-    "besthitperset"
-    "cluster"
-    "clusterupdate"
-    "clusthash"
-    "clust"
-    "combinepvalperset"
-    "compress"
-    "concatdbs"
-    "convertalis"
-    "convertmsa"
-    "cpdb"
-    "createdb"
-    "createindex"
-    "createlinindex"
-    "createseqfiledb"
-    "createsubdb"
-    "createtaxdb"
-    "createtsv"
-    "db2tar"
-    "decompress"
-    "easy-cluster"
-    "easy-linclust"
-    "easy-linsearch"
-    "easy-rbh"
-    "easy-search"
-    "easy-taxonomy"
-    "expandaln"
-    "extractorfs"
-    "extractframes"
-    "extractalignedregion"
-    "filterdb"
-    "filterresult"
-    "filtertaxdb"
-    "filtertaxseqdb"
-    "gappedprefilter"
-    "gpuserver"
-    "kmermatcher"
-    "kmersearch"
-    "lca"
-    "lcaalign"
-    "linclust"
-    "linsearch"
-    "lndb"
-    "makepaddedseqdb"
-    "map"
-    "masksequence"
-    "mergedbs"
-    "mergeclusters"
-    "mergeresultsbyset"
-    "msa2profile"
-    "msa2result"
-    "multihitdb"
-    "multihitsearch"
-    "mvdb"
-    "offsetalignment"
-    "orftocontig"
-    "prefilter"
-    "prefixid"
-    "proteinaln2nucl"
-    "rbh"
-    "recoverlongestorf"
-    "renamedbkeys"
-    "rescorediagonal"
-    "result2dnamsa"
-    "result2flat"
-    "result2msa"
-    "result2profile"
-    "result2rbh"
-    "result2repseq"
-    "result2stats"
-    "reverseseq"
-    "search"
-    "setextendeddbtype"
-    "sortresult"
-    "splitdb"
-    "splitsequence"
-    "subtractdbs"
-    "suffixid"
-    "summarizealis"
-    "summarizeresult"
-    "swapdb"
-    "swapresults"
-    "tar2db"
-    "taxonomy"
-    "taxonomyreport"
-    "touchdb"
-    "translatenucs"
-    "translateaa"
-    "tsv2db"
-    "tsv2exprofiledb"
-    "ungappedprefilter"
-    "unpackdb"
-    "view"
+# Create output directory
+mkdir -p "$OUT_DIR"
+
+TMP_CMDS="$(mktemp)"
+trap 'rm -f "$TMP_CMDS"' EXIT
+
+# Extract visible (non-hidden) command names from MMseqsBase.cpp
+python - "$BASE_CPP" > "$TMP_CMDS" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+text = Path(sys.argv[1]).read_text()
+pattern = re.compile(
+    r'\{\s*"([^"]+)"\s*,\s*[A-Za-z0-9_]+\s*,\s*&par\.[^,]+,\s*([^,\n]+),',
+    re.S,
 )
+cmds = []
+for name, category in pattern.findall(text):
+    if "COMMAND_HIDDEN" in category:
+        continue
+    cmds.append(name)
 
-# Iterate through the modules and get their help output
-for module in "${MODULES[@]}"; do
-    echo "Getting help for: mmseqs $module"
-    # Execute the command and save output to a file
-    "${MMSEQS_EXEC}" "$module" -h > "mmseqs_help_output/${module}.txt" 2>&1
-    if [ $? -ne 0 ]; then
-        echo "Error getting help for $module. Check mmseqs_help_output/${module}.txt for details."
+# `apply` is wrapped in a preprocessor branch and may be skipped by the regex.
+# It is visible on non-cygwin builds.
+cmds.append("apply")
+
+for cmd in sorted(set(cmds)):
+    print(cmd)
+PY
+
+TOTAL="$(wc -l < "$TMP_CMDS" | tr -d ' ')"
+CUR=0
+
+while IFS= read -r module; do
+    CUR=$((CUR + 1))
+    out_file="$OUT_DIR/${module}.txt"
+    echo "[$CUR/$TOTAL] Getting help for: mmseqs $module"
+    if "$MMSEQS_EXEC" "$module" -h > "$out_file" 2>&1; then
+        :
+    else
+        echo "Warning: failed to get help for '$module' (see $out_file)"
     fi
-done
+done < "$TMP_CMDS"
 
-echo "All help outputs saved to the 'mmseqs_help_output' directory."
+echo "All visible-command help outputs saved to '$OUT_DIR'."

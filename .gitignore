@@ -4,3 +4,6 @@
 # Ad-hoc test files created during docs work
 foldseek_docs/test.md
 
+# Python cache artifacts from doc-generation scripts
+**/__pycache__/
+*.pyc

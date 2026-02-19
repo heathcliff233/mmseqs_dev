@@ -1,0 +1,260 @@
+#!/usr/bin/env python3
+"""Generate command reference markdown pages from dependency map + help snapshots."""
+
+from __future__ import annotations
+
+import json
+import re
+from collections import defaultdict
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+DOCS = ROOT / "mmseqs2_docs"
+REF_DIR = DOCS / "reference"
+HELP_DIR = ROOT / "mmseqs_help_output"
+DEP_JSON = REF_DIR / "dependency_map.json"
+INDEX_MD = REF_DIR / "index.md"
+
+GROUP_ORDER = [
+    "easy_workflows",
+    "search_workflows",
+    "clustering",
+    "prefiltering",
+    "alignment",
+    "profiles",
+    "database",
+    "result_handling",
+    "sequence_manipulation",
+    "taxonomy",
+    "multi_hit",
+    "utilities",
+]
+
+GROUP_TO_SUBMODULE = {
+    "easy_workflows": "../submodules/easy_workflows.md",
+    "search_workflows": "../submodules/search.md",
+    "clustering": "../submodules/clustering.md",
+    "prefiltering": "../submodules/prefiltering.md",
+    "alignment": "../submodules/alignment.md",
+    "profiles": "../submodules/profiles.md",
+    "database": "../submodules/database.md",
+    "result_handling": "../submodules/result_handling.md",
+    "sequence_manipulation": "../submodules/sequence_manipulation.md",
+    "taxonomy": "../submodules/taxonomy.md",
+    "multi_hit": "../submodules/multi_hit.md",
+    "utilities": "../submodules/utilities.md",
+}
+
+NO_EDGE_TEXT = "`n/a`"
+
+
+def parse_usage_and_options(help_text: str) -> tuple[str, list[tuple[str, str]]]:
+    usage = ""
+    option_rows: list[tuple[str, str]] = []
+
+    for line in help_text.splitlines():
+        if line.startswith("usage:"):
+            usage = line.strip()
+            continue
+        m = re.match(r"^\s+(-{1,2}[A-Za-z0-9][A-Za-z0-9-]*)\s+(.*)$", line)
+        if m:
+            flag = m.group(1)
+            desc = m.group(2).strip()
+            desc = re.sub(r"\s+\[[^\]]*\]\s*$", "", desc).strip()
+            desc = re.sub(r"^[A-Z][A-Z0-9_/.-]*(?:\s+[A-Z][A-Z0-9_/.-]*)*\s+", "", desc)
+            option_rows.append((flag, desc))
+
+    unique: list[tuple[str, str]] = []
+    seen = set()
+    for flag, desc in option_rows:
+        if flag in seen:
+            continue
+        seen.add(flag)
+        unique.append((flag, desc))
+
+    return usage, unique
+
+
+def command_links(items: list[str]) -> str:
+    if items:
+        return ", ".join(f"[`{x}`](./{x}.md)" for x in items)
+    return NO_EDGE_TEXT
+
+
+def plain_list(items: list[str]) -> str:
+    if items:
+        return ", ".join(f"`{x}`" for x in items)
+    return NO_EDGE_TEXT
+
+
+def sentence(text: str) -> str:
+    if text.endswith((".", "!", "?")):
+        return text
+    return text + "."
+
+
+def typst_callout(kind: str, text: str) -> list[str]:
+    macro = {
+        "note": "doc_note",
+        "perf": "doc_perf",
+        "warning": "doc_warning",
+        "tip": "doc_tip",
+    }[kind]
+    return [
+        "```{=typst}",
+        f"#{macro}[",
+        text,
+        "]",
+        "```",
+        "",
+    ]
+
+
+def write_command_page(name: str, meta: dict) -> bool:
+    help_file = HELP_DIR / f"{name}.txt"
+    has_help = help_file.exists()
+    help_text = help_file.read_text() if has_help else ""
+    usage, options = parse_usage_and_options(help_text)
+
+    lines = []
+    lines.append(f"# `{name}`")
+    lines.append("")
+    if meta.get("description"):
+        lines.append(sentence(meta["description"]))
+        lines.append("")
+    lines.append("In connection tables, `n/a` means no direct static edge was resolved by static extraction.")
+    lines.append("")
+
+    lines.append("## Classification")
+    lines.append("")
+    lines.append("| Aspect | Value |")
+    lines.append("| :--- | :--- |")
+    lines.append(f"| API layer | `{meta['layer']}` |")
+    lines.append(
+        f"| Primary functional group | [`{meta['primary_group']}`]({GROUP_TO_SUBMODULE.get(meta['primary_group'], '../manual.md')}) |"
+    )
+    lines.append(f"| Category flags | `{meta['category']}` |")
+    lines.append("")
+
+    lines.append("## Connections")
+    lines.append("")
+    lines.append("| Aspect | Value |")
+    lines.append("| :--- | :--- |")
+    lines.append(f"| Called by modules | {command_links(meta['called_by'])} |")
+    lines.append(f"| Calls modules | {command_links(meta['calls'])} |")
+    lines.append(f"| Seen in workflow scripts | {plain_list(meta['workflow_scripts'])} |")
+    lines.append("")
+
+    lines.append("## Usage")
+    lines.append("")
+    if usage:
+        lines.append(f"`{usage}`")
+    else:
+        lines.append("No local help snapshot usage line is available.")
+    lines.append("")
+
+    lines.append("## Key Options")
+    lines.append("")
+    if options:
+        lines.append("| Option | Purpose |")
+        lines.append("| :--- | :--- |")
+        for flag, desc in options[:12]:
+            lines.append(f"| `{flag}` | {desc} |")
+    else:
+        lines.append("No parsed options are available for this command.")
+    lines.append("")
+
+    lines.append("## Full CLI Help Snapshot")
+    lines.append("")
+    if has_help:
+        lines.append("```text")
+        lines.append(help_text.rstrip())
+        lines.append("```")
+    else:
+        lines.extend(
+            typst_callout(
+                "warning",
+                "Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.",
+            )
+        )
+
+    lines.append("## Cross References")
+    lines.append("")
+    lines.append(
+        "See [Dependency map](./dependency_map.md), "
+        + "[Command reference index](./index.md), and "
+        + f"[functional module page]({GROUP_TO_SUBMODULE.get(meta['primary_group'], '../manual.md')})."
+    )
+    lines.append("")
+
+    out = REF_DIR / f"{name}.md"
+    out.write_text("\n".join(lines) + "\n")
+    return has_help
+
+
+def write_index(dep_map: dict[str, dict], has_help_map: dict[str, bool]) -> None:
+    grouped: dict[str, list[str]] = defaultdict(list)
+    for cmd, meta in dep_map.items():
+        grouped[meta["primary_group"]].append(cmd)
+
+    missing_help = sorted([c for c, has_help in has_help_map.items() if not has_help])
+
+    lines = []
+    lines.append("# MMseqs2 Command Reference Index")
+    lines.append("")
+    lines.append("This reference is generated from source metadata and local help snapshots.")
+    lines.append("")
+    lines.append("| Metric | Value |")
+    lines.append("| :--- | :--- |")
+    lines.append(f"| Total visible commands | `{len(dep_map)}` |")
+    lines.append(f"| Commands with help snapshots | `{sum(has_help_map.values())}` |")
+    lines.append(f"| Commands missing snapshots | `{len(missing_help)}` |")
+    lines.append("")
+
+    if missing_help:
+        lines.extend(
+            typst_callout(
+                "warning",
+                "Some visible commands do not have local help snapshots. Use `generate_mmseqs_docs.sh` to refresh before publishing final CLI defaults.",
+            )
+        )
+        lines.append("| Command | Snapshot status |")
+        lines.append("| :--- | :--- |")
+        for cmd in missing_help:
+            lines.append(f"| `{cmd}` | missing |")
+        lines.append("")
+
+    lines.append("Primary maps: [Dependency map](./dependency_map.md).")
+    lines.append("")
+
+    for group in GROUP_ORDER:
+        cmds = sorted(grouped.get(group, []))
+        if not cmds:
+            continue
+        lines.append(f"## {group.replace('_', ' ').title()}")
+        lines.append("")
+        lines.append("| Command | Layer | Snapshot |")
+        lines.append("| :--- | :--- | :--- |")
+        for cmd in cmds:
+            status = "help" if has_help_map.get(cmd, False) else "missing-help"
+            lines.append(f"| [`{cmd}`](./{cmd}.md) | `{dep_map[cmd]['layer']}` | `{status}` |")
+        lines.append("")
+
+    INDEX_MD.write_text("\n".join(lines) + "\n")
+
+
+def main() -> None:
+    dep_map = json.loads(DEP_JSON.read_text())
+    has_help_map: dict[str, bool] = {}
+
+    for cmd in sorted(dep_map):
+        has_help_map[cmd] = write_command_page(cmd, dep_map[cmd])
+
+    write_index(dep_map, has_help_map)
+
+    print(f"Wrote command pages under {REF_DIR}")
+    print(f"Wrote {INDEX_MD}")
+
+
+if __name__ == "__main__":
+    main()

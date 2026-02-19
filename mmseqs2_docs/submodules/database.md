@@ -1,606 +1,494 @@
+# Database Management
 
-# Database Management Modules
+Modules for creating, indexing, splitting, merging, and maintaining MMseqs2 database artifacts.
 
-This document describes the database management submodules of MMseqs2.
-
-## `createdb`
-
-**Description:**
-
-> Convert FASTA/Q file(s) to a sequence DB
-
-**Usage:**
-```bash
-mmseqs createdb <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]>|<i:stdin> <o:sequenceDB> [options]
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
 ```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--dbtype <INT>` | Database type 0: auto, 1: amino acid 2: nucleotides | `0` |
-| `--shuffle <BOOL>` | Shuffle input database | `1` |
-| `--createdb-mode <INT>` | Createdb mode 0: copy data, 1: soft link data and write new index (works only with single line fasta/q) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--write-lookup <INT>` | write .lookup file containing mapping from internal id, fasta id and file number | `1` |
-
-**Examples:**
-```bash
-
-# Create a sequence database from multiple FASTA files
-mmseqs createdb file1.fa file2.fa.gz file3.fa sequenceDB
-
-# Create a seqDB from stdin
-cat seq.fasta | mmseqs createdb stdin sequenceDB
-
-# Create a seqDB by indexing existing FASTA/Q (for single line fasta entries only)
-mmseqs createdb seq.fasta sequenceDB --createdb-mode 1
-```
-
-## `createindex`
-
-**Description:**
-
-> Store precomputed index on disk to reduce search overhead
-
-**Usage:**
-```bash
-mmseqs createindex <i:sequenceDB> <tmpDir> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--seed-sub-mat <TWIN>` | Substitution matrix file for k-mer generation | `aa:VTML80.out,nucl:nucleotide.out` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--max-seqs <INT>` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) | `300` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `1` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `1` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `-s <FLOAT>` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive | `7.500` |
-| `--k-score <TWIN>` | k-mer threshold for generating similar k-mer lists | `seq:0,prof:0` |
-| `--split <INT>` | Split input into N equally distributed chunks. 0: set the best split automatically | `0` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--check-compatible <INT>` | 0: Always recreate index, 1: Check if recreating index is needed, 2: Fail if index is incompatible | `0` |
-| `--search-type <INT>` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment | `0` |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-| `--sequence-overlap <INT>` | Overlap between sequences | `0` |
-| `--sequence-split-mode <INT>` | Sequence split mode 0: copy data, 1: soft link data and write new index, | `1` |
-| `--headers-split-mode <INT>` | Header split mode: 0: split position, 1: original header | `0` |
-| `--translation-mode <INT>` | Translation AA seq from nucleotide by 0: ORFs, 1: full reading frames | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--remove-tmp-files <BOOL>` | Delete temporary files | `0` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--index-subset <INT>` | Create specialized index with subset of entries 0: normal index, 1: index without headers, 2: index without prefiltering data, 4: index without aln (for cluster db) Flags can be combined bit wise | `0` |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-| `--strand <INT>` | Strand selection only works for DNA/DNA search 0: reverse, 1: forward, 2: both | `1` |
-
-**Examples:**
-```bash
-
-# Create protein sequence index
-mmseqs createindex sequenceDB tmp
-
-# Create TBLASTX/N index from nucleotide sequences
-mmseqs createindex sequenceDB tmp --search-type 2
-
-# Create BLASTN index from nucleotide sequences
-mmseqs createindex sequenceDB tmp --search-type 3
-```
-
-## `createlinindex`
-
-**Description:**
-
-> Create linsearch index
-
-**Usage:**
-```bash
-mmseqs createlinindex <i:sequenceDB> <tmpDir> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--seed-sub-mat <TWIN>` | Substitution matrix file for k-mer generation | `aa:blosum62.out,nucl:nucleotide.out` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `0` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `0` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-
-### Kmermatcher Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--hash-shift <INT>` | Shift k-mer hash initialization | `67` |
-| `--kmer-per-seq <INT>` | k-mers per sequence | `21` |
-| `--kmer-per-seq-scale <TWIN>` | Scale k-mer per sequence based on sequence length as kmer-per-seq val + scale x seqlen | `aa:0.000,nucl:0.200` |
-| `--adjust-kmer-len <BOOL>` | Adjust k-mer length based on specificity (only for nucleotides) | `0` |
-| `--ignore-multi-kmer <BOOL>` | Skip k-mers occurring multiple times (>=2) | `0` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--check-compatible <INT>` | 0: Always recreate index, 1: Check if recreating index is needed, 2: Fail if index is incompatible | `0` |
-| `--search-type <INT>` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment | `0` |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--remove-tmp-files <BOOL>` | Delete temporary files | `0` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-## `subtractdbs`
-
-**Description:**
-
-> Subtract databases
-
-**Usage:**
-```bash
-mmseqs subtractdbs <i:resultDBLeft> <i:resultDBRight> <o:resultDB> [options]
-```
-
-**Parameters:**
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--e-profile <DOUBLE>` | Include sequences matches with < E-value thr. into the profile (>=0.0) | `1.000E-03` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `tar2db`
-
-**Description:**
-
-> Create database from tar archive
-
-**Usage:**
-```bash
-mmseqs tar2db <i:tar[.gz]> ... <i:tar[.gz]> <o:resultDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--output-dbtype <INT>` | Set database type for resulting database: Amino acid sequences 0, Nucl. seq. 1, Profiles 2, Alignment result 5, Clustering result 6, Prefiltering result 7, Taxonomy result 8, Indexed database 9, cA3M MSAs 10, FASTA or A3M MSAs 11, Generic database 12, Omit dbtype file 13, Bi-directional prefiltering result 14, Offsetted headers 15 | `12` |
-| `--tar-include <STR>` | Include file names based on this regex | `.*` |
-| `--tar-exclude <STR>` | Exclude file names based on this regex | `^$` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-**Examples:**
-```bash
-
-# Assuming tar archive containing three aligned FASTA files:
-
-#  * folder/msa1.fa.gz  * folder/msa2.fa  * folder/msa3.fa
-
-# Create a msaDB with three DB entries each containing a separate MSA
-mmseqs tar2db archive.tar.gz msaDB --output-dbtype 11
-```
-
-## `swapdb`
-
-**Description:**
-
-> Swap query and target in result database
-
-**Usage:**
-```bash
-mmseqs swapdb <i:resultDB> <o:resultDB> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-- Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
 
 ## `aliasdb`
 
-**Description:**
+Create relative symlink of DB to another name in the same folder.
 
-> Alias database
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs aliasdb <i:srcDB> <o:dstDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_STORAGE` |
+| Called by modules | [`tsv2exprofiledb`](../reference/tsv2exprofiledb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`profiles`](./profiles.md) |
+| Workflow script usage | `tsv2exprofiledb.sh` |
 
-**Usage:**
-```bash
-mmseqs aliasdb <i:srcDB> <o:dstDB> [options]
-```
+Reference links: [Full CLI](../reference/aliasdb.md), [Dependency map](../reference/dependency_map.md#cmd-aliasdb).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `cpdb`
-
-**Description:**
-
-> Copy database
-
-**Usage:**
-```bash
-mmseqs cpdb <i:srcDB> <o:dstDB> [options]
-```
-
-**Parameters:**
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `concatdbs`
 
-**Description:**
+Concatenate two DBs, giving new IDs to entries from 2nd DB.
 
-> Concatenate databases
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs concatdbs <i:DB> <i:DB> <o:DB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SET` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`linsearch`](../reference/linsearch.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `linsearch.sh`, `nucleotide_clustering.sh`, `update_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs concatdbs <i:DB> <i:DB> <o:DB> [options]
-```
+Reference links: [Full CLI](../reference/concatdbs.md), [Dependency map](../reference/dependency_map.md#cmd-concatdbs).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--preserve-keys <BOOL>` | The keys of the two DB should be distinct, and they will be preserved in the concatenation | `0` |
-| `--take-larger-entry <BOOL>` | Only keep the larger entry (dataSize >) in the concatenation, both databases need the same keys in the index | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--preserve-keys` | The keys of the two DB should be distinct, and they will be preserved in the concatenation |
+| `--take-larger-entry` | Only keep the larger entry (dataSize >) in the concatenation, both databases need the same keys in the index |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `1` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+## `cpdb`
 
-**Examples:**
-```bash
+Copy a DB.
 
-# Download two sequences databases and concat them
-mmseqs databases PDB pdbDB tmp
-mmseqs UniProtKB/Swiss-Prot swissprotDB tmp
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs cpdb <i:srcDB> <o:dstDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_STORAGE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-# Works only single threaded since seq. and header DB need the same ordering
-mmseqs concatdbs pdbDB swissprotDB pdbAndSwissprotDB --threads 1
-mmseqs concatdbs pdbDB_h swissprotDB_h pdbAndSwissprotDB_h --threads 1
-```
+Reference links: [Full CLI](../reference/cpdb.md), [Dependency map](../reference/dependency_map.md#cmd-cpdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `createdb`
+
+Convert FASTA/Q file(s) to a sequence DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createdb <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]>|<i:stdin> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION` |
+| Called by modules | [`databases`](../reference/databases.md), [`easy-cluster`](../reference/easy-cluster.md), [`easy-linclust`](../reference/easy-linclust.md), [`easy-linsearch`](../reference/easy-linsearch.md), [`easy-rbh`](../reference/easy-rbh.md), [`easy-search`](../reference/easy-search.md), [`easy-taxonomy`](../reference/easy-taxonomy.md), [`multihitdb`](../reference/multihitdb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md), [`multi_hit`](./multi_hit.md) |
+| Workflow script usage | `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `multihitdb.sh` |
+
+Reference links: [Full CLI](../reference/createdb.md), [Dependency map](../reference/dependency_map.md#cmd-createdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--dbtype` | Database type 0: auto, 1: amino acid 2: nucleotides |
+| `--shuffle` | Shuffle input database |
+| `--createdb-mode` | Createdb mode 0: copy data, 1: soft link data and write new index (works only with single line fasta/q) |
+| `--id-offset` | Numeric ids in index file are offset by this value |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--write-lookup` | write .lookup file containing mapping from internal id, fasta id and file number |
+
+## `createindex`
+
+Store precomputed index on disk to reduce search overhead.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createindex <i:sequenceDB> <tmpDir> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION` |
+| Called by modules | `n/a` |
+| Calls modules | [`extractframes`](../reference/extractframes.md), [`extractorfs`](../reference/extractorfs.md), [`rmdb`](../reference/rmdb.md), [`splitsequence`](../reference/splitsequence.md) |
+| Related functional groups | [`sequence_manipulation`](./sequence_manipulation.md) |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/createindex.md), [Dependency map](../reference/dependency_map.md#cmd-createindex).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--seed-sub-mat` | Substitution matrix file for k-mer generation |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--max-seqs` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) |
+| `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
+| `--mask-prob` | Mask sequences is probablity is above threshold |
+
+## `createlinindex`
+
+Create linsearch index.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createlinindex <i:sequenceDB> <tmpDir> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
+| Called by modules | [`easy-linsearch`](../reference/easy-linsearch.md), [`easy-search`](../reference/easy-search.md) |
+| Calls modules | [`extractframes`](../reference/extractframes.md), [`extractorfs`](../reference/extractorfs.md), [`rmdb`](../reference/rmdb.md), [`splitsequence`](../reference/splitsequence.md) |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md), [`sequence_manipulation`](./sequence_manipulation.md) |
+| Workflow script usage | `easysearch.sh` |
+
+Reference links: [Full CLI](../reference/createlinindex.md), [Dependency map](../reference/dependency_map.md#cmd-createlinindex).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--seed-sub-mat` | Substitution matrix file for k-mer generation |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
+| `--mask-prob` | Mask sequences is probablity is above threshold |
+| `--mask-lower-case` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region |
+| `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
 
 ## `createsubdb`
 
-**Description:**
+Create a subset of a DB from list of DB keys.
 
-> Create sub database
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createsubdb <i:subsetFile|DB> <i:DB> <o:DB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SET` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`linclust`](../reference/linclust.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `blastp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh`, `translated_search.sh`, `update_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs createsubdb <i:subsetFile|DB> <i:DB> <o:DB> [options]
-```
+Reference links: [Full CLI](../reference/createsubdb.md), [Dependency map](../reference/dependency_map.md#cmd-createsubdb).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--subdb-mode <INT>` | Subdb mode 0: copy data 1: soft link data and write index | `0` |
-| `--id-mode <INT>` | Select DB entries based on 0: database keys, 1: FASTA identifiers (.lookup) | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--subdb-mode` | Subdb mode 0: copy data 1: soft link data and write index |
+| `--id-mode` | Select DB entries based on 0: database keys, 1: FASTA identifiers (.lookup) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+## `databases`
 
-**Examples:**
-```bash
+List and download databases.
 
-# Create a new sequenceDB from sequenceDB entries with keys 1, 2 and 3
-mmseqs createsubdb <(printf '1
-2
-3
-') sequenceDB oneTwoThreeDB
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION` |
+| Called by modules | `n/a` |
+| Calls modules | [`convertmsa`](../reference/convertmsa.md), [`createdb`](../reference/createdb.md), [`createtaxdb`](../reference/createtaxdb.md), [`msa2profile`](../reference/msa2profile.md), [`nrtotaxmapping`](../reference/nrtotaxmapping.md), [`prefixid`](../reference/prefixid.md), [`rmdb`](../reference/rmdb.md), [`tar2db`](../reference/tar2db.md) |
+| Related functional groups | [`profiles`](./profiles.md), [`taxonomy`](./taxonomy.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `n/a` |
 
-# Create a new sequence database with representatives of clusterDB
-mmseqs cluster sequenceDB clusterDB tmp
-mmseqs createsubdb clusterDB sequenceDB representativesDB
-```
+Reference links: [Full CLI](../reference/databases.md), [Dependency map](../reference/dependency_map.md#cmd-databases).
 
 ## `db2tar`
 
-**Description:**
+Archive contents of a DB to a tar archive.
 
-> Create tar from database
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs db2tar <i:DB> <o:tar[.gz]> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs db2tar <i:DB> <o:tar[.gz]> [options]
-```
+Reference links: [Full CLI](../reference/db2tar.md), [Dependency map](../reference/dependency_map.md#cmd-db2tar).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-**Examples:**
-```bash
-
-# Create a tar from a MSA DB
-mmseqs db2tar msaDB archive.tar.gz
-```
+| Option | Purpose |
+| :--- | :--- |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `lndb`
 
-**Description:**
+Symlink a DB.
 
-> Hard link database
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs lndb <i:srcDB> <o:dstDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_STORAGE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs lndb <i:srcDB> <o:dstDB> [options]
-```
+Reference links: [Full CLI](../reference/lndb.md), [Dependency map](../reference/dependency_map.md#cmd-lndb).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `mergedbs`
 
-**Description:**
+Merge entries from multiple DBs.
 
-> Merge multiple databases
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs mergedbs <i:DB> <o:DB> <i:DB1> ... <i:DBn> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SET` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`rbh`](../reference/rbh.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `update_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs mergedbs <i:DB> <o:DB> <i:DB1> ... <i:DBn> [options]
-```
+Reference links: [Full CLI](../reference/mergedbs.md), [Dependency map](../reference/dependency_map.md#cmd-mergedbs).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `splitsequence`
-
-**Description:**
-
-> Split sequences into smaller chunks
-
-**Usage:**
-```bash
-mmseqs splitsequence <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sequence-overlap <INT>` | Overlap between sequences | `300` |
-| `--sequence-split-mode <INT>` | Sequence split mode 0: copy data, 1: soft link data and write new index, | `1` |
-| `--headers-split-mode <INT>` | Header split mode: 0: split position, 1: original header | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--max-seq-len <INT>` | Maximum sequence length | `10000` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--prefixes <STR>` | Comma separated list of prefixes for each entry | `[]` |
-| `--merge-stop-empty <BOOL>` | Don't continue merging entries after an empty entry | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--prefixes` | Comma separated list of prefixes for each entry |
+| `--merge-stop-empty` | Don't continue merging entries after an empty entry |
 
 ## `mvdb`
 
-**Description:**
+Move a DB.
 
-> Move database
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs mvdb <i:srcDB> <o:dstDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_STORAGE` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md), [`tsv2exprofiledb`](../reference/tsv2exprofiledb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`profiles`](./profiles.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `blastp.sh`, `cascaded_clustering.sh`, `searchslicedtargetprofile.sh`, `taxonomy.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs mvdb <i:srcDB> <o:dstDB> [options]
-```
+Reference links: [Full CLI](../reference/mvdb.md), [Dependency map](../reference/dependency_map.md#cmd-mvdb).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `renamedbkeys`
 
-**Description:**
+Create a new DB with original keys renamed.
 
-> Rename database keys
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs renamedbkeys <i:idMapFile|stdin> <i:DB> <o:DB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DB` |
+| Called by modules | [`clusterupdate`](../reference/clusterupdate.md), [`pickconsensusrep`](../reference/pickconsensusrep.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md) |
+| Workflow script usage | `update_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs renamedbkeys <i:idMapFile|stdin> <i:DB> <o:DB> [options]
-```
+Reference links: [Full CLI](../reference/renamedbkeys.md), [Dependency map](../reference/dependency_map.md#cmd-renamedbkeys).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--subdb-mode <INT>` | Subdb mode 0: copy data 1: soft link data and write index | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--subdb-mode` | Subdb mode 0: copy data 1: soft link data and write index |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+## `rmdb`
+
+Remove a DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_STORAGE` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`createindex`](../reference/createindex.md), [`createlinindex`](../reference/createlinindex.md), [`databases`](../reference/databases.md), [`easy-cluster`](../reference/easy-cluster.md), [`easy-linclust`](../reference/easy-linclust.md), [`easy-linsearch`](../reference/easy-linsearch.md), [`easy-rbh`](../reference/easy-rbh.md), [`easy-search`](../reference/easy-search.md), [`easy-taxonomy`](../reference/easy-taxonomy.md), [`linclust`](../reference/linclust.md), [`linsearch`](../reference/linsearch.md), [`multihitsearch`](../reference/multihitsearch.md), [`pickconsensusrep`](../reference/pickconsensusrep.md), [`rbh`](../reference/rbh.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md), [`tsv2exprofiledb`](../reference/tsv2exprofiledb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`easy_workflows`](./easy_workflows.md), [`multi_hit`](./multi_hit.md), [`profiles`](./profiles.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `blastn.sh`, `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `createindex.sh`, `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `iterativepp.sh`, `linclust.sh`, `linsearch.sh`, `multihitsearch.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxonomy.sh`, `taxpercontig.sh`, `translated_search.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
+
+Reference links: [Full CLI](../reference/rmdb.md), [Dependency map](../reference/dependency_map.md#cmd-rmdb).
 
 ## `splitdb`
 
-**Description:**
+Split DB into subsets.
 
-> Split database into chunks
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs splitdb <i:DB> <o:DB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SET` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs splitdb <i:DB> <o:DB> [options]
-```
+Reference links: [Full CLI](../reference/splitdb.md), [Dependency map](../reference/dependency_map.md#cmd-splitdb).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--split <INT>` | Split input into N equally distributed chunks | `0` |
-| `--split-aa <BOOL>` | Try to find the best split boundaries by entry lengths | `0` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--split` | Split input into N equally distributed chunks |
+| `--split-aa` | Try to find the best split boundaries by entry lengths |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `splitsequence`
+
+Split sequences by length.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs splitsequence <i:sequenceDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | [`createindex`](../reference/createindex.md), [`createlinindex`](../reference/createlinindex.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `blastn.sh`, `createindex.sh` |
+
+Reference links: [Full CLI](../reference/splitsequence.md), [Dependency map](../reference/dependency_map.md#cmd-splitsequence).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--sequence-overlap` | Overlap between sequences |
+| `--sequence-split-mode` | Sequence split mode 0: copy data, 1: soft link data and write new index, |
+| `--headers-split-mode` | Header split mode: 0: split position, 1: original header |
+| `--max-seq-len` | Maximum sequence length |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--create-lookup` | Create database lookup file (can be very large) |
+
+## `subtractdbs`
+
+Remove all entries from first DB occurring in second DB by key.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs subtractdbs <i:resultDBLeft> <i:resultDBRight> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SET` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh` |
+
+Reference links: [Full CLI](../reference/subtractdbs.md), [Dependency map](../reference/dependency_map.md#cmd-subtractdbs).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `--e-profile` | Include sequences matches with < E-value thr. into the profile (>=0.0) |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `swapdb`
+
+Transpose DB with integer values in first column.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs swapdb <i:resultDB> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DB` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`multihitdb`](../reference/multihitdb.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`multi_hit`](./multi_hit.md), [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `cascaded_clustering.sh`, `multihitdb.sh`, `taxpercontig.sh`, `update_clustering.sh` |
+
+Reference links: [Full CLI](../reference/swapdb.md), [Dependency map](../reference/dependency_map.md#cmd-swapdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `tar2db`
+
+Convert content of tar archives to any DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs tar2db <i:tar[.gz]> ... <i:tar[.gz]> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
+| Called by modules | [`databases`](../reference/databases.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `databases.sh` |
+
+Reference links: [Full CLI](../reference/tar2db.md), [Dependency map](../reference/dependency_map.md#cmd-tar2db).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--output-dbtype` | Set database type for resulting database: Amino acid sequences 0, Nucl. seq. 1, Profiles 2, Alignment result 5, Clustering result 6, Prefiltering result 7, Taxonomy result 8, Indexed database 9, cA3M MSAs 10, FASTA or A3M MSAs 11, Generic database 12, Omit dbtype file 13, Bi-directional prefiltering result 14, Offsetted headers 15 |
+| `--tar-include` | Include file names based on this regex |
+| `--tar-exclude` | Exclude file names based on this regex |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `tsv2db`
 
-**Description:**
+Convert a TSV file to any DB.
 
-> Convert TSV file to a database
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs tsv2db <i:tsvFile> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`multihitdb`](../reference/multihitdb.md), [`pickconsensusrep`](../reference/pickconsensusrep.md), [`tsv2exprofiledb`](../reference/tsv2exprofiledb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`multi_hit`](./multi_hit.md), [`profiles`](./profiles.md) |
+| Workflow script usage | `cascaded_clustering.sh`, `multihitdb.sh`, `pickconsensusrep.sh`, `tsv2exprofiledb.sh` |
 
-**Usage:**
-```bash
-mmseqs tsv2db <i:tsvFile> <o:resultDB> [options]
-```
+Reference links: [Full CLI](../reference/tsv2db.md), [Dependency map](../reference/dependency_map.md#cmd-tsv2db).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--output-dbtype` | Set database type for resulting database: Amino acid sequences 0, Nucl. seq. 1, Profiles 2, Alignment result 5, Clustering result 6, Prefiltering result 7, Taxonomy result 8, Indexed database 9, cA3M MSAs 10, FASTA or A3M MSAs 11, Generic database 12, Omit dbtype file 13, Bi-directional prefiltering result 14, Offsetted headers 15 |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--output-dbtype <INT>` | Set database type for resulting database: Amino acid sequences 0, Nucl. seq. 1, Profiles 2, Alignment result 5, Clustering result 6, Prefiltering result 7, Taxonomy result 8, Indexed database 9, cA3M MSAs 10, FASTA or A3M MSAs 11, Generic database 12, Omit dbtype file 13, Bi-directional prefiltering result 14, Offsetted headers 15 | `12` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |

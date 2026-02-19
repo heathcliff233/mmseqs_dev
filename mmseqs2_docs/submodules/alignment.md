@@ -1,327 +1,242 @@
+# Alignment
 
-# Alignment Modules
+Core alignment and alignment-adjacent modules for scoring, rescoring, and coordinate transformations.
 
-This document describes the alignment submodules of MMseqs2.
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
+```
 
 ## `align`
 
-**Description:**
+Optimal gapped local alignment.
 
-> Optimal gapped local alignment
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_ALIGNMENT` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md), [`linsearch`](../reference/linsearch.md), [`pickconsensusrep`](../reference/pickconsensusrep.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `iterativepp.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `searchslicedtargetprofile.sh` |
 
-**Usage:**
-```bash
-mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]
-```
+Reference links: [Full CLI](../reference/align.md), [Dependency map](../reference/dependency_map.md#cmd-align).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id | `0` |
-| `--alignment-output-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment, 5: score only (output) cluster format | `0` |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length, 1: shorter, 2: longer sequence | `0` |
-| `--alt-ali <INT>` | Show up to this many alternative alignments | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) (see --cov-mode) | `0.000` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-- Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `-a` | Add backtrace string (convert to alignments with mmseqs convertalis module) |
+| `--alignment-mode` | How to compute the alignment: |
+| `--alignment-output-mode` | How to compute the alignment: |
+| `--wrapped-scoring` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start |
+| `-e` | List matches below this E-value (range 0.0-inf) |
 
 ## `alignall`
 
-**Description:**
+Within-result all-vs-all gapped local alignment.
 
-> Align all-vs-all
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_ALIGNMENT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]
-```
+Reference links: [Full CLI](../reference/alignall.md), [Dependency map](../reference/dependency_map.md#cmd-alignall).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length, 1: shorter, 2: longer sequence | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `-a` | Add backtrace string (convert to alignments with mmseqs convertalis module) |
+| `--alignment-mode` | How to compute the alignment: |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
+| `--min-aln-len` | Minimum alignment length (range 0-INT_MAX) |
 
 ## `alignbykmer`
 
-**Description:**
+Heuristic gapped local k-mer based alignment.
 
-> Rescore diagonals.
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs alignbykmer <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_ALIGNMENT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs alignbykmer <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]
-```
+Reference links: [Full CLI](../reference/alignbykmer.md), [Dependency map](../reference/dependency_map.md#cmd-alignbykmer).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `1` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length 1: shorter, 2: longer sequence | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-hits <BOOL>` | Filter hits by seq.id. and coverage | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--spaced-kmer-mode` | 0: use consecutive positions in k-mers; 1: use spaced k-mers |
+| `--spaced-kmer-pattern` | User-specified spaced k-mer pattern |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `--cov-mode` | 0: coverage of query and target |
 
 ## `expandaln`
 
-**Description:**
+Expand an alignment result based on another.
 
-> Expand alignment
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_PROFILE_PROFILE` |
+| Called by modules | [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `enrich.sh`, `iterativepp.sh` |
 
-**Usage:**
-```bash
-mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]
-```
+Reference links: [Full CLI](../reference/expandaln.md), [Dependency map](../reference/dependency_map.md#cmd-expandaln).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--score-bias` | Score bias when computing SW alignment (in bits) |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
+| `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
+## `fwbw`
 
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pseudo-cnt-mode <INT>` | use 0: substitution-matrix or 1: context-specific pseudocounts | `0` |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
+Forward Backward Alignment.
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--expansion-mode <INT>` | Update score, E-value, and sequence identity by 0: input alignment 1: rescoring the inferred backtrace | `0` |
-| `--expand-filter-clusters <INT>` | Filter each target cluster during expansion 0: no filter 1: filter | `0` |
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_ALIGNMENT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+Reference links: [Full CLI](../reference/fwbw.md), [Dependency map](../reference/dependency_map.md#cmd-fwbw).
 
 ## `offsetalignment`
 
-**Description:**
+Offset alignment by ORF start position.
 
-> Offset alignment
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`linsearch`](../reference/linsearch.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `blastn.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
 
-**Usage:**
-```bash
-mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]
-```
+Reference links: [Full CLI](../reference/offsetalignment.md), [Dependency map](../reference/dependency_map.md#cmd-offsetalignment).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--search-type <INT>` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--chain-alignments <INT>` | Chain overlapping alignments | `0` |
-| `--merge-query <INT>` | Combine ORFs/split sequences to a single entry | `1` |
+| Option | Purpose |
+| :--- | :--- |
+| `--search-type` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--chain-alignments` | Chain overlapping alignments |
+| `--merge-query` | Combine ORFs/split sequences to a single entry |
 
 ## `proteinaln2nucl`
 
-**Description:**
+Transform protein alignments to nucleotide alignments.
 
-> Protein alignment to nucleotide alignment
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs proteinaln2nucl <i:nuclQueryDB> <i:nuclTargetDB> <i:aaQueryDB> <i:aaTargetDB> <i:alnDB> <o:alnDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs proteinaln2nucl <i:nuclQueryDB> <i:nuclTargetDB> <i:aaQueryDB> <i:aaTargetDB> <i:alnDB> <o:alnDB> [options]
-```
+Reference links: [Full CLI](../reference/proteinaln2nucl.md), [Dependency map](../reference/dependency_map.md#cmd-proteinaln2nucl).
 
-**Parameters:**
+### Key Options
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--sub-mat` | Substitution matrix file |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `rescorediagonal`
 
-**Description:**
+Compute sequence identity for diagonal.
 
-> Rescore diagonals
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_ALIGNMENT` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md), [`linsearch`](../reference/linsearch.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `linclust.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh` |
 
-**Usage:**
-```bash
-mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
-```
+Reference links: [Full CLI](../reference/rescorediagonal.md), [Dependency map](../reference/dependency_map.md#cmd-rescorediagonal).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--wrapped-scoring` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
+| `-a` | Add backtrace string (convert to alignments with mmseqs convertalis module) |
+| `--cov-mode` | 0: coverage of query and target |
+| `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
+| `--min-aln-len` | Minimum alignment length (range 0-INT_MAX) |
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length 1: shorter, 2: longer sequence | `0` |
+## `transitivealign`
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--rescore-mode <INT>` | Rescore diagonals with: 0: Hamming distance, 1: local alignment (score only), 2: local alignment, 3: global alignment, 4: longest alignment fulfilling window quality criterion | `0` |
+Transfer alignments via transitivity.
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_ALIGNMENT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-hits <BOOL>` | Filter hits by seq.id. and coverage | `0` |
-| `--sort-results <INT>` | Sort results: 0: no sorting, 1: sort by E-value (Alignment) or seq.id. (Hamming) | `0` |
+Reference links: [Full CLI](../reference/transitivealign.md), [Dependency map](../reference/dependency_map.md#cmd-transitivealign).
+

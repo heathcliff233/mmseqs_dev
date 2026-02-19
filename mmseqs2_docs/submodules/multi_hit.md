@@ -1,266 +1,144 @@
+# Multi-hit
 
-# Multi-hit Modules
+Modules for grouped-sequence (set-based) search and per-set aggregation pipelines.
 
-This document describes the multi-hit submodules of MMseqs2.
-
-## `multihitdb`
-
-**Description:**
-
-> Create sequence DB for multi hit searches
-
-**Usage:**
-```bash
-mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
 ```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--dbtype <INT>` | Database type 0: auto, 1: amino acid 2: nucleotides | `0` |
-| `--shuffle <BOOL>` | Shuffle input database | `1` |
-| `--createdb-mode <INT>` | Createdb mode 0: copy data, 1: soft link data and write new index (works only with single line fasta/q) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--add-orf-stop <BOOL>` | Add stop codon '*' at complete start and end | `0` |
-| `--stat <STR>` | One of: linecount, mean, min, max, doolittle, charges, seqlen, firstline | `[]` |
-| `--tsv <BOOL>` | Return output in TSV format | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--write-lookup <INT>` | write .lookup file containing mapping from internal id, fasta id and file number | `1` |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
 
 ## `besthitperset`
 
-**Description:**
+For each set of sequences compute the best element and update p-value.
 
-> Best hit per set
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs besthitperset  <i:targetSetDB> <i:resultDB> <o:resultDB> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MULTIHIT` |
+| Called by modules | [`multihitsearch`](../reference/multihitsearch.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `multihitsearch.sh` |
 
-**Usage:**
-```bash
-mmseqs besthitperset <i:targetSetDB> <i:resultDB> <o:resultDB> [options]
-```
+Reference links: [Full CLI](../reference/besthitperset.md), [Dependency map](../reference/dependency_map.md#cmd-besthitperset).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--simple-best-hit <BOOL>` | Update the p-value by a single best hit, or by best and second best hits | `1` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--simple-best-hit` | Update the p-value by a single best hit, or by best and second best hits |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `combinepvalperset`
 
-**Description:**
+For each set compute the combined p-value.
 
-> Combine p-values per set
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs combinepvalperset <i:querySetDB> <i:targetSetDB> <i:resultDB> <o:pvalDB> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MULTIHIT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs combinepvalperset <i:querySetDB> <i:targetSetDB> <i:resultDB> <o:pvalDB> [options]
-```
+Reference links: [Full CLI](../reference/combinepvalperset.md), [Dependency map](../reference/dependency_map.md#cmd-combinepvalperset).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--alpha <FLOAT>` | Set alpha for combining p-values during aggregation | `1.000` |
-| `--aggregation-mode <INT>` | Combined P-values computed from 0: multi-hit, 1: minimum of all P-values, 2: product-of-P-values, 3: truncated product | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--alpha` | Set alpha for combining p-values during aggregation |
+| `--aggregation-mode` | Combined P-values computed from 0: multi-hit, 1: minimum of all P-values, 2: product-of-P-values, 3: truncated product |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `mergeresultsbyset`
 
-**Description:**
+Merge results from multiple ORFs back to their respective contig.
 
-> Merge results by set
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MULTIHIT` |
+| Called by modules | [`multihitsearch`](../reference/multihitsearch.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `multihitsearch.sh`, `taxpercontig.sh` |
 
-**Usage:**
-```bash
-mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]
-```
+Reference links: [Full CLI](../reference/mergeresultsbyset.md), [Dependency map](../reference/dependency_map.md#cmd-mergeresultsbyset).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `multihitdb`
+
+Create sequence DB for multi hit searches.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MULTIHIT` |
+| Called by modules | `n/a` |
+| Calls modules | [`createdb`](../reference/createdb.md), [`extractorfs`](../reference/extractorfs.md), [`filterdb`](../reference/filterdb.md), [`orftocontig`](../reference/orftocontig.md), [`result2stats`](../reference/result2stats.md), [`swapdb`](../reference/swapdb.md), [`translatenucs`](../reference/translatenucs.md), [`tsv2db`](../reference/tsv2db.md) |
+| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`sequence_manipulation`](./sequence_manipulation.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/multihitdb.md), [Dependency map](../reference/dependency_map.md#cmd-multihitdb).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--dbtype` | Database type 0: auto, 1: amino acid 2: nucleotides |
+| `--shuffle` | Shuffle input database |
+| `--createdb-mode` | Createdb mode 0: copy data, 1: soft link data and write new index (works only with single line fasta/q) |
+| `--id-offset` | Numeric ids in index file are offset by this value |
+| `--min-length` | Minimum codon number in open reading frames |
+| `--max-length` | Maximum codon number in open reading frames |
+| `--max-gaps` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected |
+| `--contig-start-mode` | Contig start can be 0: incomplete, 1: complete, 2: both |
 
 ## `multihitsearch`
 
-**Description:**
+Search with a grouped set of sequences against another grouped set.
 
-> Multi-hit search
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MULTIHIT` |
+| Called by modules | `n/a` |
+| Calls modules | [`besthitperset`](../reference/besthitperset.md), [`mergeresultsbyset`](../reference/mergeresultsbyset.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md) |
+| Related functional groups | [`database`](./database.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]
-```
+Reference links: [Full CLI](../reference/multihitsearch.md), [Dependency map](../reference/dependency_map.md#cmd-multihitsearch).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-| `--seed-sub-mat <TWIN>` | Substitution matrix file for k-mer generation | `aa:VTML80.out,nucl:nucleotide.out` |
-| `-s <FLOAT>` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive | `5.700` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--target-search-mode <INT>` | target search mode (0: regular k-mer, 1: similar k-mer) | `0` |
-| `--k-score <TWIN>` | k-mer threshold for generating similar k-mer lists | `seq:2147483647,prof:2147483647` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--max-seqs <INT>` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) | `300` |
-| `--split <INT>` | Split input into N equally distributed chunks. 0: set the best split automatically | `0` |
-| `--split-mode <INT>` | 0: split target db; 1: split query db; 2: auto, depending on main memory | `2` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-| `--diag-score <BOOL>` | Use ungapped diagonal scoring during prefilter | `1` |
-| `--exact-kmer-matching <INT>` | Extract only exact k-mers for matching (range 0-1) | `0` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `1` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `--min-ungapped-score <INT>` | Accept only matches with ungapped alignment score above threshold | `15` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `1` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `--local-tmp <STR>` | Path where some of the temporary files will be created | `[]` |
-| `--disk-space-limit <BYTE>` | Set max disk space to use for reverse profile searches. E.g. 800B, 5K, 10M, 1G. Default (0) to all available disk space in the temp folder | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--seed-sub-mat` | Substitution matrix file for k-mer generation |
+| `-s` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
+| `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment | `2` |
-| `--alignment-output-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment, 5: score only (output) cluster format | `0` |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E+02` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length 1: shorter, 2: longer sequence | `0` |
-| `--alt-ali <INT>` | Show up to this many alternative alignments | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--max-rejected <INT>` | Maximum rejected alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--max-accept <INT>` | Maximum accepted alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--realign <BOOL>` | Compute more conservative, shorter alignments (scores and E-values not changed) | `0` |
-| `--realign-score-bias <FLOAT>` | Additional bias when computing realignment | `-0.200` |
-| `--realign-max-seqs <INT>` | Maximum number of results to return in realignment | `2147483647` |
-| `--corr-score-weight <FLOAT>` | Weight of backtrace correlation score that is added to the alignment score | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-| `--exhaustive-search-filter <INT>` | Filter result during search: 0: do not filter, 1: filter | `0` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-| `--mask-profile <INT>` | Mask query sequence of profile using tantan [0,1] | `1` |
-| `--e-profile <DOUBLE>` | Include sequences matches with < E-value thr. into the profile (>=0.0) | `1.000E-03` |
-| `--wg <BOOL>` | Use global sequence weighting for profile calculation | `0` |
-| `--filter-msa <INT>` | Filter msa: 0: do not filter, 1: filter | `1` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
-| `--pseudo-cnt-mode <INT>` | use 0: substitution-matrix or 1: context-specific pseudocounts | `0` |
-| `--profile-output-mode <INT>` | Profile output mode: 0: binary log-odds 1: human-readable frequencies | `0` |
-| `--num-iterations <INT>` | Number of iterative profile search iterations | `1` |
-| `--exhaustive-search <BOOL>` | For bigger profile DB, run iteratively the search by greedily swapping the search results | `0` |
-| `--lca-search <BOOL>` | Efficient search for LCA candidates | `0` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--taxon-list <STR>` | Taxonomy ID, possibly multiple values separated by ',' | `[]` |
-| `--prefilter-mode <INT>` | prefilter mode: 0: kmer/ungapped 1: ungapped, 2: nofilter, 3: ungapped&gapped | `0` |
-| `--rescore-mode <INT>` | Rescore diagonals with: 0: Hamming distance, 1: local alignment (score only), 2: local alignment, 3: global alignment, 4: longest alignment fulfilling window quality criterion | `0` |
-| `--allow-deletion <BOOL>` | Allow deletions in a MSA | `0` |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-| `--sequence-overlap <INT>` | Overlap between sequences | `0` |
-| `--sequence-split-mode <INT>` | Sequence split mode 0: copy data, 1: soft link data and write new index, | `1` |
-| `--headers-split-mode <INT>` | Header split mode: 0: split position, 1: original header | `0` |
-| `--search-type <INT>` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment | `0` |
-| `--start-sens <FLOAT>` | Start sensitivity | `4.000` |
-| `--sens-steps <INT>` | Number of search steps performed from --start-sens to -s | `1` |
-| `--translation-mode <INT>` | Translation AA seq from nucleotide by 0: ORFs, 1: full reading frames | `0` |
-| `--simple-best-hit <BOOL>` | Update the p-value by a single best hit, or by best and second best hits | `1` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--gpu <INT>` | Use GPU (CUDA) if possible | `0` |
-| `--gpu-server <INT>` | Use GPU server | `0` |
-| `--gpu-server-wait-timeout <INT>` | Wait for GPU server for 0: don't wait -1: no wait limit: >0 this many seconds | `600` |
-| `--mpi-runner <STR>` | Use MPI on compute cluster with this MPI command (e.g. "mpirun -np 42") | `[]` |
-| `--force-reuse <BOOL>` | Reuse tmp files in tmp/latest folder ignoring parameters and version changes | `0` |
-| `--remove-tmp-files <BOOL>` | Delete temporary files | `0` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-hits <BOOL>` | Filter hits by seq.id. and coverage | `0` |
-| `--sort-results <INT>` | Sort results: 0: no sorting, 1: sort by E-value (Alignment) or seq.id. (Hamming) | `0` |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-| `--chain-alignments <INT>` | Chain overlapping alignments | `0` |
-| `--merge-query <INT>` | Combine ORFs/split sequences to a single entry | `1` |
-| `--strand <INT>` | Strand selection only works for DNA/DNA search 0: reverse, 1: forward, 2: both | `1` |

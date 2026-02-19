@@ -1,36 +1,33 @@
-# MMseqs2 User Manual
+# Functional Modules Manual
 
-This document provides a detailed manual for each submodule in MMseqs2.
+This section is the task-oriented navigation hub. Each functional page groups related commands, then links every command to API layer and dependency context so you can move directly to execution details.
 
-## Common Command Line Arguments
+Before diving into module pages for large production runs, read `foundations.md`. That chapter explains storage, indexing, split policy, and parallel model assumptions that shape runtime and output behavior across all modules.
 
-The following are some of the most common command line arguments used across various MMseqs2 modules.
+## Functional Groups
 
-| Flag | Description | Default |
+| Functional Group | Scope | Module Page |
 | :--- | :--- | :--- |
-| `-s <float>` | Sensitivity parameter (higher is more sensitive). | `7.5` |
-| `-c <float>` | Coverage threshold for clustering and alignment. | `0.8` |
-| `--cov-mode <int>` | Coverage mode (0: coverage of query and target, 1: coverage of target, 2: coverage of query). | `0` |
-| `--min-seq-id <float>` | Minimum sequence identity for clustering and alignment. | `0.3` |
-| `--threads <int>` | Number of threads to use. | `1` |
-| `-v <int>` | Verbosity level (0: quiet, 1: default, 2: verbose, 3: debug). | `1` |
-| `<tmpDir>` | A temporary directory for intermediate files. | |
+| Easy Workflows | Shortcut workflows over FASTA/FASTQ with standard outputs | [Easy Workflows](./submodules/easy_workflows.md) |
+| Search Workflows | Homology search and mapping workflows | [Search Workflows](./submodules/search.md) |
+| Clustering | Cascaded and linear clustering workflows and cluster transforms | [Clustering](./submodules/clustering.md) |
+| Prefiltering | Candidate-generation modules before expensive alignment | [Prefiltering](./submodules/prefiltering.md) |
+| Alignment | Alignment and rescoring modules | [Alignment](./submodules/alignment.md) |
+| Profiles | Profile and MSA creation, conversion, and profile-search helpers | [Profiles](./submodules/profiles.md) |
+| Database Management | DB creation, indexing, merging, splitting, and storage operations | [Database Management](./submodules/database.md) |
+| Result Handling | Result filtering, summarization, and export transforms | [Result Handling](./submodules/result_handling.md) |
+| Sequence Manipulation | ORF, frame, masking, and sequence-level transforms | [Sequence Manipulation](./submodules/sequence_manipulation.md) |
+| Taxonomy | Taxonomy DB preparation, assignment, filtering, and reports | [Taxonomy](./submodules/taxonomy.md) |
+| Multi-hit | Set-based search and aggregation workflows | [Multi-hit](./submodules/multi_hit.md) |
+| Utilities | General and special-purpose helpers used in custom pipelines | [Utilities](./submodules/utilities.md) |
 
-For more specific parameters, please refer to the documentation for each module.
+## Complementary Maps
 
-## Modules
+Functional pages answer what to run. Generated maps answer how commands connect.
 
-MMseqs2 is composed of many different modules that can be combined to create powerful workflows. The modules are grouped by their functionality below.
-
-*   [Easy Workflows](./submodules/easy_workflows.md)
-*   [Database Management](./submodules/database.md)
-*   [Search](./submodules/search.md)
-*   [Clustering](./submodules/clustering.md)
-*   [Taxonomy](./submodules/taxonomy.md)
-*   [Multi-hit](./submodules/multi_hit.md)
-*   [Prefiltering](./submodules/prefiltering.md)
-*   [Alignment](./submodules/alignment.md)
-*   [Result Handling](./submodules/result_handling.md)
-*   [Sequence Manipulation](./submodules/sequence_manipulation.md)
-*   [Profiles](./submodules/profiles.md)
-*   [Utilities](./submodules/utilities.md)
+| Need | Open |
+| :--- | :--- |
+| Layered architecture and navigation rules | [System Map](./system_map.md) |
+| Storage, indexing, memory-split, and parallel execution model | [Performance Foundations](./foundations.md) |
+| Complete command catalog with CLI pages | [Command Reference Index](./reference/index.md) |
+| Command dependency topology | [Dependency Map](./reference/dependency_map.md) |

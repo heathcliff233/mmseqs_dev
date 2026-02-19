@@ -1,323 +1,249 @@
+# Sequence Manipulation
 
-# Sequence Manipulation Modules
+Modules that transform sequence content, frames, ORFs, and masked/aligned regions.
 
-This document describes the sequence manipulation submodules of MMseqs2.
-
-## `extractorfs`
-
-**Description:**
-
-> Six-frame extraction of open reading frames
-
-**Usage:**
-```bash
-mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
 ```
 
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-## `extractframes`
-
-**Description:**
-
-> Extract frames from a nucleotide sequence DB
-
-**Usage:**
-```bash
-mmseqs extractframes <i:sequenceDB> <o:sequenceDB> [options]
+```{=typst}
+#doc_warning[
+Validate database-type and sidecar compatibility before chaining modules. Most pipeline failures come from DB contract mismatches.
+]
 ```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list
-
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-## `reverseseq`
-
-**Description:**
-
-> Reverse sequences
-
-**Usage:**
-```bash
-mmseqs reverseseq <i:sequenceDB> <o:revSequenceDB> [options]
-```
-
-**Parameters:**
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `translateaa`
-
-**Description:**
-
-> Translate amino acid sequences
-
-**Usage:**
-```bash
-mmseqs translateaa <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `translatenucs`
-
-**Description:**
-
-> Translate nucleotide sequences
-
-**Usage:**
-```bash
-mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `recoverlongestorf`
-
-**Description:**
-
-> Recover longest open reading frame
-
-**Usage:**
-```bash
-mmseqs recoverlongestorf <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-## `orftocontig`
-
-**Description:**
-
-> ORF to contig
-
-**Usage:**
-```bash
-mmseqs orftocontig <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-## `makepaddedseqdb`
-
-**Description:**
-
-> Make padded sequence DB
-
-**Usage:**
-```bash
-mmseqs makepaddedseqdb <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-length <INT>` | Minimum codon number in open reading frames | `30` |
-| `--max-length <INT>` | Maximum codon number in open reading frames | `32734` |
-| `--max-gaps <INT>` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected | `2147483647` |
-| `--contig-start-mode <INT>` | Contig start can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--contig-end-mode <INT>` | Contig end can be 0: incomplete, 1: complete, 2: both | `2` |
-| `--orf-start-mode <INT>` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) | `1` |
-| `--forward-frames <STR>` | Comma-separated list of frames on the forward strand to be extracted | `1,2,3` |
-| `--reverse-frames <STR>` | Comma-separated list of frames on the reverse strand to be extracted | `1,2,3` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--translate <INT>` | Translate ORF to amino acid | `0` |
-| `--use-all-table-starts <BOOL>` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) | `0` |
-| `--id-offset <INT>` | Numeric ids in index file are offset by this value | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--create-lookup <INT>` | Create database lookup file (can be very large) | `0` |
-
-## `masksequence`
-
-**Description:**
-
-> Mask sequences
-
-**Usage:**
-```bash
-mmseqs masksequence <i:sequenceDB> <o:sequenceDB> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `1` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
 
 ## `extractalignedregion`
 
-**Description:**
+Extract aligned sequence region from query.
 
-> Extract aligned regions from sequences
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs extractalignedregion <i:queryDB> <i:targetDB> <i:resultDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs extractalignedregion <i:queryDB> <i:targetDB> <i:resultDB> <o:sequenceDB> [options]
-```
+Reference links: [Full CLI](../reference/extractalignedregion.md), [Dependency map](../reference/dependency_map.md#cmd-extractalignedregion).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--extract-mode <INT>` | Extract from 1: Query, 2: Target | `2` |
+| Option | Purpose |
+| :--- | :--- |
+| `--extract-mode` | Extract from 1: Query, 2: Target |
+| `--compressed` | Write compressed output |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+## `extractframes`
+
+Extract frames from a nucleotide sequence DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs extractframes <i:sequenceDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`createindex`](../reference/createindex.md), [`createlinindex`](../reference/createlinindex.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `blastn.sh`, `createindex.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
+
+Reference links: [Full CLI](../reference/extractframes.md), [Dependency map](../reference/dependency_map.md#cmd-extractframes).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--forward-frames` | Comma-separated list of frames on the forward strand to be extracted |
+| `--reverse-frames` | Comma-separated list of frames on the reverse strand to be extracted |
+| `--translation-table` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE |
+| `--translate` | Translate ORF to amino acid |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--create-lookup` | Create database lookup file (can be very large) |
+
+## `extractorfs`
+
+Six-frame extraction of open reading frames.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | [`createindex`](../reference/createindex.md), [`createlinindex`](../reference/createlinindex.md), [`linsearch`](../reference/linsearch.md), [`multihitdb`](../reference/multihitdb.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`database`](./database.md), [`multi_hit`](./multi_hit.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `createindex.sh`, `multihitdb.sh`, `taxpercontig.sh`, `translated_search.sh` |
+
+Reference links: [Full CLI](../reference/extractorfs.md), [Dependency map](../reference/dependency_map.md#cmd-extractorfs).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--min-length` | Minimum codon number in open reading frames |
+| `--max-length` | Maximum codon number in open reading frames |
+| `--max-gaps` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected |
+| `--contig-start-mode` | Contig start can be 0: incomplete, 1: complete, 2: both |
+| `--contig-end-mode` | Contig end can be 0: incomplete, 1: complete, 2: both |
+| `--orf-start-mode` | Orf fragment can be 0: from start to stop, 1: from any to stop, 2: from last encountered start to stop (no start in the middle) |
+| `--forward-frames` | Comma-separated list of frames on the forward strand to be extracted |
+| `--reverse-frames` | Comma-separated list of frames on the reverse strand to be extracted |
+
+## `masksequence`
+
+Soft mask sequence DB using tantan.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs masksequence <i:sequenceDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/masksequence.md), [Dependency map](../reference/dependency_map.md#cmd-masksequence).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
+| `--mask-prob` | Mask sequences is probablity is above threshold |
+| `--mask-lower-case` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region |
+| `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `orftocontig`
+
+Write ORF locations in alignment format.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs orftocontig <i:contigsSequenceDB> <i:extractedOrfsHeadersDB> <o:orfsAlignedToContigDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | [`multihitdb`](../reference/multihitdb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`multi_hit`](./multi_hit.md) |
+| Workflow script usage | `multihitdb.sh` |
+
+Reference links: [Full CLI](../reference/orftocontig.md), [Dependency map](../reference/dependency_map.md#cmd-orftocontig).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `recoverlongestorf`
+
+Recover longest ORF for taxonomy annotation after elimination.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs recoverlongestorf <i:orfDB> <i:resultDB> <o:tsvFile> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_EXPERT` |
+| Called by modules | [`taxonomy`](../reference/taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`taxonomy`](./taxonomy.md) |
+| Workflow script usage | `taxpercontig.sh` |
+
+Reference links: [Full CLI](../reference/recoverlongestorf.md), [Dependency map](../reference/dependency_map.md#cmd-recoverlongestorf).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `reverseseq`
+
+Reverse (without complement) sequences.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs reverseseq <i:sequenceDB> <o:revSequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/reverseseq.md), [Dependency map](../reference/dependency_map.md#cmd-reverseseq).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `translateaa`
+
+Translate proteins to lexicographically lowest codons.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs translateaa <i:sequenceDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/translateaa.md), [Dependency map](../reference/dependency_map.md#cmd-translateaa).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `translatenucs`
+
+Translate nucleotides to proteins.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SEQUENCE` |
+| Called by modules | [`multihitdb`](../reference/multihitdb.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`multi_hit`](./multi_hit.md) |
+| Workflow script usage | `multihitdb.sh` |
+
+Reference links: [Full CLI](../reference/translatenucs.md), [Dependency map](../reference/dependency_map.md#cmd-translatenucs).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--translation-table` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE |
+| `--add-orf-stop` | Add stop codon '*' at complete start and end |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+

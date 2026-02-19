@@ -1,462 +1,435 @@
-# Result Handling Modules
+# Result Handling
 
-This document describes the result handling submodules of MMseqs2.
+Modules that transform, filter, summarize, and export result databases.
+
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
+```
+
+```{=typst}
+#doc_warning[
+Validate database-type and sidecar compatibility before chaining modules. Most pipeline failures come from DB contract mismatches.
+]
+```
+
+## `convert2fasta`
+
+Convert sequence DB to FASTA format.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_FORMAT_CONVERSION` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/convert2fasta.md), [Dependency map](../reference/dependency_map.md#cmd-convert2fasta).
 
 ## `convertalis`
 
-**Description:**
+Convert alignment DB to BLAST-tab, SAM or custom format.
 
-> Convert alignment DB to BLAST-tab, SAM or custom format
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs convertalis <i:queryDb> <i:targetDb> <i:alignmentDB> <o:alignmentFile> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_FORMAT_CONVERSION` |
+| Called by modules | [`easy-linsearch`](../reference/easy-linsearch.md), [`easy-rbh`](../reference/easy-rbh.md), [`easy-search`](../reference/easy-search.md), [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh` |
 
-**Usage:**
-```bash
-mmseqs convertalis <i:queryDb> <i:targetDb> <i:alignmentDB> <o:alignmentFile> [options]
-```
+Reference links: [Full CLI](../reference/convertalis.md), [Dependency map](../reference/dependency_map.md#cmd-convertalis).
 
-**Parameters:**
+### Key Options
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--format-mode <INT>` | Output format: 0: BLAST-TAB, 1: SAM, 2: BLAST-TAB + query/db length, 3: Pretty HTML, 4: BLAST-TAB + column headers, BLAST-TAB (0) and BLAST-TAB + column headers (4) support custom output formats (--format-output) | `0` |
-| `--format-output <STR>` | Choose comma separated list of output columns from: query,target,evalue,gapopen,pident,fident,nident,qstart,qend,qlen tstart,tend,tlen,alnlen,raw,bits,cigar,qseq,tseq,qheader,theader,qaln,taln,qframe,tframe,mismatch,qcov,tcov qset,qsetid,tset,tsetid,taxid,taxname,taxlineage,qorfstart,qorfend,torfstart,torfend,ppos | `query,target,fident,alnlen,mismatch,gapopen,qstart,qend,tstart,tend,evalue,bits` |
-| `--translation-table <INT>` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE 9) FLATWORM_MITOCHONDRIAL, 10) EUPLOTID, 11) PROKARYOTE, 12) ALT_YEAST, 13) ASCIDIAN_MITOCHONDRIAL, 14) ALT_FLATWORM_MITOCHONDRIAL 15) BLEPHARISMA, 16) CHLOROPHYCEAN_MITOCHONDRIAL, 21) TREMATODE_MITOCHONDRIAL, 22) SCENEDESMUS_MITOCHONDRIAL 23) THRAUSTOCHYTRIUM_MITOCHONDRIAL, 24) PTEROBRANCHIA_MITOCHONDRIAL, 25) GRACILIBACTERIA, 26) PACHYSOLEN, 27) KARYORELICT, 28) CONDYLOSTOMA 29) MESODINIUM, 30) PERTRICH, 31) BLASTOCRITHIDIA | `1` |
-| `--search-type <INT>` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--db-output <BOOL>` | Return a result DB instead of a text file | `0` |
-
-**Examples:**
-```bash
-
-# Create output in BLAST M8 format (12 columns):
-
-#  (1,2) identifiers for query and target sequences/profiles,
-
-#  (3) sequence identity, (4) alignment length, (5) number of mismatches,
-
-#  (6) number of gap openings, (7-8, 9-10) alignment start and end-position in query and in target,
-
-#  (11) E-value, and (12) bit score
-mmseqs convertalis queryDB targetDB result.m8
-
-# Create a TSV containing pairwise alignments
-mmseqs convertalis queryDB targetDB result.tsv --format-output query,target,qaln,taln
-
-# Annotate a alignment result with taxonomy information from targetDB
-mmseqs convertalis queryDB targetDB result.tsv --format-output query,target,taxid,taxname,taxlineage
-
- Create SAM output
-mmseqs convertalis queryDB targetDB result.sam --format-mode 1
-
-# Create a TSV containing which query file a result comes from
-mmseqs createdb euk_queries.fasta bac_queries.fasta queryDB
-mmseqs convertalis queryDB targetDB result.tsv --format-output qset,query,target
-```
-
-## `createtsv`
-
-**Description:**
-
-> Convert result DB to tab-separated flat file
-
-**Usage:**
-```bash
-mmseqs createtsv <i:queryDB> [<i:targetDB>] <i:resultDB> <o:tsvFile> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--first-seq-as-repr <BOOL>` | Use the first sequence of the clustering result as representative sequence | `0` |
-| `--target-column <INT>` | Select a target column (default 1), 0 if no target id exists | `1` |
-| `--full-header <BOOL>` | Replace DB ID by its corresponding Full Header | `0` |
-| `--idx-seq-src <INT>` | 0: auto, 1: split/translated sequences, 2: input sequences | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--db-output <BOOL>` | Return a result DB instead of a text file | `0` |
-
-## `result2flat`
-
-**Description:**
-
-> Create flat file by adding FASTA headers to DB entries
-
-**Usage:**
-```bash
-mmseqs result2flat <i:queryDB> <i:targetDB> <i:resultDB> <o:fastaDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--use-fasta-header <BOOL>` | Use the id parsed from the fasta header as the index key instead of using incrementing numeric identifiers | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--format-mode` | Output format: |
+| `--format-output` | Choose comma separated list of output columns from: query,target,evalue,gapopen,pident,fident,nident,qstart,qend,qlen |
+| `--translation-table` | 1) CANONICAL, 2) VERT_MITOCHONDRIAL, 3) YEAST_MITOCHONDRIAL, 4) MOLD_MITOCHONDRIAL, 5) INVERT_MITOCHONDRIAL, 6) CILIATE |
+| `--search-type` | Search type 0: auto 1: amino acid, 2: translated, 3: nucleotide, 4: translated nucleotide alignment |
+| `--sub-mat` | Substitution matrix file |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 
 ## `createseqfiledb`
 
-**Description:**
+Create a DB of unaligned FASTA entries.
 
-> Create a DB of unaligned FASTA entries
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createseqfiledb <i:sequenceDB> <i:resultDB> <o:fastaDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
+| Called by modules | [`easy-cluster`](../reference/easy-cluster.md), [`easy-linclust`](../reference/easy-linclust.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easycluster.sh` |
 
-**Usage:**
-```bash
-mmseqs createseqfiledb <i:sequenceDB> <i:resultDB> <o:fastaDB> [options]
-```
+Reference links: [Full CLI](../reference/createseqfiledb.md), [Dependency map](../reference/dependency_map.md#cmd-createseqfiledb).
 
-**Parameters:**
+### Key Options
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-sequences <INT>` | Minimum number of sequences a cluster may contain | `1` |
-| `--max-sequences <INT>` | Maximum number of sequences a cluster may contain | `2147483647` |
-| `--hh-format <BOOL>` | Format entries to use with hhsuite (for singleton clusters) | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--min-sequences` | Minimum number of sequences a cluster may contain |
+| `--max-sequences` | Maximum number of sequences a cluster may contain |
+| `--hh-format` | Format entries to use with hhsuite (for singleton clusters) |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+## `createtsv`
 
-**Examples:**
-```bash
+Convert result DB to tab-separated flat file.
 
-# Gather all sequences from a cluster DB
-mmseqs createseqfiledb sequenceDB clusterDB unalignedDB --min-sequences 2
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs createtsv <i:queryDB> [<i:targetDB>] <i:resultDB> <o:tsvFile> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_FORMAT_CONVERSION` |
+| Called by modules | [`easy-cluster`](../reference/easy-cluster.md), [`easy-linclust`](../reference/easy-linclust.md), [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easycluster.sh`, `easytaxonomy.sh` |
 
-# Build MSAs with Clustal-Omega
-mmseqs apply unalignedDB msaDB -- clustalo -i - -o stdout --threads=1
-```
+Reference links: [Full CLI](../reference/createtsv.md), [Dependency map](../reference/dependency_map.md#cmd-createtsv).
 
-## `swapresults`
+### Key Options
 
-**Description:**
+| Option | Purpose |
+| :--- | :--- |
+| `--first-seq-as-repr` | Use the first sequence of the clustering result as representative sequence |
+| `--target-column` | Select a target column (default 1), 0 if no target id exists |
+| `--full-header` | Replace DB ID by its corresponding Full Header |
+| `--idx-seq-src` | 0: auto, 1: split/translated sequences, 2: input sequences |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--db-output` | Return a result DB instead of a text file |
 
-> Transpose prefilter/alignment DB
+## `extractdomains`
 
-**Usage:**
-```bash
-mmseqs swapresults <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]
-```
+Extract highest scoring alignment regions for each sequence from BLAST-tab file.
 
-**Parameters:**
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SPECIAL` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `result2rbh`
-
-**Description:**
-
-> Filter a merged result DB to retain only reciprocal best hits
-
-**Usage:**
-```bash
-mmseqs result2rbh <i:resultDB> <o:resultDB> [options]
-```
-
-**Parameters:**
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-## `result2msa`
-
-**Description:**
-
-> Compute MSA DB from a result DB
-
-**Usage:**
-```bash
-mmseqs result2msa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-msa <INT>` | Filter msa: 0: do not filter, 1: filter | `0` |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--allow-deletion <BOOL>` | Allow deletions in a MSA | `0` |
-| `--msa-format-mode <INT>` | Format MSA as: 0: binary cA3M DB, 1: binary ca3m w. consensus DB, 2: aligned FASTA DB, 3: aligned FASTA w. header summary, 4: STOCKHOLM flat file, 5: A3M format, 6: A3M format w. alignment info | `2` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--summary-prefix <STR>` | Set the cluster summary prefix | `cl` |
-| `--skip-query <BOOL>` | Skip the query sequence | `0` |
-
-## `result2dnamsa`
-
-**Description:**
-
-> Compute MSA DB with out insertions in the query for DNA sequences
-
-**Usage:**
-```bash
-mmseqs result2dnamsa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]
-```
-
-**Parameters:**
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--skip-query <BOOL>` | Skip the query sequence | `0` |
-
-## `result2stats`
-
-**Description:**
-
-> Compute statistics for each entry in a DB
-
-**Usage:**
-```bash
-mmseqs result2stats <i:queryDB> <i:targetDB> <i:resultDB> <o:statsDB> [options]
-```
-
-**Parameters:**
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--stat <STR>` | One of: linecount, mean, min, max, doolittle, charges, seqlen, firstline | `[]` |
-| `--tsv <BOOL>` | Return output in TSV format | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+Reference links: [Full CLI](../reference/extractdomains.md), [Dependency map](../reference/dependency_map.md#cmd-extractdomains).
 
 ## `filterresult`
 
-**Description:**
+Pairwise alignment result filter.
 
-> Pairwise alignment result filter
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `searchslicedtargetprofile.sh` |
 
-**Usage:**
-```bash
-mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]
-```
+Reference links: [Full CLI](../reference/filterresult.md), [Dependency map](../reference/dependency_map.md#cmd-filterresult).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | keep the query (representative) sequence | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | keep the query (representative) sequence |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--filter-min-enable` | Only filter MSAs with more than N sequences, 0 always filters |
+| `--max-seq-id` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] |
+| `--qid` | Reduce diversity of output MSAs using min.seq. identity with query sequences |
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
+## `result2dnamsa`
 
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-min-enable <INT>` | Only filter MSAs with more than N sequences, 0 always filters | `0` |
-| `--max-seq-id <FLOAT>` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] | `0.900` |
-| `--qid <STR>` | Reduce diversity of output MSAs using min.seq. identity with query sequences [0.0,1.0] Alternatively, can be a list of multiple thresholds: E.g.: 0.15,0.30,0.50 to defines filter buckets of ]0.15-0.30] and ]0.30-0.50] | `0.0` |
-| `--qsc <FLOAT>` | Reduce diversity of output MSAs using min. score per aligned residue with query sequences [-50.0,100.0] | `-20.000` |
-| `--cov <FLOAT>` | Filter output MSAs using min. fraction of query residues covered by matched sequences [0.0,1.0] | `0.000` |
-| `--diff <INT>` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 | `1000` |
+Compute MSA DB with out insertions in the query for DNA sequences.
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--allow-deletion <BOOL>` | Allow deletions in a MSA | `0` |
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2dnamsa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+Reference links: [Full CLI](../reference/result2dnamsa.md), [Dependency map](../reference/dependency_map.md#cmd-result2dnamsa).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+| `--skip-query` | Skip the query sequence |
+
+## `result2flat`
+
+Create flat file by adding FASTA headers to DB entries.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2flat <i:queryDB> <i:targetDB> <i:resultDB> <o:fastaDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
+| Called by modules | [`easy-cluster`](../reference/easy-cluster.md), [`easy-linclust`](../reference/easy-linclust.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easycluster.sh` |
+
+Reference links: [Full CLI](../reference/result2flat.md), [Dependency map](../reference/dependency_map.md#cmd-result2flat).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--use-fasta-header` | Use the id parsed from the fasta header as the index key instead of using incrementing numeric identifiers |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `result2msa`
+
+Compute MSA DB from a result DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2msa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`pickconsensusrep`](../reference/pickconsensusrep.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md) |
+| Workflow script usage | `pickconsensusrep.sh` |
+
+Reference links: [Full CLI](../reference/result2msa.md), [Dependency map](../reference/dependency_map.md#cmd-result2msa).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--filter-msa` | Filter msa: 0: do not filter, 1: filter |
+| `--filter-min-enable` | Only filter MSAs with more than N sequences, 0 always filters |
+| `--max-seq-id` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] |
+| `--qid` | Reduce diversity of output MSAs using min.seq. identity with query sequences |
+
+## `result2rbh`
+
+Filter a merged result DB to retain only reciprocal best hits.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2rbh <i:resultDB> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`rbh`](../reference/rbh.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`search_workflows`](./search.md) |
+| Workflow script usage | `rbh.sh` |
+
+Reference links: [Full CLI](../reference/result2rbh.md), [Dependency map](../reference/dependency_map.md#cmd-result2rbh).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `result2repseq`
 
-**Description:**
+Get representative sequences from result DB.
 
-> Get representative sequences from result DB
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2repseq <i:sequenceDB> <i:resultDB> <o:sequenceDb> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`clusterupdate`](../reference/clusterupdate.md), [`easy-cluster`](../reference/easy-cluster.md), [`easy-linclust`](../reference/easy-linclust.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`clustering`](./clustering.md), [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easycluster.sh`, `update_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs result2repseq <i:sequenceDB> <i:resultDB> <o:sequenceDb> [options]
-```
+Reference links: [Full CLI](../reference/result2repseq.md), [Dependency map](../reference/dependency_map.md#cmd-result2repseq).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `result2stats`
+
+Compute statistics for each entry in a DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs result2stats <i:queryDB> <i:targetDB> <i:resultDB> <o:statsDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`multihitdb`](../reference/multihitdb.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`multi_hit`](./multi_hit.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `multihitdb.sh`, `searchslicedtargetprofile.sh` |
+
+Reference links: [Full CLI](../reference/result2stats.md), [Dependency map](../reference/dependency_map.md#cmd-result2stats).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--stat` | One of: linecount, mean, min, max, doolittle, charges, seqlen, firstline |
+| `--tsv` | Return output in TSV format |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `sortresult`
 
-**Description:**
+Sort a result DB in the same order as the prefilter or align module.
 
-> Sort a result DB in the same order as the prefilter or align module
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs sortresult <i:resultbDB> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs sortresult <i:resultbDB> <o:resultDB> [options]
-```
+Reference links: [Full CLI](../reference/sortresult.md), [Dependency map](../reference/dependency_map.md#cmd-sortresult).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--compressed` | Write compressed output |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
 ## `summarizealis`
 
-**Description:**
+Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.).
 
-> Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.)
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs summarizealis <i:alignmentDB> <o:summerizedDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easytaxonomy.sh` |
 
-**Usage:**
-```bash
-mmseqs summarizealis <i:alignmentDB> <o:summerizedDB> [options]
-```
+Reference links: [Full CLI](../reference/summarizealis.md), [Dependency map](../reference/dependency_map.md#cmd-summarizealis).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `summarizeheaders`
+
+Summarize FASTA headers of result DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_SPECIAL` |
+| Called by modules | `n/a` |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/summarizeheaders.md), [Dependency map](../reference/dependency_map.md#cmd-summarizeheaders).
 
 ## `summarizeresult`
 
-**Description:**
+Extract annotations from alignment DB.
 
-> Extract annotations from alignment DB
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs summarizeresult <i:alignmentDB> <o:alignmentDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`easy-linsearch`](../reference/easy-linsearch.md), [`easy-search`](../reference/easy-search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Workflow script usage | `easysearch.sh` |
 
-**Usage:**
-```bash
-mmseqs summarizeresult <i:alignmentDB> <o:alignmentDB> [options]
-```
+Reference links: [Full CLI](../reference/summarizeresult.md), [Dependency map](../reference/dependency_map.md#cmd-summarizeresult).
 
-**Parameters:**
+### Key Options
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
+| Option | Purpose |
+| :--- | :--- |
+| `-a` | Add backtrace string (convert to alignments with mmseqs convertalis module) |
+| `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
+| `--overlap` | Maximum overlap of covered regions |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--overlap <FLOAT>` | Maximum overlap of covered regions | `0.000` |
+## `swapresults`
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+Transpose prefilter/alignment DB.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs swapresults <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_RESULT` |
+| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md), [`linsearch`](../reference/linsearch.md), [`rbh`](../reference/rbh.md), [`search`](../reference/search.md) |
+| Calls modules | `n/a` |
+| Related functional groups | [`easy_workflows`](./easy_workflows.md), [`search_workflows`](./search.md) |
+| Workflow script usage | `easytaxonomy.sh`, `linsearch.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh` |
+
+Reference links: [Full CLI](../reference/swapresults.md), [Dependency map](../reference/dependency_map.md#cmd-swapresults).
+
+### Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
+| `-e` | List matches below this E-value (range 0.0-inf) |
+| `--gap-open` | Gap open cost |
+| `--gap-extend` | Gap extension cost |
+| `--sub-mat` | Substitution matrix file |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+

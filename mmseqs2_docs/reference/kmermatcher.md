@@ -1,0 +1,90 @@
+# `kmermatcher`
+
+Find bottom-m-hashed k-mer matches within sequence DB.
+
+In connection tables, `n/a` means no direct static edge was resolved by static extraction.
+
+## Classification
+
+| Aspect | Value |
+| :--- | :--- |
+| API layer | `mid_level_api` |
+| Primary functional group | [`prefiltering`](../submodules/prefiltering.md) |
+| Category flags | `COMMAND_PREFILTER` |
+
+## Connections
+
+| Aspect | Value |
+| :--- | :--- |
+| Called by modules | [`linclust`](./linclust.md) |
+| Calls modules | `n/a` |
+| Seen in workflow scripts | `linclust.sh` |
+
+## Usage
+
+`usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]`
+
+## Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--spaced-kmer-mode` | 0: use consecutive positions in k-mers; 1: use spaced k-mers |
+| `--spaced-kmer-pattern` | User-specified spaced k-mer pattern |
+| `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
+| `--mask-prob` | Mask sequences is probablity is above threshold |
+| `--mask-lower-case` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region |
+| `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
+| `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
+| `--cov-mode` | 0: coverage of query and target |
+| `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
+
+## Full CLI Help Snapshot
+
+```text
+usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]
+ By Martin Steinegger <martin.steinegger@snu.ac.kr>
+options: prefilter:                      
+ --alph-size TWIN                 Alphabet size (range 2-21) [aa:13,nucl:5]
+ --spaced-kmer-mode INT           0: use consecutive positions in k-mers; 1: use spaced k-mers [0]
+ --spaced-kmer-pattern STR        User-specified spaced k-mer pattern []
+ --mask INT                       Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking [0]
+ --mask-prob FLOAT                Mask sequences is probablity is above threshold [0.900]
+ --mask-lower-case INT            Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region [0]
+ --mask-n-repeat INT              Repeat letters that occure > threshold in a rwo [0]
+ -k INT                           k-mer length (0: automatically set to optimum) [0]
+ --split-memory-limit BYTE        Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory [0]
+align:                          
+ --min-seq-id FLOAT               List matches above this sequence identity (for clustering) (range 0.0-1.0) [0.000]
+ --cov-mode INT                   0: coverage of query and target
+                                  1: coverage of target
+                                  2: coverage of query
+                                  3: target seq. length has to be at least x% of query length
+                                  4: query seq. length has to be at least x% of target length
+                                  5: short seq. needs to be at least x% of the other seq. length [0]
+ -c FLOAT                         List matches above this fraction of aligned (covered) residues (see --cov-mode) [0.800]
+kmermatcher:                    
+ --kmer-per-seq INT               k-mers per sequence [0]
+ --kmer-per-seq-scale TWIN        Scale k-mer per sequence based on sequence length as kmer-per-seq val + scale x seqlen [aa:0.000,nucl:0.200]
+ --adjust-kmer-len BOOL           Adjust k-mer length based on specificity (only for nucleotides) [0]
+ --hash-shift INT                 Shift k-mer hash initialization [67]
+ --include-only-extendable BOOL   Include only extendable [0]
+ --ignore-multi-kmer BOOL         Skip k-mers occurring multiple times (>=2) [0]
+ --weights STR                    Weights used for cluster priorization []
+ --cluster-weight-threshold FLOAT Weight threshold used for cluster priorization [0.900]
+common:                         
+ --sub-mat TWIN                   Substitution matrix file [aa:blosum62.out,nucl:nucleotide.out]
+ --max-seq-len INT                Maximum sequence length [65535]
+ --threads INT                    Number of CPU-cores used (all by default) [10]
+ --compressed INT                 Write compressed output [0]
+ -v INT                           Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info [3]
+
+references:
+ - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
+```
+## Cross References
+
+See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/prefiltering.md).
+

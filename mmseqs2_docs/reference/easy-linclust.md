@@ -1,0 +1,170 @@
+# `easy-linclust`
+
+Fast linear time cluster, less sensitive clustering.
+
+In connection tables, `n/a` means no direct static edge was resolved by static extraction.
+
+## Classification
+
+| Aspect | Value |
+| :--- | :--- |
+| API layer | `workflow` |
+| Primary functional group | [`easy_workflows`](../submodules/easy_workflows.md) |
+| Category flags | `COMMAND_EASY` |
+
+## Connections
+
+| Aspect | Value |
+| :--- | :--- |
+| Called by modules | `n/a` |
+| Calls modules | [`createdb`](./createdb.md), [`createseqfiledb`](./createseqfiledb.md), [`createtsv`](./createtsv.md), [`linclust`](./linclust.md), [`result2flat`](./result2flat.md), [`result2repseq`](./result2repseq.md), [`rmdb`](./rmdb.md) |
+| Seen in workflow scripts | `n/a` |
+
+## Usage
+
+`usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]`
+
+## Key Options
+
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--spaced-kmer-mode` | 0: use consecutive positions in k-mers; 1: use spaced k-mers |
+| `--spaced-kmer-pattern` | User-specified spaced k-mer pattern |
+| `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
+| `--mask-prob` | Mask sequences is probablity is above threshold |
+| `--mask-lower-case` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region |
+| `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
+
+## Full CLI Help Snapshot
+
+```text
+usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]
+ By Martin Steinegger <martin.steinegger@snu.ac.kr>
+options: prefilter:                      
+ --comp-bias-corr INT             Correct for locally biased amino acid composition (range 0-1) [1]
+ --comp-bias-corr-scale FLOAT     Correct for locally biased amino acid composition (range 0-1) [1.000]
+ --add-self-matches BOOL          Artificially add entries of queries with themselves (for clustering) [0]
+ --alph-size TWIN                 Alphabet size (range 2-21) [aa:21,nucl:5]
+ --spaced-kmer-mode INT           0: use consecutive positions in k-mers; 1: use spaced k-mers [0]
+ --spaced-kmer-pattern STR        User-specified spaced k-mer pattern []
+ --mask INT                       Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking [1]
+ --mask-prob FLOAT                Mask sequences is probablity is above threshold [0.900]
+ --mask-lower-case INT            Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region [0]
+ --mask-n-repeat INT              Repeat letters that occure > threshold in a rwo [0]
+ -k INT                           k-mer length (0: automatically set to optimum) [0]
+ --split-memory-limit BYTE        Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory [0]
+align:                          
+ -a BOOL                          Add backtrace string (convert to alignments with mmseqs convertalis module) [0]
+ --alignment-mode INT             How to compute the alignment:
+                                  0: automatic
+                                  1: only score and end_pos
+                                  2: also start_pos and cov
+                                  3: also seq.id
+                                  4: only ungapped alignment [0]
+ --alignment-output-mode INT      How to compute the alignment:
+                                  0: automatic
+                                  1: only score and end_pos
+                                  2: also start_pos and cov
+                                  3: also seq.id
+                                  4: only ungapped alignment
+                                  5: score only (output) cluster format [0]
+ --wrapped-scoring BOOL           Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start [0]
+ -e DOUBLE                        List matches below this E-value (range 0.0-inf) [1.000E-03]
+ --min-seq-id FLOAT               List matches above this sequence identity (for clustering) (range 0.0-1.0) [0.000]
+ --min-aln-len INT                Minimum alignment length (range 0-INT_MAX) [0]
+ --seq-id-mode INT                0: alignment length 1: shorter, 2: longer sequence [0]
+ --alt-ali INT                    Show up to this many alternative alignments [0]
+ -c FLOAT                         List matches above this fraction of aligned (covered) residues (see --cov-mode) [0.800]
+ --cov-mode INT                   0: coverage of query and target
+                                  1: coverage of target
+                                  2: coverage of query
+                                  3: target seq. length has to be at least x% of query length
+                                  4: query seq. length has to be at least x% of target length
+                                  5: short seq. needs to be at least x% of the other seq. length [0]
+ --max-rejected INT               Maximum rejected alignments before alignment calculation for a query is stopped [2147483647]
+ --max-accept INT                 Maximum accepted alignments before alignment calculation for a query is stopped [2147483647]
+ --score-bias FLOAT               Score bias when computing SW alignment (in bits) [0.000]
+ --realign BOOL                   Compute more conservative, shorter alignments (scores and E-values not changed) [0]
+ --realign-score-bias FLOAT       Additional bias when computing realignment [-0.200]
+ --realign-max-seqs INT           Maximum number of results to return in realignment [2147483647]
+ --corr-score-weight FLOAT        Weight of backtrace correlation score that is added to the alignment score [0.000]
+ --gap-open TWIN                  Gap open cost [aa:11,nucl:5]
+ --gap-extend TWIN                Gap extension cost [aa:1,nucl:2]
+ --zdrop INT                      Maximal allowed difference between score values before alignment is truncated  (nucleotide alignment only) [40]
+clust:                          
+ --cluster-mode INT               0: Set-Cover (greedy)
+                                  1: Connected component (BLASTclust)
+                                  2,3: Greedy clustering by sequence length (CDHIT) [0]
+ --max-iterations INT             Maximum depth of breadth first search in connected component clustering [1000]
+ --similarity-type INT            Type of score used for clustering. 1: alignment score 2: sequence identity [2]
+kmermatcher:                    
+ --weights STR                    Weights used for cluster priorization []
+ --cluster-weight-threshold FLOAT Weight threshold used for cluster priorization [0.900]
+ --kmer-per-seq INT               k-mers per sequence [21]
+ --kmer-per-seq-scale TWIN        Scale k-mer per sequence based on sequence length as kmer-per-seq val + scale x seqlen [aa:0.000,nucl:0.200]
+ --adjust-kmer-len BOOL           Adjust k-mer length based on specificity (only for nucleotides) [0]
+ --hash-shift INT                 Shift k-mer hash initialization [67]
+ --include-only-extendable BOOL   Include only extendable [0]
+ --ignore-multi-kmer BOOL         Skip k-mers occurring multiple times (>=2) [0]
+profile:                        
+ --pca                            Pseudo count admixture strength []
+ --pcb                            Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) []
+misc:                           
+ --rescore-mode INT               Rescore diagonals with:
+                                  0: Hamming distance
+                                  1: local alignment (score only)
+                                  2: local alignment
+                                  3: global alignment
+                                  4: longest alignment fulfilling window quality criterion [0]
+ --dbtype INT                     Database type 0: auto, 1: amino acid 2: nucleotides [0]
+ --shuffle BOOL                   Shuffle input database [1]
+ --createdb-mode INT              Createdb mode 0: copy data, 1: soft link data and write new index (works only with single line fasta/q) [1]
+ --id-offset INT                  Numeric ids in index file are offset by this value [0]
+common:                         
+ --threads INT                    Number of CPU-cores used (all by default) [10]
+ --compressed INT                 Write compressed output [0]
+ -v INT                           Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info [3]
+ --sub-mat TWIN                   Substitution matrix file [aa:blosum62.out,nucl:nucleotide.out]
+ --max-seq-len INT                Maximum sequence length [65535]
+ --db-load-mode INT               Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch [0]
+ --remove-tmp-files BOOL          Delete temporary files [1]
+ --force-reuse BOOL               Reuse tmp filse in tmp/latest folder ignoring parameters and version changes [0]
+ --mpi-runner STR                 Use MPI on compute cluster with this MPI command (e.g. "mpirun -np 42") []
+expert:                         
+ --filter-hits BOOL               Filter hits by seq.id. and coverage [0]
+ --sort-results INT               Sort results: 0: no sorting, 1: sort by E-value (Alignment) or seq.id. (Hamming) [0]
+ --write-lookup INT               write .lookup file containing mapping from internal id, fasta id and file number [0]
+
+examples:
+ mmseqs easy-linclust examples/DB.fasta result tmp
+ 
+ # Linclust output
+ #  - result_rep_seq.fasta:  Representatives
+ #  - result_all_seqs.fasta: FASTA-like per cluster
+ #  - result_cluster.tsv:    Adjecency list
+ 
+ # Important parameter: --min-seq-id, --cov-mode and -c 
+ #                  --cov-mode 
+ #                  0    1    2
+ # Q: MAVGTACRPA  60%  IGN  60%
+ # T: -AVGTAC---  60% 100%  IGN
+ #        -c 0.7    -    +    -
+ #        -c 0.6    +    +    +
+ 
+ # Cluster nucleotide sequences 
+ mmseqs easy-linclust examples/DB.fasta result tmp --kmer-per-seq-scale 0.3
+ 
+references:
+ - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
+ - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
+```
+## Cross References
+
+See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/easy_workflows.md).
+

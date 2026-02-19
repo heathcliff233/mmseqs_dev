@@ -1,515 +1,201 @@
+# Clustering
 
-# Clustering Modules
+Modules for cluster construction, updates, and representative handling across different clustering strategies.
 
-This document describes the clustering submodules of MMseqs2.
-
-## Common Clustering Arguments
-
-The following are some of the most common command line arguments used across various clustering modules.
-
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-c <float>` | Coverage threshold. | `0.8` |
-| `--cov-mode <int>` | Coverage mode (0: cov of query and target, 1: cov of target, 2: cov of query). | `0` |
-| `--min-seq-id <float>` | Minimum sequence identity. | `0.3` |
-
-## `linclust`
-
-**Description:**
-
-> Fast, less sensitive clustering
-
-**Usage:**
-```bash
-mmseqs linclust <i:sequenceDB> <o:clusterDB> <tmpDir> [options]
+```{=typst}
+#doc_note[
+This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+]
 ```
 
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `0` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `0` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment | `2` |
-| `--alignment-output-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment, 5: score only (output) cluster format | `0` |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.900` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length, 1: shorter, 2: longer sequence | `0` |
-| `--alt-ali <INT>` | Show up to this many alternative alignments | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.800` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--max-rejected <INT>` | Maximum rejected alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--max-accept <INT>` | Maximum accepted alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--realign <BOOL>` | Compute more conservative, shorter alignments (scores and E-values not changed) | `0` |
-| `--realign-score-bias <FLOAT>` | Additional bias when computing realignment | `-0.200` |
-| `--realign-max-seqs <INT>` | Maximum number of results to return in realignment | `2147483647` |
-| `--corr-score-weight <FLOAT>` | Weight of backtrace correlation score that is added to the alignment score | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-
-### Clust Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--cluster-mode <INT>` | 0: Set-Cover (greedy), 1: Connected component (BLASTclust), 2,3: Greedy clustering by sequence length (CDHIT) | `0` |
-| `--max-iterations <INT>` | Maximum depth of breadth first search in connected component clustering | `1000` |
-| `--similarity-type <INT>` | Type of score used for clustering. 1: alignment score 2: sequence identity | `2` |
-
-### Kmermatcher Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--weights <STR>` | Weights used for cluster priorization | `[]` |
-| `--cluster-weight-threshold <FLOAT>` | Weight threshold used for cluster priorization | `0.900` |
-| `--kmer-per-seq <INT>` | k-mers per sequence | `21` |
-| `--kmer-per-seq-scale <TWIN>` | Scale k-mer per sequence based on sequence length as kmer-per-seq val + scale x seqlen | `aa:0.000,nucl:0.200` |
-| `--adjust-kmer-len <BOOL>` | Adjust k-mer length based on specificity (only for nucleotides) | `0` |
-| `--hash-shift <INT>` | Shift k-mer hash initialization | `67` |
-| `--include-only-extendable <BOOL>` | Include only extendable | `0` |
-| `--ignore-multi-kmer <BOOL>` | Skip k-mers occurring multiple times (>=2) | `0` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--rescore-mode <INT>` | Rescore diagonals with: 0: Hamming distance, 1: local alignment (score only), 2: local alignment, 3: global alignment, 4: longest alignment fulfilling window quality criterion | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--remove-tmp-files <BOOL>` | Delete temporary files | `0` |
-| `--force-reuse <BOOL>` | Reuse tmp files in tmp/latest folder ignoring parameters and version changes | `0` |
-| `--mpi-runner <STR>` | Use MPI on compute cluster with this MPI command (e.g. "mpirun -np 42") | `[]` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-hits <BOOL>` | Filter hits by seq.id. and coverage | `0` |
-| `--sort-results <INT>` | Sort results: 0: no sorting, 1: sort by E-value (Alignment) or seq.id. (Hamming) | `0` |
-
-**Examples:**
-```bash
-
-# Linear-time clustering of FASTA file
-mmseqs linclust sequenceDB clusterDB tmp
-
-                     --cov-mode 
-
-# Sequence         0    1    2
-
-# Q: MAVGTACRPA  60%  IGN  60%
-
-# T: -AVGTAC---  60% 100%  IGN
-
-# Cutoff -c 0.7    -    +    -
-
-#        -c 0.6    +    +    +
-
-# Cluster nucleotide sequences 
-mmseqs easy-linclust nucl.fasta result tmp --kmer-per-seq-scale 0.3
+```{=typst}
+#doc_perf[
+For repeated runs against stable targets, prioritize index reuse and split-memory tuning before increasing sensitivity.
+]
 ```
-
-## `cluster`
-
-**Description:**
-
-> Slower, sensitive clustering
-
-**Usage:**
-```bash
-mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--seed-sub-mat <TWIN>` | Substitution matrix file for k-mer generation | `aa:VTML80.out,nucl:nucleotide.out` |
-| `-s <FLOAT>` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive | `4.000` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--target-search-mode <INT>` | target search mode (0: regular k-mer, 1: similar k-mer) | `0` |
-| `--k-score <TWIN>` | k-mer threshold for generating similar k-mer lists | `seq:2147483647,prof:2147483647` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--max-seqs <INT>` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) | `20` |
-| `--split <INT>` | Split input into N equally distributed chunks. 0: set the best split automatically | `0` |
-| `--split-mode <INT>` | 0: split target db; 1: split query db; 2: auto, depending on main memory | `2` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--diag-score <BOOL>` | Use ungapped diagonal scoring during prefilter | `1` |
-| `--exact-kmer-matching <INT>` | Extract only exact k-mers for matching (range 0-1) | `0` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `1` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `--min-ungapped-score <INT>` | Accept only matches with ungapped alignment score above threshold | `15` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `1` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `--local-tmp <STR>` | Path where some of the temporary files will be created | `[]` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.800` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment | `3` |
-| `--alignment-output-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment, 5: score only (output) cluster format | `0` |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length, 1: shorter, 2: longer sequence | `0` |
-| `--alt-ali <INT>` | Show up to this many alternative alignments | `0` |
-| `--max-rejected <INT>` | Maximum rejected alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--max-accept <INT>` | Maximum accepted alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--realign <BOOL>` | Compute more conservative, shorter alignments (scores and E-values not changed) | `0` |
-| `--realign-score-bias <FLOAT>` | Additional bias when computing realignment | `-0.200` |
-| `--realign-max-seqs <INT>` | Maximum number of results to return in realignment | `2147483647` |
-| `--corr-score-weight <FLOAT>` | Weight of backtrace correlation score that is added to the alignment score | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-
-### Clust Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--cluster-mode <INT>` | 0: Set-Cover (greedy), 1: Connected component (BLASTclust), 2,3: Greedy clustering by sequence length (CDHIT) | `0` |
-| `--max-iterations <INT>` | Maximum depth of breadth first search in connected component clustering | `1000` |
-| `--similarity-type <INT>` | Type of score used for clustering. 1: alignment score 2: sequence identity | `2` |
-| `--single-step-clustering <BOOL>` | Switch from cascaded to simple clustering workflow | `0` |
-| `--cluster-steps <INT>` | Cascaded clustering steps from 1 to -s | `3` |
-| `--cluster-reassign <BOOL>` | Cascaded clustering can cluster sequence that do not fulfill the clustering criteria. Cluster reassignment corrects these errors | `0` |
-
-### Kmermatcher Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--weights <STR>` | Weights used for cluster priorization | `[]` |
-| `--cluster-weight-threshold <FLOAT>` | Weight threshold used for cluster priorization | `0.900` |
-| `--kmer-per-seq <INT>` | k-mers per sequence | `21` |
-| `--kmer-per-seq-scale <TWIN>` | Scale k-mer per sequence based on sequence length as kmer-per-seq val + scale x seqlen | `aa:0.000,nucl:0.200` |
-| `--adjust-kmer-len <BOOL>` | Adjust k-mer length based on specificity (only for nucleotides) | `0` |
-| `--hash-shift <INT>` | Shift k-mer hash initialization | `67` |
-| `--include-only-extendable <BOOL>` | Include only extendable | `0` |
-| `--ignore-multi-kmer <BOOL>` | Skip k-mers occurring multiple times (>=2) | `0` |
-
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
-
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--taxon-list <STR>` | Taxonomy ID, possibly multiple values separated by ',' | `[]` |
-| `--rescore-mode <INT>` | Rescore diagonals with: 0: Hamming distance, 1: local alignment (score only), 2: local alignment, 3: global alignment, 4: longest alignment fulfilling window quality criterion | `0` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--remove-tmp-files <BOOL>` | Delete temporary files | `0` |
-| `--force-reuse <BOOL>` | Reuse tmp files in tmp/latest folder ignoring parameters and version changes | `0` |
-| `--mpi-runner <STR>` | Use MPI on compute cluster with this MPI command (e.g. "mpirun -np 42") | `[]` |
-
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-hits <BOOL>` | Filter hits by seq.id. and coverage | `0` |
-| `--sort-results <INT>` | Sort results: 0: no sorting, 1: sort by E-value (Alignment) or seq.id. (Hamming) | `0` |
-
-**Examples:**
-```bash
-
-# Cascaded clustering of FASTA file
-mmseqs cluster sequenceDB clusterDB tmp
-
-#                  --cov-mode
-
-# Sequence         0    1    2
-
-# Q: MAVGTACRPA  60%  IGN  60%
-
-# T: -AVGTAC---  60% 100%  IGN
-
-# Cutoff -c 0.7    -    +    -
-
-#        -c 0.6    +    +    +
-
-# Cascaded clustering with reassignment
-
-# - Corrects criteria-violations of cascaded merging
-
-# - Produces more clusters and is a bit slower
-mmseqs cluster sequenceDB clusterDB tmp --cluster-reassign
-```
-
-- Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
-- Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 
 ## `clust`
 
-**Description:**
+Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 
-> Set-cover clustering
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs clust <i:sequenceDB> <i:resultDB> <o:clusterDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_CLUSTER` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs clust <i:sequenceDB> <i:resultDB> <o:clusterDB> [options]
-```
+Reference links: [Full CLI](../reference/clust.md), [Dependency map](../reference/dependency_map.md#cmd-clust).
 
-**Parameters:**
+### Key Options
 
-### Clust Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--cluster-mode <INT>` | 0: Set-Cover (greedy), 1: Connected component (BLASTclust), 2,3: Greedy clustering by sequence length (CDHIT) | `0` |
-| `--max-iterations <INT>` | Maximum depth of breadth first search in connected component clustering | `1000` |
-| `--similarity-type <INT>` | Type of score used for clustering. 1: alignment score 2: sequence identity | `2` |
+| Option | Purpose |
+| :--- | :--- |
+| `--cluster-mode` | 0: Set-Cover (greedy) |
+| `--max-iterations` | Maximum depth of breadth first search in connected component clustering |
+| `--similarity-type` | Type of score used for clustering. 1: alignment score 2: sequence identity |
+| `--weights` | Weights used for cluster priorization |
+| `--cluster-weight-threshold` | Weight threshold used for cluster priorization |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Kmermatcher Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--weights <STR>` | Weights used for cluster priorization | `[]` |
-| `--cluster-weight-threshold <FLOAT>` | Weight threshold used for cluster priorization | `0.900` |
+## `cluster`
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+Slower, sensitive clustering.
 
-## `clusthash`
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MAIN` |
+| Called by modules | [`clusterupdate`](../reference/clusterupdate.md), [`easy-cluster`](../reference/easy-cluster.md) |
+| Calls modules | [`align`](../reference/align.md), [`clust`](../reference/clust.md), [`clusthash`](../reference/clusthash.md), [`concatdbs`](../reference/concatdbs.md), [`createsubdb`](../reference/createsubdb.md), [`extractframes`](../reference/extractframes.md), [`filterdb`](../reference/filterdb.md), [`linclust`](../reference/linclust.md), [`mergeclusters`](../reference/mergeclusters.md), [`mergedbs`](../reference/mergedbs.md), [`mvdb`](../reference/mvdb.md), [`offsetalignment`](../reference/offsetalignment.md), [`prefilter`](../reference/prefilter.md), [`rescorediagonal`](../reference/rescorediagonal.md), [`rmdb`](../reference/rmdb.md), [`subtractdbs`](../reference/subtractdbs.md), [`swapdb`](../reference/swapdb.md), [`tsv2db`](../reference/tsv2db.md) |
+| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`easy_workflows`](./easy_workflows.md), [`prefiltering`](./prefiltering.md), [`sequence_manipulation`](./sequence_manipulation.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `update_clustering.sh` |
 
-**Description:**
+Reference links: [Full CLI](../reference/cluster.md), [Dependency map](../reference/dependency_map.md#cmd-cluster).
 
-> Hash clustering
+### Key Options
 
-**Usage:**
-```bash
-mmseqs clusthash <i:sequenceDB> <o:alignmentDB> [options]
-```
-
-**Parameters:**
-
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:3,nucl:5` |
-
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.990` |
-
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--seed-sub-mat` | Substitution matrix file for k-mer generation |
+| `-s` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
+| `--k-score` | k-mer threshold for generating similar k-mer lists |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--max-seqs` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) |
+| `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 
 ## `clusterupdate`
 
-**Description:**
+Update previous clustering with new sequences.
 
-> Update clustering
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newMappedSequenceDB> <o:newClustResultDB> <tmpDir> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MAIN` |
+| Called by modules | `n/a` |
+| Calls modules | [`cluster`](../reference/cluster.md), [`concatdbs`](../reference/concatdbs.md), [`createsubdb`](../reference/createsubdb.md), [`diffseqdbs`](../reference/diffseqdbs.md), [`filterdb`](../reference/filterdb.md), [`mergedbs`](../reference/mergedbs.md), [`mvdb`](../reference/mvdb.md), [`prefixid`](../reference/prefixid.md), [`renamedbkeys`](../reference/renamedbkeys.md), [`result2repseq`](../reference/result2repseq.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md), [`swapdb`](../reference/swapdb.md) |
+| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`search_workflows`](./search.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `n/a` |
 
-**Usage:**
-```bash
-mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newClustResultDB> <tmpDir> [options]
-```
+Reference links: [Full CLI](../reference/clusterupdate.md), [Dependency map](../reference/dependency_map.md#cmd-clusterupdate).
 
-**Parameters:**
+### Key Options
 
-### Prefilter Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--comp-bias-corr <INT>` | Correct for locally biased amino acid composition (range 0-1) | `1` |
-| `--comp-bias-corr-scale <FLOAT>` | Correct for locally biased amino acid composition (range 0-1) | `1.000` |
-| `--add-self-matches <BOOL>` | Artificially add entries of queries with themselves (for clustering) | `0` |
-| `--seed-sub-mat <TWIN>` | Substitution matrix file for k-mer generation | `aa:VTML80.out,nucl:nucleotide.out` |
-| `-s <FLOAT>` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive | `4.000` |
-| `-k <INT>` | k-mer length (0: automatically set to optimum) | `0` |
-| `--target-search-mode <INT>` | target search mode (0: regular k-mer, 1: similar k-mer) | `0` |
-| `--k-score <TWIN>` | k-mer threshold for generating similar k-mer lists | `seq:2147483647,prof:2147483647` |
-| `--alph-size <TWIN>` | Alphabet size (range 2-21) | `aa:21,nucl:5` |
-| `--split <INT>` | Split input into N equally distributed chunks. 0: set the best split automatically | `0` |
-| `--split-mode <INT>` | 0: split target db; 1: split query db; 2: auto, depending on main memory | `2` |
-| `--split-memory-limit <BYTE>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | `0` |
-| `--diag-score <BOOL>` | Use ungapped diagonal scoring during prefilter | `1` |
-| `--exact-kmer-matching <INT>` | Extract only exact k-mers for matching (range 0-1) | `0` |
-| `--mask <INT>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | `1` |
-| `--mask-prob <FLOAT>` | Mask sequences is probablity is above threshold | `0.900` |
-| `--mask-lower-case <INT>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | `0` |
-| `--mask-n-repeat <INT>` | Repeat letters that occure > threshold in a rwo | `0` |
-| `--min-ungapped-score <INT>` | Accept only matches with ungapped alignment score above threshold | `15` |
-| `--spaced-kmer-mode <INT>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | `1` |
-| `--spaced-kmer-pattern <STR>` | User-specified spaced k-mer pattern | `[]` |
-| `--local-tmp <STR>` | Path where some of the temporary files will be created | `[]` |
-| `--disk-space-limit <BYTE>` | Set max disk space to use for reverse profile searches. E.g. 800B, 5K, 10M, 1G. Default (0) to all available disk space in the temp folder | `0` |
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--seed-sub-mat` | Substitution matrix file for k-mer generation |
+| `-s` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive |
+| `-k` | k-mer length (0: automatically set to optimum) |
+| `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
+| `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-### Align Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `-a <BOOL>` | Add backtrace string (convert to alignments with mmseqs convertalis module) | `0` |
-| `--alignment-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment | `3` |
-| `--alignment-output-mode <INT>` | How to compute the alignment: 0: automatic, 1: only score and end_pos, 2: also start_pos and cov, 3: also seq.id, 4: only ungapped alignment, 5: score only (output) cluster format | `0` |
-| `--wrapped-scoring <BOOL>` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start | `0` |
-| `-e <DOUBLE>` | List matches below this E-value (range 0.0-inf) | `1.000E-03` |
-| `--min-seq-id <FLOAT>` | List matches above this sequence identity (for clustering) (range 0.0-1.0) | `0.000` |
-| `--min-aln-len <INT>` | Minimum alignment length (range 0-INT_MAX) | `0` |
-| `--seq-id-mode <INT>` | 0: alignment length 1: shorter, 2: longer sequence | `0` |
-| `--alt-ali <INT>` | Show up to this many alternative alignments | `0` |
-| `-c <FLOAT>` | List matches above this fraction of aligned (covered) residues (see --cov-mode) | `0.000` |
-| `--cov-mode <INT>` | 0: coverage of query and target, 1: coverage of target, 2: coverage of query, 3: target seq. length has to be at least x% of query length, 4: query seq. length has to be at least x% of target length, 5: short seq. needs to be at least x% of the other seq. length | `0` |
-| `--max-rejected <INT>` | Maximum rejected alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--max-accept <INT>` | Maximum accepted alignments before alignment calculation for a query is stopped | `2147483647` |
-| `--score-bias <FLOAT>` | Score bias when computing SW alignment (in bits) | `0.000` |
-| `--realign <BOOL>` | Compute more conservative, shorter alignments (scores and E-values not changed) | `0` |
-| `--realign-score-bias <FLOAT>` | Additional bias when computing realignment | `-0.200` |
-| `--realign-max-seqs <INT>` | Maximum number of results to return in realignment | `2147483647` |
-| `--corr-score-weight <FLOAT>` | Weight of backtrace correlation score that is added to the alignment score | `0.000` |
-| `--gap-open <TWIN>` | Gap open cost | `aa:11,nucl:5` |
-| `--gap-extend <TWIN>` | Gap extension cost | `aa:1,nucl:2` |
-| `--zdrop <INT>` | Maximal allowed difference between score values before alignment is truncated (nucleotide alignment only) | `40` |
-| `--exhaustive-search-filter <INT>` | Filter result during search: 0: do not filter, 1: filter | `0` |
+## `clusthash`
 
-### Clust Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--cluster-mode <INT>` | 0: Set-Cover (greedy), 1: Connected component (BLASTclust), 2,3: Greedy clustering by sequence length (CDHIT) | `0` |
-| `--max-iterations <INT>` | Maximum depth of breadth first search in connected component clustering | `1000` |
-| `--similarity-type <INT>` | Type of score used for clustering. 1: alignment score 2: sequence identity | `2` |
-| `--single-step-clustering <BOOL>` | Switch from cascaded to simple clustering workflow | `0` |
-| `--cluster-steps <INT>` | Cascaded clustering steps from 1 to -s | `3` |
-| `--cluster-reassign <BOOL>` | Cascaded clustering can cluster sequence that do not fulfill the clustering criteria. Cluster reassignment corrects these errors | `0` |
+Hash-based clustering of equal length sequences.
 
-### Kmermatcher Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--weights <STR>` | Weights used for cluster priorization | `[]` |
-| `--cluster-weight-threshold <FLOAT>` | Weight threshold used for cluster priorization | `0.900` |
-| `--kmer-per-seq <INT>` | k-mers per sequence | `21` |
-| `--kmer-per-seq-scale <TWIN>` | Scale k-mer per sequence based on sequence length as kmer-per-seq val + scale x seqlen | `aa:0.000,nucl:0.200` |
-| `--adjust-kmer-len <BOOL>` | Adjust k-mer length based on specificity (only for nucleotides) | `0` |
-| `--hash-shift <INT>` | Shift k-mer hash initialization | `67` |
-| `--include-only-extendable <BOOL>` | Include only extendable | `0` |
-| `--ignore-multi-kmer <BOOL>` | Skip k-mers occurring multiple times (>=2) | `0` |
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs clusthash <i:sequenceDB> <o:alignmentDB> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_CLUSTER` |
+| Called by modules | [`cluster`](../reference/cluster.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `clustering.sh` |
 
-### Profile Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--pca` | Pseudo count admixture strength | `[]` |
-| `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) | `[]` |
+Reference links: [Full CLI](../reference/clusthash.md), [Dependency map](../reference/dependency_map.md#cmd-clusthash).
 
-### Misc Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--taxon-list <STR>` | Taxonomy ID, possibly multiple values separated by ',' | `[]` |
-| `--rescore-mode <INT>` | Rescore diagonals with: 0: Hamming distance, 1: local alignment (score only), 2: local alignment, 3: global alignment, 4: longest alignment fulfilling window quality criterion | `0` |
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--sub-mat <TWIN>` | Substitution matrix file | `aa:blosum62.out,nucl:nucleotide.out` |
-| `--max-seq-len <INT>` | Maximum sequence length | `65535` |
-| `--db-load-mode <INT>` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch | `0` |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
-| `--remove-tmp-files <BOOL>` | Delete temporary files | `0` |
-| `--force-reuse <BOOL>` | Reuse tmp files in tmp/latest folder ignoring parameters and version changes | `0` |
-| `--mpi-runner <STR>` | Use MPI on compute cluster with this MPI command (e.g. "mpirun -np 42") | `[]` |
+| Option | Purpose |
+| :--- | :--- |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
+| `--sub-mat` | Substitution matrix file |
+| `--max-seq-len` | Maximum sequence length |
+| `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Expert Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--filter-hits <BOOL>` | Filter hits by seq.id. and coverage | `0` |
-| `--sort-results <INT>` | Sort results: 0: no sorting, 1: sort by E-value (Alignment) or seq.id. (Hamming) | `0` |
+## `linclust`
 
-**Examples:**
-```bash
+Fast, less sensitive clustering.
 
-# Update clustering workflow
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs linclust <i:sequenceDB> <o:clusterDB> <tmpDir> [options]` |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MAIN` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`easy-linclust`](../reference/easy-linclust.md) |
+| Calls modules | [`align`](../reference/align.md), [`clust`](../reference/clust.md), [`createsubdb`](../reference/createsubdb.md), [`filterdb`](../reference/filterdb.md), [`kmermatcher`](../reference/kmermatcher.md), [`mergeclusters`](../reference/mergeclusters.md), [`rescorediagonal`](../reference/rescorediagonal.md), [`rmdb`](../reference/rmdb.md) |
+| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`easy_workflows`](./easy_workflows.md), [`prefiltering`](./prefiltering.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `cascaded_clustering.sh`, `nucleotide_clustering.sh` |
 
-# Perform initial clustering of 5000 sequences
-mmseqs createdb <(head -n 10000 examples/DB.fasta) sequenceDB
-mmseqs cluster sequenceDB clusterDB tmp
+Reference links: [Full CLI](../reference/linclust.md), [Dependency map](../reference/dependency_map.md#cmd-linclust).
 
-# Use-case 1: Update by only adding sequences
-mmseqs createdb examples/QUERY.fasta addedSequenceDB
-mmseqs concatdbs sequenceDB addedSequenceDB allSequenceDB
-mmseqs concatdbs sequenceDB_h addedSequenceDB_h allSequenceDB_h
-mmseqs clusterupdate sequenceDB allSequenceDB clusterDB newSequenceDB newClusterDB tmp
+### Key Options
 
-# Use-case 2: Update clustering with deletions)
-
-# Create a FASTA file missing 500 of the original sequences and 2500 new ones
-mmseqs createdb <(tail -n +1001 examples/DB.fasta | head -n 15000) updateSequenceDB
-mmseqs clusterupdate sequenceDB updateSequenceDB clusterDB newSequenceDB newClusterDB tmp
-```
-
-- Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
+| Option | Purpose |
+| :--- | :--- |
+| `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
+| `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
+| `--add-self-matches` | Artificially add entries of queries with themselves (for clustering) |
+| `--alph-size` | Alphabet size (range 2-21) |
+| `--spaced-kmer-mode` | 0: use consecutive positions in k-mers; 1: use spaced k-mers |
+| `--spaced-kmer-pattern` | User-specified spaced k-mer pattern |
+| `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
+| `--mask-prob` | Mask sequences is probablity is above threshold |
 
 ## `mergeclusters`
 
-**Description:**
+Merge multiple cascaded clustering steps.
 
-> Merge multiple cluster databases
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs mergeclusters <i:sequenceDB> <o:clusterDB> <i:clusterDB1> ... <i:clusterDBn> [options]` |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_CLUSTER` |
+| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md) |
+| Calls modules | `n/a` |
+| Related functional groups | `n/a` |
+| Workflow script usage | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
 
-**Usage:**
-```bash
-mmseqs mergeclusters <i:sequenceDB> <o:clusterDB> <i:clusterDB1> ... <i:clusterDBn> [options]
-```
+Reference links: [Full CLI](../reference/mergeclusters.md), [Dependency map](../reference/dependency_map.md#cmd-mergeclusters).
 
-**Parameters:**
+### Key Options
 
-### Common Options
-| Flag | Description | Default |
-| :--- | :--- | :--- |
-| `--threads <INT>` | Number of CPU-cores used (all by default) | `10` |
-| `--compressed <INT>` | Write compressed output | `0` |
-| `-v <INT>` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info | `3` |
+| Option | Purpose |
+| :--- | :--- |
+| `--threads` | Number of CPU-cores used (all by default) |
+| `--compressed` | Write compressed output |
+| `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
+
+## `pickconsensusrep`
+
+Select new representatives for each cluster based on consensus.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | Help snapshot unavailable locally. |
+| API layer | `mid_level_api` |
+| Category flags | `COMMAND_CLUSTER` |
+| Called by modules | `n/a` |
+| Calls modules | [`align`](../reference/align.md), [`msa2profile`](../reference/msa2profile.md), [`prefixid`](../reference/prefixid.md), [`renamedbkeys`](../reference/renamedbkeys.md), [`result2msa`](../reference/result2msa.md), [`rmdb`](../reference/rmdb.md), [`tsv2db`](../reference/tsv2db.md) |
+| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`profiles`](./profiles.md), [`result_handling`](./result_handling.md), [`utilities`](./utilities.md) |
+| Workflow script usage | `n/a` |
+
+Reference links: [Full CLI](../reference/pickconsensusrep.md), [Dependency map](../reference/dependency_map.md#cmd-pickconsensusrep).
+
