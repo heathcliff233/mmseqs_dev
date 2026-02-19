@@ -1,30 +1,30 @@
-# `linclust`
+## `linclust` {#refcmd-linclust}
 
 Fast, less sensitive clustering.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`clustering`](../submodules/clustering.md) |
+| Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_MAIN` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`easy-linclust`](./easy-linclust.md) |
-| Calls modules | [`align`](./align.md), [`clust`](./clust.md), [`createsubdb`](./createsubdb.md), [`filterdb`](./filterdb.md), [`kmermatcher`](./kmermatcher.md), [`mergeclusters`](./mergeclusters.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`easy-linclust`](#refcmd-easy-linclust) |
+| Calls modules | [`align`](#refcmd-align), [`clust`](#refcmd-clust), [`createsubdb`](#refcmd-createsubdb), [`filterdb`](#refcmd-filterdb), [`kmermatcher`](#refcmd-kmermatcher), [`mergeclusters`](#refcmd-mergeclusters), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb) |
 | Seen in workflow scripts | `cascaded_clustering.sh`, `nucleotide_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs linclust <i:sequenceDB> <o:clusterDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `-k` | k-mer length (0: automatically set to optimum) |
 | `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs linclust <i:sequenceDB> <o:clusterDB> <tmpDir> [options]
@@ -154,7 +154,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/clustering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-linclust), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
 

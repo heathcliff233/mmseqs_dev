@@ -1,18 +1,18 @@
-# `msa2result`
+## `msa2result` {#refcmd-msa2result}
 
 Convert a MSA DB to a profile DB.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`profiles`](../submodules/profiles.md) |
+| Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_PROFILE | COMMAND_EXPERT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,11 +20,11 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--filter-msa` | Filter msa: 0: do not filter, 1: filter |
 | `--filter-min-enable` | Only filter MSAs with more than N sequences, 0 always filters |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]
@@ -82,7 +82,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/profiles.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-msa2result), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
 

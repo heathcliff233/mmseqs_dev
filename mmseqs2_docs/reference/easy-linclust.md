@@ -1,30 +1,30 @@
-# `easy-linclust`
+## `easy-linclust` {#refcmd-easy-linclust}
 
 Fast linear time cluster, less sensitive clustering.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](../submodules/easy_workflows.md) |
+| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`createdb`](./createdb.md), [`createseqfiledb`](./createseqfiledb.md), [`createtsv`](./createtsv.md), [`linclust`](./linclust.md), [`result2flat`](./result2flat.md), [`result2repseq`](./result2repseq.md), [`rmdb`](./rmdb.md) |
+| Calls modules | [`createdb`](#refcmd-createdb), [`createseqfiledb`](#refcmd-createseqfiledb), [`createtsv`](#refcmd-createtsv), [`linclust`](#refcmd-linclust), [`result2flat`](#refcmd-result2flat), [`result2repseq`](#refcmd-result2repseq), [`rmdb`](#refcmd-rmdb) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `-k` | k-mer length (0: automatically set to optimum) |
 | `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]
@@ -164,7 +164,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/easy_workflows.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-linclust), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
 

@@ -1,4 +1,4 @@
-# Clustering
+## Clustering {#mod-clustering}
 
 Modules for cluster construction, updates, and representative handling across different clustering strategies.
 
@@ -14,7 +14,7 @@ For repeated runs against stable targets, prioritize index reuse and split-memor
 ]
 ```
 
-## `clust`
+### `clust` {#modcmd-clust}
 
 Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 
@@ -23,14 +23,14 @@ Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 | Usage | `usage: mmseqs clust <i:sequenceDB> <i:resultDB> <o:clusterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`linclust`](#modcmd-linclust) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
 
-Reference links: [Full CLI](../reference/clust.md), [Dependency map](../reference/dependency_map.md#cmd-clust).
+Reference links: [Full CLI](#refcmd-clust), [Dependency entry](#depcmd-clust).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -43,7 +43,7 @@ Reference links: [Full CLI](../reference/clust.md), [Dependency map](../referenc
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `cluster`
+### `cluster` {#modcmd-cluster}
 
 Slower, sensitive clustering.
 
@@ -52,14 +52,14 @@ Slower, sensitive clustering.
 | Usage | `usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | [`clusterupdate`](../reference/clusterupdate.md), [`easy-cluster`](../reference/easy-cluster.md) |
-| Calls modules | [`align`](../reference/align.md), [`clust`](../reference/clust.md), [`clusthash`](../reference/clusthash.md), [`concatdbs`](../reference/concatdbs.md), [`createsubdb`](../reference/createsubdb.md), [`extractframes`](../reference/extractframes.md), [`filterdb`](../reference/filterdb.md), [`linclust`](../reference/linclust.md), [`mergeclusters`](../reference/mergeclusters.md), [`mergedbs`](../reference/mergedbs.md), [`mvdb`](../reference/mvdb.md), [`offsetalignment`](../reference/offsetalignment.md), [`prefilter`](../reference/prefilter.md), [`rescorediagonal`](../reference/rescorediagonal.md), [`rmdb`](../reference/rmdb.md), [`subtractdbs`](../reference/subtractdbs.md), [`swapdb`](../reference/swapdb.md), [`tsv2db`](../reference/tsv2db.md) |
-| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`easy_workflows`](./easy_workflows.md), [`prefiltering`](./prefiltering.md), [`sequence_manipulation`](./sequence_manipulation.md), [`utilities`](./utilities.md) |
+| Called by modules | [`clusterupdate`](#modcmd-clusterupdate), [`easy-cluster`](#modcmd-easy-cluster) |
+| Calls modules | [`align`](#modcmd-align), [`clust`](#modcmd-clust), [`clusthash`](#modcmd-clusthash), [`concatdbs`](#modcmd-concatdbs), [`createsubdb`](#modcmd-createsubdb), [`extractframes`](#modcmd-extractframes), [`filterdb`](#modcmd-filterdb), [`linclust`](#modcmd-linclust), [`mergeclusters`](#modcmd-mergeclusters), [`mergedbs`](#modcmd-mergedbs), [`mvdb`](#modcmd-mvdb), [`offsetalignment`](#modcmd-offsetalignment), [`prefilter`](#modcmd-prefilter), [`rescorediagonal`](#modcmd-rescorediagonal), [`rmdb`](#modcmd-rmdb), [`subtractdbs`](#modcmd-subtractdbs), [`swapdb`](#modcmd-swapdb), [`tsv2db`](#modcmd-tsv2db) |
+| Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`prefiltering`](#mod-prefiltering), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
 | Workflow script usage | `update_clustering.sh` |
 
-Reference links: [Full CLI](../reference/cluster.md), [Dependency map](../reference/dependency_map.md#cmd-cluster).
+Reference links: [Full CLI](#refcmd-cluster), [Dependency entry](#depcmd-cluster).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -72,7 +72,7 @@ Reference links: [Full CLI](../reference/cluster.md), [Dependency map](../refere
 | `--max-seqs` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) |
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 
-## `clusterupdate`
+### `clusterupdate` {#modcmd-clusterupdate}
 
 Update previous clustering with new sequences.
 
@@ -82,13 +82,13 @@ Update previous clustering with new sequences.
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
 | Called by modules | `n/a` |
-| Calls modules | [`cluster`](../reference/cluster.md), [`concatdbs`](../reference/concatdbs.md), [`createsubdb`](../reference/createsubdb.md), [`diffseqdbs`](../reference/diffseqdbs.md), [`filterdb`](../reference/filterdb.md), [`mergedbs`](../reference/mergedbs.md), [`mvdb`](../reference/mvdb.md), [`prefixid`](../reference/prefixid.md), [`renamedbkeys`](../reference/renamedbkeys.md), [`result2repseq`](../reference/result2repseq.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md), [`swapdb`](../reference/swapdb.md) |
-| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`search_workflows`](./search.md), [`utilities`](./utilities.md) |
+| Calls modules | [`cluster`](#modcmd-cluster), [`concatdbs`](#modcmd-concatdbs), [`createsubdb`](#modcmd-createsubdb), [`diffseqdbs`](#modcmd-diffseqdbs), [`filterdb`](#modcmd-filterdb), [`mergedbs`](#modcmd-mergedbs), [`mvdb`](#modcmd-mvdb), [`prefixid`](#modcmd-prefixid), [`renamedbkeys`](#modcmd-renamedbkeys), [`result2repseq`](#modcmd-result2repseq), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`swapdb`](#modcmd-swapdb) |
+| Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows), [`utilities`](#mod-utilities) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/clusterupdate.md), [Dependency map](../reference/dependency_map.md#cmd-clusterupdate).
+Reference links: [Full CLI](#refcmd-clusterupdate), [Dependency entry](#depcmd-clusterupdate).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -101,7 +101,7 @@ Reference links: [Full CLI](../reference/clusterupdate.md), [Dependency map](../
 | `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
 | `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-## `clusthash`
+### `clusthash` {#modcmd-clusthash}
 
 Hash-based clustering of equal length sequences.
 
@@ -110,14 +110,14 @@ Hash-based clustering of equal length sequences.
 | Usage | `usage: mmseqs clusthash <i:sequenceDB> <o:alignmentDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
-| Called by modules | [`cluster`](../reference/cluster.md) |
+| Called by modules | [`cluster`](#modcmd-cluster) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `clustering.sh` |
 
-Reference links: [Full CLI](../reference/clusthash.md), [Dependency map](../reference/dependency_map.md#cmd-clusthash).
+Reference links: [Full CLI](#refcmd-clusthash), [Dependency entry](#depcmd-clusthash).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -130,7 +130,7 @@ Reference links: [Full CLI](../reference/clusthash.md), [Dependency map](../refe
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `linclust`
+### `linclust` {#modcmd-linclust}
 
 Fast, less sensitive clustering.
 
@@ -139,14 +139,14 @@ Fast, less sensitive clustering.
 | Usage | `usage: mmseqs linclust <i:sequenceDB> <o:clusterDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`easy-linclust`](../reference/easy-linclust.md) |
-| Calls modules | [`align`](../reference/align.md), [`clust`](../reference/clust.md), [`createsubdb`](../reference/createsubdb.md), [`filterdb`](../reference/filterdb.md), [`kmermatcher`](../reference/kmermatcher.md), [`mergeclusters`](../reference/mergeclusters.md), [`rescorediagonal`](../reference/rescorediagonal.md), [`rmdb`](../reference/rmdb.md) |
-| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`easy_workflows`](./easy_workflows.md), [`prefiltering`](./prefiltering.md), [`utilities`](./utilities.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`easy-linclust`](#modcmd-easy-linclust) |
+| Calls modules | [`align`](#modcmd-align), [`clust`](#modcmd-clust), [`createsubdb`](#modcmd-createsubdb), [`filterdb`](#modcmd-filterdb), [`kmermatcher`](#modcmd-kmermatcher), [`mergeclusters`](#modcmd-mergeclusters), [`rescorediagonal`](#modcmd-rescorediagonal), [`rmdb`](#modcmd-rmdb) |
+| Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`prefiltering`](#mod-prefiltering), [`utilities`](#mod-utilities) |
 | Workflow script usage | `cascaded_clustering.sh`, `nucleotide_clustering.sh` |
 
-Reference links: [Full CLI](../reference/linclust.md), [Dependency map](../reference/dependency_map.md#cmd-linclust).
+Reference links: [Full CLI](#refcmd-linclust), [Dependency entry](#depcmd-linclust).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -159,7 +159,7 @@ Reference links: [Full CLI](../reference/linclust.md), [Dependency map](../refer
 | `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
 | `--mask-prob` | Mask sequences is probablity is above threshold |
 
-## `mergeclusters`
+### `mergeclusters` {#modcmd-mergeclusters}
 
 Merge multiple cascaded clustering steps.
 
@@ -168,14 +168,14 @@ Merge multiple cascaded clustering steps.
 | Usage | `usage: mmseqs mergeclusters <i:sequenceDB> <o:clusterDB> <i:clusterDB1> ... <i:clusterDBn> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`linclust`](#modcmd-linclust) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
 
-Reference links: [Full CLI](../reference/mergeclusters.md), [Dependency map](../reference/dependency_map.md#cmd-mergeclusters).
+Reference links: [Full CLI](#refcmd-mergeclusters), [Dependency entry](#depcmd-mergeclusters).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -183,7 +183,7 @@ Reference links: [Full CLI](../reference/mergeclusters.md), [Dependency map](../
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `pickconsensusrep`
+### `pickconsensusrep` {#modcmd-pickconsensusrep}
 
 Select new representatives for each cluster based on consensus.
 
@@ -193,9 +193,9 @@ Select new representatives for each cluster based on consensus.
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
 | Called by modules | `n/a` |
-| Calls modules | [`align`](../reference/align.md), [`msa2profile`](../reference/msa2profile.md), [`prefixid`](../reference/prefixid.md), [`renamedbkeys`](../reference/renamedbkeys.md), [`result2msa`](../reference/result2msa.md), [`rmdb`](../reference/rmdb.md), [`tsv2db`](../reference/tsv2db.md) |
-| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`profiles`](./profiles.md), [`result_handling`](./result_handling.md), [`utilities`](./utilities.md) |
+| Calls modules | [`align`](#modcmd-align), [`msa2profile`](#modcmd-msa2profile), [`prefixid`](#modcmd-prefixid), [`renamedbkeys`](#modcmd-renamedbkeys), [`result2msa`](#modcmd-result2msa), [`rmdb`](#modcmd-rmdb), [`tsv2db`](#modcmd-tsv2db) |
+| Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`profiles`](#mod-profiles), [`result_handling`](#mod-result-handling), [`utilities`](#mod-utilities) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/pickconsensusrep.md), [Dependency map](../reference/dependency_map.md#cmd-pickconsensusrep).
+Reference links: [Full CLI](#refcmd-pickconsensusrep), [Dependency entry](#depcmd-pickconsensusrep).
 

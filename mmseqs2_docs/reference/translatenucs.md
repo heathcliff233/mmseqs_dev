@@ -1,30 +1,30 @@
-# `translatenucs`
+## `translatenucs` {#refcmd-translatenucs}
 
 Translate nucleotides to proteins.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`sequence_manipulation`](../submodules/sequence_manipulation.md) |
+| Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`multihitdb`](./multihitdb.md) |
+| Called by modules | [`multihitdb`](#refcmd-multihitdb) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `multihitdb.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -34,7 +34,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `--threads` | Number of CPU-cores used (all by default) |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]
@@ -54,7 +54,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/sequence_manipulation.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-translatenucs), [command reference index](#sec-command-reference), and [functional module page](#mod-sequence-manipulation).
 

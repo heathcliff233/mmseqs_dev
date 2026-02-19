@@ -1,30 +1,30 @@
-# `swapresults`
+## `swapresults` {#refcmd-swapresults}
 
 Transpose prefilter/alignment DB.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](../submodules/result_handling.md) |
+| Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_RESULT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-taxonomy`](./easy-taxonomy.md), [`linsearch`](./linsearch.md), [`rbh`](./rbh.md), [`search`](./search.md) |
+| Called by modules | [`easy-taxonomy`](#refcmd-easy-taxonomy), [`linsearch`](#refcmd-linsearch), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `easytaxonomy.sh`, `linsearch.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs swapresults <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -38,7 +38,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs swapresults <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]
@@ -59,7 +59,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/result_handling.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-swapresults), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
 

@@ -1,30 +1,30 @@
-# `align`
+## `align` {#refcmd-align}
 
 Optimal gapped local alignment.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](../submodules/alignment.md) |
+| Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_ALIGNMENT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`pickconsensusrep`](./pickconsensusrep.md), [`search`](./search.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`linclust`](#refcmd-linclust), [`linsearch`](#refcmd-linsearch), [`pickconsensusrep`](#refcmd-pickconsensusrep), [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `iterativepp.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `searchslicedtargetprofile.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--seq-id-mode` | 0: alignment length 1: shorter, 2: longer sequence |
 | `--alt-ali` | Show up to this many alternative alignments |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]
@@ -101,7 +101,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/alignment.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-align), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

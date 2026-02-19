@@ -1,30 +1,30 @@
-# `filterdb`
+## `filterdb` {#refcmd-filterdb}
 
 DB filtering by given conditions.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`utilities`](../submodules/utilities.md) |
+| Primary functional group | [`utilities`](#mod-utilities) |
 | Category flags | `COMMAND_DB` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`easy-taxonomy`](./easy-taxonomy.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`multihitdb`](./multihitdb.md), [`rbh`](./rbh.md), [`taxonomy`](./taxonomy.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`easy-taxonomy`](#refcmd-easy-taxonomy), [`linclust`](#refcmd-linclust), [`linsearch`](#refcmd-linsearch), [`multihitdb`](#refcmd-multihitdb), [`rbh`](#refcmd-rbh), [`taxonomy`](#refcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `cascaded_clustering.sh`, `easytaxonomy.sh`, `linclust.sh`, `linsearch.sh`, `multihitdb.sh`, `rbh.sh`, `taxonomy.sh`, `taxpercontig.sh`, `update_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs filterdb <i:resultDB> <o:resultDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--trim-to-one-column` | Output only the column specified by --filter-column |
 | `--extract-lines` | Extract n lines of each entry |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs filterdb <i:resultDB> <o:resultDB> [options]
@@ -88,7 +88,7 @@ examples:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/utilities.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-filterdb), [command reference index](#sec-command-reference), and [functional module page](#mod-utilities).
 

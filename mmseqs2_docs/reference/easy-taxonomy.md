@@ -1,30 +1,30 @@
-# `easy-taxonomy`
+## `easy-taxonomy` {#refcmd-easy-taxonomy}
 
 Taxonomic classification.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](../submodules/easy_workflows.md) |
+| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`addtaxonomy`](./addtaxonomy.md), [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`createtsv`](./createtsv.md), [`filterdb`](./filterdb.md), [`lca`](./lca.md), [`rmdb`](./rmdb.md), [`summarizealis`](./summarizealis.md), [`swapresults`](./swapresults.md), [`taxonomy`](./taxonomy.md), [`taxonomyreport`](./taxonomyreport.md) |
+| Calls modules | [`addtaxonomy`](#refcmd-addtaxonomy), [`convertalis`](#refcmd-convertalis), [`createdb`](#refcmd-createdb), [`createtsv`](#refcmd-createtsv), [`filterdb`](#refcmd-filterdb), [`lca`](#refcmd-lca), [`rmdb`](#refcmd-rmdb), [`summarizealis`](#refcmd-summarizealis), [`swapresults`](#refcmd-swapresults), [`taxonomy`](#refcmd-taxonomy), [`taxonomyreport`](#refcmd-taxonomyreport) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs easy-taxonomy <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <i:targetDB> <o:taxReports> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs easy-taxonomy <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <i:targetDB> <o:taxReports> <tmpDir> [options]
@@ -234,7 +234,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Breitwieser F, Soding J, Levy Karin E: Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, btab184 (2021)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/easy_workflows.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-taxonomy), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
 

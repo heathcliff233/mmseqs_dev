@@ -1,30 +1,30 @@
-# `offsetalignment`
+## `offsetalignment` {#refcmd-offsetalignment}
 
 Offset alignment by ORF start position.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`alignment`](../submodules/alignment.md) |
+| Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_RESULT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`linsearch`](./linsearch.md), [`search`](./search.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`linsearch`](#refcmd-linsearch), [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `blastn.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -36,7 +36,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--chain-alignments` | Chain overlapping alignments |
 | `--merge-query` | Combine ORFs/split sequences to a single entry |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]
@@ -55,7 +55,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/alignment.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-offsetalignment), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

@@ -1,30 +1,30 @@
-# `expandaln`
+## `expandaln` {#refcmd-expandaln}
 
 Expand an alignment result based on another.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](../submodules/alignment.md) |
+| Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](./search.md) |
+| Called by modules | [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `enrich.sh`, `iterativepp.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--pca` | Pseudo count admixture strength |
 | `--pcb` | Pseudo counts: Neff at half of maximum admixture (range 0.0-inf) |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]
@@ -88,7 +88,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/alignment.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-expandaln), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

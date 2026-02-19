@@ -1,30 +1,30 @@
-# `easy-rbh`
+## `easy-rbh` {#refcmd-easy-rbh}
 
 Find reciprocal best hit.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](../submodules/easy_workflows.md) |
+| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`rbh`](./rbh.md), [`rmdb`](./rmdb.md) |
+| Calls modules | [`convertalis`](#refcmd-convertalis), [`createdb`](#refcmd-createdb), [`rbh`](#refcmd-rbh), [`rmdb`](#refcmd-rmdb) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs easy-rbh <i:queryFastaFile1[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs easy-rbh <i:queryFastaFile1[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]
@@ -209,7 +209,7 @@ examples:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/easy_workflows.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-rbh), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
 

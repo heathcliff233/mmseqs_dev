@@ -1,30 +1,30 @@
-# `swapdb`
+## `swapdb` {#refcmd-swapdb}
 
 Transpose DB with integer values in first column.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`database`](../submodules/database.md) |
+| Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DB` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`multihitdb`](./multihitdb.md), [`taxonomy`](./taxonomy.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`multihitdb`](#refcmd-multihitdb), [`taxonomy`](#refcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `cascaded_clustering.sh`, `multihitdb.sh`, `taxpercontig.sh`, `update_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs swapdb <i:resultDB> <o:resultDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -33,7 +33,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs swapdb <i:resultDB> <o:resultDB> [options]
@@ -48,7 +48,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/database.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-swapdb), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
 

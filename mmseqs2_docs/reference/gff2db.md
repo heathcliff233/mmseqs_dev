@@ -1,18 +1,18 @@
-# `gff2db`
+## `gff2db` {#refcmd-gff2db}
 
 Extract regions from a sequence database based on a GFF3 file.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`utilities`](../submodules/utilities.md) |
+| Primary functional group | [`utilities`](#mod-utilities) |
 | Category flags | `COMMAND_SPECIAL` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,15 +20,15 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 No local help snapshot usage line is available.
 
-## Key Options
+### Key Options
 
 No parsed options are available for this command.
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```{=typst}
 #doc_warning[
@@ -36,7 +36,7 @@ Help snapshot missing in mmseqs_help_output. Refresh local snapshots before rely
 ]
 ```
 
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/utilities.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-gff2db), [command reference index](#sec-command-reference), and [functional module page](#mod-utilities).
 

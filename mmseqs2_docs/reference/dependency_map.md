@@ -1,4 +1,4 @@
-# MMseqs2 Dependency Map
+# MMseqs2 Dependency Map {#sec-dependency-map}
 
 This file is generated from `MMseqs2/src/MMseqsBase.cpp` and workflow scripts.
 
@@ -8,9 +8,9 @@ This file is generated from `MMseqs2/src/MMseqsBase.cpp` and workflow scripts.
 
 `n/a` in connection fields means no direct edge was resolved by static extraction.
 
-## Easy Workflows
+## Easy Workflows {#depgroup-easy-workflows}
 
-### `easy-cluster` {#cmd-easycluster}
+### `easy-cluster` {#depcmd-easy-cluster}
 
 Slower, sensitive clustering.
 
@@ -18,12 +18,13 @@ Slower, sensitive clustering.
 | :--- | :--- |
 | Layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Calls | [`cluster`](./cluster.md), [`createdb`](./createdb.md), [`createseqfiledb`](./createseqfiledb.md), [`createtsv`](./createtsv.md), [`result2flat`](./result2flat.md), [`result2repseq`](./result2repseq.md), [`rmdb`](./rmdb.md) |
+| Calls | [`cluster`](#depcmd-cluster), [`createdb`](#depcmd-createdb), [`createseqfiledb`](#depcmd-createseqfiledb), [`createtsv`](#depcmd-createtsv), [`result2flat`](#depcmd-result2flat), [`result2repseq`](#depcmd-result2repseq), [`rmdb`](#depcmd-rmdb) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./easy-cluster.md) |
+| Command reference | [Open page](#refcmd-easy-cluster) |
+| Functional module entry | [Open module page](#modcmd-easy-cluster) |
 
-### `easy-linclust` {#cmd-easylinclust}
+### `easy-linclust` {#depcmd-easy-linclust}
 
 Fast linear time cluster, less sensitive clustering.
 
@@ -31,12 +32,13 @@ Fast linear time cluster, less sensitive clustering.
 | :--- | :--- |
 | Layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Calls | [`createdb`](./createdb.md), [`createseqfiledb`](./createseqfiledb.md), [`createtsv`](./createtsv.md), [`linclust`](./linclust.md), [`result2flat`](./result2flat.md), [`result2repseq`](./result2repseq.md), [`rmdb`](./rmdb.md) |
+| Calls | [`createdb`](#depcmd-createdb), [`createseqfiledb`](#depcmd-createseqfiledb), [`createtsv`](#depcmd-createtsv), [`linclust`](#depcmd-linclust), [`result2flat`](#depcmd-result2flat), [`result2repseq`](#depcmd-result2repseq), [`rmdb`](#depcmd-rmdb) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./easy-linclust.md) |
+| Command reference | [Open page](#refcmd-easy-linclust) |
+| Functional module entry | [Open module page](#modcmd-easy-linclust) |
 
-### `easy-linsearch` {#cmd-easylinsearch}
+### `easy-linsearch` {#depcmd-easy-linsearch}
 
 Fast, less sensitive homology search.
 
@@ -44,12 +46,13 @@ Fast, less sensitive homology search.
 | :--- | :--- |
 | Layer | `workflow` |
 | Category flags | `COMMAND_EASY | COMMAND_EXPERT` |
-| Calls | [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`createlinindex`](./createlinindex.md), [`linsearch`](./linsearch.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`summarizeresult`](./summarizeresult.md) |
+| Calls | [`convertalis`](#depcmd-convertalis), [`createdb`](#depcmd-createdb), [`createlinindex`](#depcmd-createlinindex), [`linsearch`](#depcmd-linsearch), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search), [`summarizeresult`](#depcmd-summarizeresult) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./easy-linsearch.md) |
+| Command reference | [Open page](#refcmd-easy-linsearch) |
+| Functional module entry | [Open module page](#modcmd-easy-linsearch) |
 
-### `easy-rbh` {#cmd-easyrbh}
+### `easy-rbh` {#depcmd-easy-rbh}
 
 Find reciprocal best hit.
 
@@ -57,12 +60,13 @@ Find reciprocal best hit.
 | :--- | :--- |
 | Layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Calls | [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`rbh`](./rbh.md), [`rmdb`](./rmdb.md) |
+| Calls | [`convertalis`](#depcmd-convertalis), [`createdb`](#depcmd-createdb), [`rbh`](#depcmd-rbh), [`rmdb`](#depcmd-rmdb) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./easy-rbh.md) |
+| Command reference | [Open page](#refcmd-easy-rbh) |
+| Functional module entry | [Open module page](#modcmd-easy-rbh) |
 
-### `easy-search` {#cmd-easysearch}
+### `easy-search` {#depcmd-easy-search}
 
 Sensitive homology search.
 
@@ -70,12 +74,13 @@ Sensitive homology search.
 | :--- | :--- |
 | Layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Calls | [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`createlinindex`](./createlinindex.md), [`linsearch`](./linsearch.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`summarizeresult`](./summarizeresult.md) |
+| Calls | [`convertalis`](#depcmd-convertalis), [`createdb`](#depcmd-createdb), [`createlinindex`](#depcmd-createlinindex), [`linsearch`](#depcmd-linsearch), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search), [`summarizeresult`](#depcmd-summarizeresult) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./easy-search.md) |
+| Command reference | [Open page](#refcmd-easy-search) |
+| Functional module entry | [Open module page](#modcmd-easy-search) |
 
-### `easy-taxonomy` {#cmd-easytaxonomy}
+### `easy-taxonomy` {#depcmd-easy-taxonomy}
 
 Taxonomic classification.
 
@@ -83,14 +88,15 @@ Taxonomic classification.
 | :--- | :--- |
 | Layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Calls | [`addtaxonomy`](./addtaxonomy.md), [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`createtsv`](./createtsv.md), [`filterdb`](./filterdb.md), [`lca`](./lca.md), [`rmdb`](./rmdb.md), [`summarizealis`](./summarizealis.md), [`swapresults`](./swapresults.md), [`taxonomy`](./taxonomy.md), [`taxonomyreport`](./taxonomyreport.md) |
+| Calls | [`addtaxonomy`](#depcmd-addtaxonomy), [`convertalis`](#depcmd-convertalis), [`createdb`](#depcmd-createdb), [`createtsv`](#depcmd-createtsv), [`filterdb`](#depcmd-filterdb), [`lca`](#depcmd-lca), [`rmdb`](#depcmd-rmdb), [`summarizealis`](#depcmd-summarizealis), [`swapresults`](#depcmd-swapresults), [`taxonomy`](#depcmd-taxonomy), [`taxonomyreport`](#depcmd-taxonomyreport) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./easy-taxonomy.md) |
+| Command reference | [Open page](#refcmd-easy-taxonomy) |
+| Functional module entry | [Open module page](#modcmd-easy-taxonomy) |
 
-## Search Workflows
+## Search Workflows {#depgroup-search-workflows}
 
-### `linsearch` {#cmd-linsearch}
+### `linsearch` {#depcmd-linsearch}
 
 Fast, less sensitive homology search.
 
@@ -98,12 +104,13 @@ Fast, less sensitive homology search.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN|COMMAND_EXPERT` |
-| Calls | [`align`](./align.md), [`concatdbs`](./concatdbs.md), [`extractorfs`](./extractorfs.md), [`filterdb`](./filterdb.md), [`kmersearch`](./kmersearch.md), [`offsetalignment`](./offsetalignment.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md), [`swapresults`](./swapresults.md) |
-| Called by | [`easy-linsearch`](./easy-linsearch.md), [`easy-search`](./easy-search.md) |
+| Calls | [`align`](#depcmd-align), [`concatdbs`](#depcmd-concatdbs), [`extractorfs`](#depcmd-extractorfs), [`filterdb`](#depcmd-filterdb), [`kmersearch`](#depcmd-kmersearch), [`offsetalignment`](#depcmd-offsetalignment), [`rescorediagonal`](#depcmd-rescorediagonal), [`rmdb`](#depcmd-rmdb), [`swapresults`](#depcmd-swapresults) |
+| Called by | [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-search`](#depcmd-easy-search) |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./linsearch.md) |
+| Command reference | [Open page](#refcmd-linsearch) |
+| Functional module entry | [Open module page](#modcmd-linsearch) |
 
-### `map` {#cmd-map}
+### `map` {#depcmd-map}
 
 Map nearly identical sequences.
 
@@ -111,12 +118,13 @@ Map nearly identical sequences.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`search`](./search.md) |
+| Calls | [`search`](#depcmd-search) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./map.md) |
+| Command reference | [Open page](#refcmd-map) |
+| Functional module entry | [Open module page](#modcmd-map) |
 
-### `rbh` {#cmd-rbh}
+### `rbh` {#depcmd-rbh}
 
 Reciprocal best hit search.
 
@@ -124,12 +132,13 @@ Reciprocal best hit search.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`filterdb`](./filterdb.md), [`mergedbs`](./mergedbs.md), [`result2rbh`](./result2rbh.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`swapresults`](./swapresults.md) |
-| Called by | [`easy-rbh`](./easy-rbh.md) |
+| Calls | [`filterdb`](#depcmd-filterdb), [`mergedbs`](#depcmd-mergedbs), [`result2rbh`](#depcmd-result2rbh), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search), [`swapresults`](#depcmd-swapresults) |
+| Called by | [`easy-rbh`](#depcmd-easy-rbh) |
 | Workflow scripts | `easyrbh.sh` |
-| Command reference | [Open page](./rbh.md) |
+| Command reference | [Open page](#refcmd-rbh) |
+| Functional module entry | [Open module page](#modcmd-rbh) |
 
-### `search` {#cmd-search}
+### `search` {#depcmd-search}
 
 Sensitive homology search.
 
@@ -137,14 +146,15 @@ Sensitive homology search.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`align`](./align.md), [`createsubdb`](./createsubdb.md), [`expand2profile`](./expand2profile.md), [`expandaln`](./expandaln.md), [`extractframes`](./extractframes.md), [`extractorfs`](./extractorfs.md), [`filterresult`](./filterresult.md), [`lcaalign`](./lcaalign.md), [`mergedbs`](./mergedbs.md), [`mvdb`](./mvdb.md), [`offsetalignment`](./offsetalignment.md), [`prefilter`](./prefilter.md), [`profile2consensus`](./profile2consensus.md), [`rescorediagonal`](./rescorediagonal.md), [`result2profile`](./result2profile.md), [`result2stats`](./result2stats.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`splitsequence`](./splitsequence.md), [`subtractdbs`](./subtractdbs.md), [`swapresults`](./swapresults.md), [`ungappedprefilter`](./ungappedprefilter.md) |
-| Called by | [`clusterupdate`](./clusterupdate.md), [`easy-linsearch`](./easy-linsearch.md), [`easy-search`](./easy-search.md), [`map`](./map.md), [`multihitsearch`](./multihitsearch.md), [`rbh`](./rbh.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Calls | [`align`](#depcmd-align), [`createsubdb`](#depcmd-createsubdb), [`expand2profile`](#depcmd-expand2profile), [`expandaln`](#depcmd-expandaln), [`extractframes`](#depcmd-extractframes), [`extractorfs`](#depcmd-extractorfs), [`filterresult`](#depcmd-filterresult), [`lcaalign`](#depcmd-lcaalign), [`mergedbs`](#depcmd-mergedbs), [`mvdb`](#depcmd-mvdb), [`offsetalignment`](#depcmd-offsetalignment), [`prefilter`](#depcmd-prefilter), [`profile2consensus`](#depcmd-profile2consensus), [`rescorediagonal`](#depcmd-rescorediagonal), [`result2profile`](#depcmd-result2profile), [`result2stats`](#depcmd-result2stats), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search), [`splitsequence`](#depcmd-splitsequence), [`subtractdbs`](#depcmd-subtractdbs), [`swapresults`](#depcmd-swapresults), [`ungappedprefilter`](#depcmd-ungappedprefilter) |
+| Called by | [`clusterupdate`](#depcmd-clusterupdate), [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-search`](#depcmd-easy-search), [`map`](#depcmd-map), [`multihitsearch`](#depcmd-multihitsearch), [`rbh`](#depcmd-rbh), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `enrich.sh`, `iterativepp.sh`, `map.sh`, `multihitsearch.sh`, `rbh.sh`, `taxonomy.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./search.md) |
+| Command reference | [Open page](#refcmd-search) |
+| Functional module entry | [Open module page](#modcmd-search) |
 
-## Clustering
+## Clustering {#depgroup-clustering}
 
-### `clust` {#cmd-clust}
+### `clust` {#depcmd-clust}
 
 Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 
@@ -153,11 +163,12 @@ Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`linclust`](./linclust.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`linclust`](#depcmd-linclust) |
 | Workflow scripts | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
-| Command reference | [Open page](./clust.md) |
+| Command reference | [Open page](#refcmd-clust) |
+| Functional module entry | [Open module page](#modcmd-clust) |
 
-### `cluster` {#cmd-cluster}
+### `cluster` {#depcmd-cluster}
 
 Slower, sensitive clustering.
 
@@ -165,12 +176,13 @@ Slower, sensitive clustering.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`align`](./align.md), [`clust`](./clust.md), [`clusthash`](./clusthash.md), [`concatdbs`](./concatdbs.md), [`createsubdb`](./createsubdb.md), [`extractframes`](./extractframes.md), [`filterdb`](./filterdb.md), [`linclust`](./linclust.md), [`mergeclusters`](./mergeclusters.md), [`mergedbs`](./mergedbs.md), [`mvdb`](./mvdb.md), [`offsetalignment`](./offsetalignment.md), [`prefilter`](./prefilter.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md), [`subtractdbs`](./subtractdbs.md), [`swapdb`](./swapdb.md), [`tsv2db`](./tsv2db.md) |
-| Called by | [`clusterupdate`](./clusterupdate.md), [`easy-cluster`](./easy-cluster.md) |
+| Calls | [`align`](#depcmd-align), [`clust`](#depcmd-clust), [`clusthash`](#depcmd-clusthash), [`concatdbs`](#depcmd-concatdbs), [`createsubdb`](#depcmd-createsubdb), [`extractframes`](#depcmd-extractframes), [`filterdb`](#depcmd-filterdb), [`linclust`](#depcmd-linclust), [`mergeclusters`](#depcmd-mergeclusters), [`mergedbs`](#depcmd-mergedbs), [`mvdb`](#depcmd-mvdb), [`offsetalignment`](#depcmd-offsetalignment), [`prefilter`](#depcmd-prefilter), [`rescorediagonal`](#depcmd-rescorediagonal), [`rmdb`](#depcmd-rmdb), [`subtractdbs`](#depcmd-subtractdbs), [`swapdb`](#depcmd-swapdb), [`tsv2db`](#depcmd-tsv2db) |
+| Called by | [`clusterupdate`](#depcmd-clusterupdate), [`easy-cluster`](#depcmd-easy-cluster) |
 | Workflow scripts | `update_clustering.sh` |
-| Command reference | [Open page](./cluster.md) |
+| Command reference | [Open page](#refcmd-cluster) |
+| Functional module entry | [Open module page](#modcmd-cluster) |
 
-### `clusterupdate` {#cmd-clusterupdate}
+### `clusterupdate` {#depcmd-clusterupdate}
 
 Update previous clustering with new sequences.
 
@@ -178,12 +190,13 @@ Update previous clustering with new sequences.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`cluster`](./cluster.md), [`concatdbs`](./concatdbs.md), [`createsubdb`](./createsubdb.md), [`diffseqdbs`](./diffseqdbs.md), [`filterdb`](./filterdb.md), [`mergedbs`](./mergedbs.md), [`mvdb`](./mvdb.md), [`prefixid`](./prefixid.md), [`renamedbkeys`](./renamedbkeys.md), [`result2repseq`](./result2repseq.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`swapdb`](./swapdb.md) |
+| Calls | [`cluster`](#depcmd-cluster), [`concatdbs`](#depcmd-concatdbs), [`createsubdb`](#depcmd-createsubdb), [`diffseqdbs`](#depcmd-diffseqdbs), [`filterdb`](#depcmd-filterdb), [`mergedbs`](#depcmd-mergedbs), [`mvdb`](#depcmd-mvdb), [`prefixid`](#depcmd-prefixid), [`renamedbkeys`](#depcmd-renamedbkeys), [`result2repseq`](#depcmd-result2repseq), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search), [`swapdb`](#depcmd-swapdb) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./clusterupdate.md) |
+| Command reference | [Open page](#refcmd-clusterupdate) |
+| Functional module entry | [Open module page](#modcmd-clusterupdate) |
 
-### `clusthash` {#cmd-clusthash}
+### `clusthash` {#depcmd-clusthash}
 
 Hash-based clustering of equal length sequences.
 
@@ -192,11 +205,12 @@ Hash-based clustering of equal length sequences.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md) |
+| Called by | [`cluster`](#depcmd-cluster) |
 | Workflow scripts | `clustering.sh` |
-| Command reference | [Open page](./clusthash.md) |
+| Command reference | [Open page](#refcmd-clusthash) |
+| Functional module entry | [Open module page](#modcmd-clusthash) |
 
-### `linclust` {#cmd-linclust}
+### `linclust` {#depcmd-linclust}
 
 Fast, less sensitive clustering.
 
@@ -204,12 +218,13 @@ Fast, less sensitive clustering.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`align`](./align.md), [`clust`](./clust.md), [`createsubdb`](./createsubdb.md), [`filterdb`](./filterdb.md), [`kmermatcher`](./kmermatcher.md), [`mergeclusters`](./mergeclusters.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md) |
-| Called by | [`cluster`](./cluster.md), [`easy-linclust`](./easy-linclust.md) |
+| Calls | [`align`](#depcmd-align), [`clust`](#depcmd-clust), [`createsubdb`](#depcmd-createsubdb), [`filterdb`](#depcmd-filterdb), [`kmermatcher`](#depcmd-kmermatcher), [`mergeclusters`](#depcmd-mergeclusters), [`rescorediagonal`](#depcmd-rescorediagonal), [`rmdb`](#depcmd-rmdb) |
+| Called by | [`cluster`](#depcmd-cluster), [`easy-linclust`](#depcmd-easy-linclust) |
 | Workflow scripts | `cascaded_clustering.sh`, `nucleotide_clustering.sh` |
-| Command reference | [Open page](./linclust.md) |
+| Command reference | [Open page](#refcmd-linclust) |
+| Functional module entry | [Open module page](#modcmd-linclust) |
 
-### `mergeclusters` {#cmd-mergeclusters}
+### `mergeclusters` {#depcmd-mergeclusters}
 
 Merge multiple cascaded clustering steps.
 
@@ -218,11 +233,12 @@ Merge multiple cascaded clustering steps.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`linclust`](./linclust.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`linclust`](#depcmd-linclust) |
 | Workflow scripts | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
-| Command reference | [Open page](./mergeclusters.md) |
+| Command reference | [Open page](#refcmd-mergeclusters) |
+| Functional module entry | [Open module page](#modcmd-mergeclusters) |
 
-### `pickconsensusrep` {#cmd-pickconsensusrep}
+### `pickconsensusrep` {#depcmd-pickconsensusrep}
 
 Select new representatives for each cluster based on consensus.
 
@@ -230,14 +246,15 @@ Select new representatives for each cluster based on consensus.
 | :--- | :--- |
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
-| Calls | [`align`](./align.md), [`msa2profile`](./msa2profile.md), [`prefixid`](./prefixid.md), [`renamedbkeys`](./renamedbkeys.md), [`result2msa`](./result2msa.md), [`rmdb`](./rmdb.md), [`tsv2db`](./tsv2db.md) |
+| Calls | [`align`](#depcmd-align), [`msa2profile`](#depcmd-msa2profile), [`prefixid`](#depcmd-prefixid), [`renamedbkeys`](#depcmd-renamedbkeys), [`result2msa`](#depcmd-result2msa), [`rmdb`](#depcmd-rmdb), [`tsv2db`](#depcmd-tsv2db) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./pickconsensusrep.md) |
+| Command reference | [Open page](#refcmd-pickconsensusrep) |
+| Functional module entry | [Open module page](#modcmd-pickconsensusrep) |
 
-## Prefiltering
+## Prefiltering {#depgroup-prefiltering}
 
-### `countkmer` {#cmd-countkmer}
+### `countkmer` {#depcmd-countkmer}
 
 Count k-mers.
 
@@ -248,9 +265,10 @@ Count k-mers.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./countkmer.md) |
+| Command reference | [Open page](#refcmd-countkmer) |
+| Functional module entry | [Open module page](#modcmd-countkmer) |
 
-### `gappedprefilter` {#cmd-gappedprefilter}
+### `gappedprefilter` {#depcmd-gappedprefilter}
 
 Optimal Smith-Waterman-based prefiltering (slow).
 
@@ -261,9 +279,10 @@ Optimal Smith-Waterman-based prefiltering (slow).
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./gappedprefilter.md) |
+| Command reference | [Open page](#refcmd-gappedprefilter) |
+| Functional module entry | [Open module page](#modcmd-gappedprefilter) |
 
-### `kmermatcher` {#cmd-kmermatcher}
+### `kmermatcher` {#depcmd-kmermatcher}
 
 Find bottom-m-hashed k-mer matches within sequence DB.
 
@@ -272,11 +291,12 @@ Find bottom-m-hashed k-mer matches within sequence DB.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
 | Calls | `n/a` |
-| Called by | [`linclust`](./linclust.md) |
+| Called by | [`linclust`](#depcmd-linclust) |
 | Workflow scripts | `linclust.sh` |
-| Command reference | [Open page](./kmermatcher.md) |
+| Command reference | [Open page](#refcmd-kmermatcher) |
+| Functional module entry | [Open module page](#modcmd-kmermatcher) |
 
-### `kmersearch` {#cmd-kmersearch}
+### `kmersearch` {#depcmd-kmersearch}
 
 Find bottom-m-hashed k-mer matches between target and query DB.
 
@@ -285,11 +305,12 @@ Find bottom-m-hashed k-mer matches between target and query DB.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
 | Calls | `n/a` |
-| Called by | [`linsearch`](./linsearch.md) |
+| Called by | [`linsearch`](#depcmd-linsearch) |
 | Workflow scripts | `linsearch.sh` |
-| Command reference | [Open page](./kmersearch.md) |
+| Command reference | [Open page](#refcmd-kmersearch) |
+| Functional module entry | [Open module page](#modcmd-kmersearch) |
 
-### `prefilter` {#cmd-prefilter}
+### `prefilter` {#depcmd-prefilter}
 
 Double consecutive diagonal k-mer search.
 
@@ -298,11 +319,12 @@ Double consecutive diagonal k-mer search.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxpercontig.sh`, `translated_search.sh` |
-| Command reference | [Open page](./prefilter.md) |
+| Command reference | [Open page](#refcmd-prefilter) |
+| Functional module entry | [Open module page](#modcmd-prefilter) |
 
-### `ungappedprefilter` {#cmd-ungappedprefilter}
+### `ungappedprefilter` {#depcmd-ungappedprefilter}
 
 Optimal diagonal score search.
 
@@ -311,13 +333,14 @@ Optimal diagonal score search.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `blastp.sh`, `blastpgp.sh` |
-| Command reference | [Open page](./ungappedprefilter.md) |
+| Command reference | [Open page](#refcmd-ungappedprefilter) |
+| Functional module entry | [Open module page](#modcmd-ungappedprefilter) |
 
-## Alignment
+## Alignment {#depgroup-alignment}
 
-### `align` {#cmd-align}
+### `align` {#depcmd-align}
 
 Optimal gapped local alignment.
 
@@ -326,11 +349,12 @@ Optimal gapped local alignment.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`pickconsensusrep`](./pickconsensusrep.md), [`search`](./search.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`linclust`](#depcmd-linclust), [`linsearch`](#depcmd-linsearch), [`pickconsensusrep`](#depcmd-pickconsensusrep), [`search`](#depcmd-search) |
 | Workflow scripts | `iterativepp.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `searchslicedtargetprofile.sh` |
-| Command reference | [Open page](./align.md) |
+| Command reference | [Open page](#refcmd-align) |
+| Functional module entry | [Open module page](#modcmd-align) |
 
-### `alignall` {#cmd-alignall}
+### `alignall` {#depcmd-alignall}
 
 Within-result all-vs-all gapped local alignment.
 
@@ -341,9 +365,10 @@ Within-result all-vs-all gapped local alignment.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./alignall.md) |
+| Command reference | [Open page](#refcmd-alignall) |
+| Functional module entry | [Open module page](#modcmd-alignall) |
 
-### `alignbykmer` {#cmd-alignbykmer}
+### `alignbykmer` {#depcmd-alignbykmer}
 
 Heuristic gapped local k-mer based alignment.
 
@@ -354,9 +379,10 @@ Heuristic gapped local k-mer based alignment.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./alignbykmer.md) |
+| Command reference | [Open page](#refcmd-alignbykmer) |
+| Functional module entry | [Open module page](#modcmd-alignbykmer) |
 
-### `expandaln` {#cmd-expandaln}
+### `expandaln` {#depcmd-expandaln}
 
 Expand an alignment result based on another.
 
@@ -365,11 +391,12 @@ Expand an alignment result based on another.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `enrich.sh`, `iterativepp.sh` |
-| Command reference | [Open page](./expandaln.md) |
+| Command reference | [Open page](#refcmd-expandaln) |
+| Functional module entry | [Open module page](#modcmd-expandaln) |
 
-### `fwbw` {#cmd-fwbw}
+### `fwbw` {#depcmd-fwbw}
 
 Forward Backward Alignment.
 
@@ -380,9 +407,10 @@ Forward Backward Alignment.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./fwbw.md) |
+| Command reference | [Open page](#refcmd-fwbw) |
+| Functional module entry | [Open module page](#modcmd-fwbw) |
 
-### `offsetalignment` {#cmd-offsetalignment}
+### `offsetalignment` {#depcmd-offsetalignment}
 
 Offset alignment by ORF start position.
 
@@ -391,11 +419,12 @@ Offset alignment by ORF start position.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`linsearch`](./linsearch.md), [`search`](./search.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`linsearch`](#depcmd-linsearch), [`search`](#depcmd-search) |
 | Workflow scripts | `blastn.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
-| Command reference | [Open page](./offsetalignment.md) |
+| Command reference | [Open page](#refcmd-offsetalignment) |
+| Functional module entry | [Open module page](#modcmd-offsetalignment) |
 
-### `proteinaln2nucl` {#cmd-proteinaln2nucl}
+### `proteinaln2nucl` {#depcmd-proteinaln2nucl}
 
 Transform protein alignments to nucleotide alignments.
 
@@ -406,9 +435,10 @@ Transform protein alignments to nucleotide alignments.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./proteinaln2nucl.md) |
+| Command reference | [Open page](#refcmd-proteinaln2nucl) |
+| Functional module entry | [Open module page](#modcmd-proteinaln2nucl) |
 
-### `rescorediagonal` {#cmd-rescorediagonal}
+### `rescorediagonal` {#depcmd-rescorediagonal}
 
 Compute sequence identity for diagonal.
 
@@ -417,11 +447,12 @@ Compute sequence identity for diagonal.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`linclust`](#depcmd-linclust), [`linsearch`](#depcmd-linsearch), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `linclust.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh` |
-| Command reference | [Open page](./rescorediagonal.md) |
+| Command reference | [Open page](#refcmd-rescorediagonal) |
+| Functional module entry | [Open module page](#modcmd-rescorediagonal) |
 
-### `transitivealign` {#cmd-transitivealign}
+### `transitivealign` {#depcmd-transitivealign}
 
 Transfer alignments via transitivity.
 
@@ -432,11 +463,12 @@ Transfer alignments via transitivity.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./transitivealign.md) |
+| Command reference | [Open page](#refcmd-transitivealign) |
+| Functional module entry | [Open module page](#modcmd-transitivealign) |
 
-## Profiles
+## Profiles {#depgroup-profiles}
 
-### `convertca3m` {#cmd-convertca3m}
+### `convertca3m` {#depcmd-convertca3m}
 
 Convert a cA3M DB to a result DB.
 
@@ -447,9 +479,10 @@ Convert a cA3M DB to a result DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./convertca3m.md) |
+| Command reference | [Open page](#refcmd-convertca3m) |
+| Functional module entry | [Open module page](#modcmd-convertca3m) |
 
-### `convertmsa` {#cmd-convertmsa}
+### `convertmsa` {#depcmd-convertmsa}
 
 Convert Stockholm/PFAM MSA file to a MSA DB.
 
@@ -458,11 +491,12 @@ Convert Stockholm/PFAM MSA file to a MSA DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 | Calls | `n/a` |
-| Called by | [`databases`](./databases.md) |
+| Called by | [`databases`](#depcmd-databases) |
 | Workflow scripts | `databases.sh` |
-| Command reference | [Open page](./convertmsa.md) |
+| Command reference | [Open page](#refcmd-convertmsa) |
+| Functional module entry | [Open module page](#modcmd-convertmsa) |
 
-### `convertprofiledb` {#cmd-convertprofiledb}
+### `convertprofiledb` {#depcmd-convertprofiledb}
 
 Convert a HH-suite HHM DB to a profile DB.
 
@@ -473,9 +507,10 @@ Convert a HH-suite HHM DB to a profile DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./convertprofiledb.md) |
+| Command reference | [Open page](#refcmd-convertprofiledb) |
+| Functional module entry | [Open module page](#modcmd-convertprofiledb) |
 
-### `expand2profile` {#cmd-expand2profile}
+### `expand2profile` {#depcmd-expand2profile}
 
 Expand an alignment result based on another and create a profile.
 
@@ -484,11 +519,12 @@ Expand an alignment result based on another and create a profile.
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `iterativepp.sh` |
-| Command reference | [Open page](./expand2profile.md) |
+| Command reference | [Open page](#refcmd-expand2profile) |
+| Functional module entry | [Open module page](#modcmd-expand2profile) |
 
-### `msa2profile` {#cmd-msa2profile}
+### `msa2profile` {#depcmd-msa2profile}
 
 Convert a MSA DB to a profile DB.
 
@@ -497,11 +533,12 @@ Convert a MSA DB to a profile DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE | COMMAND_DATABASE_CREATION` |
 | Calls | `n/a` |
-| Called by | [`databases`](./databases.md), [`pickconsensusrep`](./pickconsensusrep.md) |
+| Called by | [`databases`](#depcmd-databases), [`pickconsensusrep`](#depcmd-pickconsensusrep) |
 | Workflow scripts | `databases.sh`, `pickconsensusrep.sh` |
-| Command reference | [Open page](./msa2profile.md) |
+| Command reference | [Open page](#refcmd-msa2profile) |
+| Functional module entry | [Open module page](#modcmd-msa2profile) |
 
-### `msa2result` {#cmd-msa2result}
+### `msa2result` {#depcmd-msa2result}
 
 Convert a MSA DB to a profile DB.
 
@@ -512,9 +549,10 @@ Convert a MSA DB to a profile DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./msa2result.md) |
+| Command reference | [Open page](#refcmd-msa2result) |
+| Functional module entry | [Open module page](#modcmd-msa2result) |
 
-### `pairaln` {#cmd-pairaln}
+### `pairaln` {#depcmd-pairaln}
 
 Pair sequences to match best protein A and B from a species.
 
@@ -525,9 +563,10 @@ Pair sequences to match best protein A and B from a species.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./pairaln.md) |
+| Command reference | [Open page](#refcmd-pairaln) |
+| Functional module entry | [Open module page](#modcmd-pairaln) |
 
-### `profile2consensus` {#cmd-profile2consensus}
+### `profile2consensus` {#depcmd-profile2consensus}
 
 Extract consensus sequence DB from a profile DB.
 
@@ -536,11 +575,12 @@ Extract consensus sequence DB from a profile DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `iterativepp.sh` |
-| Command reference | [Open page](./profile2consensus.md) |
+| Command reference | [Open page](#refcmd-profile2consensus) |
+| Functional module entry | [Open module page](#modcmd-profile2consensus) |
 
-### `profile2neff` {#cmd-profile2neff}
+### `profile2neff` {#depcmd-profile2neff}
 
 Convert a profile DB to a tab-separated list of Neff scores.
 
@@ -551,9 +591,10 @@ Convert a profile DB to a tab-separated list of Neff scores.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./profile2neff.md) |
+| Command reference | [Open page](#refcmd-profile2neff) |
+| Functional module entry | [Open module page](#modcmd-profile2neff) |
 
-### `profile2pssm` {#cmd-profile2pssm}
+### `profile2pssm` {#depcmd-profile2pssm}
 
 Convert a profile DB to a tab-separated PSSM file.
 
@@ -564,9 +605,10 @@ Convert a profile DB to a tab-separated PSSM file.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./profile2pssm.md) |
+| Command reference | [Open page](#refcmd-profile2pssm) |
+| Functional module entry | [Open module page](#modcmd-profile2pssm) |
 
-### `profile2repseq` {#cmd-profile2repseq}
+### `profile2repseq` {#depcmd-profile2repseq}
 
 Extract representative sequence DB from a profile DB.
 
@@ -577,9 +619,10 @@ Extract representative sequence DB from a profile DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./profile2repseq.md) |
+| Command reference | [Open page](#refcmd-profile2repseq) |
+| Functional module entry | [Open module page](#modcmd-profile2repseq) |
 
-### `result2profile` {#cmd-result2profile}
+### `result2profile` {#depcmd-result2profile}
 
 Compute profile DB from a result DB.
 
@@ -588,11 +631,12 @@ Compute profile DB from a result DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `blastpgp.sh`, `enrich.sh` |
-| Command reference | [Open page](./result2profile.md) |
+| Command reference | [Open page](#refcmd-result2profile) |
+| Functional module entry | [Open module page](#modcmd-result2profile) |
 
-### `sequence2profile` {#cmd-sequence2profile}
+### `sequence2profile` {#depcmd-sequence2profile}
 
 Turn sequence into profile by adding context specific pseudo counts.
 
@@ -603,9 +647,10 @@ Turn sequence into profile by adding context specific pseudo counts.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./sequence2profile.md) |
+| Command reference | [Open page](#refcmd-sequence2profile) |
+| Functional module entry | [Open module page](#modcmd-sequence2profile) |
 
-### `tsv2exprofiledb` {#cmd-tsv2exprofiledb}
+### `tsv2exprofiledb` {#depcmd-tsv2exprofiledb}
 
 Create a expandable profile db from TSV files.
 
@@ -613,14 +658,15 @@ Create a expandable profile db from TSV files.
 | :--- | :--- |
 | Layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Calls | [`aliasdb`](./aliasdb.md), [`compress`](./compress.md), [`mvdb`](./mvdb.md), [`rmdb`](./rmdb.md), [`tsv2db`](./tsv2db.md) |
+| Calls | [`aliasdb`](#depcmd-aliasdb), [`compress`](#depcmd-compress), [`mvdb`](#depcmd-mvdb), [`rmdb`](#depcmd-rmdb), [`tsv2db`](#depcmd-tsv2db) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./tsv2exprofiledb.md) |
+| Command reference | [Open page](#refcmd-tsv2exprofiledb) |
+| Functional module entry | [Open module page](#modcmd-tsv2exprofiledb) |
 
-## Database
+## Database {#depgroup-database}
 
-### `aliasdb` {#cmd-aliasdb}
+### `aliasdb` {#depcmd-aliasdb}
 
 Create relative symlink of DB to another name in the same folder.
 
@@ -629,11 +675,12 @@ Create relative symlink of DB to another name in the same folder.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
 | Calls | `n/a` |
-| Called by | [`tsv2exprofiledb`](./tsv2exprofiledb.md) |
+| Called by | [`tsv2exprofiledb`](#depcmd-tsv2exprofiledb) |
 | Workflow scripts | `tsv2exprofiledb.sh` |
-| Command reference | [Open page](./aliasdb.md) |
+| Command reference | [Open page](#refcmd-aliasdb) |
+| Functional module entry | [Open module page](#modcmd-aliasdb) |
 
-### `concatdbs` {#cmd-concatdbs}
+### `concatdbs` {#depcmd-concatdbs}
 
 Concatenate two DBs, giving new IDs to entries from 2nd DB.
 
@@ -642,11 +689,12 @@ Concatenate two DBs, giving new IDs to entries from 2nd DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`linsearch`](./linsearch.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`linsearch`](#depcmd-linsearch) |
 | Workflow scripts | `linsearch.sh`, `nucleotide_clustering.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./concatdbs.md) |
+| Command reference | [Open page](#refcmd-concatdbs) |
+| Functional module entry | [Open module page](#modcmd-concatdbs) |
 
-### `cpdb` {#cmd-cpdb}
+### `cpdb` {#depcmd-cpdb}
 
 Copy a DB.
 
@@ -657,9 +705,10 @@ Copy a DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./cpdb.md) |
+| Command reference | [Open page](#refcmd-cpdb) |
+| Functional module entry | [Open module page](#modcmd-cpdb) |
 
-### `createdb` {#cmd-createdb}
+### `createdb` {#depcmd-createdb}
 
 Convert FASTA/Q file(s) to a sequence DB.
 
@@ -668,11 +717,12 @@ Convert FASTA/Q file(s) to a sequence DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 | Calls | `n/a` |
-| Called by | [`databases`](./databases.md), [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md), [`easy-linsearch`](./easy-linsearch.md), [`easy-rbh`](./easy-rbh.md), [`easy-search`](./easy-search.md), [`easy-taxonomy`](./easy-taxonomy.md), [`multihitdb`](./multihitdb.md) |
+| Called by | [`databases`](#depcmd-databases), [`easy-cluster`](#depcmd-easy-cluster), [`easy-linclust`](#depcmd-easy-linclust), [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-rbh`](#depcmd-easy-rbh), [`easy-search`](#depcmd-easy-search), [`easy-taxonomy`](#depcmd-easy-taxonomy), [`multihitdb`](#depcmd-multihitdb) |
 | Workflow scripts | `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `multihitdb.sh` |
-| Command reference | [Open page](./createdb.md) |
+| Command reference | [Open page](#refcmd-createdb) |
+| Functional module entry | [Open module page](#modcmd-createdb) |
 
-### `createindex` {#cmd-createindex}
+### `createindex` {#depcmd-createindex}
 
 Store precomputed index on disk to reduce search overhead.
 
@@ -680,12 +730,13 @@ Store precomputed index on disk to reduce search overhead.
 | :--- | :--- |
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Calls | [`extractframes`](./extractframes.md), [`extractorfs`](./extractorfs.md), [`rmdb`](./rmdb.md), [`splitsequence`](./splitsequence.md) |
+| Calls | [`extractframes`](#depcmd-extractframes), [`extractorfs`](#depcmd-extractorfs), [`rmdb`](#depcmd-rmdb), [`splitsequence`](#depcmd-splitsequence) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./createindex.md) |
+| Command reference | [Open page](#refcmd-createindex) |
+| Functional module entry | [Open module page](#modcmd-createindex) |
 
-### `createlinindex` {#cmd-createlinindex}
+### `createlinindex` {#depcmd-createlinindex}
 
 Create linsearch index.
 
@@ -693,12 +744,13 @@ Create linsearch index.
 | :--- | :--- |
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
-| Calls | [`extractframes`](./extractframes.md), [`extractorfs`](./extractorfs.md), [`rmdb`](./rmdb.md), [`splitsequence`](./splitsequence.md) |
-| Called by | [`easy-linsearch`](./easy-linsearch.md), [`easy-search`](./easy-search.md) |
+| Calls | [`extractframes`](#depcmd-extractframes), [`extractorfs`](#depcmd-extractorfs), [`rmdb`](#depcmd-rmdb), [`splitsequence`](#depcmd-splitsequence) |
+| Called by | [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-search`](#depcmd-easy-search) |
 | Workflow scripts | `easysearch.sh` |
-| Command reference | [Open page](./createlinindex.md) |
+| Command reference | [Open page](#refcmd-createlinindex) |
+| Functional module entry | [Open module page](#modcmd-createlinindex) |
 
-### `createsubdb` {#cmd-createsubdb}
+### `createsubdb` {#depcmd-createsubdb}
 
 Create a subset of a DB from list of DB keys.
 
@@ -707,11 +759,12 @@ Create a subset of a DB from list of DB keys.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`linclust`](./linclust.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`linclust`](#depcmd-linclust), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `blastp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh`, `translated_search.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./createsubdb.md) |
+| Command reference | [Open page](#refcmd-createsubdb) |
+| Functional module entry | [Open module page](#modcmd-createsubdb) |
 
-### `databases` {#cmd-databases}
+### `databases` {#depcmd-databases}
 
 List and download databases.
 
@@ -719,12 +772,13 @@ List and download databases.
 | :--- | :--- |
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Calls | [`convertmsa`](./convertmsa.md), [`createdb`](./createdb.md), [`createtaxdb`](./createtaxdb.md), [`msa2profile`](./msa2profile.md), [`nrtotaxmapping`](./nrtotaxmapping.md), [`prefixid`](./prefixid.md), [`rmdb`](./rmdb.md), [`tar2db`](./tar2db.md) |
+| Calls | [`convertmsa`](#depcmd-convertmsa), [`createdb`](#depcmd-createdb), [`createtaxdb`](#depcmd-createtaxdb), [`msa2profile`](#depcmd-msa2profile), [`nrtotaxmapping`](#depcmd-nrtotaxmapping), [`prefixid`](#depcmd-prefixid), [`rmdb`](#depcmd-rmdb), [`tar2db`](#depcmd-tar2db) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./databases.md) |
+| Command reference | [Open page](#refcmd-databases) |
+| Functional module entry | [Open module page](#modcmd-databases) |
 
-### `db2tar` {#cmd-db2tar}
+### `db2tar` {#depcmd-db2tar}
 
 Archive contents of a DB to a tar archive.
 
@@ -735,9 +789,10 @@ Archive contents of a DB to a tar archive.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./db2tar.md) |
+| Command reference | [Open page](#refcmd-db2tar) |
+| Functional module entry | [Open module page](#modcmd-db2tar) |
 
-### `lndb` {#cmd-lndb}
+### `lndb` {#depcmd-lndb}
 
 Symlink a DB.
 
@@ -748,9 +803,10 @@ Symlink a DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./lndb.md) |
+| Command reference | [Open page](#refcmd-lndb) |
+| Functional module entry | [Open module page](#modcmd-lndb) |
 
-### `mergedbs` {#cmd-mergedbs}
+### `mergedbs` {#depcmd-mergedbs}
 
 Merge entries from multiple DBs.
 
@@ -759,11 +815,12 @@ Merge entries from multiple DBs.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`rbh`](./rbh.md), [`search`](./search.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`rbh`](#depcmd-rbh), [`search`](#depcmd-search) |
 | Workflow scripts | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./mergedbs.md) |
+| Command reference | [Open page](#refcmd-mergedbs) |
+| Functional module entry | [Open module page](#modcmd-mergedbs) |
 
-### `mvdb` {#cmd-mvdb}
+### `mvdb` {#depcmd-mvdb}
 
 Move a DB.
 
@@ -772,11 +829,12 @@ Move a DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md), [`tsv2exprofiledb`](./tsv2exprofiledb.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy), [`tsv2exprofiledb`](#depcmd-tsv2exprofiledb) |
 | Workflow scripts | `blastp.sh`, `cascaded_clustering.sh`, `searchslicedtargetprofile.sh`, `taxonomy.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./mvdb.md) |
+| Command reference | [Open page](#refcmd-mvdb) |
+| Functional module entry | [Open module page](#modcmd-mvdb) |
 
-### `renamedbkeys` {#cmd-renamedbkeys}
+### `renamedbkeys` {#depcmd-renamedbkeys}
 
 Create a new DB with original keys renamed.
 
@@ -785,11 +843,12 @@ Create a new DB with original keys renamed.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
 | Calls | `n/a` |
-| Called by | [`clusterupdate`](./clusterupdate.md), [`pickconsensusrep`](./pickconsensusrep.md) |
+| Called by | [`clusterupdate`](#depcmd-clusterupdate), [`pickconsensusrep`](#depcmd-pickconsensusrep) |
 | Workflow scripts | `update_clustering.sh` |
-| Command reference | [Open page](./renamedbkeys.md) |
+| Command reference | [Open page](#refcmd-renamedbkeys) |
+| Functional module entry | [Open module page](#modcmd-renamedbkeys) |
 
-### `rmdb` {#cmd-rmdb}
+### `rmdb` {#depcmd-rmdb}
 
 Remove a DB.
 
@@ -798,11 +857,12 @@ Remove a DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`createindex`](./createindex.md), [`createlinindex`](./createlinindex.md), [`databases`](./databases.md), [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md), [`easy-linsearch`](./easy-linsearch.md), [`easy-rbh`](./easy-rbh.md), [`easy-search`](./easy-search.md), [`easy-taxonomy`](./easy-taxonomy.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`multihitsearch`](./multihitsearch.md), [`pickconsensusrep`](./pickconsensusrep.md), [`rbh`](./rbh.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md), [`tsv2exprofiledb`](./tsv2exprofiledb.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`createindex`](#depcmd-createindex), [`createlinindex`](#depcmd-createlinindex), [`databases`](#depcmd-databases), [`easy-cluster`](#depcmd-easy-cluster), [`easy-linclust`](#depcmd-easy-linclust), [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-rbh`](#depcmd-easy-rbh), [`easy-search`](#depcmd-easy-search), [`easy-taxonomy`](#depcmd-easy-taxonomy), [`linclust`](#depcmd-linclust), [`linsearch`](#depcmd-linsearch), [`multihitsearch`](#depcmd-multihitsearch), [`pickconsensusrep`](#depcmd-pickconsensusrep), [`rbh`](#depcmd-rbh), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy), [`tsv2exprofiledb`](#depcmd-tsv2exprofiledb) |
 | Workflow scripts | `blastn.sh`, `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `createindex.sh`, `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `iterativepp.sh`, `linclust.sh`, `linsearch.sh`, `multihitsearch.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxonomy.sh`, `taxpercontig.sh`, `translated_search.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./rmdb.md) |
+| Command reference | [Open page](#refcmd-rmdb) |
+| Functional module entry | [Open module page](#modcmd-rmdb) |
 
-### `splitdb` {#cmd-splitdb}
+### `splitdb` {#depcmd-splitdb}
 
 Split DB into subsets.
 
@@ -813,9 +873,10 @@ Split DB into subsets.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./splitdb.md) |
+| Command reference | [Open page](#refcmd-splitdb) |
+| Functional module entry | [Open module page](#modcmd-splitdb) |
 
-### `splitsequence` {#cmd-splitsequence}
+### `splitsequence` {#depcmd-splitsequence}
 
 Split sequences by length.
 
@@ -824,11 +885,12 @@ Split sequences by length.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
 | Calls | `n/a` |
-| Called by | [`createindex`](./createindex.md), [`createlinindex`](./createlinindex.md), [`search`](./search.md) |
+| Called by | [`createindex`](#depcmd-createindex), [`createlinindex`](#depcmd-createlinindex), [`search`](#depcmd-search) |
 | Workflow scripts | `blastn.sh`, `createindex.sh` |
-| Command reference | [Open page](./splitsequence.md) |
+| Command reference | [Open page](#refcmd-splitsequence) |
+| Functional module entry | [Open module page](#modcmd-splitsequence) |
 
-### `subtractdbs` {#cmd-subtractdbs}
+### `subtractdbs` {#depcmd-subtractdbs}
 
 Remove all entries from first DB occurring in second DB by key.
 
@@ -837,11 +899,12 @@ Remove all entries from first DB occurring in second DB by key.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`search`](./search.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`search`](#depcmd-search) |
 | Workflow scripts | `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh` |
-| Command reference | [Open page](./subtractdbs.md) |
+| Command reference | [Open page](#refcmd-subtractdbs) |
+| Functional module entry | [Open module page](#modcmd-subtractdbs) |
 
-### `swapdb` {#cmd-swapdb}
+### `swapdb` {#depcmd-swapdb}
 
 Transpose DB with integer values in first column.
 
@@ -850,11 +913,12 @@ Transpose DB with integer values in first column.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`multihitdb`](./multihitdb.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`multihitdb`](#depcmd-multihitdb), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `cascaded_clustering.sh`, `multihitdb.sh`, `taxpercontig.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./swapdb.md) |
+| Command reference | [Open page](#refcmd-swapdb) |
+| Functional module entry | [Open module page](#modcmd-swapdb) |
 
-### `tar2db` {#cmd-tar2db}
+### `tar2db` {#depcmd-tar2db}
 
 Convert content of tar archives to any DB.
 
@@ -863,11 +927,12 @@ Convert content of tar archives to any DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`databases`](./databases.md) |
+| Called by | [`databases`](#depcmd-databases) |
 | Workflow scripts | `databases.sh` |
-| Command reference | [Open page](./tar2db.md) |
+| Command reference | [Open page](#refcmd-tar2db) |
+| Functional module entry | [Open module page](#modcmd-tar2db) |
 
-### `tsv2db` {#cmd-tsv2db}
+### `tsv2db` {#depcmd-tsv2db}
 
 Convert a TSV file to any DB.
 
@@ -876,13 +941,14 @@ Convert a TSV file to any DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`multihitdb`](./multihitdb.md), [`pickconsensusrep`](./pickconsensusrep.md), [`tsv2exprofiledb`](./tsv2exprofiledb.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`multihitdb`](#depcmd-multihitdb), [`pickconsensusrep`](#depcmd-pickconsensusrep), [`tsv2exprofiledb`](#depcmd-tsv2exprofiledb) |
 | Workflow scripts | `cascaded_clustering.sh`, `multihitdb.sh`, `pickconsensusrep.sh`, `tsv2exprofiledb.sh` |
-| Command reference | [Open page](./tsv2db.md) |
+| Command reference | [Open page](#refcmd-tsv2db) |
+| Functional module entry | [Open module page](#modcmd-tsv2db) |
 
-## Result Handling
+## Result Handling {#depgroup-result-handling}
 
-### `convert2fasta` {#cmd-convert2fasta}
+### `convert2fasta` {#depcmd-convert2fasta}
 
 Convert sequence DB to FASTA format.
 
@@ -893,9 +959,10 @@ Convert sequence DB to FASTA format.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./convert2fasta.md) |
+| Command reference | [Open page](#refcmd-convert2fasta) |
+| Functional module entry | [Open module page](#modcmd-convert2fasta) |
 
-### `convertalis` {#cmd-convertalis}
+### `convertalis` {#depcmd-convertalis}
 
 Convert alignment DB to BLAST-tab, SAM or custom format.
 
@@ -904,11 +971,12 @@ Convert alignment DB to BLAST-tab, SAM or custom format.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
 | Calls | `n/a` |
-| Called by | [`easy-linsearch`](./easy-linsearch.md), [`easy-rbh`](./easy-rbh.md), [`easy-search`](./easy-search.md), [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by | [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-rbh`](#depcmd-easy-rbh), [`easy-search`](#depcmd-easy-search), [`easy-taxonomy`](#depcmd-easy-taxonomy) |
 | Workflow scripts | `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh` |
-| Command reference | [Open page](./convertalis.md) |
+| Command reference | [Open page](#refcmd-convertalis) |
+| Functional module entry | [Open module page](#modcmd-convertalis) |
 
-### `createseqfiledb` {#cmd-createseqfiledb}
+### `createseqfiledb` {#depcmd-createseqfiledb}
 
 Create a DB of unaligned FASTA entries.
 
@@ -917,11 +985,12 @@ Create a DB of unaligned FASTA entries.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md) |
+| Called by | [`easy-cluster`](#depcmd-easy-cluster), [`easy-linclust`](#depcmd-easy-linclust) |
 | Workflow scripts | `easycluster.sh` |
-| Command reference | [Open page](./createseqfiledb.md) |
+| Command reference | [Open page](#refcmd-createseqfiledb) |
+| Functional module entry | [Open module page](#modcmd-createseqfiledb) |
 
-### `createtsv` {#cmd-createtsv}
+### `createtsv` {#depcmd-createtsv}
 
 Convert result DB to tab-separated flat file.
 
@@ -930,11 +999,12 @@ Convert result DB to tab-separated flat file.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
 | Calls | `n/a` |
-| Called by | [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md), [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by | [`easy-cluster`](#depcmd-easy-cluster), [`easy-linclust`](#depcmd-easy-linclust), [`easy-taxonomy`](#depcmd-easy-taxonomy) |
 | Workflow scripts | `easycluster.sh`, `easytaxonomy.sh` |
-| Command reference | [Open page](./createtsv.md) |
+| Command reference | [Open page](#refcmd-createtsv) |
+| Functional module entry | [Open module page](#modcmd-createtsv) |
 
-### `extractdomains` {#cmd-extractdomains}
+### `extractdomains` {#depcmd-extractdomains}
 
 Extract highest scoring alignment regions for each sequence from BLAST-tab file.
 
@@ -945,9 +1015,10 @@ Extract highest scoring alignment regions for each sequence from BLAST-tab file.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./extractdomains.md) |
+| Command reference | [Open page](#refcmd-extractdomains) |
+| Functional module entry | [Open module page](#modcmd-extractdomains) |
 
-### `filterresult` {#cmd-filterresult}
+### `filterresult` {#depcmd-filterresult}
 
 Pairwise alignment result filter.
 
@@ -956,11 +1027,12 @@ Pairwise alignment result filter.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `searchslicedtargetprofile.sh` |
-| Command reference | [Open page](./filterresult.md) |
+| Command reference | [Open page](#refcmd-filterresult) |
+| Functional module entry | [Open module page](#modcmd-filterresult) |
 
-### `result2dnamsa` {#cmd-result2dnamsa}
+### `result2dnamsa` {#depcmd-result2dnamsa}
 
 Compute MSA DB with out insertions in the query for DNA sequences.
 
@@ -971,9 +1043,10 @@ Compute MSA DB with out insertions in the query for DNA sequences.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./result2dnamsa.md) |
+| Command reference | [Open page](#refcmd-result2dnamsa) |
+| Functional module entry | [Open module page](#modcmd-result2dnamsa) |
 
-### `result2flat` {#cmd-result2flat}
+### `result2flat` {#depcmd-result2flat}
 
 Create flat file by adding FASTA headers to DB entries.
 
@@ -982,11 +1055,12 @@ Create flat file by adding FASTA headers to DB entries.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md) |
+| Called by | [`easy-cluster`](#depcmd-easy-cluster), [`easy-linclust`](#depcmd-easy-linclust) |
 | Workflow scripts | `easycluster.sh` |
-| Command reference | [Open page](./result2flat.md) |
+| Command reference | [Open page](#refcmd-result2flat) |
+| Functional module entry | [Open module page](#modcmd-result2flat) |
 
-### `result2msa` {#cmd-result2msa}
+### `result2msa` {#depcmd-result2msa}
 
 Compute MSA DB from a result DB.
 
@@ -995,11 +1069,12 @@ Compute MSA DB from a result DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`pickconsensusrep`](./pickconsensusrep.md) |
+| Called by | [`pickconsensusrep`](#depcmd-pickconsensusrep) |
 | Workflow scripts | `pickconsensusrep.sh` |
-| Command reference | [Open page](./result2msa.md) |
+| Command reference | [Open page](#refcmd-result2msa) |
+| Functional module entry | [Open module page](#modcmd-result2msa) |
 
-### `result2rbh` {#cmd-result2rbh}
+### `result2rbh` {#depcmd-result2rbh}
 
 Filter a merged result DB to retain only reciprocal best hits.
 
@@ -1008,11 +1083,12 @@ Filter a merged result DB to retain only reciprocal best hits.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`rbh`](./rbh.md) |
+| Called by | [`rbh`](#depcmd-rbh) |
 | Workflow scripts | `rbh.sh` |
-| Command reference | [Open page](./result2rbh.md) |
+| Command reference | [Open page](#refcmd-result2rbh) |
+| Functional module entry | [Open module page](#modcmd-result2rbh) |
 
-### `result2repseq` {#cmd-result2repseq}
+### `result2repseq` {#depcmd-result2repseq}
 
 Get representative sequences from result DB.
 
@@ -1021,11 +1097,12 @@ Get representative sequences from result DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`clusterupdate`](./clusterupdate.md), [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md) |
+| Called by | [`clusterupdate`](#depcmd-clusterupdate), [`easy-cluster`](#depcmd-easy-cluster), [`easy-linclust`](#depcmd-easy-linclust) |
 | Workflow scripts | `easycluster.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./result2repseq.md) |
+| Command reference | [Open page](#refcmd-result2repseq) |
+| Functional module entry | [Open module page](#modcmd-result2repseq) |
 
-### `result2stats` {#cmd-result2stats}
+### `result2stats` {#depcmd-result2stats}
 
 Compute statistics for each entry in a DB.
 
@@ -1034,11 +1111,12 @@ Compute statistics for each entry in a DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`multihitdb`](./multihitdb.md), [`search`](./search.md) |
+| Called by | [`multihitdb`](#depcmd-multihitdb), [`search`](#depcmd-search) |
 | Workflow scripts | `multihitdb.sh`, `searchslicedtargetprofile.sh` |
-| Command reference | [Open page](./result2stats.md) |
+| Command reference | [Open page](#refcmd-result2stats) |
+| Functional module entry | [Open module page](#modcmd-result2stats) |
 
-### `sortresult` {#cmd-sortresult}
+### `sortresult` {#depcmd-sortresult}
 
 Sort a result DB in the same order as the prefilter or align module.
 
@@ -1049,9 +1127,10 @@ Sort a result DB in the same order as the prefilter or align module.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./sortresult.md) |
+| Command reference | [Open page](#refcmd-sortresult) |
+| Functional module entry | [Open module page](#modcmd-sortresult) |
 
-### `summarizealis` {#cmd-summarizealis}
+### `summarizealis` {#depcmd-summarizealis}
 
 Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.).
 
@@ -1060,11 +1139,12 @@ Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.).
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by | [`easy-taxonomy`](#depcmd-easy-taxonomy) |
 | Workflow scripts | `easytaxonomy.sh` |
-| Command reference | [Open page](./summarizealis.md) |
+| Command reference | [Open page](#refcmd-summarizealis) |
+| Functional module entry | [Open module page](#modcmd-summarizealis) |
 
-### `summarizeheaders` {#cmd-summarizeheaders}
+### `summarizeheaders` {#depcmd-summarizeheaders}
 
 Summarize FASTA headers of result DB.
 
@@ -1075,9 +1155,10 @@ Summarize FASTA headers of result DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./summarizeheaders.md) |
+| Command reference | [Open page](#refcmd-summarizeheaders) |
+| Functional module entry | [Open module page](#modcmd-summarizeheaders) |
 
-### `summarizeresult` {#cmd-summarizeresult}
+### `summarizeresult` {#depcmd-summarizeresult}
 
 Extract annotations from alignment DB.
 
@@ -1086,11 +1167,12 @@ Extract annotations from alignment DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`easy-linsearch`](./easy-linsearch.md), [`easy-search`](./easy-search.md) |
+| Called by | [`easy-linsearch`](#depcmd-easy-linsearch), [`easy-search`](#depcmd-easy-search) |
 | Workflow scripts | `easysearch.sh` |
-| Command reference | [Open page](./summarizeresult.md) |
+| Command reference | [Open page](#refcmd-summarizeresult) |
+| Functional module entry | [Open module page](#modcmd-summarizeresult) |
 
-### `swapresults` {#cmd-swapresults}
+### `swapresults` {#depcmd-swapresults}
 
 Transpose prefilter/alignment DB.
 
@@ -1099,13 +1181,14 @@ Transpose prefilter/alignment DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
 | Calls | `n/a` |
-| Called by | [`easy-taxonomy`](./easy-taxonomy.md), [`linsearch`](./linsearch.md), [`rbh`](./rbh.md), [`search`](./search.md) |
+| Called by | [`easy-taxonomy`](#depcmd-easy-taxonomy), [`linsearch`](#depcmd-linsearch), [`rbh`](#depcmd-rbh), [`search`](#depcmd-search) |
 | Workflow scripts | `easytaxonomy.sh`, `linsearch.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh` |
-| Command reference | [Open page](./swapresults.md) |
+| Command reference | [Open page](#refcmd-swapresults) |
+| Functional module entry | [Open module page](#modcmd-swapresults) |
 
-## Sequence Manipulation
+## Sequence Manipulation {#depgroup-sequence-manipulation}
 
-### `extractalignedregion` {#cmd-extractalignedregion}
+### `extractalignedregion` {#depcmd-extractalignedregion}
 
 Extract aligned sequence region from query.
 
@@ -1116,9 +1199,10 @@ Extract aligned sequence region from query.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./extractalignedregion.md) |
+| Command reference | [Open page](#refcmd-extractalignedregion) |
+| Functional module entry | [Open module page](#modcmd-extractalignedregion) |
 
-### `extractframes` {#cmd-extractframes}
+### `extractframes` {#depcmd-extractframes}
 
 Extract frames from a nucleotide sequence DB.
 
@@ -1127,11 +1211,12 @@ Extract frames from a nucleotide sequence DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`createindex`](./createindex.md), [`createlinindex`](./createlinindex.md), [`search`](./search.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`createindex`](#depcmd-createindex), [`createlinindex`](#depcmd-createlinindex), [`search`](#depcmd-search) |
 | Workflow scripts | `blastn.sh`, `createindex.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
-| Command reference | [Open page](./extractframes.md) |
+| Command reference | [Open page](#refcmd-extractframes) |
+| Functional module entry | [Open module page](#modcmd-extractframes) |
 
-### `extractorfs` {#cmd-extractorfs}
+### `extractorfs` {#depcmd-extractorfs}
 
 Six-frame extraction of open reading frames.
 
@@ -1140,11 +1225,12 @@ Six-frame extraction of open reading frames.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
 | Calls | `n/a` |
-| Called by | [`createindex`](./createindex.md), [`createlinindex`](./createlinindex.md), [`linsearch`](./linsearch.md), [`multihitdb`](./multihitdb.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`createindex`](#depcmd-createindex), [`createlinindex`](#depcmd-createlinindex), [`linsearch`](#depcmd-linsearch), [`multihitdb`](#depcmd-multihitdb), [`search`](#depcmd-search), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `createindex.sh`, `multihitdb.sh`, `taxpercontig.sh`, `translated_search.sh` |
-| Command reference | [Open page](./extractorfs.md) |
+| Command reference | [Open page](#refcmd-extractorfs) |
+| Functional module entry | [Open module page](#modcmd-extractorfs) |
 
-### `masksequence` {#cmd-masksequence}
+### `masksequence` {#depcmd-masksequence}
 
 Soft mask sequence DB using tantan.
 
@@ -1155,9 +1241,10 @@ Soft mask sequence DB using tantan.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./masksequence.md) |
+| Command reference | [Open page](#refcmd-masksequence) |
+| Functional module entry | [Open module page](#modcmd-masksequence) |
 
-### `orftocontig` {#cmd-orftocontig}
+### `orftocontig` {#depcmd-orftocontig}
 
 Write ORF locations in alignment format.
 
@@ -1166,11 +1253,12 @@ Write ORF locations in alignment format.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
 | Calls | `n/a` |
-| Called by | [`multihitdb`](./multihitdb.md) |
+| Called by | [`multihitdb`](#depcmd-multihitdb) |
 | Workflow scripts | `multihitdb.sh` |
-| Command reference | [Open page](./orftocontig.md) |
+| Command reference | [Open page](#refcmd-orftocontig) |
+| Functional module entry | [Open module page](#modcmd-orftocontig) |
 
-### `recoverlongestorf` {#cmd-recoverlongestorf}
+### `recoverlongestorf` {#depcmd-recoverlongestorf}
 
 Recover longest ORF for taxonomy annotation after elimination.
 
@@ -1179,11 +1267,12 @@ Recover longest ORF for taxonomy annotation after elimination.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`taxonomy`](./taxonomy.md) |
+| Called by | [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `taxpercontig.sh` |
-| Command reference | [Open page](./recoverlongestorf.md) |
+| Command reference | [Open page](#refcmd-recoverlongestorf) |
+| Functional module entry | [Open module page](#modcmd-recoverlongestorf) |
 
-### `reverseseq` {#cmd-reverseseq}
+### `reverseseq` {#depcmd-reverseseq}
 
 Reverse (without complement) sequences.
 
@@ -1194,9 +1283,10 @@ Reverse (without complement) sequences.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./reverseseq.md) |
+| Command reference | [Open page](#refcmd-reverseseq) |
+| Functional module entry | [Open module page](#modcmd-reverseseq) |
 
-### `translateaa` {#cmd-translateaa}
+### `translateaa` {#depcmd-translateaa}
 
 Translate proteins to lexicographically lowest codons.
 
@@ -1207,9 +1297,10 @@ Translate proteins to lexicographically lowest codons.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./translateaa.md) |
+| Command reference | [Open page](#refcmd-translateaa) |
+| Functional module entry | [Open module page](#modcmd-translateaa) |
 
-### `translatenucs` {#cmd-translatenucs}
+### `translatenucs` {#depcmd-translatenucs}
 
 Translate nucleotides to proteins.
 
@@ -1218,13 +1309,14 @@ Translate nucleotides to proteins.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
 | Calls | `n/a` |
-| Called by | [`multihitdb`](./multihitdb.md) |
+| Called by | [`multihitdb`](#depcmd-multihitdb) |
 | Workflow scripts | `multihitdb.sh` |
-| Command reference | [Open page](./translatenucs.md) |
+| Command reference | [Open page](#refcmd-translatenucs) |
+| Functional module entry | [Open module page](#modcmd-translatenucs) |
 
-## Taxonomy
+## Taxonomy {#depgroup-taxonomy}
 
-### `addtaxonomy` {#cmd-addtaxonomy}
+### `addtaxonomy` {#depcmd-addtaxonomy}
 
 Add taxonomic labels to result DB.
 
@@ -1233,11 +1325,12 @@ Add taxonomic labels to result DB.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by | [`easy-taxonomy`](#depcmd-easy-taxonomy) |
 | Workflow scripts | `easytaxonomy.sh` |
-| Command reference | [Open page](./addtaxonomy.md) |
+| Command reference | [Open page](#refcmd-addtaxonomy) |
+| Functional module entry | [Open module page](#modcmd-addtaxonomy) |
 
-### `aggregatetax` {#cmd-aggregatetax}
+### `aggregatetax` {#depcmd-aggregatetax}
 
 Aggregate multiple taxon labels to a single label.
 
@@ -1246,11 +1339,12 @@ Aggregate multiple taxon labels to a single label.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
 | Calls | `n/a` |
-| Called by | [`taxonomy`](./taxonomy.md) |
+| Called by | [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./aggregatetax.md) |
+| Command reference | [Open page](#refcmd-aggregatetax) |
+| Functional module entry | [Open module page](#modcmd-aggregatetax) |
 
-### `aggregatetaxweights` {#cmd-aggregatetaxweights}
+### `aggregatetaxweights` {#depcmd-aggregatetaxweights}
 
 Aggregate multiple taxon labels to a single label.
 
@@ -1259,11 +1353,12 @@ Aggregate multiple taxon labels to a single label.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
 | Calls | `n/a` |
-| Called by | [`taxonomy`](./taxonomy.md) |
+| Called by | [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `taxpercontig.sh` |
-| Command reference | [Open page](./aggregatetaxweights.md) |
+| Command reference | [Open page](#refcmd-aggregatetaxweights) |
+| Functional module entry | [Open module page](#modcmd-aggregatetaxweights) |
 
-### `createbintaxmapping` {#cmd-createbintaxmapping}
+### `createbintaxmapping` {#depcmd-createbintaxmapping}
 
 Create binary taxonomy mapping from tabular taxonomy mapping.
 
@@ -1274,9 +1369,10 @@ Create binary taxonomy mapping from tabular taxonomy mapping.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./createbintaxmapping.md) |
+| Command reference | [Open page](#refcmd-createbintaxmapping) |
+| Functional module entry | [Open module page](#modcmd-createbintaxmapping) |
 
-### `createbintaxonomy` {#cmd-createbintaxonomy}
+### `createbintaxonomy` {#depcmd-createbintaxonomy}
 
 Create binary taxonomy from NCBI input.
 
@@ -1285,11 +1381,12 @@ Create binary taxonomy from NCBI input.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
 | Calls | `n/a` |
-| Called by | [`createtaxdb`](./createtaxdb.md) |
+| Called by | [`createtaxdb`](#depcmd-createtaxdb) |
 | Workflow scripts | `createtaxdb.sh` |
-| Command reference | [Open page](./createbintaxonomy.md) |
+| Command reference | [Open page](#refcmd-createbintaxonomy) |
+| Functional module entry | [Open module page](#modcmd-createbintaxonomy) |
 
-### `createdmptaxonomy` {#cmd-createdmptaxonomy}
+### `createdmptaxonomy` {#depcmd-createdmptaxonomy}
 
 Create dmp files from binary taxonomy.
 
@@ -1300,9 +1397,10 @@ Create dmp files from binary taxonomy.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./createdmptaxonomy.md) |
+| Command reference | [Open page](#refcmd-createdmptaxonomy) |
+| Functional module entry | [Open module page](#modcmd-createdmptaxonomy) |
 
-### `createtaxdb` {#cmd-createtaxdb}
+### `createtaxdb` {#depcmd-createtaxdb}
 
 Add taxonomic labels to sequence DB.
 
@@ -1310,12 +1408,13 @@ Add taxonomic labels to sequence DB.
 | :--- | :--- |
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Calls | [`createbintaxonomy`](./createbintaxonomy.md) |
-| Called by | [`databases`](./databases.md) |
+| Calls | [`createbintaxonomy`](#depcmd-createbintaxonomy) |
+| Called by | [`databases`](#depcmd-databases) |
 | Workflow scripts | `databases.sh` |
-| Command reference | [Open page](./createtaxdb.md) |
+| Command reference | [Open page](#refcmd-createtaxdb) |
+| Functional module entry | [Open module page](#modcmd-createtaxdb) |
 
-### `filtertaxdb` {#cmd-filtertaxdb}
+### `filtertaxdb` {#depcmd-filtertaxdb}
 
 Filter taxonomy result database.
 
@@ -1326,9 +1425,10 @@ Filter taxonomy result database.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./filtertaxdb.md) |
+| Command reference | [Open page](#refcmd-filtertaxdb) |
+| Functional module entry | [Open module page](#modcmd-filtertaxdb) |
 
-### `filtertaxseqdb` {#cmd-filtertaxseqdb}
+### `filtertaxseqdb` {#depcmd-filtertaxseqdb}
 
 Filter taxonomy sequence database.
 
@@ -1339,9 +1439,10 @@ Filter taxonomy sequence database.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./filtertaxseqdb.md) |
+| Command reference | [Open page](#refcmd-filtertaxseqdb) |
+| Functional module entry | [Open module page](#modcmd-filtertaxseqdb) |
 
-### `lca` {#cmd-lca}
+### `lca` {#depcmd-lca}
 
 Compute the lowest common ancestor.
 
@@ -1350,11 +1451,12 @@ Compute the lowest common ancestor.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
 | Calls | `n/a` |
-| Called by | [`easy-taxonomy`](./easy-taxonomy.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`easy-taxonomy`](#depcmd-easy-taxonomy), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `taxonomy.sh` |
-| Command reference | [Open page](./lca.md) |
+| Command reference | [Open page](#refcmd-lca) |
+| Functional module entry | [Open module page](#modcmd-lca) |
 
-### `lcaalign` {#cmd-lcaalign}
+### `lcaalign` {#depcmd-lcaalign}
 
 Efficient gapped alignment for lca computation.
 
@@ -1363,11 +1465,12 @@ Efficient gapped alignment for lca computation.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
 | Calls | `n/a` |
-| Called by | [`search`](./search.md) |
+| Called by | [`search`](#depcmd-search) |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./lcaalign.md) |
+| Command reference | [Open page](#refcmd-lcaalign) |
+| Functional module entry | [Open module page](#modcmd-lcaalign) |
 
-### `majoritylca` {#cmd-majoritylca}
+### `majoritylca` {#depcmd-majoritylca}
 
 Compute the lowest common ancestor using majority voting.
 
@@ -1378,9 +1481,10 @@ Compute the lowest common ancestor using majority voting.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./majoritylca.md) |
+| Command reference | [Open page](#refcmd-majoritylca) |
+| Functional module entry | [Open module page](#modcmd-majoritylca) |
 
-### `nrtotaxmapping` {#cmd-nrtotaxmapping}
+### `nrtotaxmapping` {#depcmd-nrtotaxmapping}
 
 Create taxonomy mapping for NR database.
 
@@ -1389,11 +1493,12 @@ Create taxonomy mapping for NR database.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Calls | `n/a` |
-| Called by | [`databases`](./databases.md) |
+| Called by | [`databases`](#depcmd-databases) |
 | Workflow scripts | `databases.sh` |
-| Command reference | [Open page](./nrtotaxmapping.md) |
+| Command reference | [Open page](#refcmd-nrtotaxmapping) |
+| Functional module entry | [Open module page](#modcmd-nrtotaxmapping) |
 
-### `taxonomy` {#cmd-taxonomy}
+### `taxonomy` {#depcmd-taxonomy}
 
 Taxonomic classification.
 
@@ -1401,12 +1506,13 @@ Taxonomic classification.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Calls | [`aggregatetax`](./aggregatetax.md), [`aggregatetaxweights`](./aggregatetaxweights.md), [`createsubdb`](./createsubdb.md), [`extractorfs`](./extractorfs.md), [`filterdb`](./filterdb.md), [`lca`](./lca.md), [`mergeresultsbyset`](./mergeresultsbyset.md), [`mvdb`](./mvdb.md), [`prefilter`](./prefilter.md), [`recoverlongestorf`](./recoverlongestorf.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`swapdb`](./swapdb.md), [`taxonomy`](./taxonomy.md) |
-| Called by | [`easy-taxonomy`](./easy-taxonomy.md), [`taxonomy`](./taxonomy.md) |
+| Calls | [`aggregatetax`](#depcmd-aggregatetax), [`aggregatetaxweights`](#depcmd-aggregatetaxweights), [`createsubdb`](#depcmd-createsubdb), [`extractorfs`](#depcmd-extractorfs), [`filterdb`](#depcmd-filterdb), [`lca`](#depcmd-lca), [`mergeresultsbyset`](#depcmd-mergeresultsbyset), [`mvdb`](#depcmd-mvdb), [`prefilter`](#depcmd-prefilter), [`recoverlongestorf`](#depcmd-recoverlongestorf), [`rescorediagonal`](#depcmd-rescorediagonal), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search), [`swapdb`](#depcmd-swapdb), [`taxonomy`](#depcmd-taxonomy) |
+| Called by | [`easy-taxonomy`](#depcmd-easy-taxonomy), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `easytaxonomy.sh`, `taxpercontig.sh` |
-| Command reference | [Open page](./taxonomy.md) |
+| Command reference | [Open page](#refcmd-taxonomy) |
+| Functional module entry | [Open module page](#modcmd-taxonomy) |
 
-### `taxonomyreport` {#cmd-taxonomyreport}
+### `taxonomyreport` {#depcmd-taxonomyreport}
 
 Create a taxonomy report in Kraken or Krona format.
 
@@ -1415,13 +1521,14 @@ Create a taxonomy report in Kraken or Krona format.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_FORMAT_CONVERSION` |
 | Calls | `n/a` |
-| Called by | [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by | [`easy-taxonomy`](#depcmd-easy-taxonomy) |
 | Workflow scripts | `easytaxonomy.sh` |
-| Command reference | [Open page](./taxonomyreport.md) |
+| Command reference | [Open page](#refcmd-taxonomyreport) |
+| Functional module entry | [Open module page](#modcmd-taxonomyreport) |
 
-## Multi Hit
+## Multi Hit {#depgroup-multi-hit}
 
-### `besthitperset` {#cmd-besthitperset}
+### `besthitperset` {#depcmd-besthitperset}
 
 For each set of sequences compute the best element and update p-value.
 
@@ -1430,11 +1537,12 @@ For each set of sequences compute the best element and update p-value.
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
 | Calls | `n/a` |
-| Called by | [`multihitsearch`](./multihitsearch.md) |
+| Called by | [`multihitsearch`](#depcmd-multihitsearch) |
 | Workflow scripts | `multihitsearch.sh` |
-| Command reference | [Open page](./besthitperset.md) |
+| Command reference | [Open page](#refcmd-besthitperset) |
+| Functional module entry | [Open module page](#modcmd-besthitperset) |
 
-### `combinepvalperset` {#cmd-combinepvalperset}
+### `combinepvalperset` {#depcmd-combinepvalperset}
 
 For each set compute the combined p-value.
 
@@ -1445,9 +1553,10 @@ For each set compute the combined p-value.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./combinepvalperset.md) |
+| Command reference | [Open page](#refcmd-combinepvalperset) |
+| Functional module entry | [Open module page](#modcmd-combinepvalperset) |
 
-### `mergeresultsbyset` {#cmd-mergeresultsbyset}
+### `mergeresultsbyset` {#depcmd-mergeresultsbyset}
 
 Merge results from multiple ORFs back to their respective contig.
 
@@ -1456,11 +1565,12 @@ Merge results from multiple ORFs back to their respective contig.
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
 | Calls | `n/a` |
-| Called by | [`multihitsearch`](./multihitsearch.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`multihitsearch`](#depcmd-multihitsearch), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `multihitsearch.sh`, `taxpercontig.sh` |
-| Command reference | [Open page](./mergeresultsbyset.md) |
+| Command reference | [Open page](#refcmd-mergeresultsbyset) |
+| Functional module entry | [Open module page](#modcmd-mergeresultsbyset) |
 
-### `multihitdb` {#cmd-multihitdb}
+### `multihitdb` {#depcmd-multihitdb}
 
 Create sequence DB for multi hit searches.
 
@@ -1468,12 +1578,13 @@ Create sequence DB for multi hit searches.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Calls | [`createdb`](./createdb.md), [`extractorfs`](./extractorfs.md), [`filterdb`](./filterdb.md), [`orftocontig`](./orftocontig.md), [`result2stats`](./result2stats.md), [`swapdb`](./swapdb.md), [`translatenucs`](./translatenucs.md), [`tsv2db`](./tsv2db.md) |
+| Calls | [`createdb`](#depcmd-createdb), [`extractorfs`](#depcmd-extractorfs), [`filterdb`](#depcmd-filterdb), [`orftocontig`](#depcmd-orftocontig), [`result2stats`](#depcmd-result2stats), [`swapdb`](#depcmd-swapdb), [`translatenucs`](#depcmd-translatenucs), [`tsv2db`](#depcmd-tsv2db) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./multihitdb.md) |
+| Command reference | [Open page](#refcmd-multihitdb) |
+| Functional module entry | [Open module page](#modcmd-multihitdb) |
 
-### `multihitsearch` {#cmd-multihitsearch}
+### `multihitsearch` {#depcmd-multihitsearch}
 
 Search with a grouped set of sequences against another grouped set.
 
@@ -1481,14 +1592,15 @@ Search with a grouped set of sequences against another grouped set.
 | :--- | :--- |
 | Layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Calls | [`besthitperset`](./besthitperset.md), [`mergeresultsbyset`](./mergeresultsbyset.md), [`rmdb`](./rmdb.md), [`search`](./search.md) |
+| Calls | [`besthitperset`](#depcmd-besthitperset), [`mergeresultsbyset`](#depcmd-mergeresultsbyset), [`rmdb`](#depcmd-rmdb), [`search`](#depcmd-search) |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./multihitsearch.md) |
+| Command reference | [Open page](#refcmd-multihitsearch) |
+| Functional module entry | [Open module page](#modcmd-multihitsearch) |
 
-## Utilities
+## Utilities {#depgroup-utilities}
 
-### `apply` {#cmd-apply}
+### `apply` {#depcmd-apply}
 
 Execute given program on each DB entry.
 
@@ -1499,9 +1611,10 @@ Execute given program on each DB entry.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./apply.md) |
+| Command reference | [Open page](#refcmd-apply) |
+| Functional module entry | [Open module page](#modcmd-apply) |
 
-### `compress` {#cmd-compress}
+### `compress` {#depcmd-compress}
 
 Compress DB entries.
 
@@ -1510,11 +1623,12 @@ Compress DB entries.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
 | Calls | `n/a` |
-| Called by | [`tsv2exprofiledb`](./tsv2exprofiledb.md) |
+| Called by | [`tsv2exprofiledb`](#depcmd-tsv2exprofiledb) |
 | Workflow scripts | `tsv2exprofiledb.sh` |
-| Command reference | [Open page](./compress.md) |
+| Command reference | [Open page](#refcmd-compress) |
+| Functional module entry | [Open module page](#modcmd-compress) |
 
-### `convertkb` {#cmd-convertkb}
+### `convertkb` {#depcmd-convertkb}
 
 Convert UniProtKB data to a DB.
 
@@ -1525,9 +1639,10 @@ Convert UniProtKB data to a DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./convertkb.md) |
+| Command reference | [Open page](#refcmd-convertkb) |
+| Functional module entry | [Open module page](#modcmd-convertkb) |
 
-### `decompress` {#cmd-decompress}
+### `decompress` {#depcmd-decompress}
 
 Decompress DB entries.
 
@@ -1538,9 +1653,10 @@ Decompress DB entries.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./decompress.md) |
+| Command reference | [Open page](#refcmd-decompress) |
+| Functional module entry | [Open module page](#modcmd-decompress) |
 
-### `diffseqdbs` {#cmd-diffseqdbs}
+### `diffseqdbs` {#depcmd-diffseqdbs}
 
 Compute diff of two sequence DBs.
 
@@ -1549,11 +1665,12 @@ Compute diff of two sequence DBs.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Calls | `n/a` |
-| Called by | [`clusterupdate`](./clusterupdate.md) |
+| Called by | [`clusterupdate`](#depcmd-clusterupdate) |
 | Workflow scripts | `update_clustering.sh` |
-| Command reference | [Open page](./diffseqdbs.md) |
+| Command reference | [Open page](#refcmd-diffseqdbs) |
+| Functional module entry | [Open module page](#modcmd-diffseqdbs) |
 
-### `filterdb` {#cmd-filterdb}
+### `filterdb` {#depcmd-filterdb}
 
 DB filtering by given conditions.
 
@@ -1562,11 +1679,12 @@ DB filtering by given conditions.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
 | Calls | `n/a` |
-| Called by | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`easy-taxonomy`](./easy-taxonomy.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`multihitdb`](./multihitdb.md), [`rbh`](./rbh.md), [`taxonomy`](./taxonomy.md) |
+| Called by | [`cluster`](#depcmd-cluster), [`clusterupdate`](#depcmd-clusterupdate), [`easy-taxonomy`](#depcmd-easy-taxonomy), [`linclust`](#depcmd-linclust), [`linsearch`](#depcmd-linsearch), [`multihitdb`](#depcmd-multihitdb), [`rbh`](#depcmd-rbh), [`taxonomy`](#depcmd-taxonomy) |
 | Workflow scripts | `cascaded_clustering.sh`, `easytaxonomy.sh`, `linclust.sh`, `linsearch.sh`, `multihitdb.sh`, `rbh.sh`, `taxonomy.sh`, `taxpercontig.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./filterdb.md) |
+| Command reference | [Open page](#refcmd-filterdb) |
+| Functional module entry | [Open module page](#modcmd-filterdb) |
 
-### `gff2db` {#cmd-gff2db}
+### `gff2db` {#depcmd-gff2db}
 
 Extract regions from a sequence database based on a GFF3 file.
 
@@ -1577,9 +1695,10 @@ Extract regions from a sequence database based on a GFF3 file.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./gff2db.md) |
+| Command reference | [Open page](#refcmd-gff2db) |
+| Functional module entry | [Open module page](#modcmd-gff2db) |
 
-### `gpuserver` {#cmd-gpuserver}
+### `gpuserver` {#depcmd-gpuserver}
 
 Start a GPU server.
 
@@ -1590,9 +1709,10 @@ Start a GPU server.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./gpuserver.md) |
+| Command reference | [Open page](#refcmd-gpuserver) |
+| Functional module entry | [Open module page](#modcmd-gpuserver) |
 
-### `maskbygff` {#cmd-maskbygff}
+### `maskbygff` {#depcmd-maskbygff}
 
 Mask out sequence regions in a sequence DB by features selected from a GFF3 file.
 
@@ -1603,9 +1723,10 @@ Mask out sequence regions in a sequence DB by features selected from a GFF3 file
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./maskbygff.md) |
+| Command reference | [Open page](#refcmd-maskbygff) |
+| Functional module entry | [Open module page](#modcmd-maskbygff) |
 
-### `prefixid` {#cmd-prefixid}
+### `prefixid` {#depcmd-prefixid}
 
 For each entry in a DB prepend the entry key to the entry itself.
 
@@ -1614,11 +1735,12 @@ For each entry in a DB prepend the entry key to the entry itself.
 | Layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
 | Calls | `n/a` |
-| Called by | [`clusterupdate`](./clusterupdate.md), [`databases`](./databases.md), [`pickconsensusrep`](./pickconsensusrep.md) |
+| Called by | [`clusterupdate`](#depcmd-clusterupdate), [`databases`](#depcmd-databases), [`pickconsensusrep`](#depcmd-pickconsensusrep) |
 | Workflow scripts | `databases.sh`, `pickconsensusrep.sh`, `update_clustering.sh` |
-| Command reference | [Open page](./prefixid.md) |
+| Command reference | [Open page](#refcmd-prefixid) |
+| Functional module entry | [Open module page](#modcmd-prefixid) |
 
-### `setextendeddbtype` {#cmd-setextendeddbtype}
+### `setextendeddbtype` {#depcmd-setextendeddbtype}
 
 Write an extended DB.
 
@@ -1629,9 +1751,10 @@ Write an extended DB.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./setextendeddbtype.md) |
+| Command reference | [Open page](#refcmd-setextendeddbtype) |
+| Functional module entry | [Open module page](#modcmd-setextendeddbtype) |
 
-### `suffixid` {#cmd-suffixid}
+### `suffixid` {#depcmd-suffixid}
 
 For each entry in a DB append the entry key to the entry itself.
 
@@ -1642,9 +1765,10 @@ For each entry in a DB append the entry key to the entry itself.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./suffixid.md) |
+| Command reference | [Open page](#refcmd-suffixid) |
+| Functional module entry | [Open module page](#modcmd-suffixid) |
 
-### `summarizetabs` {#cmd-summarizetabs}
+### `summarizetabs` {#depcmd-summarizetabs}
 
 Extract annotations from HHblits BLAST-tab-formatted results.
 
@@ -1655,9 +1779,10 @@ Extract annotations from HHblits BLAST-tab-formatted results.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./summarizetabs.md) |
+| Command reference | [Open page](#refcmd-summarizetabs) |
+| Functional module entry | [Open module page](#modcmd-summarizetabs) |
 
-### `touchdb` {#cmd-touchdb}
+### `touchdb` {#depcmd-touchdb}
 
 Preload DB into memory (page cache).
 
@@ -1668,9 +1793,10 @@ Preload DB into memory (page cache).
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./touchdb.md) |
+| Command reference | [Open page](#refcmd-touchdb) |
+| Functional module entry | [Open module page](#modcmd-touchdb) |
 
-### `unpackdb` {#cmd-unpackdb}
+### `unpackdb` {#depcmd-unpackdb}
 
 Unpack a DB into separate files.
 
@@ -1681,9 +1807,10 @@ Unpack a DB into separate files.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./unpackdb.md) |
+| Command reference | [Open page](#refcmd-unpackdb) |
+| Functional module entry | [Open module page](#modcmd-unpackdb) |
 
-### `view` {#cmd-view}
+### `view` {#depcmd-view}
 
 Print DB entries given in --id-list to stdout.
 
@@ -1694,5 +1821,6 @@ Print DB entries given in --id-list to stdout.
 | Calls | `n/a` |
 | Called by | `n/a` |
 | Workflow scripts | `n/a` |
-| Command reference | [Open page](./view.md) |
+| Command reference | [Open page](#refcmd-view) |
+| Functional module entry | [Open module page](#modcmd-view) |
 

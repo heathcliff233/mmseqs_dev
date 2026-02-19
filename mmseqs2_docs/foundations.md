@@ -1,8 +1,8 @@
-# Performance Foundations: Why MMseqs2 Is Fast
+# Performance Foundations: Why MMseqs2 Is Fast {#sec-performance-foundations}
 
 This chapter summarizes the low-level mechanics that make MMseqs2 fast at scale. It is the canonical overview for storage format, indexing behavior, memory-split tradeoffs, and parallel execution strategy in this manual.
 
-## 1. Internal Database and Storage Model
+## Internal Database and Storage Model
 
 Most MMseqs2 modules consume and produce MMseqs2 database files rather than plain FASTA. The design avoids creating millions of small files and instead stores records in contiguous files with explicit indexing.
 
@@ -22,7 +22,7 @@ Header and sequence separation is a deliberate performance choice. Sequence-heav
 ]
 ```
 
-## 2. Indexing and Data-Access Strategy
+## Indexing and Data-Access Strategy
 
 Precomputed indexes improve repeated searches against stable targets by shifting cost from repeated startup to reusable artifacts. The gain is strongest when targets are reused many times or iterative workflows are run.
 
@@ -39,7 +39,7 @@ MMseqs2 load behavior also matters:
 
 For small query sets, memory-mapped access can minimize startup latency if target index data is already resident. For large query sets, alternative copy behavior can improve throughput by reducing translation-lookaside-buffer pressure in prefilter-heavy phases.
 
-## 3. Memory Model and Split Tradeoffs
+## Memory Model and Split Tradeoffs
 
 Prefiltering is usually the largest memory consumer. Legacy MMseqs2 guidance models prefilter index memory approximately as:
 
@@ -57,7 +57,7 @@ When memory is insufficient, MMseqs2 splits databases and processes chunks. Spli
 
 The slowdown from splitting is often less visible at high sensitivity, where core compute dominates, and more visible at low sensitivity, where merge and I/O overhead are a larger share of total runtime.
 
-## 4. Parallel Execution Model
+## Parallel Execution Model
 
 MMseqs2 parallelism is layered:
 
@@ -77,7 +77,7 @@ Distributed performance is constrained by I/O topology as much as by CPU count. 
 ]
 ```
 
-## 5. Practical Tuning Order
+## Practical Tuning Order
 
 A stable tuning sequence avoids expensive trial-and-error:
 
@@ -91,6 +91,6 @@ A stable tuning sequence avoids expensive trial-and-error:
 
 This ordering reflects how MMseqs2 runtime is usually determined in practice: infrastructure first, algorithmic strictness second.
 
-## 6. Cross References
+## Cross References
 
-Use `manual.md` and `submodules/*.md` for task-oriented command selection, `reference/dependency_map.md` for call-topology debugging, and `expert_manual.md` for advanced composition and reproducibility discipline. Use `wiki.md` for historical long-form detail and extended examples beyond this condensed chapter.
+Use [Functional Modules Manual](#sec-functional-modules-manual) and functional module pages for task-oriented command selection, [Dependency Map](#sec-dependency-map) for call-topology debugging, and [Expert Manual](#sec-expert-manual) for advanced composition and reproducibility discipline. Use `wiki.md` for historical long-form detail and extended examples beyond this condensed chapter.

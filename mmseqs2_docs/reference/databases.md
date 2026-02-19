@@ -1,34 +1,34 @@
-# `databases`
+## `databases` {#refcmd-databases}
 
 List and download databases.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`database`](../submodules/database.md) |
+| Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`convertmsa`](./convertmsa.md), [`createdb`](./createdb.md), [`createtaxdb`](./createtaxdb.md), [`msa2profile`](./msa2profile.md), [`nrtotaxmapping`](./nrtotaxmapping.md), [`prefixid`](./prefixid.md), [`rmdb`](./rmdb.md), [`tar2db`](./tar2db.md) |
+| Calls modules | [`convertmsa`](#refcmd-convertmsa), [`createdb`](#refcmd-createdb), [`createtaxdb`](#refcmd-createtaxdb), [`msa2profile`](#refcmd-msa2profile), [`nrtotaxmapping`](#refcmd-nrtotaxmapping), [`prefixid`](#refcmd-prefixid), [`rmdb`](#refcmd-rmdb), [`tar2db`](#refcmd-tar2db) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 No local help snapshot usage line is available.
 
-## Key Options
+### Key Options
 
 No parsed options are available for this command.
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```{=typst}
 #doc_warning[
@@ -36,7 +36,7 @@ Help snapshot missing in mmseqs_help_output. Refresh local snapshots before rely
 ]
 ```
 
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/database.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-databases), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
 

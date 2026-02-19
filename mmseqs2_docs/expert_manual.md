@@ -1,8 +1,8 @@
-# Expert Manual
+# Expert Manual {#sec-expert-manual}
 
-This chapter focuses on advanced pipeline composition, reproducibility controls, and documentation maintenance. Foundational storage and parallel mechanics are summarized in `foundations.md`; this chapter assumes that baseline model.
+This chapter focuses on advanced pipeline composition, reproducibility controls, and documentation maintenance. Foundational storage and parallel mechanics are summarized in [Performance Foundations](#sec-performance-foundations); this chapter assumes that baseline model.
 
-## 1. Expert Operating Discipline
+## Expert Operating Discipline
 
 Custom MMseqs2 pipelines fail most often from implicit assumptions, not syntax errors. Advanced users should lock assumptions explicitly before scaling.
 
@@ -13,7 +13,7 @@ Custom MMseqs2 pipelines fail most often from implicit assumptions, not syntax e
 | Topology discipline | Confirm real call path with dependency map before debugging behavior |
 | Scale discipline | Validate on representative subsets before full runs |
 
-## 2. Contract Enforcement in Custom Pipelines
+## Contract Enforcement in Custom Pipelines
 
 Module chains should be reviewed as explicit contracts:
 
@@ -31,7 +31,7 @@ If a downstream result looks wrong, verify contract and mode assumptions first. 
 ]
 ```
 
-## 3. Reproducibility Controls
+## Reproducibility Controls
 
 Reproducible comparisons need a stable run envelope, not only stable command names.
 
@@ -45,7 +45,7 @@ Reproducible comparisons need a stable run envelope, not only stable command nam
 
 When benchmarking, record these controls as part of run metadata. Without this context, result deltas are difficult to interpret.
 
-## 4. Performance Triage for Advanced Workloads
+## Performance Triage for Advanced Workloads
 
 For slow or unstable large runs, triage in this order:
 
@@ -64,7 +64,7 @@ In most production pipelines, index/load/split decisions create larger runtime s
 ]
 ```
 
-## 5. Documentation Maintenance Workflow
+## Documentation Maintenance Workflow
 
 Use this workflow when MMseqs2 source, options, or dependencies evolve:
 
@@ -77,13 +77,13 @@ Use this workflow when MMseqs2 source, options, or dependencies evolve:
 | Validate structure | Detect missing pages, duplicate command sections, broken links | `mmseqs2_docs/scripts/validate_docs.py` |
 | Build deliverable PDF | Produce final manual | `./mmseqs2_docs/build_pdf.sh` |
 
-## 6. Cross References
+## Cross References
 
 Use these chapters together:
 
 | Need | Chapter |
 | :--- | :--- |
-| Storage/index/split/parallel mechanics | `foundations.md` |
-| Architecture and dependency navigation | `system_map.md`, `reference/dependency_map.md` |
-| Task-oriented command selection | `manual.md`, `submodules/*.md` |
-| Full command-level option detail | `reference/index.md`, `reference/<command>.md` |
+| Storage/index/split/parallel mechanics | [Performance Foundations](#sec-performance-foundations) |
+| Architecture and dependency navigation | [System Map](#sec-system-map), [Dependency Map](#sec-dependency-map) |
+| Task-oriented command selection | [Functional Modules Manual](#sec-functional-modules-manual), functional module pages |
+| Full command-level option detail | [Command Reference Index](#sec-command-reference), command reference entries |

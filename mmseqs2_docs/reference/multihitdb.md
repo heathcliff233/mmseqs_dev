@@ -1,30 +1,30 @@
-# `multihitdb`
+## `multihitdb` {#refcmd-multihitdb}
 
 Create sequence DB for multi hit searches.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`multi_hit`](../submodules/multi_hit.md) |
+| Primary functional group | [`multi_hit`](#mod-multi-hit) |
 | Category flags | `COMMAND_MULTIHIT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`createdb`](./createdb.md), [`extractorfs`](./extractorfs.md), [`filterdb`](./filterdb.md), [`orftocontig`](./orftocontig.md), [`result2stats`](./result2stats.md), [`swapdb`](./swapdb.md), [`translatenucs`](./translatenucs.md), [`tsv2db`](./tsv2db.md) |
+| Calls modules | [`createdb`](#refcmd-createdb), [`extractorfs`](#refcmd-extractorfs), [`filterdb`](#refcmd-filterdb), [`orftocontig`](#refcmd-orftocontig), [`result2stats`](#refcmd-result2stats), [`swapdb`](#refcmd-swapdb), [`translatenucs`](#refcmd-translatenucs), [`tsv2db`](#refcmd-tsv2db) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--forward-frames` | Comma-separated list of frames on the forward strand to be extracted |
 | `--reverse-frames` | Comma-separated list of frames on the reverse strand to be extracted |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]
@@ -80,7 +80,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/multi_hit.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-multihitdb), [command reference index](#sec-command-reference), and [functional module page](#mod-multi-hit).
 

@@ -1,4 +1,4 @@
-# Utilities
+## Utilities {#mod-utilities}
 
 General-purpose helpers and special-purpose modules that support advanced workflow composition.
 
@@ -8,7 +8,7 @@ This page emphasizes module relationships and practical options. For complete CL
 ]
 ```
 
-## `apply`
+### `apply` {#modcmd-apply}
 
 Execute given program on each DB entry.
 
@@ -22,9 +22,9 @@ Execute given program on each DB entry.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/apply.md), [Dependency map](../reference/dependency_map.md#cmd-apply).
+Reference links: [Full CLI](#refcmd-apply), [Dependency entry](#depcmd-apply).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +32,7 @@ Reference links: [Full CLI](../reference/apply.md), [Dependency map](../referenc
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `compress`
+### `compress` {#modcmd-compress}
 
 Compress DB entries.
 
@@ -41,21 +41,21 @@ Compress DB entries.
 | Usage | `usage: mmseqs compress <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | [`tsv2exprofiledb`](../reference/tsv2exprofiledb.md) |
+| Called by modules | [`tsv2exprofiledb`](#modcmd-tsv2exprofiledb) |
 | Calls modules | `n/a` |
-| Related functional groups | [`profiles`](./profiles.md) |
+| Related functional groups | [`profiles`](#mod-profiles) |
 | Workflow script usage | `tsv2exprofiledb.sh` |
 
-Reference links: [Full CLI](../reference/compress.md), [Dependency map](../reference/dependency_map.md#cmd-compress).
+Reference links: [Full CLI](#refcmd-compress), [Dependency entry](#depcmd-compress).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `convertkb`
+### `convertkb` {#modcmd-convertkb}
 
 Convert UniProtKB data to a DB.
 
@@ -69,9 +69,9 @@ Convert UniProtKB data to a DB.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/convertkb.md), [Dependency map](../reference/dependency_map.md#cmd-convertkb).
+Reference links: [Full CLI](#refcmd-convertkb), [Dependency entry](#depcmd-convertkb).
 
-## `decompress`
+### `decompress` {#modcmd-decompress}
 
 Decompress DB entries.
 
@@ -85,16 +85,16 @@ Decompress DB entries.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/decompress.md), [Dependency map](../reference/dependency_map.md#cmd-decompress).
+Reference links: [Full CLI](#refcmd-decompress), [Dependency entry](#depcmd-decompress).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `diffseqdbs`
+### `diffseqdbs` {#modcmd-diffseqdbs}
 
 Compute diff of two sequence DBs.
 
@@ -103,14 +103,14 @@ Compute diff of two sequence DBs.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | [`clusterupdate`](../reference/clusterupdate.md) |
+| Called by modules | [`clusterupdate`](#modcmd-clusterupdate) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md) |
+| Related functional groups | [`clustering`](#mod-clustering) |
 | Workflow script usage | `update_clustering.sh` |
 
-Reference links: [Full CLI](../reference/diffseqdbs.md), [Dependency map](../reference/dependency_map.md#cmd-diffseqdbs).
+Reference links: [Full CLI](#refcmd-diffseqdbs), [Dependency entry](#depcmd-diffseqdbs).
 
-## `filterdb`
+### `filterdb` {#modcmd-filterdb}
 
 DB filtering by given conditions.
 
@@ -119,14 +119,14 @@ DB filtering by given conditions.
 | Usage | `usage: mmseqs filterdb <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`clusterupdate`](../reference/clusterupdate.md), [`easy-taxonomy`](../reference/easy-taxonomy.md), [`linclust`](../reference/linclust.md), [`linsearch`](../reference/linsearch.md), [`multihitdb`](../reference/multihitdb.md), [`rbh`](../reference/rbh.md), [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`easy-taxonomy`](#modcmd-easy-taxonomy), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`multihitdb`](#modcmd-multihitdb), [`rbh`](#modcmd-rbh), [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`easy_workflows`](./easy_workflows.md), [`multi_hit`](./multi_hit.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
 | Workflow script usage | `cascaded_clustering.sh`, `easytaxonomy.sh`, `linclust.sh`, `linsearch.sh`, `multihitdb.sh`, `rbh.sh`, `taxonomy.sh`, `taxpercontig.sh`, `update_clustering.sh` |
 
-Reference links: [Full CLI](../reference/filterdb.md), [Dependency map](../reference/dependency_map.md#cmd-filterdb).
+Reference links: [Full CLI](#refcmd-filterdb), [Dependency entry](#depcmd-filterdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -139,7 +139,7 @@ Reference links: [Full CLI](../reference/filterdb.md), [Dependency map](../refer
 | `--filter-file` | Specify a file that contains the filtering elements |
 | `--beats-first` | Filter by comparing each entry to the first entry |
 
-## `gff2db`
+### `gff2db` {#modcmd-gff2db}
 
 Extract regions from a sequence database based on a GFF3 file.
 
@@ -153,9 +153,9 @@ Extract regions from a sequence database based on a GFF3 file.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/gff2db.md), [Dependency map](../reference/dependency_map.md#cmd-gff2db).
+Reference links: [Full CLI](#refcmd-gff2db), [Dependency entry](#depcmd-gff2db).
 
-## `gpuserver`
+### `gpuserver` {#modcmd-gpuserver}
 
 Start a GPU server.
 
@@ -169,9 +169,9 @@ Start a GPU server.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/gpuserver.md), [Dependency map](../reference/dependency_map.md#cmd-gpuserver).
+Reference links: [Full CLI](#refcmd-gpuserver), [Dependency entry](#depcmd-gpuserver).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -180,7 +180,7 @@ Reference links: [Full CLI](../reference/gpuserver.md), [Dependency map](../refe
 | `--gpu` | Use GPU (CUDA) if possible |
 | `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 
-## `maskbygff`
+### `maskbygff` {#modcmd-maskbygff}
 
 Mask out sequence regions in a sequence DB by features selected from a GFF3 file.
 
@@ -194,9 +194,9 @@ Mask out sequence regions in a sequence DB by features selected from a GFF3 file
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/maskbygff.md), [Dependency map](../reference/dependency_map.md#cmd-maskbygff).
+Reference links: [Full CLI](#refcmd-maskbygff), [Dependency entry](#depcmd-maskbygff).
 
-## `prefixid`
+### `prefixid` {#modcmd-prefixid}
 
 For each entry in a DB prepend the entry key to the entry itself.
 
@@ -205,14 +205,14 @@ For each entry in a DB prepend the entry key to the entry itself.
 | Usage | `usage: mmseqs prefixid <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | [`clusterupdate`](../reference/clusterupdate.md), [`databases`](../reference/databases.md), [`pickconsensusrep`](../reference/pickconsensusrep.md) |
+| Called by modules | [`clusterupdate`](#modcmd-clusterupdate), [`databases`](#modcmd-databases), [`pickconsensusrep`](#modcmd-pickconsensusrep) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database) |
 | Workflow script usage | `databases.sh`, `pickconsensusrep.sh`, `update_clustering.sh` |
 
-Reference links: [Full CLI](../reference/prefixid.md), [Dependency map](../reference/dependency_map.md#cmd-prefixid).
+Reference links: [Full CLI](#refcmd-prefixid), [Dependency entry](#depcmd-prefixid).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -223,7 +223,7 @@ Reference links: [Full CLI](../reference/prefixid.md), [Dependency map](../refer
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `setextendeddbtype`
+### `setextendeddbtype` {#modcmd-setextendeddbtype}
 
 Write an extended DB.
 
@@ -237,16 +237,16 @@ Write an extended DB.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/setextendeddbtype.md), [Dependency map](../reference/dependency_map.md#cmd-setextendeddbtype).
+Reference links: [Full CLI](#refcmd-setextendeddbtype), [Dependency entry](#depcmd-setextendeddbtype).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--extended-dbtype` | Set extended dbtype 1: compressed, 2: need src, 4: context pseudoe cnts |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `suffixid`
+### `suffixid` {#modcmd-suffixid}
 
 For each entry in a DB append the entry key to the entry itself.
 
@@ -260,9 +260,9 @@ For each entry in a DB append the entry key to the entry itself.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/suffixid.md), [Dependency map](../reference/dependency_map.md#cmd-suffixid).
+Reference links: [Full CLI](#refcmd-suffixid), [Dependency entry](#depcmd-suffixid).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -273,7 +273,7 @@ Reference links: [Full CLI](../reference/suffixid.md), [Dependency map](../refer
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `summarizetabs`
+### `summarizetabs` {#modcmd-summarizetabs}
 
 Extract annotations from HHblits BLAST-tab-formatted results.
 
@@ -287,9 +287,9 @@ Extract annotations from HHblits BLAST-tab-formatted results.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/summarizetabs.md), [Dependency map](../reference/dependency_map.md#cmd-summarizetabs).
+Reference links: [Full CLI](#refcmd-summarizetabs), [Dependency entry](#depcmd-summarizetabs).
 
-## `touchdb`
+### `touchdb` {#modcmd-touchdb}
 
 Preload DB into memory (page cache).
 
@@ -303,16 +303,16 @@ Preload DB into memory (page cache).
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/touchdb.md), [Dependency map](../reference/dependency_map.md#cmd-touchdb).
+Reference links: [Full CLI](#refcmd-touchdb), [Dependency entry](#depcmd-touchdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `unpackdb`
+### `unpackdb` {#modcmd-unpackdb}
 
 Unpack a DB into separate files.
 
@@ -326,9 +326,9 @@ Unpack a DB into separate files.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/unpackdb.md), [Dependency map](../reference/dependency_map.md#cmd-unpackdb).
+Reference links: [Full CLI](#refcmd-unpackdb), [Dependency entry](#depcmd-unpackdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -337,7 +337,7 @@ Reference links: [Full CLI](../reference/unpackdb.md), [Dependency map](../refer
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `view`
+### `view` {#modcmd-view}
 
 Print DB entries given in --id-list to stdout.
 
@@ -351,9 +351,9 @@ Print DB entries given in --id-list to stdout.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/view.md), [Dependency map](../reference/dependency_map.md#cmd-view).
+Reference links: [Full CLI](#refcmd-view), [Dependency entry](#depcmd-view).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

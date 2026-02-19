@@ -1,4 +1,4 @@
-# Easy Workflows
+## Easy Workflows {#mod-easy-workflows}
 
 High-level shortcuts that operate directly on FASTA/FASTQ and produce user-facing outputs with minimal setup.
 
@@ -14,7 +14,7 @@ For repeated runs against stable targets, prioritize index reuse and split-memor
 ]
 ```
 
-## `easy-cluster`
+### `easy-cluster` {#modcmd-easy-cluster}
 
 Slower, sensitive clustering.
 
@@ -24,13 +24,13 @@ Slower, sensitive clustering.
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
 | Called by modules | `n/a` |
-| Calls modules | [`cluster`](../reference/cluster.md), [`createdb`](../reference/createdb.md), [`createseqfiledb`](../reference/createseqfiledb.md), [`createtsv`](../reference/createtsv.md), [`result2flat`](../reference/result2flat.md), [`result2repseq`](../reference/result2repseq.md), [`rmdb`](../reference/rmdb.md) |
-| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md), [`result_handling`](./result_handling.md) |
+| Calls modules | [`cluster`](#modcmd-cluster), [`createdb`](#modcmd-createdb), [`createseqfiledb`](#modcmd-createseqfiledb), [`createtsv`](#modcmd-createtsv), [`result2flat`](#modcmd-result2flat), [`result2repseq`](#modcmd-result2repseq), [`rmdb`](#modcmd-rmdb) |
+| Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`result_handling`](#mod-result-handling) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/easy-cluster.md), [Dependency map](../reference/dependency_map.md#cmd-easycluster).
+Reference links: [Full CLI](#refcmd-easy-cluster), [Dependency entry](#depcmd-easy-cluster).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -43,7 +43,7 @@ Reference links: [Full CLI](../reference/easy-cluster.md), [Dependency map](../r
 | `--max-seqs` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) |
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 
-## `easy-linclust`
+### `easy-linclust` {#modcmd-easy-linclust}
 
 Fast linear time cluster, less sensitive clustering.
 
@@ -53,13 +53,13 @@ Fast linear time cluster, less sensitive clustering.
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
 | Called by modules | `n/a` |
-| Calls modules | [`createdb`](../reference/createdb.md), [`createseqfiledb`](../reference/createseqfiledb.md), [`createtsv`](../reference/createtsv.md), [`linclust`](../reference/linclust.md), [`result2flat`](../reference/result2flat.md), [`result2repseq`](../reference/result2repseq.md), [`rmdb`](../reference/rmdb.md) |
-| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md), [`result_handling`](./result_handling.md) |
+| Calls modules | [`createdb`](#modcmd-createdb), [`createseqfiledb`](#modcmd-createseqfiledb), [`createtsv`](#modcmd-createtsv), [`linclust`](#modcmd-linclust), [`result2flat`](#modcmd-result2flat), [`result2repseq`](#modcmd-result2repseq), [`rmdb`](#modcmd-rmdb) |
+| Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`result_handling`](#mod-result-handling) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/easy-linclust.md), [Dependency map](../reference/dependency_map.md#cmd-easylinclust).
+Reference links: [Full CLI](#refcmd-easy-linclust), [Dependency entry](#depcmd-easy-linclust).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -72,7 +72,7 @@ Reference links: [Full CLI](../reference/easy-linclust.md), [Dependency map](../
 | `--mask` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking |
 | `--mask-prob` | Mask sequences is probablity is above threshold |
 
-## `easy-linsearch`
+### `easy-linsearch` {#modcmd-easy-linsearch}
 
 Fast, less sensitive homology search.
 
@@ -82,13 +82,13 @@ Fast, less sensitive homology search.
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY | COMMAND_EXPERT` |
 | Called by modules | `n/a` |
-| Calls modules | [`convertalis`](../reference/convertalis.md), [`createdb`](../reference/createdb.md), [`createlinindex`](../reference/createlinindex.md), [`linsearch`](../reference/linsearch.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md), [`summarizeresult`](../reference/summarizeresult.md) |
-| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`search_workflows`](./search.md) |
+| Calls modules | [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`createlinindex`](#modcmd-createlinindex), [`linsearch`](#modcmd-linsearch), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`summarizeresult`](#modcmd-summarizeresult) |
+| Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/easy-linsearch.md), [Dependency map](../reference/dependency_map.md#cmd-easylinsearch).
+Reference links: [Full CLI](#refcmd-easy-linsearch), [Dependency entry](#depcmd-easy-linsearch).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -101,7 +101,7 @@ Reference links: [Full CLI](../reference/easy-linsearch.md), [Dependency map](..
 | `--mask-lower-case` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region |
 | `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
 
-## `easy-rbh`
+### `easy-rbh` {#modcmd-easy-rbh}
 
 Find reciprocal best hit.
 
@@ -111,13 +111,13 @@ Find reciprocal best hit.
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
 | Called by modules | `n/a` |
-| Calls modules | [`convertalis`](../reference/convertalis.md), [`createdb`](../reference/createdb.md), [`rbh`](../reference/rbh.md), [`rmdb`](../reference/rmdb.md) |
-| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`search_workflows`](./search.md) |
+| Calls modules | [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`rbh`](#modcmd-rbh), [`rmdb`](#modcmd-rmdb) |
+| Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/easy-rbh.md), [Dependency map](../reference/dependency_map.md#cmd-easyrbh).
+Reference links: [Full CLI](#refcmd-easy-rbh), [Dependency entry](#depcmd-easy-rbh).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -130,7 +130,7 @@ Reference links: [Full CLI](../reference/easy-rbh.md), [Dependency map](../refer
 | `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
 | `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-## `easy-search`
+### `easy-search` {#modcmd-easy-search}
 
 Sensitive homology search.
 
@@ -140,13 +140,13 @@ Sensitive homology search.
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
 | Called by modules | `n/a` |
-| Calls modules | [`convertalis`](../reference/convertalis.md), [`createdb`](../reference/createdb.md), [`createlinindex`](../reference/createlinindex.md), [`linsearch`](../reference/linsearch.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md), [`summarizeresult`](../reference/summarizeresult.md) |
-| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`search_workflows`](./search.md) |
+| Calls modules | [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`createlinindex`](#modcmd-createlinindex), [`linsearch`](#modcmd-linsearch), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`summarizeresult`](#modcmd-summarizeresult) |
+| Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/easy-search.md), [Dependency map](../reference/dependency_map.md#cmd-easysearch).
+Reference links: [Full CLI](#refcmd-easy-search), [Dependency entry](#depcmd-easy-search).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -159,7 +159,7 @@ Reference links: [Full CLI](../reference/easy-search.md), [Dependency map](../re
 | `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
 | `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-## `easy-taxonomy`
+### `easy-taxonomy` {#modcmd-easy-taxonomy}
 
 Taxonomic classification.
 
@@ -169,13 +169,13 @@ Taxonomic classification.
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
 | Called by modules | `n/a` |
-| Calls modules | [`addtaxonomy`](../reference/addtaxonomy.md), [`convertalis`](../reference/convertalis.md), [`createdb`](../reference/createdb.md), [`createtsv`](../reference/createtsv.md), [`filterdb`](../reference/filterdb.md), [`lca`](../reference/lca.md), [`rmdb`](../reference/rmdb.md), [`summarizealis`](../reference/summarizealis.md), [`swapresults`](../reference/swapresults.md), [`taxonomy`](../reference/taxonomy.md), [`taxonomyreport`](../reference/taxonomyreport.md) |
-| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`taxonomy`](./taxonomy.md), [`utilities`](./utilities.md) |
+| Calls modules | [`addtaxonomy`](#modcmd-addtaxonomy), [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`createtsv`](#modcmd-createtsv), [`filterdb`](#modcmd-filterdb), [`lca`](#modcmd-lca), [`rmdb`](#modcmd-rmdb), [`summarizealis`](#modcmd-summarizealis), [`swapresults`](#modcmd-swapresults), [`taxonomy`](#modcmd-taxonomy), [`taxonomyreport`](#modcmd-taxonomyreport) |
+| Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`taxonomy`](#mod-taxonomy), [`utilities`](#mod-utilities) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/easy-taxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-easytaxonomy).
+Reference links: [Full CLI](#refcmd-easy-taxonomy), [Dependency entry](#depcmd-easy-taxonomy).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

@@ -1,30 +1,30 @@
-# `createtsv`
+## `createtsv` {#refcmd-createtsv}
 
 Convert result DB to tab-separated flat file.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](../submodules/result_handling.md) |
+| Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md), [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by modules | [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust), [`easy-taxonomy`](#refcmd-easy-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `easycluster.sh`, `easytaxonomy.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs createtsv <i:queryDB> [<i:targetDB>] <i:resultDB> <o:tsvFile> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -37,7 +37,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 | `--db-output` | Return a result DB instead of a text file |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs createtsv <i:queryDB> [<i:targetDB>] <i:resultDB> <o:tsvFile> [options]
@@ -57,7 +57,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/result_handling.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-createtsv), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
 

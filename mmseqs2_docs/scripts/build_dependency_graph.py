@@ -149,10 +149,30 @@ GROUP_HINT_OVERRIDES = {
 }
 
 
+def label_slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
+def dependency_command_anchor(name: str) -> str:
+    return f"depcmd-{label_slug(name)}"
+
+
+def dependency_group_anchor(group: str) -> str:
+    return f"depgroup-{label_slug(group)}"
+
+
+def reference_command_anchor(name: str) -> str:
+    return f"refcmd-{label_slug(name)}"
+
+
+def module_command_anchor(name: str) -> str:
+    return f"modcmd-{label_slug(name)}"
+
+
 def linked_command_list(items: list[str]) -> str:
     if not items:
         return NO_EDGE_TEXT
-    return ", ".join(f"[`{x}`](./{x}.md)" for x in items)
+    return ", ".join(f"[`{x}`](#{dependency_command_anchor(x)})" for x in items)
 
 
 def inline_script_list(items: list[str]) -> str:
@@ -200,7 +220,7 @@ def parse_existing_group_hints() -> dict[str, str]:
         if not group:
             continue
         text = path.read_text()
-        for cmd in re.findall(r"^## `([^`]+)`", text, re.M):
+        for cmd in re.findall(r"^#{2,6}\s+`([^`]+)`", text, re.M):
             hints[cmd] = group
     return hints
 
@@ -359,7 +379,7 @@ def write_outputs(dep_map: dict[str, dict]) -> None:
         grouped[meta["primary_group"]].append(cmd)
 
     lines = []
-    lines.append("# MMseqs2 Dependency Map")
+    lines.append("# MMseqs2 Dependency Map {#sec-dependency-map}")
     lines.append("")
     lines.append("This file is generated from `MMseqs2/src/MMseqsBase.cpp` and workflow scripts.")
     lines.append("")
@@ -374,12 +394,11 @@ def write_outputs(dep_map: dict[str, dict]) -> None:
         commands = sorted(grouped.get(group, []))
         if not commands:
             continue
-        lines.append(f"## {group.replace('_', ' ').title()}")
+        lines.append(f"## {group.replace('_', ' ').title()} {{#{dependency_group_anchor(group)}}}")
         lines.append("")
         for cmd in commands:
             meta = dep_map[cmd]
-            anchor = f"cmd-{cmd.replace('-', '')}"
-            lines.append(f"### `{cmd}` {{#{anchor}}}")
+            lines.append(f"### `{cmd}` {{#{dependency_command_anchor(cmd)}}}")
             lines.append("")
             if meta["description"]:
                 lines.append(meta["description"] + ".")
@@ -391,7 +410,8 @@ def write_outputs(dep_map: dict[str, dict]) -> None:
             lines.append(f"| Calls | {linked_command_list(meta['calls'])} |")
             lines.append(f"| Called by | {linked_command_list(meta['called_by'])} |")
             lines.append(f"| Workflow scripts | {inline_script_list(meta['workflow_scripts'])} |")
-            lines.append(f"| Command reference | [Open page](./{cmd}.md) |")
+            lines.append(f"| Command reference | [Open page](#{reference_command_anchor(cmd)}) |")
+            lines.append(f"| Functional module entry | [Open module page](#{module_command_anchor(cmd)}) |")
             lines.append("")
 
     OUT_MD.write_text("\n".join(lines) + "\n")

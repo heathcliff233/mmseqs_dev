@@ -1,18 +1,18 @@
-# `setextendeddbtype`
+## `setextendeddbtype` {#refcmd-setextendeddbtype}
 
 Write an extended DB.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`utilities`](../submodules/utilities.md) |
+| Primary functional group | [`utilities`](#mod-utilities) |
 | Category flags | `COMMAND_DB` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,18 +20,18 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs setextendeddbtype <i:DB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--extended-dbtype` | Set extended dbtype 1: compressed, 2: need src, 4: context pseudoe cnts |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs setextendeddbtype <i:DB> [options]
@@ -48,7 +48,7 @@ examples:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/utilities.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-setextendeddbtype), [command reference index](#sec-command-reference), and [functional module page](#mod-utilities).
 

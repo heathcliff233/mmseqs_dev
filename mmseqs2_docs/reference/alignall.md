@@ -1,18 +1,18 @@
-# `alignall`
+## `alignall` {#refcmd-alignall}
 
 Within-result all-vs-all gapped local alignment.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](../submodules/alignment.md) |
+| Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_ALIGNMENT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,11 +20,11 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--cov-mode` | 0: coverage of query and target |
 | `--score-bias` | Score bias when computing SW alignment (in bits) |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]
@@ -86,7 +86,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/alignment.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-alignall), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

@@ -1,30 +1,30 @@
-# `multihitsearch`
+## `multihitsearch` {#refcmd-multihitsearch}
 
 Search with a grouped set of sequences against another grouped set.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`multi_hit`](../submodules/multi_hit.md) |
+| Primary functional group | [`multi_hit`](#mod-multi-hit) |
 | Category flags | `COMMAND_MULTIHIT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`besthitperset`](./besthitperset.md), [`mergeresultsbyset`](./mergeresultsbyset.md), [`rmdb`](./rmdb.md), [`search`](./search.md) |
+| Calls modules | [`besthitperset`](#refcmd-besthitperset), [`mergeresultsbyset`](#refcmd-mergeresultsbyset), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]
@@ -188,7 +188,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/multi_hit.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-multihitsearch), [command reference index](#sec-command-reference), and [functional module page](#mod-multi-hit).
 

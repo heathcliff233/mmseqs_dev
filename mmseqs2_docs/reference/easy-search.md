@@ -1,30 +1,30 @@
-# `easy-search`
+## `easy-search` {#refcmd-easy-search}
 
 Sensitive homology search.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](../submodules/easy_workflows.md) |
+| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`createlinindex`](./createlinindex.md), [`linsearch`](./linsearch.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`summarizeresult`](./summarizeresult.md) |
+| Calls modules | [`convertalis`](#refcmd-convertalis), [`createdb`](#refcmd-createdb), [`createlinindex`](#refcmd-createlinindex), [`linsearch`](#refcmd-linsearch), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`summarizeresult`](#refcmd-summarizeresult) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs easy-search <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]>|<i:stdin> <i:targetFastaFile[.gz]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs easy-search <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]>|<i:stdin> <i:targetFastaFile[.gz]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]
@@ -223,7 +223,7 @@ references:
  - Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
  - Kallenborn F, Chacon A, Hundt C, Sirelkhatim H, Didi K, Dallago C, Mirdita M, Schmidt B, Steinegger M: GPU-accelerated homology search with MMseqs2. bioRxiv, 2024.11.13.623350 (2024)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/easy_workflows.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-search), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
 

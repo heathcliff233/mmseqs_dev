@@ -1,30 +1,30 @@
-# `easy-linsearch`
+## `easy-linsearch` {#refcmd-easy-linsearch}
 
 Fast, less sensitive homology search.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](../submodules/easy_workflows.md) |
+| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY | COMMAND_EXPERT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`convertalis`](./convertalis.md), [`createdb`](./createdb.md), [`createlinindex`](./createlinindex.md), [`linsearch`](./linsearch.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`summarizeresult`](./summarizeresult.md) |
+| Calls modules | [`convertalis`](#refcmd-convertalis), [`createdb`](#refcmd-createdb), [`createlinindex`](#refcmd-createlinindex), [`linsearch`](#refcmd-linsearch), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`summarizeresult`](#refcmd-summarizeresult) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs easy-linsearch <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--alignment-mode` | How to compute the alignment: |
 | `--alignment-output-mode` | How to compute the alignment: |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs easy-linsearch <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]
@@ -150,7 +150,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/easy_workflows.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-linsearch), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
 

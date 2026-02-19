@@ -1,30 +1,30 @@
-# `tsv2exprofiledb`
+## `tsv2exprofiledb` {#refcmd-tsv2exprofiledb}
 
 Create a expandable profile db from TSV files.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`profiles`](../submodules/profiles.md) |
+| Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`aliasdb`](./aliasdb.md), [`compress`](./compress.md), [`mvdb`](./mvdb.md), [`rmdb`](./rmdb.md), [`tsv2db`](./tsv2db.md) |
+| Calls modules | [`aliasdb`](#refcmd-aliasdb), [`compress`](#refcmd-compress), [`mvdb`](#refcmd-mvdb), [`rmdb`](#refcmd-rmdb), [`tsv2db`](#refcmd-tsv2db) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -33,7 +33,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]
@@ -47,7 +47,7 @@ options: common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/profiles.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-tsv2exprofiledb), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
 

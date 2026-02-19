@@ -1,30 +1,30 @@
-# `cluster`
+## `cluster` {#refcmd-cluster}
 
 Slower, sensitive clustering.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`clustering`](../submodules/clustering.md) |
+| Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_MAIN` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`clusterupdate`](./clusterupdate.md), [`easy-cluster`](./easy-cluster.md) |
-| Calls modules | [`align`](./align.md), [`clust`](./clust.md), [`clusthash`](./clusthash.md), [`concatdbs`](./concatdbs.md), [`createsubdb`](./createsubdb.md), [`extractframes`](./extractframes.md), [`filterdb`](./filterdb.md), [`linclust`](./linclust.md), [`mergeclusters`](./mergeclusters.md), [`mergedbs`](./mergedbs.md), [`mvdb`](./mvdb.md), [`offsetalignment`](./offsetalignment.md), [`prefilter`](./prefilter.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md), [`subtractdbs`](./subtractdbs.md), [`swapdb`](./swapdb.md), [`tsv2db`](./tsv2db.md) |
+| Called by modules | [`clusterupdate`](#refcmd-clusterupdate), [`easy-cluster`](#refcmd-easy-cluster) |
+| Calls modules | [`align`](#refcmd-align), [`clust`](#refcmd-clust), [`clusthash`](#refcmd-clusthash), [`concatdbs`](#refcmd-concatdbs), [`createsubdb`](#refcmd-createsubdb), [`extractframes`](#refcmd-extractframes), [`filterdb`](#refcmd-filterdb), [`linclust`](#refcmd-linclust), [`mergeclusters`](#refcmd-mergeclusters), [`mergedbs`](#refcmd-mergedbs), [`mvdb`](#refcmd-mvdb), [`offsetalignment`](#refcmd-offsetalignment), [`prefilter`](#refcmd-prefilter), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb), [`subtractdbs`](#refcmd-subtractdbs), [`swapdb`](#refcmd-swapdb), [`tsv2db`](#refcmd-tsv2db) |
 | Seen in workflow scripts | `update_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
 | `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]
@@ -173,7 +173,7 @@ references:
  - Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
  - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/clustering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-cluster), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
 

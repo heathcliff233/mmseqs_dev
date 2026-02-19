@@ -25,6 +25,10 @@ def warn(msg: str, warnings: list[str]) -> None:
     warnings.append(msg)
 
 
+def slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
 def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
@@ -35,6 +39,8 @@ def main() -> int:
         return 1
 
     dep_map = json.loads(DEP_JSON.read_text())
+    ref_anchor_set = {f"refcmd-{slug(cmd)}" for cmd in dep_map}
+    dep_anchor_set = {f"depcmd-{slug(cmd)}" for cmd in dep_map}
 
     # Reference coverage
     for cmd in dep_map:
@@ -59,17 +65,25 @@ def main() -> int:
     all_headings = []
     for path in sorted(SUB.glob("*.md")):
         text = path.read_text()
-        headings = re.findall(r"^## `([^`]+)`", text, re.M)
+        headings = re.findall(r"^#{2,6}\s+`([^`]+)`", text, re.M)
         dup = [x for x, c in Counter(headings).items() if c > 1]
         if dup:
             fail(f"Duplicate command headings in {path.name}: {', '.join(dup)}", errors)
         for cmd in headings:
             all_headings.append((cmd, path.name))
 
-        # basic cross-reference link check
-        for ref_cmd in re.findall(r"\[Full CLI\]\(\.\./reference/([^)]+)\.md\)", text):
-            if not (REF / f"{ref_cmd}.md").exists():
-                fail(f"Broken Full CLI link in {path.name}: {ref_cmd}", errors)
+        # basic cross-reference anchor check
+        for anchor in re.findall(r"\[Full CLI\]\(#([^)]+)\)", text):
+            if anchor not in ref_anchor_set:
+                fail(f"Broken Full CLI anchor in {path.name}: {anchor}", errors)
+
+        for anchor in re.findall(r"\[Dependency entry\]\(#([^)]+)\)", text):
+            if anchor not in dep_anchor_set:
+                fail(f"Broken dependency anchor in {path.name}: {anchor}", errors)
+
+        legacy_links = re.findall(r"\]\((?:\./|\.\./)[^)]+\.md(?:#[^)]+)?\)", text)
+        if legacy_links:
+            fail(f"Legacy local file-path links in {path.name}: {len(legacy_links)}", errors)
 
     # command appears in one submodule page
     by_cmd = Counter(cmd for cmd, _ in all_headings)
@@ -83,6 +97,12 @@ def main() -> int:
             "Visible commands missing from submodule docs: " + ", ".join(missing_in_submodules),
             errors,
         )
+
+    for path in sorted(REF.glob("*.md")):
+        text = path.read_text()
+        legacy_links = re.findall(r"\]\((?:\./|\.\./)[^)]+\.md(?:#[^)]+)?\)", text)
+        if legacy_links:
+            fail(f"Legacy local file-path links in reference page {path.name}: {len(legacy_links)}", errors)
 
     print("Validation summary")
     print(f"- visible commands: {len(dep_map)}")

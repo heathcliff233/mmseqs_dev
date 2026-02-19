@@ -1,4 +1,4 @@
-# Sequence Manipulation
+## Sequence Manipulation {#mod-sequence-manipulation}
 
 Modules that transform sequence content, frames, ORFs, and masked/aligned regions.
 
@@ -14,7 +14,7 @@ Validate database-type and sidecar compatibility before chaining modules. Most p
 ]
 ```
 
-## `extractalignedregion`
+### `extractalignedregion` {#modcmd-extractalignedregion}
 
 Extract aligned sequence region from query.
 
@@ -28,9 +28,9 @@ Extract aligned sequence region from query.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/extractalignedregion.md), [Dependency map](../reference/dependency_map.md#cmd-extractalignedregion).
+Reference links: [Full CLI](#refcmd-extractalignedregion), [Dependency entry](#depcmd-extractalignedregion).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +40,7 @@ Reference links: [Full CLI](../reference/extractalignedregion.md), [Dependency m
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `extractframes`
+### `extractframes` {#modcmd-extractframes}
 
 Extract frames from a nucleotide sequence DB.
 
@@ -49,14 +49,14 @@ Extract frames from a nucleotide sequence DB.
 | Usage | `usage: mmseqs extractframes <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`createindex`](../reference/createindex.md), [`createlinindex`](../reference/createlinindex.md), [`search`](../reference/search.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`createindex`](#modcmd-createindex), [`createlinindex`](#modcmd-createlinindex), [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md), [`search_workflows`](./search.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `blastn.sh`, `createindex.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
 
-Reference links: [Full CLI](../reference/extractframes.md), [Dependency map](../reference/dependency_map.md#cmd-extractframes).
+Reference links: [Full CLI](#refcmd-extractframes), [Dependency entry](#depcmd-extractframes).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -69,7 +69,7 @@ Reference links: [Full CLI](../reference/extractframes.md), [Dependency map](../
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 | `--create-lookup` | Create database lookup file (can be very large) |
 
-## `extractorfs`
+### `extractorfs` {#modcmd-extractorfs}
 
 Six-frame extraction of open reading frames.
 
@@ -78,14 +78,14 @@ Six-frame extraction of open reading frames.
 | Usage | `usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`createindex`](../reference/createindex.md), [`createlinindex`](../reference/createlinindex.md), [`linsearch`](../reference/linsearch.md), [`multihitdb`](../reference/multihitdb.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`createindex`](#modcmd-createindex), [`createlinindex`](#modcmd-createlinindex), [`linsearch`](#modcmd-linsearch), [`multihitdb`](#modcmd-multihitdb), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`database`](./database.md), [`multi_hit`](./multi_hit.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Related functional groups | [`database`](#mod-database), [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
 | Workflow script usage | `createindex.sh`, `multihitdb.sh`, `taxpercontig.sh`, `translated_search.sh` |
 
-Reference links: [Full CLI](../reference/extractorfs.md), [Dependency map](../reference/dependency_map.md#cmd-extractorfs).
+Reference links: [Full CLI](#refcmd-extractorfs), [Dependency entry](#depcmd-extractorfs).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -98,7 +98,7 @@ Reference links: [Full CLI](../reference/extractorfs.md), [Dependency map](../re
 | `--forward-frames` | Comma-separated list of frames on the forward strand to be extracted |
 | `--reverse-frames` | Comma-separated list of frames on the reverse strand to be extracted |
 
-## `masksequence`
+### `masksequence` {#modcmd-masksequence}
 
 Soft mask sequence DB using tantan.
 
@@ -112,9 +112,9 @@ Soft mask sequence DB using tantan.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/masksequence.md), [Dependency map](../reference/dependency_map.md#cmd-masksequence).
+Reference links: [Full CLI](#refcmd-masksequence), [Dependency entry](#depcmd-masksequence).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -126,7 +126,7 @@ Reference links: [Full CLI](../reference/masksequence.md), [Dependency map](../r
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `orftocontig`
+### `orftocontig` {#modcmd-orftocontig}
 
 Write ORF locations in alignment format.
 
@@ -135,14 +135,14 @@ Write ORF locations in alignment format.
 | Usage | `usage: mmseqs orftocontig <i:contigsSequenceDB> <i:extractedOrfsHeadersDB> <o:orfsAlignedToContigDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`multihitdb`](../reference/multihitdb.md) |
+| Called by modules | [`multihitdb`](#modcmd-multihitdb) |
 | Calls modules | `n/a` |
-| Related functional groups | [`multi_hit`](./multi_hit.md) |
+| Related functional groups | [`multi_hit`](#mod-multi-hit) |
 | Workflow script usage | `multihitdb.sh` |
 
-Reference links: [Full CLI](../reference/orftocontig.md), [Dependency map](../reference/dependency_map.md#cmd-orftocontig).
+Reference links: [Full CLI](#refcmd-orftocontig), [Dependency entry](#depcmd-orftocontig).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -150,7 +150,7 @@ Reference links: [Full CLI](../reference/orftocontig.md), [Dependency map](../re
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `recoverlongestorf`
+### `recoverlongestorf` {#modcmd-recoverlongestorf}
 
 Recover longest ORF for taxonomy annotation after elimination.
 
@@ -159,21 +159,21 @@ Recover longest ORF for taxonomy annotation after elimination.
 | Usage | `usage: mmseqs recoverlongestorf <i:orfDB> <i:resultDB> <o:tsvFile> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_EXPERT` |
-| Called by modules | [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`taxonomy`](./taxonomy.md) |
+| Related functional groups | [`taxonomy`](#mod-taxonomy) |
 | Workflow script usage | `taxpercontig.sh` |
 
-Reference links: [Full CLI](../reference/recoverlongestorf.md), [Dependency map](../reference/dependency_map.md#cmd-recoverlongestorf).
+Reference links: [Full CLI](#refcmd-recoverlongestorf), [Dependency entry](#depcmd-recoverlongestorf).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `reverseseq`
+### `reverseseq` {#modcmd-reverseseq}
 
 Reverse (without complement) sequences.
 
@@ -187,9 +187,9 @@ Reverse (without complement) sequences.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/reverseseq.md), [Dependency map](../reference/dependency_map.md#cmd-reverseseq).
+Reference links: [Full CLI](#refcmd-reverseseq), [Dependency entry](#depcmd-reverseseq).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -197,7 +197,7 @@ Reference links: [Full CLI](../reference/reverseseq.md), [Dependency map](../ref
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `translateaa`
+### `translateaa` {#modcmd-translateaa}
 
 Translate proteins to lexicographically lowest codons.
 
@@ -211,9 +211,9 @@ Translate proteins to lexicographically lowest codons.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/translateaa.md), [Dependency map](../reference/dependency_map.md#cmd-translateaa).
+Reference links: [Full CLI](#refcmd-translateaa), [Dependency entry](#depcmd-translateaa).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -221,7 +221,7 @@ Reference links: [Full CLI](../reference/translateaa.md), [Dependency map](../re
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `translatenucs`
+### `translatenucs` {#modcmd-translatenucs}
 
 Translate nucleotides to proteins.
 
@@ -230,14 +230,14 @@ Translate nucleotides to proteins.
 | Usage | `usage: mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`multihitdb`](../reference/multihitdb.md) |
+| Called by modules | [`multihitdb`](#modcmd-multihitdb) |
 | Calls modules | `n/a` |
-| Related functional groups | [`multi_hit`](./multi_hit.md) |
+| Related functional groups | [`multi_hit`](#mod-multi-hit) |
 | Workflow script usage | `multihitdb.sh` |
 
-Reference links: [Full CLI](../reference/translatenucs.md), [Dependency map](../reference/dependency_map.md#cmd-translatenucs).
+Reference links: [Full CLI](#refcmd-translatenucs), [Dependency entry](#depcmd-translatenucs).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

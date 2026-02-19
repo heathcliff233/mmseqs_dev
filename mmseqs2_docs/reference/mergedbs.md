@@ -1,30 +1,30 @@
-# `mergedbs`
+## `mergedbs` {#refcmd-mergedbs}
 
 Merge entries from multiple DBs.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`database`](../submodules/database.md) |
+| Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_SET` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`rbh`](./rbh.md), [`search`](./search.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `update_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs mergedbs <i:DB> <o:DB> <i:DB1> ... <i:DBn> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -33,7 +33,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--prefixes` | Comma separated list of prefixes for each entry |
 | `--merge-stop-empty` | Don't continue merging entries after an empty entry |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs mergedbs <i:DB> <o:DB> <i:DB1> ... <i:DBn> [options]
@@ -48,7 +48,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/database.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-mergedbs), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
 

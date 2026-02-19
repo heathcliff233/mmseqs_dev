@@ -1,18 +1,18 @@
-# `proteinaln2nucl`
+## `proteinaln2nucl` {#refcmd-proteinaln2nucl}
 
 Transform protein alignments to nucleotide alignments.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`alignment`](../submodules/alignment.md) |
+| Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_RESULT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,11 +20,11 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs proteinaln2nucl <i:nuclQueryDB> <i:nuclTargetDB> <i:aaQueryDB> <i:aaTargetDB> <i:alnDB> <o:alnDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -35,7 +35,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs proteinaln2nucl <i:nuclQueryDB> <i:nuclTargetDB> <i:aaQueryDB> <i:aaTargetDB> <i:alnDB> <o:alnDB> [options]
@@ -52,7 +52,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/alignment.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-proteinaln2nucl), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

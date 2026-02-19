@@ -1,18 +1,18 @@
-# `gpuserver`
+## `gpuserver` {#refcmd-gpuserver}
 
 Start a GPU server.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`utilities`](../submodules/utilities.md) |
+| Primary functional group | [`utilities`](#mod-utilities) |
 | Category flags | `COMMAND_STORAGE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,11 +20,11 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs gpuserver <i:DB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -33,7 +33,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--gpu` | Use GPU (CUDA) if possible |
 | `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs gpuserver <i:DB> [options]
@@ -49,7 +49,7 @@ common:
 references:
  - Kallenborn F, Chacon A, Hundt C, Sirelkhatim H, Didi K, Dallago C, Mirdita M, Schmidt B, Steinegger M: GPU-accelerated homology search with MMseqs2. bioRxiv, 2024.11.13.623350 (2024)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/utilities.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-gpuserver), [command reference index](#sec-command-reference), and [functional module page](#mod-utilities).
 

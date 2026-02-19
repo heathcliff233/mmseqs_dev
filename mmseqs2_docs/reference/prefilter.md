@@ -1,30 +1,30 @@
-# `prefilter`
+## `prefilter` {#refcmd-prefilter}
 
 Double consecutive diagonal k-mer search.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`prefiltering`](../submodules/prefiltering.md) |
+| Primary functional group | [`prefiltering`](#mod-prefiltering) |
 | Category flags | `COMMAND_PREFILTER` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxpercontig.sh`, `translated_search.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
 | `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]
@@ -94,7 +94,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/prefiltering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-prefilter), [command reference index](#sec-command-reference), and [functional module page](#mod-prefiltering).
 

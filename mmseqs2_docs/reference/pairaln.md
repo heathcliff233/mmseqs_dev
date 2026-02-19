@@ -1,18 +1,18 @@
-# `pairaln`
+## `pairaln` {#refcmd-pairaln}
 
 Pair sequences to match best protein A and B from a species.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`profiles`](../submodules/profiles.md) |
+| Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_EXPERT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,15 +20,15 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 No local help snapshot usage line is available.
 
-## Key Options
+### Key Options
 
 No parsed options are available for this command.
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```{=typst}
 #doc_warning[
@@ -36,7 +36,7 @@ Help snapshot missing in mmseqs_help_output. Refresh local snapshots before rely
 ]
 ```
 
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/profiles.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-pairaln), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
 

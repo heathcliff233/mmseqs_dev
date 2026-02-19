@@ -1,34 +1,34 @@
-# `pickconsensusrep`
+## `pickconsensusrep` {#refcmd-pickconsensusrep}
 
 Select new representatives for each cluster based on consensus.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`clustering`](../submodules/clustering.md) |
+| Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_CLUSTER` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`align`](./align.md), [`msa2profile`](./msa2profile.md), [`prefixid`](./prefixid.md), [`renamedbkeys`](./renamedbkeys.md), [`result2msa`](./result2msa.md), [`rmdb`](./rmdb.md), [`tsv2db`](./tsv2db.md) |
+| Calls modules | [`align`](#refcmd-align), [`msa2profile`](#refcmd-msa2profile), [`prefixid`](#refcmd-prefixid), [`renamedbkeys`](#refcmd-renamedbkeys), [`result2msa`](#refcmd-result2msa), [`rmdb`](#refcmd-rmdb), [`tsv2db`](#refcmd-tsv2db) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 No local help snapshot usage line is available.
 
-## Key Options
+### Key Options
 
 No parsed options are available for this command.
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```{=typst}
 #doc_warning[
@@ -36,7 +36,7 @@ Help snapshot missing in mmseqs_help_output. Refresh local snapshots before rely
 ]
 ```
 
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/clustering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-pickconsensusrep), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
 

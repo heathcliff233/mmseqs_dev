@@ -1,30 +1,30 @@
-# `taxonomy`
+## `taxonomy` {#refcmd-taxonomy}
 
 Taxonomic classification.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`taxonomy`](../submodules/taxonomy.md) |
+| Primary functional group | [`taxonomy`](#mod-taxonomy) |
 | Category flags | `COMMAND_MAIN` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-taxonomy`](./easy-taxonomy.md), [`taxonomy`](./taxonomy.md) |
-| Calls modules | [`aggregatetax`](./aggregatetax.md), [`aggregatetaxweights`](./aggregatetaxweights.md), [`createsubdb`](./createsubdb.md), [`extractorfs`](./extractorfs.md), [`filterdb`](./filterdb.md), [`lca`](./lca.md), [`mergeresultsbyset`](./mergeresultsbyset.md), [`mvdb`](./mvdb.md), [`prefilter`](./prefilter.md), [`recoverlongestorf`](./recoverlongestorf.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`swapdb`](./swapdb.md), [`taxonomy`](./taxonomy.md) |
+| Called by modules | [`easy-taxonomy`](#refcmd-easy-taxonomy), [`taxonomy`](#refcmd-taxonomy) |
+| Calls modules | [`aggregatetax`](#refcmd-aggregatetax), [`aggregatetaxweights`](#refcmd-aggregatetaxweights), [`createsubdb`](#refcmd-createsubdb), [`extractorfs`](#refcmd-extractorfs), [`filterdb`](#refcmd-filterdb), [`lca`](#refcmd-lca), [`mergeresultsbyset`](#refcmd-mergeresultsbyset), [`mvdb`](#refcmd-mvdb), [`prefilter`](#refcmd-prefilter), [`recoverlongestorf`](#refcmd-recoverlongestorf), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`swapdb`](#refcmd-swapdb), [`taxonomy`](#refcmd-taxonomy) |
 | Seen in workflow scripts | `easytaxonomy.sh`, `taxpercontig.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]
@@ -214,7 +214,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Breitwieser F, Soding J, Levy Karin E: Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, btab184 (2021)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/taxonomy.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-taxonomy), [command reference index](#sec-command-reference), and [functional module page](#mod-taxonomy).
 

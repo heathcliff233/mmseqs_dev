@@ -69,15 +69,4 @@ function Image(el)
   return {}
 end
 
--- Convert broken internal links (e.g., GitHub-style anchors) into plain text
--- to avoid Typst "label does not exist" errors.
-function Link(el)
-  local target = el.target or el.src
-  if type(target) == 'table' then target = target[1] end
-  if not target or type(target) ~= 'string' then return nil end
-  if target:match('^#') then
-    -- Drop the link wrapper, keep the link text
-    return el.content
-  end
-  return nil
-end
+-- Keep Pandoc's default link behavior so internal anchors remain clickable in PDF.

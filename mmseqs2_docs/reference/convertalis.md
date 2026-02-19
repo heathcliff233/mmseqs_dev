@@ -1,30 +1,30 @@
-# `convertalis`
+## `convertalis` {#refcmd-convertalis}
 
 Convert alignment DB to BLAST-tab, SAM or custom format.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](../submodules/result_handling.md) |
+| Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-linsearch`](./easy-linsearch.md), [`easy-rbh`](./easy-rbh.md), [`easy-search`](./easy-search.md), [`easy-taxonomy`](./easy-taxonomy.md) |
+| Called by modules | [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-rbh`](#refcmd-easy-rbh), [`easy-search`](#refcmd-easy-search), [`easy-taxonomy`](#refcmd-easy-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs convertalis <i:queryDb> <i:targetDb> <i:alignmentDB> <o:alignmentFile> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 | `--db-output` | Return a result DB instead of a text file |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs convertalis <i:queryDb> <i:targetDb> <i:alignmentDB> <o:alignmentFile> [options]
@@ -99,7 +99,7 @@ examples:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/result_handling.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-convertalis), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
 

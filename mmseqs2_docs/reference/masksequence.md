@@ -1,18 +1,18 @@
-# `masksequence`
+## `masksequence` {#refcmd-masksequence}
 
 Soft mask sequence DB using tantan.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`sequence_manipulation`](../submodules/sequence_manipulation.md) |
+| Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,11 +20,11 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs masksequence <i:sequenceDB> <o:sequenceDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -36,7 +36,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs masksequence <i:sequenceDB> <o:sequenceDB> [options]
@@ -54,7 +54,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/sequence_manipulation.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-masksequence), [command reference index](#sec-command-reference), and [functional module page](#mod-sequence-manipulation).
 

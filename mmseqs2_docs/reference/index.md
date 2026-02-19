@@ -1,4 +1,4 @@
-# MMseqs2 Command Reference Index
+# MMseqs2 Command Reference Index {#sec-command-reference}
 
 This reference is generated from source metadata and local help snapshots.
 
@@ -48,193 +48,193 @@ Some visible commands do not have local help snapshots. Use `generate_mmseqs_doc
 | `summarizetabs` | missing |
 | `transitivealign` | missing |
 
-Primary maps: [Dependency map](./dependency_map.md).
+Primary maps: [Dependency map](#sec-dependency-map).
 
-## Easy Workflows
-
-| Command | Layer | Snapshot |
-| :--- | :--- | :--- |
-| [`easy-cluster`](./easy-cluster.md) | `workflow` | `help` |
-| [`easy-linclust`](./easy-linclust.md) | `workflow` | `help` |
-| [`easy-linsearch`](./easy-linsearch.md) | `workflow` | `help` |
-| [`easy-rbh`](./easy-rbh.md) | `workflow` | `help` |
-| [`easy-search`](./easy-search.md) | `workflow` | `help` |
-| [`easy-taxonomy`](./easy-taxonomy.md) | `workflow` | `help` |
-
-## Search Workflows
+## Easy Workflows {#refgroup-easy-workflows}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`linsearch`](./linsearch.md) | `high_level_api` | `help` |
-| [`map`](./map.md) | `high_level_api` | `help` |
-| [`rbh`](./rbh.md) | `high_level_api` | `help` |
-| [`search`](./search.md) | `high_level_api` | `help` |
+| [`easy-cluster`](#refcmd-easy-cluster) | `workflow` | `help` |
+| [`easy-linclust`](#refcmd-easy-linclust) | `workflow` | `help` |
+| [`easy-linsearch`](#refcmd-easy-linsearch) | `workflow` | `help` |
+| [`easy-rbh`](#refcmd-easy-rbh) | `workflow` | `help` |
+| [`easy-search`](#refcmd-easy-search) | `workflow` | `help` |
+| [`easy-taxonomy`](#refcmd-easy-taxonomy) | `workflow` | `help` |
 
-## Clustering
-
-| Command | Layer | Snapshot |
-| :--- | :--- | :--- |
-| [`clust`](./clust.md) | `mid_level_api` | `help` |
-| [`cluster`](./cluster.md) | `high_level_api` | `help` |
-| [`clusterupdate`](./clusterupdate.md) | `high_level_api` | `help` |
-| [`clusthash`](./clusthash.md) | `mid_level_api` | `help` |
-| [`linclust`](./linclust.md) | `high_level_api` | `help` |
-| [`mergeclusters`](./mergeclusters.md) | `mid_level_api` | `help` |
-| [`pickconsensusrep`](./pickconsensusrep.md) | `mid_level_api` | `missing-help` |
-
-## Prefiltering
+## Search Workflows {#refgroup-search-workflows}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`countkmer`](./countkmer.md) | `low_level_api` | `missing-help` |
-| [`gappedprefilter`](./gappedprefilter.md) | `mid_level_api` | `help` |
-| [`kmermatcher`](./kmermatcher.md) | `mid_level_api` | `help` |
-| [`kmersearch`](./kmersearch.md) | `mid_level_api` | `help` |
-| [`prefilter`](./prefilter.md) | `mid_level_api` | `help` |
-| [`ungappedprefilter`](./ungappedprefilter.md) | `mid_level_api` | `help` |
+| [`linsearch`](#refcmd-linsearch) | `high_level_api` | `help` |
+| [`map`](#refcmd-map) | `high_level_api` | `help` |
+| [`rbh`](#refcmd-rbh) | `high_level_api` | `help` |
+| [`search`](#refcmd-search) | `high_level_api` | `help` |
 
-## Alignment
+## Clustering {#refgroup-clustering}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`align`](./align.md) | `mid_level_api` | `help` |
-| [`alignall`](./alignall.md) | `mid_level_api` | `help` |
-| [`alignbykmer`](./alignbykmer.md) | `mid_level_api` | `help` |
-| [`expandaln`](./expandaln.md) | `mid_level_api` | `help` |
-| [`fwbw`](./fwbw.md) | `mid_level_api` | `missing-help` |
-| [`offsetalignment`](./offsetalignment.md) | `low_level_api` | `help` |
-| [`proteinaln2nucl`](./proteinaln2nucl.md) | `low_level_api` | `help` |
-| [`rescorediagonal`](./rescorediagonal.md) | `mid_level_api` | `help` |
-| [`transitivealign`](./transitivealign.md) | `mid_level_api` | `missing-help` |
+| [`clust`](#refcmd-clust) | `mid_level_api` | `help` |
+| [`cluster`](#refcmd-cluster) | `high_level_api` | `help` |
+| [`clusterupdate`](#refcmd-clusterupdate) | `high_level_api` | `help` |
+| [`clusthash`](#refcmd-clusthash) | `mid_level_api` | `help` |
+| [`linclust`](#refcmd-linclust) | `high_level_api` | `help` |
+| [`mergeclusters`](#refcmd-mergeclusters) | `mid_level_api` | `help` |
+| [`pickconsensusrep`](#refcmd-pickconsensusrep) | `mid_level_api` | `missing-help` |
 
-## Profiles
+## Prefiltering {#refgroup-prefiltering}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`convertca3m`](./convertca3m.md) | `mid_level_api` | `missing-help` |
-| [`convertmsa`](./convertmsa.md) | `low_level_api` | `help` |
-| [`convertprofiledb`](./convertprofiledb.md) | `low_level_api` | `missing-help` |
-| [`expand2profile`](./expand2profile.md) | `mid_level_api` | `missing-help` |
-| [`msa2profile`](./msa2profile.md) | `low_level_api` | `help` |
-| [`msa2result`](./msa2result.md) | `low_level_api` | `help` |
-| [`pairaln`](./pairaln.md) | `low_level_api` | `missing-help` |
-| [`profile2consensus`](./profile2consensus.md) | `low_level_api` | `missing-help` |
-| [`profile2neff`](./profile2neff.md) | `low_level_api` | `missing-help` |
-| [`profile2pssm`](./profile2pssm.md) | `low_level_api` | `missing-help` |
-| [`profile2repseq`](./profile2repseq.md) | `low_level_api` | `missing-help` |
-| [`result2profile`](./result2profile.md) | `low_level_api` | `help` |
-| [`sequence2profile`](./sequence2profile.md) | `low_level_api` | `missing-help` |
-| [`tsv2exprofiledb`](./tsv2exprofiledb.md) | `mid_level_api` | `help` |
+| [`countkmer`](#refcmd-countkmer) | `low_level_api` | `missing-help` |
+| [`gappedprefilter`](#refcmd-gappedprefilter) | `mid_level_api` | `help` |
+| [`kmermatcher`](#refcmd-kmermatcher) | `mid_level_api` | `help` |
+| [`kmersearch`](#refcmd-kmersearch) | `mid_level_api` | `help` |
+| [`prefilter`](#refcmd-prefilter) | `mid_level_api` | `help` |
+| [`ungappedprefilter`](#refcmd-ungappedprefilter) | `mid_level_api` | `help` |
 
-## Database
+## Alignment {#refgroup-alignment}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`aliasdb`](./aliasdb.md) | `low_level_api` | `help` |
-| [`concatdbs`](./concatdbs.md) | `low_level_api` | `help` |
-| [`cpdb`](./cpdb.md) | `low_level_api` | `help` |
-| [`createdb`](./createdb.md) | `low_level_api` | `help` |
-| [`createindex`](./createindex.md) | `low_level_api` | `help` |
-| [`createlinindex`](./createlinindex.md) | `low_level_api` | `help` |
-| [`createsubdb`](./createsubdb.md) | `low_level_api` | `help` |
-| [`databases`](./databases.md) | `low_level_api` | `missing-help` |
-| [`db2tar`](./db2tar.md) | `low_level_api` | `help` |
-| [`lndb`](./lndb.md) | `low_level_api` | `help` |
-| [`mergedbs`](./mergedbs.md) | `low_level_api` | `help` |
-| [`mvdb`](./mvdb.md) | `low_level_api` | `help` |
-| [`renamedbkeys`](./renamedbkeys.md) | `low_level_api` | `help` |
-| [`rmdb`](./rmdb.md) | `low_level_api` | `missing-help` |
-| [`splitdb`](./splitdb.md) | `low_level_api` | `help` |
-| [`splitsequence`](./splitsequence.md) | `low_level_api` | `help` |
-| [`subtractdbs`](./subtractdbs.md) | `low_level_api` | `help` |
-| [`swapdb`](./swapdb.md) | `low_level_api` | `help` |
-| [`tar2db`](./tar2db.md) | `low_level_api` | `help` |
-| [`tsv2db`](./tsv2db.md) | `low_level_api` | `help` |
+| [`align`](#refcmd-align) | `mid_level_api` | `help` |
+| [`alignall`](#refcmd-alignall) | `mid_level_api` | `help` |
+| [`alignbykmer`](#refcmd-alignbykmer) | `mid_level_api` | `help` |
+| [`expandaln`](#refcmd-expandaln) | `mid_level_api` | `help` |
+| [`fwbw`](#refcmd-fwbw) | `mid_level_api` | `missing-help` |
+| [`offsetalignment`](#refcmd-offsetalignment) | `low_level_api` | `help` |
+| [`proteinaln2nucl`](#refcmd-proteinaln2nucl) | `low_level_api` | `help` |
+| [`rescorediagonal`](#refcmd-rescorediagonal) | `mid_level_api` | `help` |
+| [`transitivealign`](#refcmd-transitivealign) | `mid_level_api` | `missing-help` |
 
-## Result Handling
+## Profiles {#refgroup-profiles}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`convert2fasta`](./convert2fasta.md) | `low_level_api` | `missing-help` |
-| [`convertalis`](./convertalis.md) | `low_level_api` | `help` |
-| [`createseqfiledb`](./createseqfiledb.md) | `low_level_api` | `help` |
-| [`createtsv`](./createtsv.md) | `low_level_api` | `help` |
-| [`extractdomains`](./extractdomains.md) | `low_level_api` | `missing-help` |
-| [`filterresult`](./filterresult.md) | `low_level_api` | `help` |
-| [`result2dnamsa`](./result2dnamsa.md) | `low_level_api` | `help` |
-| [`result2flat`](./result2flat.md) | `low_level_api` | `help` |
-| [`result2msa`](./result2msa.md) | `low_level_api` | `help` |
-| [`result2rbh`](./result2rbh.md) | `low_level_api` | `help` |
-| [`result2repseq`](./result2repseq.md) | `low_level_api` | `help` |
-| [`result2stats`](./result2stats.md) | `low_level_api` | `help` |
-| [`sortresult`](./sortresult.md) | `low_level_api` | `help` |
-| [`summarizealis`](./summarizealis.md) | `low_level_api` | `help` |
-| [`summarizeheaders`](./summarizeheaders.md) | `low_level_api` | `missing-help` |
-| [`summarizeresult`](./summarizeresult.md) | `low_level_api` | `help` |
-| [`swapresults`](./swapresults.md) | `low_level_api` | `help` |
+| [`convertca3m`](#refcmd-convertca3m) | `mid_level_api` | `missing-help` |
+| [`convertmsa`](#refcmd-convertmsa) | `low_level_api` | `help` |
+| [`convertprofiledb`](#refcmd-convertprofiledb) | `low_level_api` | `missing-help` |
+| [`expand2profile`](#refcmd-expand2profile) | `mid_level_api` | `missing-help` |
+| [`msa2profile`](#refcmd-msa2profile) | `low_level_api` | `help` |
+| [`msa2result`](#refcmd-msa2result) | `low_level_api` | `help` |
+| [`pairaln`](#refcmd-pairaln) | `low_level_api` | `missing-help` |
+| [`profile2consensus`](#refcmd-profile2consensus) | `low_level_api` | `missing-help` |
+| [`profile2neff`](#refcmd-profile2neff) | `low_level_api` | `missing-help` |
+| [`profile2pssm`](#refcmd-profile2pssm) | `low_level_api` | `missing-help` |
+| [`profile2repseq`](#refcmd-profile2repseq) | `low_level_api` | `missing-help` |
+| [`result2profile`](#refcmd-result2profile) | `low_level_api` | `help` |
+| [`sequence2profile`](#refcmd-sequence2profile) | `low_level_api` | `missing-help` |
+| [`tsv2exprofiledb`](#refcmd-tsv2exprofiledb) | `mid_level_api` | `help` |
 
-## Sequence Manipulation
+## Database {#refgroup-database}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`extractalignedregion`](./extractalignedregion.md) | `low_level_api` | `help` |
-| [`extractframes`](./extractframes.md) | `low_level_api` | `help` |
-| [`extractorfs`](./extractorfs.md) | `low_level_api` | `help` |
-| [`masksequence`](./masksequence.md) | `low_level_api` | `help` |
-| [`orftocontig`](./orftocontig.md) | `low_level_api` | `help` |
-| [`recoverlongestorf`](./recoverlongestorf.md) | `low_level_api` | `help` |
-| [`reverseseq`](./reverseseq.md) | `low_level_api` | `help` |
-| [`translateaa`](./translateaa.md) | `low_level_api` | `help` |
-| [`translatenucs`](./translatenucs.md) | `low_level_api` | `help` |
+| [`aliasdb`](#refcmd-aliasdb) | `low_level_api` | `help` |
+| [`concatdbs`](#refcmd-concatdbs) | `low_level_api` | `help` |
+| [`cpdb`](#refcmd-cpdb) | `low_level_api` | `help` |
+| [`createdb`](#refcmd-createdb) | `low_level_api` | `help` |
+| [`createindex`](#refcmd-createindex) | `low_level_api` | `help` |
+| [`createlinindex`](#refcmd-createlinindex) | `low_level_api` | `help` |
+| [`createsubdb`](#refcmd-createsubdb) | `low_level_api` | `help` |
+| [`databases`](#refcmd-databases) | `low_level_api` | `missing-help` |
+| [`db2tar`](#refcmd-db2tar) | `low_level_api` | `help` |
+| [`lndb`](#refcmd-lndb) | `low_level_api` | `help` |
+| [`mergedbs`](#refcmd-mergedbs) | `low_level_api` | `help` |
+| [`mvdb`](#refcmd-mvdb) | `low_level_api` | `help` |
+| [`renamedbkeys`](#refcmd-renamedbkeys) | `low_level_api` | `help` |
+| [`rmdb`](#refcmd-rmdb) | `low_level_api` | `missing-help` |
+| [`splitdb`](#refcmd-splitdb) | `low_level_api` | `help` |
+| [`splitsequence`](#refcmd-splitsequence) | `low_level_api` | `help` |
+| [`subtractdbs`](#refcmd-subtractdbs) | `low_level_api` | `help` |
+| [`swapdb`](#refcmd-swapdb) | `low_level_api` | `help` |
+| [`tar2db`](#refcmd-tar2db) | `low_level_api` | `help` |
+| [`tsv2db`](#refcmd-tsv2db) | `low_level_api` | `help` |
 
-## Taxonomy
-
-| Command | Layer | Snapshot |
-| :--- | :--- | :--- |
-| [`addtaxonomy`](./addtaxonomy.md) | `low_level_api` | `missing-help` |
-| [`aggregatetax`](./aggregatetax.md) | `low_level_api` | `missing-help` |
-| [`aggregatetaxweights`](./aggregatetaxweights.md) | `low_level_api` | `missing-help` |
-| [`createbintaxmapping`](./createbintaxmapping.md) | `low_level_api` | `missing-help` |
-| [`createbintaxonomy`](./createbintaxonomy.md) | `low_level_api` | `missing-help` |
-| [`createdmptaxonomy`](./createdmptaxonomy.md) | `low_level_api` | `missing-help` |
-| [`createtaxdb`](./createtaxdb.md) | `low_level_api` | `help` |
-| [`filtertaxdb`](./filtertaxdb.md) | `low_level_api` | `help` |
-| [`filtertaxseqdb`](./filtertaxseqdb.md) | `low_level_api` | `help` |
-| [`lca`](./lca.md) | `low_level_api` | `help` |
-| [`lcaalign`](./lcaalign.md) | `low_level_api` | `help` |
-| [`majoritylca`](./majoritylca.md) | `low_level_api` | `missing-help` |
-| [`nrtotaxmapping`](./nrtotaxmapping.md) | `low_level_api` | `missing-help` |
-| [`taxonomy`](./taxonomy.md) | `high_level_api` | `help` |
-| [`taxonomyreport`](./taxonomyreport.md) | `low_level_api` | `help` |
-
-## Multi Hit
+## Result Handling {#refgroup-result-handling}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`besthitperset`](./besthitperset.md) | `high_level_api` | `help` |
-| [`combinepvalperset`](./combinepvalperset.md) | `high_level_api` | `help` |
-| [`mergeresultsbyset`](./mergeresultsbyset.md) | `high_level_api` | `help` |
-| [`multihitdb`](./multihitdb.md) | `high_level_api` | `help` |
-| [`multihitsearch`](./multihitsearch.md) | `high_level_api` | `help` |
+| [`convert2fasta`](#refcmd-convert2fasta) | `low_level_api` | `missing-help` |
+| [`convertalis`](#refcmd-convertalis) | `low_level_api` | `help` |
+| [`createseqfiledb`](#refcmd-createseqfiledb) | `low_level_api` | `help` |
+| [`createtsv`](#refcmd-createtsv) | `low_level_api` | `help` |
+| [`extractdomains`](#refcmd-extractdomains) | `low_level_api` | `missing-help` |
+| [`filterresult`](#refcmd-filterresult) | `low_level_api` | `help` |
+| [`result2dnamsa`](#refcmd-result2dnamsa) | `low_level_api` | `help` |
+| [`result2flat`](#refcmd-result2flat) | `low_level_api` | `help` |
+| [`result2msa`](#refcmd-result2msa) | `low_level_api` | `help` |
+| [`result2rbh`](#refcmd-result2rbh) | `low_level_api` | `help` |
+| [`result2repseq`](#refcmd-result2repseq) | `low_level_api` | `help` |
+| [`result2stats`](#refcmd-result2stats) | `low_level_api` | `help` |
+| [`sortresult`](#refcmd-sortresult) | `low_level_api` | `help` |
+| [`summarizealis`](#refcmd-summarizealis) | `low_level_api` | `help` |
+| [`summarizeheaders`](#refcmd-summarizeheaders) | `low_level_api` | `missing-help` |
+| [`summarizeresult`](#refcmd-summarizeresult) | `low_level_api` | `help` |
+| [`swapresults`](#refcmd-swapresults) | `low_level_api` | `help` |
 
-## Utilities
+## Sequence Manipulation {#refgroup-sequence-manipulation}
 
 | Command | Layer | Snapshot |
 | :--- | :--- | :--- |
-| [`apply`](./apply.md) | `low_level_api` | `help` |
-| [`compress`](./compress.md) | `low_level_api` | `help` |
-| [`convertkb`](./convertkb.md) | `low_level_api` | `missing-help` |
-| [`decompress`](./decompress.md) | `low_level_api` | `help` |
-| [`diffseqdbs`](./diffseqdbs.md) | `low_level_api` | `missing-help` |
-| [`filterdb`](./filterdb.md) | `low_level_api` | `help` |
-| [`gff2db`](./gff2db.md) | `low_level_api` | `missing-help` |
-| [`gpuserver`](./gpuserver.md) | `low_level_api` | `help` |
-| [`maskbygff`](./maskbygff.md) | `low_level_api` | `missing-help` |
-| [`prefixid`](./prefixid.md) | `low_level_api` | `help` |
-| [`setextendeddbtype`](./setextendeddbtype.md) | `low_level_api` | `help` |
-| [`suffixid`](./suffixid.md) | `low_level_api` | `help` |
-| [`summarizetabs`](./summarizetabs.md) | `low_level_api` | `missing-help` |
-| [`touchdb`](./touchdb.md) | `low_level_api` | `help` |
-| [`unpackdb`](./unpackdb.md) | `low_level_api` | `help` |
-| [`view`](./view.md) | `low_level_api` | `help` |
+| [`extractalignedregion`](#refcmd-extractalignedregion) | `low_level_api` | `help` |
+| [`extractframes`](#refcmd-extractframes) | `low_level_api` | `help` |
+| [`extractorfs`](#refcmd-extractorfs) | `low_level_api` | `help` |
+| [`masksequence`](#refcmd-masksequence) | `low_level_api` | `help` |
+| [`orftocontig`](#refcmd-orftocontig) | `low_level_api` | `help` |
+| [`recoverlongestorf`](#refcmd-recoverlongestorf) | `low_level_api` | `help` |
+| [`reverseseq`](#refcmd-reverseseq) | `low_level_api` | `help` |
+| [`translateaa`](#refcmd-translateaa) | `low_level_api` | `help` |
+| [`translatenucs`](#refcmd-translatenucs) | `low_level_api` | `help` |
+
+## Taxonomy {#refgroup-taxonomy}
+
+| Command | Layer | Snapshot |
+| :--- | :--- | :--- |
+| [`addtaxonomy`](#refcmd-addtaxonomy) | `low_level_api` | `missing-help` |
+| [`aggregatetax`](#refcmd-aggregatetax) | `low_level_api` | `missing-help` |
+| [`aggregatetaxweights`](#refcmd-aggregatetaxweights) | `low_level_api` | `missing-help` |
+| [`createbintaxmapping`](#refcmd-createbintaxmapping) | `low_level_api` | `missing-help` |
+| [`createbintaxonomy`](#refcmd-createbintaxonomy) | `low_level_api` | `missing-help` |
+| [`createdmptaxonomy`](#refcmd-createdmptaxonomy) | `low_level_api` | `missing-help` |
+| [`createtaxdb`](#refcmd-createtaxdb) | `low_level_api` | `help` |
+| [`filtertaxdb`](#refcmd-filtertaxdb) | `low_level_api` | `help` |
+| [`filtertaxseqdb`](#refcmd-filtertaxseqdb) | `low_level_api` | `help` |
+| [`lca`](#refcmd-lca) | `low_level_api` | `help` |
+| [`lcaalign`](#refcmd-lcaalign) | `low_level_api` | `help` |
+| [`majoritylca`](#refcmd-majoritylca) | `low_level_api` | `missing-help` |
+| [`nrtotaxmapping`](#refcmd-nrtotaxmapping) | `low_level_api` | `missing-help` |
+| [`taxonomy`](#refcmd-taxonomy) | `high_level_api` | `help` |
+| [`taxonomyreport`](#refcmd-taxonomyreport) | `low_level_api` | `help` |
+
+## Multi Hit {#refgroup-multi-hit}
+
+| Command | Layer | Snapshot |
+| :--- | :--- | :--- |
+| [`besthitperset`](#refcmd-besthitperset) | `high_level_api` | `help` |
+| [`combinepvalperset`](#refcmd-combinepvalperset) | `high_level_api` | `help` |
+| [`mergeresultsbyset`](#refcmd-mergeresultsbyset) | `high_level_api` | `help` |
+| [`multihitdb`](#refcmd-multihitdb) | `high_level_api` | `help` |
+| [`multihitsearch`](#refcmd-multihitsearch) | `high_level_api` | `help` |
+
+## Utilities {#refgroup-utilities}
+
+| Command | Layer | Snapshot |
+| :--- | :--- | :--- |
+| [`apply`](#refcmd-apply) | `low_level_api` | `help` |
+| [`compress`](#refcmd-compress) | `low_level_api` | `help` |
+| [`convertkb`](#refcmd-convertkb) | `low_level_api` | `missing-help` |
+| [`decompress`](#refcmd-decompress) | `low_level_api` | `help` |
+| [`diffseqdbs`](#refcmd-diffseqdbs) | `low_level_api` | `missing-help` |
+| [`filterdb`](#refcmd-filterdb) | `low_level_api` | `help` |
+| [`gff2db`](#refcmd-gff2db) | `low_level_api` | `missing-help` |
+| [`gpuserver`](#refcmd-gpuserver) | `low_level_api` | `help` |
+| [`maskbygff`](#refcmd-maskbygff) | `low_level_api` | `missing-help` |
+| [`prefixid`](#refcmd-prefixid) | `low_level_api` | `help` |
+| [`setextendeddbtype`](#refcmd-setextendeddbtype) | `low_level_api` | `help` |
+| [`suffixid`](#refcmd-suffixid) | `low_level_api` | `help` |
+| [`summarizetabs`](#refcmd-summarizetabs) | `low_level_api` | `missing-help` |
+| [`touchdb`](#refcmd-touchdb) | `low_level_api` | `help` |
+| [`unpackdb`](#refcmd-unpackdb) | `low_level_api` | `help` |
+| [`view`](#refcmd-view) | `low_level_api` | `help` |
 

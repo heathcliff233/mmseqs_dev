@@ -1,4 +1,4 @@
-# Sharp Bits
+# Sharp Bits {#sec-sharp-bits}
 
 Most expensive MMseqs2 failures are not algorithmic bugs. They come from contract mismatches, mode drift across runs, and late detection of pipeline issues. The goal of this section is to front-load the mistakes that cost the most time in large-scale runs.
 

@@ -1,37 +1,37 @@
-# `result2flat`
+## `result2flat` {#refcmd-result2flat}
 
 Create flat file by adding FASTA headers to DB entries.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](../submodules/result_handling.md) |
+| Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md) |
+| Called by modules | [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `easycluster.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs result2flat <i:queryDB> <i:targetDB> <i:resultDB> <o:fastaDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
 | `--use-fasta-header` | Use the id parsed from the fasta header as the index key instead of using incrementing numeric identifiers |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs result2flat <i:queryDB> <i:targetDB> <i:resultDB> <o:fastaDB> [options]
@@ -44,7 +44,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/result_handling.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-result2flat), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
 

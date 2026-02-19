@@ -1,4 +1,4 @@
-# Prefiltering
+## Prefiltering {#mod-prefiltering}
 
 Core candidate-generation modules used to reduce search space before expensive alignment stages.
 
@@ -8,7 +8,7 @@ This page emphasizes module relationships and practical options. For complete CL
 ]
 ```
 
-## `countkmer`
+### `countkmer` {#modcmd-countkmer}
 
 Count k-mers.
 
@@ -22,9 +22,9 @@ Count k-mers.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/countkmer.md), [Dependency map](../reference/dependency_map.md#cmd-countkmer).
+Reference links: [Full CLI](#refcmd-countkmer), [Dependency entry](#depcmd-countkmer).
 
-## `gappedprefilter`
+### `gappedprefilter` {#modcmd-gappedprefilter}
 
 Optimal Smith-Waterman-based prefiltering (slow).
 
@@ -38,9 +38,9 @@ Optimal Smith-Waterman-based prefiltering (slow).
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/gappedprefilter.md), [Dependency map](../reference/dependency_map.md#cmd-gappedprefilter).
+Reference links: [Full CLI](#refcmd-gappedprefilter), [Dependency entry](#depcmd-gappedprefilter).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -53,7 +53,7 @@ Reference links: [Full CLI](../reference/gappedprefilter.md), [Dependency map](.
 | `-e` | List matches below this E-value (range 0.0-inf) |
 | `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
 
-## `kmermatcher`
+### `kmermatcher` {#modcmd-kmermatcher}
 
 Find bottom-m-hashed k-mer matches within sequence DB.
 
@@ -62,14 +62,14 @@ Find bottom-m-hashed k-mer matches within sequence DB.
 | Usage | `usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`linclust`](../reference/linclust.md) |
+| Called by modules | [`linclust`](#modcmd-linclust) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md) |
+| Related functional groups | [`clustering`](#mod-clustering) |
 | Workflow script usage | `linclust.sh` |
 
-Reference links: [Full CLI](../reference/kmermatcher.md), [Dependency map](../reference/dependency_map.md#cmd-kmermatcher).
+Reference links: [Full CLI](#refcmd-kmermatcher), [Dependency entry](#depcmd-kmermatcher).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -82,7 +82,7 @@ Reference links: [Full CLI](../reference/kmermatcher.md), [Dependency map](../re
 | `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
 | `-k` | k-mer length (0: automatically set to optimum) |
 
-## `kmersearch`
+### `kmersearch` {#modcmd-kmersearch}
 
 Find bottom-m-hashed k-mer matches between target and query DB.
 
@@ -91,14 +91,14 @@ Find bottom-m-hashed k-mer matches between target and query DB.
 | Usage | `usage: mmseqs kmersearch <i:queryDB> <i:kmerIndexDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`linsearch`](../reference/linsearch.md) |
+| Called by modules | [`linsearch`](#modcmd-linsearch) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `linsearch.sh` |
 
-Reference links: [Full CLI](../reference/kmersearch.md), [Dependency map](../reference/dependency_map.md#cmd-kmersearch).
+Reference links: [Full CLI](#refcmd-kmersearch), [Dependency entry](#depcmd-kmersearch).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -111,7 +111,7 @@ Reference links: [Full CLI](../reference/kmersearch.md), [Dependency map](../ref
 | `--cov-mode` | 0: coverage of query and target |
 | `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
 
-## `prefilter`
+### `prefilter` {#modcmd-prefilter}
 
 Double consecutive diagonal k-mer search.
 
@@ -120,14 +120,14 @@ Double consecutive diagonal k-mer search.
 | Usage | `usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
 | Workflow script usage | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxpercontig.sh`, `translated_search.sh` |
 
-Reference links: [Full CLI](../reference/prefilter.md), [Dependency map](../reference/dependency_map.md#cmd-prefilter).
+Reference links: [Full CLI](#refcmd-prefilter), [Dependency entry](#depcmd-prefilter).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -140,7 +140,7 @@ Reference links: [Full CLI](../reference/prefilter.md), [Dependency map](../refe
 | `--max-seqs` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) |
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 
-## `ungappedprefilter`
+### `ungappedprefilter` {#modcmd-ungappedprefilter}
 
 Optimal diagonal score search.
 
@@ -149,14 +149,14 @@ Optimal diagonal score search.
 | Usage | `usage: mmseqs ungappedprefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`search`](../reference/search.md) |
+| Called by modules | [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `blastp.sh`, `blastpgp.sh` |
 
-Reference links: [Full CLI](../reference/ungappedprefilter.md), [Dependency map](../reference/dependency_map.md#cmd-ungappedprefilter).
+Reference links: [Full CLI](#refcmd-ungappedprefilter), [Dependency entry](#depcmd-ungappedprefilter).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

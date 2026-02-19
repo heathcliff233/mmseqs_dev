@@ -1,30 +1,30 @@
-# `rbh`
+## `rbh` {#refcmd-rbh}
 
 Reciprocal best hit search.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](../submodules/search.md) |
+| Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-rbh`](./easy-rbh.md) |
-| Calls modules | [`filterdb`](./filterdb.md), [`mergedbs`](./mergedbs.md), [`result2rbh`](./result2rbh.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`swapresults`](./swapresults.md) |
+| Called by modules | [`easy-rbh`](#refcmd-easy-rbh) |
+| Calls modules | [`filterdb`](#refcmd-filterdb), [`mergedbs`](#refcmd-mergedbs), [`result2rbh`](#refcmd-result2rbh), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`swapresults`](#refcmd-swapresults) |
 | Seen in workflow scripts | `easyrbh.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -187,7 +187,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/search.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-rbh), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
 

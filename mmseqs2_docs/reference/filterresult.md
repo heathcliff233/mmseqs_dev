@@ -1,30 +1,30 @@
-# `filterresult`
+## `filterresult` {#refcmd-filterresult}
 
 Pairwise alignment result filter.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](../submodules/result_handling.md) |
+| Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_RESULT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](./search.md) |
+| Called by modules | [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `searchslicedtargetprofile.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--diff` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 |
 | `--allow-deletion` | Allow deletions in a MSA |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]
@@ -74,7 +74,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/result_handling.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-filterresult), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
 

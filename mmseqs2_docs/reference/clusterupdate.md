@@ -1,30 +1,30 @@
-# `clusterupdate`
+## `clusterupdate` {#refcmd-clusterupdate}
 
 Update previous clustering with new sequences.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`clustering`](../submodules/clustering.md) |
+| Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_MAIN` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
 | Called by modules | `n/a` |
-| Calls modules | [`cluster`](./cluster.md), [`concatdbs`](./concatdbs.md), [`createsubdb`](./createsubdb.md), [`diffseqdbs`](./diffseqdbs.md), [`filterdb`](./filterdb.md), [`mergedbs`](./mergedbs.md), [`mvdb`](./mvdb.md), [`prefixid`](./prefixid.md), [`renamedbkeys`](./renamedbkeys.md), [`result2repseq`](./result2repseq.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`swapdb`](./swapdb.md) |
+| Calls modules | [`cluster`](#refcmd-cluster), [`concatdbs`](#refcmd-concatdbs), [`createsubdb`](#refcmd-createsubdb), [`diffseqdbs`](#refcmd-diffseqdbs), [`filterdb`](#refcmd-filterdb), [`mergedbs`](#refcmd-mergedbs), [`mvdb`](#refcmd-mvdb), [`prefixid`](#refcmd-prefixid), [`renamedbkeys`](#refcmd-renamedbkeys), [`result2repseq`](#refcmd-result2repseq), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`swapdb`](#refcmd-swapdb) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newMappedSequenceDB> <o:newClustResultDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 | `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newMappedSequenceDB> <o:newClustResultDB> <tmpDir> [options]
@@ -222,7 +222,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/clustering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-clusterupdate), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
 

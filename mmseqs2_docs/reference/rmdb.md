@@ -1,34 +1,34 @@
-# `rmdb`
+## `rmdb` {#refcmd-rmdb}
 
 Remove a DB.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`database`](../submodules/database.md) |
+| Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_STORAGE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`clusterupdate`](./clusterupdate.md), [`createindex`](./createindex.md), [`createlinindex`](./createlinindex.md), [`databases`](./databases.md), [`easy-cluster`](./easy-cluster.md), [`easy-linclust`](./easy-linclust.md), [`easy-linsearch`](./easy-linsearch.md), [`easy-rbh`](./easy-rbh.md), [`easy-search`](./easy-search.md), [`easy-taxonomy`](./easy-taxonomy.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`multihitsearch`](./multihitsearch.md), [`pickconsensusrep`](./pickconsensusrep.md), [`rbh`](./rbh.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md), [`tsv2exprofiledb`](./tsv2exprofiledb.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`createindex`](#refcmd-createindex), [`createlinindex`](#refcmd-createlinindex), [`databases`](#refcmd-databases), [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust), [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-rbh`](#refcmd-easy-rbh), [`easy-search`](#refcmd-easy-search), [`easy-taxonomy`](#refcmd-easy-taxonomy), [`linclust`](#refcmd-linclust), [`linsearch`](#refcmd-linsearch), [`multihitsearch`](#refcmd-multihitsearch), [`pickconsensusrep`](#refcmd-pickconsensusrep), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy), [`tsv2exprofiledb`](#refcmd-tsv2exprofiledb) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `blastn.sh`, `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `createindex.sh`, `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `iterativepp.sh`, `linclust.sh`, `linsearch.sh`, `multihitsearch.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxonomy.sh`, `taxpercontig.sh`, `translated_search.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
 
-## Usage
+### Usage
 
 No local help snapshot usage line is available.
 
-## Key Options
+### Key Options
 
 No parsed options are available for this command.
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```{=typst}
 #doc_warning[
@@ -36,7 +36,7 @@ Help snapshot missing in mmseqs_help_output. Refresh local snapshots before rely
 ]
 ```
 
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/database.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-rmdb), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
 

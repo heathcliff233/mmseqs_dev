@@ -1,30 +1,30 @@
-# `extractorfs`
+## `extractorfs` {#refcmd-extractorfs}
 
 Six-frame extraction of open reading frames.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`sequence_manipulation`](../submodules/sequence_manipulation.md) |
+| Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`createindex`](./createindex.md), [`createlinindex`](./createlinindex.md), [`linsearch`](./linsearch.md), [`multihitdb`](./multihitdb.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by modules | [`createindex`](#refcmd-createindex), [`createlinindex`](#refcmd-createlinindex), [`linsearch`](#refcmd-linsearch), [`multihitdb`](#refcmd-multihitdb), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `createindex.sh`, `multihitdb.sh`, `taxpercontig.sh`, `translated_search.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--use-all-table-starts` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) |
 | `--id-offset` | Numeric ids in index file are offset by this value |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]
@@ -73,7 +73,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/sequence_manipulation.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-extractorfs), [command reference index](#sec-command-reference), and [functional module page](#mod-sequence-manipulation).
 

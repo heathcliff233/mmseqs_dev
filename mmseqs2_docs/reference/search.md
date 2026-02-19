@@ -1,30 +1,30 @@
-# `search`
+## `search` {#refcmd-search}
 
 Sensitive homology search.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](../submodules/search.md) |
+| Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`clusterupdate`](./clusterupdate.md), [`easy-linsearch`](./easy-linsearch.md), [`easy-search`](./easy-search.md), [`map`](./map.md), [`multihitsearch`](./multihitsearch.md), [`rbh`](./rbh.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
-| Calls modules | [`align`](./align.md), [`createsubdb`](./createsubdb.md), [`expand2profile`](./expand2profile.md), [`expandaln`](./expandaln.md), [`extractframes`](./extractframes.md), [`extractorfs`](./extractorfs.md), [`filterresult`](./filterresult.md), [`lcaalign`](./lcaalign.md), [`mergedbs`](./mergedbs.md), [`mvdb`](./mvdb.md), [`offsetalignment`](./offsetalignment.md), [`prefilter`](./prefilter.md), [`profile2consensus`](./profile2consensus.md), [`rescorediagonal`](./rescorediagonal.md), [`result2profile`](./result2profile.md), [`result2stats`](./result2stats.md), [`rmdb`](./rmdb.md), [`search`](./search.md), [`splitsequence`](./splitsequence.md), [`subtractdbs`](./subtractdbs.md), [`swapresults`](./swapresults.md), [`ungappedprefilter`](./ungappedprefilter.md) |
+| Called by modules | [`clusterupdate`](#refcmd-clusterupdate), [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-search`](#refcmd-easy-search), [`map`](#refcmd-map), [`multihitsearch`](#refcmd-multihitsearch), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
+| Calls modules | [`align`](#refcmd-align), [`createsubdb`](#refcmd-createsubdb), [`expand2profile`](#refcmd-expand2profile), [`expandaln`](#refcmd-expandaln), [`extractframes`](#refcmd-extractframes), [`extractorfs`](#refcmd-extractorfs), [`filterresult`](#refcmd-filterresult), [`lcaalign`](#refcmd-lcaalign), [`mergedbs`](#refcmd-mergedbs), [`mvdb`](#refcmd-mvdb), [`offsetalignment`](#refcmd-offsetalignment), [`prefilter`](#refcmd-prefilter), [`profile2consensus`](#refcmd-profile2consensus), [`rescorediagonal`](#refcmd-rescorediagonal), [`result2profile`](#refcmd-result2profile), [`result2stats`](#refcmd-result2stats), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`splitsequence`](#refcmd-splitsequence), [`subtractdbs`](#refcmd-subtractdbs), [`swapresults`](#refcmd-swapresults), [`ungappedprefilter`](#refcmd-ungappedprefilter) |
 | Seen in workflow scripts | `enrich.sh`, `iterativepp.sh`, `map.sh`, `multihitsearch.sh`, `rbh.sh`, `taxonomy.sh`, `update_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -206,7 +206,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Kallenborn F, Chacon A, Hundt C, Sirelkhatim H, Didi K, Dallago C, Mirdita M, Schmidt B, Steinegger M: GPU-accelerated homology search with MMseqs2. bioRxiv, 2024.11.13.623350 (2024)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/search.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-search), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
 

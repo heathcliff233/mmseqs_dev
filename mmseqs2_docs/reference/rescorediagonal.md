@@ -1,30 +1,30 @@
-# `rescorediagonal`
+## `rescorediagonal` {#refcmd-rescorediagonal}
 
 Compute sequence identity for diagonal.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](../submodules/alignment.md) |
+| Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_ALIGNMENT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`linclust`](./linclust.md), [`linsearch`](./linsearch.md), [`search`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`linclust`](#refcmd-linclust), [`linsearch`](#refcmd-linsearch), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `linclust.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--sub-mat` | Substitution matrix file |
 | `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
@@ -82,7 +82,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/alignment.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-rescorediagonal), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

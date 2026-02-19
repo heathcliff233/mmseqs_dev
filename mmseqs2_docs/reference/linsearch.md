@@ -1,30 +1,30 @@
-# `linsearch`
+## `linsearch` {#refcmd-linsearch}
 
 Fast, less sensitive homology search.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](../submodules/search.md) |
+| Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN|COMMAND_EXPERT` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-linsearch`](./easy-linsearch.md), [`easy-search`](./easy-search.md) |
-| Calls modules | [`align`](./align.md), [`concatdbs`](./concatdbs.md), [`extractorfs`](./extractorfs.md), [`filterdb`](./filterdb.md), [`kmersearch`](./kmersearch.md), [`offsetalignment`](./offsetalignment.md), [`rescorediagonal`](./rescorediagonal.md), [`rmdb`](./rmdb.md), [`swapresults`](./swapresults.md) |
+| Called by modules | [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-search`](#refcmd-easy-search) |
+| Calls modules | [`align`](#refcmd-align), [`concatdbs`](#refcmd-concatdbs), [`extractorfs`](#refcmd-extractorfs), [`filterdb`](#refcmd-filterdb), [`kmersearch`](#refcmd-kmersearch), [`offsetalignment`](#refcmd-offsetalignment), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb), [`swapresults`](#refcmd-swapresults) |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs linsearch <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--alignment-mode` | How to compute the alignment: |
 | `--alignment-output-mode` | How to compute the alignment: |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs linsearch <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -138,7 +138,7 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/search.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-linsearch), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
 

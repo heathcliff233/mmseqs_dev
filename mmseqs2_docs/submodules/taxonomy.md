@@ -1,4 +1,4 @@
-# Taxonomy
+## Taxonomy {#mod-taxonomy}
 
 Modules for taxonomy DB preparation, assignment, filtering, and reporting workflows.
 
@@ -14,7 +14,7 @@ Validate database-type and sidecar compatibility before chaining modules. Most p
 ]
 ```
 
-## `addtaxonomy`
+### `addtaxonomy` {#modcmd-addtaxonomy}
 
 Add taxonomic labels to result DB.
 
@@ -23,14 +23,14 @@ Add taxonomic labels to result DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
 | Workflow script usage | `easytaxonomy.sh` |
 
-Reference links: [Full CLI](../reference/addtaxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-addtaxonomy).
+Reference links: [Full CLI](#refcmd-addtaxonomy), [Dependency entry](#depcmd-addtaxonomy).
 
-## `aggregatetax`
+### `aggregatetax` {#modcmd-aggregatetax}
 
 Aggregate multiple taxon labels to a single label.
 
@@ -39,14 +39,14 @@ Aggregate multiple taxon labels to a single label.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/aggregatetax.md), [Dependency map](../reference/dependency_map.md#cmd-aggregatetax).
+Reference links: [Full CLI](#refcmd-aggregatetax), [Dependency entry](#depcmd-aggregatetax).
 
-## `aggregatetaxweights`
+### `aggregatetaxweights` {#modcmd-aggregatetaxweights}
 
 Aggregate multiple taxon labels to a single label.
 
@@ -55,14 +55,14 @@ Aggregate multiple taxon labels to a single label.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `taxpercontig.sh` |
 
-Reference links: [Full CLI](../reference/aggregatetaxweights.md), [Dependency map](../reference/dependency_map.md#cmd-aggregatetaxweights).
+Reference links: [Full CLI](#refcmd-aggregatetaxweights), [Dependency entry](#depcmd-aggregatetaxweights).
 
-## `createbintaxmapping`
+### `createbintaxmapping` {#modcmd-createbintaxmapping}
 
 Create binary taxonomy mapping from tabular taxonomy mapping.
 
@@ -76,9 +76,9 @@ Create binary taxonomy mapping from tabular taxonomy mapping.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/createbintaxmapping.md), [Dependency map](../reference/dependency_map.md#cmd-createbintaxmapping).
+Reference links: [Full CLI](#refcmd-createbintaxmapping), [Dependency entry](#depcmd-createbintaxmapping).
 
-## `createbintaxonomy`
+### `createbintaxonomy` {#modcmd-createbintaxonomy}
 
 Create binary taxonomy from NCBI input.
 
@@ -87,14 +87,14 @@ Create binary taxonomy from NCBI input.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | [`createtaxdb`](../reference/createtaxdb.md) |
+| Called by modules | [`createtaxdb`](#modcmd-createtaxdb) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `createtaxdb.sh` |
 
-Reference links: [Full CLI](../reference/createbintaxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-createbintaxonomy).
+Reference links: [Full CLI](#refcmd-createbintaxonomy), [Dependency entry](#depcmd-createbintaxonomy).
 
-## `createdmptaxonomy`
+### `createdmptaxonomy` {#modcmd-createdmptaxonomy}
 
 Create dmp files from binary taxonomy.
 
@@ -108,9 +108,9 @@ Create dmp files from binary taxonomy.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/createdmptaxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-createdmptaxonomy).
+Reference links: [Full CLI](#refcmd-createdmptaxonomy), [Dependency entry](#depcmd-createdmptaxonomy).
 
-## `createtaxdb`
+### `createtaxdb` {#modcmd-createtaxdb}
 
 Add taxonomic labels to sequence DB.
 
@@ -119,14 +119,14 @@ Add taxonomic labels to sequence DB.
 | Usage | `usage: mmseqs createtaxdb <i:sequenceDB> <tmpDir> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`databases`](../reference/databases.md) |
-| Calls modules | [`createbintaxonomy`](../reference/createbintaxonomy.md) |
-| Related functional groups | [`database`](./database.md) |
+| Called by modules | [`databases`](#modcmd-databases) |
+| Calls modules | [`createbintaxonomy`](#modcmd-createbintaxonomy) |
+| Related functional groups | [`database`](#mod-database) |
 | Workflow script usage | `databases.sh` |
 
-Reference links: [Full CLI](../reference/createtaxdb.md), [Dependency map](../reference/dependency_map.md#cmd-createtaxdb).
+Reference links: [Full CLI](#refcmd-createtaxdb), [Dependency entry](#depcmd-createtaxdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -137,7 +137,7 @@ Reference links: [Full CLI](../reference/createtaxdb.md), [Dependency map](../re
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `filtertaxdb`
+### `filtertaxdb` {#modcmd-filtertaxdb}
 
 Filter taxonomy result database.
 
@@ -151,9 +151,9 @@ Filter taxonomy result database.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/filtertaxdb.md), [Dependency map](../reference/dependency_map.md#cmd-filtertaxdb).
+Reference links: [Full CLI](#refcmd-filtertaxdb), [Dependency entry](#depcmd-filtertaxdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -162,7 +162,7 @@ Reference links: [Full CLI](../reference/filtertaxdb.md), [Dependency map](../re
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `filtertaxseqdb`
+### `filtertaxseqdb` {#modcmd-filtertaxseqdb}
 
 Filter taxonomy sequence database.
 
@@ -176,9 +176,9 @@ Filter taxonomy sequence database.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/filtertaxseqdb.md), [Dependency map](../reference/dependency_map.md#cmd-filtertaxseqdb).
+Reference links: [Full CLI](#refcmd-filtertaxseqdb), [Dependency entry](#depcmd-filtertaxseqdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -188,7 +188,7 @@ Reference links: [Full CLI](../reference/filtertaxseqdb.md), [Dependency map](..
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `lca`
+### `lca` {#modcmd-lca}
 
 Compute the lowest common ancestor.
 
@@ -197,14 +197,14 @@ Compute the lowest common ancestor.
 | Usage | `usage: mmseqs lca <i:targetDB> <i:resultDB> <o:taxaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md), [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy), [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
 | Workflow script usage | `taxonomy.sh` |
 
-Reference links: [Full CLI](../reference/lca.md), [Dependency map](../reference/dependency_map.md#cmd-lca).
+Reference links: [Full CLI](#refcmd-lca), [Dependency entry](#depcmd-lca).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -215,7 +215,7 @@ Reference links: [Full CLI](../reference/lca.md), [Dependency map](../reference/
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `lcaalign`
+### `lcaalign` {#modcmd-lcaalign}
 
 Efficient gapped alignment for lca computation.
 
@@ -224,14 +224,14 @@ Efficient gapped alignment for lca computation.
 | Usage | `usage: mmseqs lcaalign <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`search`](../reference/search.md) |
+| Called by modules | [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/lcaalign.md), [Dependency map](../reference/dependency_map.md#cmd-lcaalign).
+Reference links: [Full CLI](#refcmd-lcaalign), [Dependency entry](#depcmd-lcaalign).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -244,7 +244,7 @@ Reference links: [Full CLI](../reference/lcaalign.md), [Dependency map](../refer
 | `--wrapped-scoring` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start |
 | `-e` | List matches below this E-value (range 0.0-inf) |
 
-## `majoritylca`
+### `majoritylca` {#modcmd-majoritylca}
 
 Compute the lowest common ancestor using majority voting.
 
@@ -258,9 +258,9 @@ Compute the lowest common ancestor using majority voting.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/majoritylca.md), [Dependency map](../reference/dependency_map.md#cmd-majoritylca).
+Reference links: [Full CLI](#refcmd-majoritylca), [Dependency entry](#depcmd-majoritylca).
 
-## `nrtotaxmapping`
+### `nrtotaxmapping` {#modcmd-nrtotaxmapping}
 
 Create taxonomy mapping for NR database.
 
@@ -269,14 +269,14 @@ Create taxonomy mapping for NR database.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | [`databases`](../reference/databases.md) |
+| Called by modules | [`databases`](#modcmd-databases) |
 | Calls modules | `n/a` |
-| Related functional groups | [`database`](./database.md) |
+| Related functional groups | [`database`](#mod-database) |
 | Workflow script usage | `databases.sh` |
 
-Reference links: [Full CLI](../reference/nrtotaxmapping.md), [Dependency map](../reference/dependency_map.md#cmd-nrtotaxmapping).
+Reference links: [Full CLI](#refcmd-nrtotaxmapping), [Dependency entry](#depcmd-nrtotaxmapping).
 
-## `taxonomy`
+### `taxonomy` {#modcmd-taxonomy}
 
 Taxonomic classification.
 
@@ -285,14 +285,14 @@ Taxonomic classification.
 | Usage | `usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md), [`taxonomy`](../reference/taxonomy.md) |
-| Calls modules | [`aggregatetax`](../reference/aggregatetax.md), [`aggregatetaxweights`](../reference/aggregatetaxweights.md), [`createsubdb`](../reference/createsubdb.md), [`extractorfs`](../reference/extractorfs.md), [`filterdb`](../reference/filterdb.md), [`lca`](../reference/lca.md), [`mergeresultsbyset`](../reference/mergeresultsbyset.md), [`mvdb`](../reference/mvdb.md), [`prefilter`](../reference/prefilter.md), [`recoverlongestorf`](../reference/recoverlongestorf.md), [`rescorediagonal`](../reference/rescorediagonal.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md), [`swapdb`](../reference/swapdb.md), [`taxonomy`](../reference/taxonomy.md) |
-| Related functional groups | [`alignment`](./alignment.md), [`database`](./database.md), [`easy_workflows`](./easy_workflows.md), [`multi_hit`](./multi_hit.md), [`prefiltering`](./prefiltering.md), [`search_workflows`](./search.md), [`sequence_manipulation`](./sequence_manipulation.md), [`utilities`](./utilities.md) |
+| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy), [`taxonomy`](#modcmd-taxonomy) |
+| Calls modules | [`aggregatetax`](#modcmd-aggregatetax), [`aggregatetaxweights`](#modcmd-aggregatetaxweights), [`createsubdb`](#modcmd-createsubdb), [`extractorfs`](#modcmd-extractorfs), [`filterdb`](#modcmd-filterdb), [`lca`](#modcmd-lca), [`mergeresultsbyset`](#modcmd-mergeresultsbyset), [`mvdb`](#modcmd-mvdb), [`prefilter`](#modcmd-prefilter), [`recoverlongestorf`](#modcmd-recoverlongestorf), [`rescorediagonal`](#modcmd-rescorediagonal), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`swapdb`](#modcmd-swapdb), [`taxonomy`](#modcmd-taxonomy) |
+| Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`prefiltering`](#mod-prefiltering), [`search_workflows`](#mod-search-workflows), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
 | Workflow script usage | `easytaxonomy.sh`, `taxpercontig.sh` |
 
-Reference links: [Full CLI](../reference/taxonomy.md), [Dependency map](../reference/dependency_map.md#cmd-taxonomy).
+Reference links: [Full CLI](#refcmd-taxonomy), [Dependency entry](#depcmd-taxonomy).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -305,7 +305,7 @@ Reference links: [Full CLI](../reference/taxonomy.md), [Dependency map](../refer
 | `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
 | `--k-score` | k-mer threshold for generating similar k-mer lists |
 
-## `taxonomyreport`
+### `taxonomyreport` {#modcmd-taxonomyreport}
 
 Create a taxonomy report in Kraken or Krona format.
 
@@ -314,14 +314,14 @@ Create a taxonomy report in Kraken or Krona format.
 | Usage | `usage: mmseqs taxonomyreport <i:seqTaxDB> <i:taxResultDB/resultDB/sequenceDB> <o:taxonomyReport> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_FORMAT_CONVERSION` |
-| Called by modules | [`easy-taxonomy`](../reference/easy-taxonomy.md) |
+| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`easy_workflows`](./easy_workflows.md) |
+| Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
 | Workflow script usage | `easytaxonomy.sh` |
 
-Reference links: [Full CLI](../reference/taxonomyreport.md), [Dependency map](../reference/dependency_map.md#cmd-taxonomyreport).
+Reference links: [Full CLI](#refcmd-taxonomyreport), [Dependency entry](#depcmd-taxonomyreport).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

@@ -1,30 +1,30 @@
-# `result2profile`
+## `result2profile` {#refcmd-result2profile}
 
 Compute profile DB from a result DB.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`profiles`](../submodules/profiles.md) |
+| Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_PROFILE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](./search.md) |
+| Called by modules | [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `blastpgp.sh`, `enrich.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--max-seq-id` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] |
 | `--qid` | Reduce diversity of output MSAs using min.seq. identity with query sequences |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]
@@ -82,7 +82,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/profiles.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-result2profile), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
 

@@ -1,30 +1,30 @@
-# `lcaalign`
+## `lcaalign` {#refcmd-lcaalign}
 
 Efficient gapped alignment for lca computation.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`taxonomy`](../submodules/taxonomy.md) |
+| Primary functional group | [`taxonomy`](#mod-taxonomy) |
 | Category flags | `COMMAND_TAXONOMY` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](./search.md) |
+| Called by modules | [`search`](#refcmd-search) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `n/a` |
 
-## Usage
+### Usage
 
 `usage: mmseqs lcaalign <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--seq-id-mode` | 0: alignment length 1: shorter, 2: longer sequence |
 | `--alt-ali` | Show up to this many alternative alignments |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs lcaalign <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]
@@ -101,7 +101,7 @@ common:
 references:
  - Mirdita M, Steinegger M, Breitwieser F, Soding J, Levy Karin E: Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, btab184 (2021)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/taxonomy.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-lcaalign), [command reference index](#sec-command-reference), and [functional module page](#mod-taxonomy).
 

@@ -117,8 +117,24 @@ def parse_usage_and_options(help_text: str) -> tuple[str, list[tuple[str, str]]]
     return usage, options
 
 
-def command_anchor(name: str) -> str:
-    return f"cmd-{name.replace('-', '')}"
+def label_slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
+def module_anchor(group: str) -> str:
+    return f"mod-{label_slug(group)}"
+
+
+def module_command_anchor(name: str) -> str:
+    return f"modcmd-{label_slug(name)}"
+
+
+def reference_command_anchor(name: str) -> str:
+    return f"refcmd-{label_slug(name)}"
+
+
+def dependency_command_anchor(name: str) -> str:
+    return f"depcmd-{label_slug(name)}"
 
 
 def key_options_for(cmd: str) -> tuple[str, list[tuple[str, str]]]:
@@ -130,7 +146,7 @@ def key_options_for(cmd: str) -> tuple[str, list[tuple[str, str]]]:
 
 def command_links(items: list[str]) -> str:
     if items:
-        return ", ".join(f"[`{x}`](../reference/{x}.md)" for x in items)
+        return ", ".join(f"[`{x}`](#{module_command_anchor(x)})" for x in items)
     return NO_EDGE_TEXT
 
 
@@ -147,7 +163,7 @@ def group_links(items: list[str]) -> str:
     for group in items:
         file_name = MODULE_FILE.get(group)
         if file_name:
-            links.append(f"[`{group}`](./{file_name})")
+            links.append(f"[`{group}`](#{module_anchor(group)})")
         else:
             links.append(f"`{group}`")
     return ", ".join(links)
@@ -180,7 +196,7 @@ def render_module(group: str, title: str, intro: str, dep_map: dict[str, dict]) 
     cmds = sorted([name for name, meta in dep_map.items() if meta["primary_group"] == group])
 
     lines = []
-    lines.append(f"# {title}")
+    lines.append(f"## {title} {{#{module_anchor(group)}}}")
     lines.append("")
     lines.append(intro)
     lines.append("")
@@ -219,7 +235,7 @@ def render_module(group: str, title: str, intro: str, dep_map: dict[str, dict]) 
             }
         )
 
-        lines.append(f"## `{cmd}`")
+        lines.append(f"### `{cmd}` {{#{module_command_anchor(cmd)}}}")
         lines.append("")
         if meta.get("description"):
             lines.append(sentence(meta["description"]))
@@ -239,13 +255,13 @@ def render_module(group: str, title: str, intro: str, dep_map: dict[str, dict]) 
         lines.append("")
 
         lines.append(
-            f"Reference links: [Full CLI](../reference/{cmd}.md), "
-            f"[Dependency map](../reference/dependency_map.md#{command_anchor(cmd)})."
+            f"Reference links: [Full CLI](#{reference_command_anchor(cmd)}), "
+            f"[Dependency entry](#{dependency_command_anchor(cmd)})."
         )
         lines.append("")
 
         if options:
-            lines.append("### Key Options")
+            lines.append("#### Key Options")
             lines.append("")
             lines.append("| Option | Purpose |")
             lines.append("| :--- | :--- |")

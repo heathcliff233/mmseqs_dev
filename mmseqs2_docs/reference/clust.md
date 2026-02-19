@@ -1,30 +1,30 @@
-# `clust`
+## `clust` {#refcmd-clust}
 
 Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`clustering`](../submodules/clustering.md) |
+| Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_CLUSTER` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](./cluster.md), [`linclust`](./linclust.md) |
+| Called by modules | [`cluster`](#refcmd-cluster), [`linclust`](#refcmd-linclust) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs clust <i:sequenceDB> <i:resultDB> <o:clusterDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -37,7 +37,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs clust <i:sequenceDB> <i:resultDB> <o:clusterDB> [options]
@@ -60,7 +60,7 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/clustering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-clust), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
 

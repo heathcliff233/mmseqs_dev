@@ -1,4 +1,4 @@
-# Multi-hit
+## Multi-hit {#mod-multi-hit}
 
 Modules for grouped-sequence (set-based) search and per-set aggregation pipelines.
 
@@ -8,7 +8,7 @@ This page emphasizes module relationships and practical options. For complete CL
 ]
 ```
 
-## `besthitperset`
+### `besthitperset` {#modcmd-besthitperset}
 
 For each set of sequences compute the best element and update p-value.
 
@@ -17,14 +17,14 @@ For each set of sequences compute the best element and update p-value.
 | Usage | `usage: mmseqs besthitperset  <i:targetSetDB> <i:resultDB> <o:resultDB> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | [`multihitsearch`](../reference/multihitsearch.md) |
+| Called by modules | [`multihitsearch`](#modcmd-multihitsearch) |
 | Calls modules | `n/a` |
 | Related functional groups | `n/a` |
 | Workflow script usage | `multihitsearch.sh` |
 
-Reference links: [Full CLI](../reference/besthitperset.md), [Dependency map](../reference/dependency_map.md#cmd-besthitperset).
+Reference links: [Full CLI](#refcmd-besthitperset), [Dependency entry](#depcmd-besthitperset).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -33,7 +33,7 @@ Reference links: [Full CLI](../reference/besthitperset.md), [Dependency map](../
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `combinepvalperset`
+### `combinepvalperset` {#modcmd-combinepvalperset}
 
 For each set compute the combined p-value.
 
@@ -47,9 +47,9 @@ For each set compute the combined p-value.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/combinepvalperset.md), [Dependency map](../reference/dependency_map.md#cmd-combinepvalperset).
+Reference links: [Full CLI](#refcmd-combinepvalperset), [Dependency entry](#depcmd-combinepvalperset).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -59,7 +59,7 @@ Reference links: [Full CLI](../reference/combinepvalperset.md), [Dependency map]
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `mergeresultsbyset`
+### `mergeresultsbyset` {#modcmd-mergeresultsbyset}
 
 Merge results from multiple ORFs back to their respective contig.
 
@@ -68,14 +68,14 @@ Merge results from multiple ORFs back to their respective contig.
 | Usage | `usage: mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | [`multihitsearch`](../reference/multihitsearch.md), [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`multihitsearch`](#modcmd-multihitsearch), [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`taxonomy`](./taxonomy.md) |
+| Related functional groups | [`taxonomy`](#mod-taxonomy) |
 | Workflow script usage | `multihitsearch.sh`, `taxpercontig.sh` |
 
-Reference links: [Full CLI](../reference/mergeresultsbyset.md), [Dependency map](../reference/dependency_map.md#cmd-mergeresultsbyset).
+Reference links: [Full CLI](#refcmd-mergeresultsbyset), [Dependency entry](#depcmd-mergeresultsbyset).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -84,7 +84,7 @@ Reference links: [Full CLI](../reference/mergeresultsbyset.md), [Dependency map]
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `multihitdb`
+### `multihitdb` {#modcmd-multihitdb}
 
 Create sequence DB for multi hit searches.
 
@@ -94,13 +94,13 @@ Create sequence DB for multi hit searches.
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
 | Called by modules | `n/a` |
-| Calls modules | [`createdb`](../reference/createdb.md), [`extractorfs`](../reference/extractorfs.md), [`filterdb`](../reference/filterdb.md), [`orftocontig`](../reference/orftocontig.md), [`result2stats`](../reference/result2stats.md), [`swapdb`](../reference/swapdb.md), [`translatenucs`](../reference/translatenucs.md), [`tsv2db`](../reference/tsv2db.md) |
-| Related functional groups | [`database`](./database.md), [`result_handling`](./result_handling.md), [`sequence_manipulation`](./sequence_manipulation.md), [`utilities`](./utilities.md) |
+| Calls modules | [`createdb`](#modcmd-createdb), [`extractorfs`](#modcmd-extractorfs), [`filterdb`](#modcmd-filterdb), [`orftocontig`](#modcmd-orftocontig), [`result2stats`](#modcmd-result2stats), [`swapdb`](#modcmd-swapdb), [`translatenucs`](#modcmd-translatenucs), [`tsv2db`](#modcmd-tsv2db) |
+| Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/multihitdb.md), [Dependency map](../reference/dependency_map.md#cmd-multihitdb).
+Reference links: [Full CLI](#refcmd-multihitdb), [Dependency entry](#depcmd-multihitdb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -113,7 +113,7 @@ Reference links: [Full CLI](../reference/multihitdb.md), [Dependency map](../ref
 | `--max-gaps` | Maximum number of codons with gaps or unknown residues before an open reading frame is rejected |
 | `--contig-start-mode` | Contig start can be 0: incomplete, 1: complete, 2: both |
 
-## `multihitsearch`
+### `multihitsearch` {#modcmd-multihitsearch}
 
 Search with a grouped set of sequences against another grouped set.
 
@@ -123,13 +123,13 @@ Search with a grouped set of sequences against another grouped set.
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
 | Called by modules | `n/a` |
-| Calls modules | [`besthitperset`](../reference/besthitperset.md), [`mergeresultsbyset`](../reference/mergeresultsbyset.md), [`rmdb`](../reference/rmdb.md), [`search`](../reference/search.md) |
-| Related functional groups | [`database`](./database.md), [`search_workflows`](./search.md) |
+| Calls modules | [`besthitperset`](#modcmd-besthitperset), [`mergeresultsbyset`](#modcmd-mergeresultsbyset), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search) |
+| Related functional groups | [`database`](#mod-database), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/multihitsearch.md), [Dependency map](../reference/dependency_map.md#cmd-multihitsearch).
+Reference links: [Full CLI](#refcmd-multihitsearch), [Dependency entry](#depcmd-multihitsearch).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

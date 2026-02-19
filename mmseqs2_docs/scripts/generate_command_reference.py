@@ -30,21 +30,6 @@ GROUP_ORDER = [
     "utilities",
 ]
 
-GROUP_TO_SUBMODULE = {
-    "easy_workflows": "../submodules/easy_workflows.md",
-    "search_workflows": "../submodules/search.md",
-    "clustering": "../submodules/clustering.md",
-    "prefiltering": "../submodules/prefiltering.md",
-    "alignment": "../submodules/alignment.md",
-    "profiles": "../submodules/profiles.md",
-    "database": "../submodules/database.md",
-    "result_handling": "../submodules/result_handling.md",
-    "sequence_manipulation": "../submodules/sequence_manipulation.md",
-    "taxonomy": "../submodules/taxonomy.md",
-    "multi_hit": "../submodules/multi_hit.md",
-    "utilities": "../submodules/utilities.md",
-}
-
 NO_EDGE_TEXT = "`n/a`"
 
 
@@ -75,9 +60,29 @@ def parse_usage_and_options(help_text: str) -> tuple[str, list[tuple[str, str]]]
     return usage, unique
 
 
+def label_slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
+def module_anchor(group: str) -> str:
+    return f"mod-{label_slug(group)}"
+
+
+def reference_command_anchor(name: str) -> str:
+    return f"refcmd-{label_slug(name)}"
+
+
+def dependency_command_anchor(name: str) -> str:
+    return f"depcmd-{label_slug(name)}"
+
+
+def reference_group_anchor(group: str) -> str:
+    return f"refgroup-{label_slug(group)}"
+
+
 def command_links(items: list[str]) -> str:
     if items:
-        return ", ".join(f"[`{x}`](./{x}.md)" for x in items)
+        return ", ".join(f"[`{x}`](#{reference_command_anchor(x)})" for x in items)
     return NO_EDGE_TEXT
 
 
@@ -117,7 +122,7 @@ def write_command_page(name: str, meta: dict) -> bool:
     usage, options = parse_usage_and_options(help_text)
 
     lines = []
-    lines.append(f"# `{name}`")
+    lines.append(f"## `{name}` {{#{reference_command_anchor(name)}}}")
     lines.append("")
     if meta.get("description"):
         lines.append(sentence(meta["description"]))
@@ -125,18 +130,18 @@ def write_command_page(name: str, meta: dict) -> bool:
     lines.append("In connection tables, `n/a` means no direct static edge was resolved by static extraction.")
     lines.append("")
 
-    lines.append("## Classification")
+    lines.append("### Classification")
     lines.append("")
     lines.append("| Aspect | Value |")
     lines.append("| :--- | :--- |")
     lines.append(f"| API layer | `{meta['layer']}` |")
     lines.append(
-        f"| Primary functional group | [`{meta['primary_group']}`]({GROUP_TO_SUBMODULE.get(meta['primary_group'], '../manual.md')}) |"
+        f"| Primary functional group | [`{meta['primary_group']}`](#{module_anchor(meta['primary_group'])}) |"
     )
     lines.append(f"| Category flags | `{meta['category']}` |")
     lines.append("")
 
-    lines.append("## Connections")
+    lines.append("### Connections")
     lines.append("")
     lines.append("| Aspect | Value |")
     lines.append("| :--- | :--- |")
@@ -145,7 +150,7 @@ def write_command_page(name: str, meta: dict) -> bool:
     lines.append(f"| Seen in workflow scripts | {plain_list(meta['workflow_scripts'])} |")
     lines.append("")
 
-    lines.append("## Usage")
+    lines.append("### Usage")
     lines.append("")
     if usage:
         lines.append(f"`{usage}`")
@@ -153,7 +158,7 @@ def write_command_page(name: str, meta: dict) -> bool:
         lines.append("No local help snapshot usage line is available.")
     lines.append("")
 
-    lines.append("## Key Options")
+    lines.append("### Key Options")
     lines.append("")
     if options:
         lines.append("| Option | Purpose |")
@@ -164,7 +169,7 @@ def write_command_page(name: str, meta: dict) -> bool:
         lines.append("No parsed options are available for this command.")
     lines.append("")
 
-    lines.append("## Full CLI Help Snapshot")
+    lines.append("### Full CLI Help Snapshot")
     lines.append("")
     if has_help:
         lines.append("```text")
@@ -178,12 +183,12 @@ def write_command_page(name: str, meta: dict) -> bool:
             )
         )
 
-    lines.append("## Cross References")
+    lines.append("### Cross References")
     lines.append("")
     lines.append(
-        "See [Dependency map](./dependency_map.md), "
-        + "[Command reference index](./index.md), and "
-        + f"[functional module page]({GROUP_TO_SUBMODULE.get(meta['primary_group'], '../manual.md')})."
+        f"See [Dependency map section](#sec-dependency-map), [dependency entry](#{dependency_command_anchor(name)}), "
+        + "[command reference index](#sec-command-reference), and "
+        + f"[functional module page](#{module_anchor(meta['primary_group'])})."
     )
     lines.append("")
 
@@ -200,7 +205,7 @@ def write_index(dep_map: dict[str, dict], has_help_map: dict[str, bool]) -> None
     missing_help = sorted([c for c, has_help in has_help_map.items() if not has_help])
 
     lines = []
-    lines.append("# MMseqs2 Command Reference Index")
+    lines.append("# MMseqs2 Command Reference Index {#sec-command-reference}")
     lines.append("")
     lines.append("This reference is generated from source metadata and local help snapshots.")
     lines.append("")
@@ -224,20 +229,20 @@ def write_index(dep_map: dict[str, dict], has_help_map: dict[str, bool]) -> None
             lines.append(f"| `{cmd}` | missing |")
         lines.append("")
 
-    lines.append("Primary maps: [Dependency map](./dependency_map.md).")
+    lines.append("Primary maps: [Dependency map](#sec-dependency-map).")
     lines.append("")
 
     for group in GROUP_ORDER:
         cmds = sorted(grouped.get(group, []))
         if not cmds:
             continue
-        lines.append(f"## {group.replace('_', ' ').title()}")
+        lines.append(f"## {group.replace('_', ' ').title()} {{#{reference_group_anchor(group)}}}")
         lines.append("")
         lines.append("| Command | Layer | Snapshot |")
         lines.append("| :--- | :--- | :--- |")
         for cmd in cmds:
             status = "help" if has_help_map.get(cmd, False) else "missing-help"
-            lines.append(f"| [`{cmd}`](./{cmd}.md) | `{dep_map[cmd]['layer']}` | `{status}` |")
+            lines.append(f"| [`{cmd}`](#{reference_command_anchor(cmd)}) | `{dep_map[cmd]['layer']}` | `{status}` |")
         lines.append("")
 
     INDEX_MD.write_text("\n".join(lines) + "\n")

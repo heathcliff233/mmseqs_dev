@@ -1,5 +1,5 @@
 ```{=typst}
-#set heading(numbering: "1.1.1")
+#set heading(numbering: "1.")
 
 #let doc_callout(title, fill_color, body) = block(
   fill: fill_color,

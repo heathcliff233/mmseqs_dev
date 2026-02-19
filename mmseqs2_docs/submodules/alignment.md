@@ -1,4 +1,4 @@
-# Alignment
+## Alignment {#mod-alignment}
 
 Core alignment and alignment-adjacent modules for scoring, rescoring, and coordinate transformations.
 
@@ -8,7 +8,7 @@ This page emphasizes module relationships and practical options. For complete CL
 ]
 ```
 
-## `align`
+### `align` {#modcmd-align}
 
 Optimal gapped local alignment.
 
@@ -17,14 +17,14 @@ Optimal gapped local alignment.
 | Usage | `usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md), [`linsearch`](../reference/linsearch.md), [`pickconsensusrep`](../reference/pickconsensusrep.md), [`search`](../reference/search.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`pickconsensusrep`](#modcmd-pickconsensusrep), [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `iterativepp.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `searchslicedtargetprofile.sh` |
 
-Reference links: [Full CLI](../reference/align.md), [Dependency map](../reference/dependency_map.md#cmd-align).
+Reference links: [Full CLI](#refcmd-align), [Dependency entry](#depcmd-align).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -37,7 +37,7 @@ Reference links: [Full CLI](../reference/align.md), [Dependency map](../referenc
 | `--wrapped-scoring` | Double the (nucleotide) query sequence during the scoring process to allow wrapped diagonal scoring around end and start |
 | `-e` | List matches below this E-value (range 0.0-inf) |
 
-## `alignall`
+### `alignall` {#modcmd-alignall}
 
 Within-result all-vs-all gapped local alignment.
 
@@ -51,9 +51,9 @@ Within-result all-vs-all gapped local alignment.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/alignall.md), [Dependency map](../reference/dependency_map.md#cmd-alignall).
+Reference links: [Full CLI](#refcmd-alignall), [Dependency entry](#depcmd-alignall).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -66,7 +66,7 @@ Reference links: [Full CLI](../reference/alignall.md), [Dependency map](../refer
 | `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
 | `--min-aln-len` | Minimum alignment length (range 0-INT_MAX) |
 
-## `alignbykmer`
+### `alignbykmer` {#modcmd-alignbykmer}
 
 Heuristic gapped local k-mer based alignment.
 
@@ -80,9 +80,9 @@ Heuristic gapped local k-mer based alignment.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/alignbykmer.md), [Dependency map](../reference/dependency_map.md#cmd-alignbykmer).
+Reference links: [Full CLI](#refcmd-alignbykmer), [Dependency entry](#depcmd-alignbykmer).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -95,7 +95,7 @@ Reference links: [Full CLI](../reference/alignbykmer.md), [Dependency map](../re
 | `-e` | List matches below this E-value (range 0.0-inf) |
 | `--cov-mode` | 0: coverage of query and target |
 
-## `expandaln`
+### `expandaln` {#modcmd-expandaln}
 
 Expand an alignment result based on another.
 
@@ -104,14 +104,14 @@ Expand an alignment result based on another.
 | Usage | `usage: mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Called by modules | [`search`](../reference/search.md) |
+| Called by modules | [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `enrich.sh`, `iterativepp.sh` |
 
-Reference links: [Full CLI](../reference/expandaln.md), [Dependency map](../reference/dependency_map.md#cmd-expandaln).
+Reference links: [Full CLI](#refcmd-expandaln), [Dependency entry](#depcmd-expandaln).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -124,7 +124,7 @@ Reference links: [Full CLI](../reference/expandaln.md), [Dependency map](../refe
 | `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
 | `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
 
-## `fwbw`
+### `fwbw` {#modcmd-fwbw}
 
 Forward Backward Alignment.
 
@@ -138,9 +138,9 @@ Forward Backward Alignment.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/fwbw.md), [Dependency map](../reference/dependency_map.md#cmd-fwbw).
+Reference links: [Full CLI](#refcmd-fwbw), [Dependency entry](#depcmd-fwbw).
 
-## `offsetalignment`
+### `offsetalignment` {#modcmd-offsetalignment}
 
 Offset alignment by ORF start position.
 
@@ -149,14 +149,14 @@ Offset alignment by ORF start position.
 | Usage | `usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`linsearch`](../reference/linsearch.md), [`search`](../reference/search.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`linsearch`](#modcmd-linsearch), [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `blastn.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
 
-Reference links: [Full CLI](../reference/offsetalignment.md), [Dependency map](../reference/dependency_map.md#cmd-offsetalignment).
+Reference links: [Full CLI](#refcmd-offsetalignment), [Dependency entry](#depcmd-offsetalignment).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -168,7 +168,7 @@ Reference links: [Full CLI](../reference/offsetalignment.md), [Dependency map](.
 | `--chain-alignments` | Chain overlapping alignments |
 | `--merge-query` | Combine ORFs/split sequences to a single entry |
 
-## `proteinaln2nucl`
+### `proteinaln2nucl` {#modcmd-proteinaln2nucl}
 
 Transform protein alignments to nucleotide alignments.
 
@@ -182,9 +182,9 @@ Transform protein alignments to nucleotide alignments.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/proteinaln2nucl.md), [Dependency map](../reference/dependency_map.md#cmd-proteinaln2nucl).
+Reference links: [Full CLI](#refcmd-proteinaln2nucl), [Dependency entry](#depcmd-proteinaln2nucl).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -195,7 +195,7 @@ Reference links: [Full CLI](../reference/proteinaln2nucl.md), [Dependency map](.
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `rescorediagonal`
+### `rescorediagonal` {#modcmd-rescorediagonal}
 
 Compute sequence identity for diagonal.
 
@@ -204,14 +204,14 @@ Compute sequence identity for diagonal.
 | Usage | `usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | [`cluster`](../reference/cluster.md), [`linclust`](../reference/linclust.md), [`linsearch`](../reference/linsearch.md), [`search`](../reference/search.md), [`taxonomy`](../reference/taxonomy.md) |
+| Called by modules | [`cluster`](#modcmd-cluster), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`search_workflows`](./search.md), [`taxonomy`](./taxonomy.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
 | Workflow script usage | `linclust.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh` |
 
-Reference links: [Full CLI](../reference/rescorediagonal.md), [Dependency map](../reference/dependency_map.md#cmd-rescorediagonal).
+Reference links: [Full CLI](#refcmd-rescorediagonal), [Dependency entry](#depcmd-rescorediagonal).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -224,7 +224,7 @@ Reference links: [Full CLI](../reference/rescorediagonal.md), [Dependency map](.
 | `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
 | `--min-aln-len` | Minimum alignment length (range 0-INT_MAX) |
 
-## `transitivealign`
+### `transitivealign` {#modcmd-transitivealign}
 
 Transfer alignments via transitivity.
 
@@ -238,5 +238,5 @@ Transfer alignments via transitivity.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/transitivealign.md), [Dependency map](../reference/dependency_map.md#cmd-transitivealign).
+Reference links: [Full CLI](#refcmd-transitivealign), [Dependency entry](#depcmd-transitivealign).
 

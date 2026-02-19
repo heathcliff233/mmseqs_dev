@@ -1,4 +1,4 @@
-# Profiles
+## Profiles {#mod-profiles}
 
 Modules for profile/MSA conversion, profile construction, and profile-driven workflow components.
 
@@ -8,7 +8,7 @@ This page emphasizes module relationships and practical options. For complete CL
 ]
 ```
 
-## `convertca3m`
+### `convertca3m` {#modcmd-convertca3m}
 
 Convert a cA3M DB to a result DB.
 
@@ -22,9 +22,9 @@ Convert a cA3M DB to a result DB.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/convertca3m.md), [Dependency map](../reference/dependency_map.md#cmd-convertca3m).
+Reference links: [Full CLI](#refcmd-convertca3m), [Dependency entry](#depcmd-convertca3m).
 
-## `convertmsa`
+### `convertmsa` {#modcmd-convertmsa}
 
 Convert Stockholm/PFAM MSA file to a MSA DB.
 
@@ -33,14 +33,14 @@ Convert Stockholm/PFAM MSA file to a MSA DB.
 | Usage | `usage: mmseqs convertmsa <i:msaFile.sto[.gz]> <o:msaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Called by modules | [`databases`](../reference/databases.md) |
+| Called by modules | [`databases`](#modcmd-databases) |
 | Calls modules | `n/a` |
-| Related functional groups | [`database`](./database.md) |
+| Related functional groups | [`database`](#mod-database) |
 | Workflow script usage | `databases.sh` |
 
-Reference links: [Full CLI](../reference/convertmsa.md), [Dependency map](../reference/dependency_map.md#cmd-convertmsa).
+Reference links: [Full CLI](#refcmd-convertmsa), [Dependency entry](#depcmd-convertmsa).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -48,7 +48,7 @@ Reference links: [Full CLI](../reference/convertmsa.md), [Dependency map](../ref
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## `convertprofiledb`
+### `convertprofiledb` {#modcmd-convertprofiledb}
 
 Convert a HH-suite HHM DB to a profile DB.
 
@@ -62,9 +62,9 @@ Convert a HH-suite HHM DB to a profile DB.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/convertprofiledb.md), [Dependency map](../reference/dependency_map.md#cmd-convertprofiledb).
+Reference links: [Full CLI](#refcmd-convertprofiledb), [Dependency entry](#depcmd-convertprofiledb).
 
-## `expand2profile`
+### `expand2profile` {#modcmd-expand2profile}
 
 Expand an alignment result based on another and create a profile.
 
@@ -73,14 +73,14 @@ Expand an alignment result based on another and create a profile.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Called by modules | [`search`](../reference/search.md) |
+| Called by modules | [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `iterativepp.sh` |
 
-Reference links: [Full CLI](../reference/expand2profile.md), [Dependency map](../reference/dependency_map.md#cmd-expand2profile).
+Reference links: [Full CLI](#refcmd-expand2profile), [Dependency entry](#depcmd-expand2profile).
 
-## `msa2profile`
+### `msa2profile` {#modcmd-msa2profile}
 
 Convert a MSA DB to a profile DB.
 
@@ -89,14 +89,14 @@ Convert a MSA DB to a profile DB.
 | Usage | `usage: mmseqs msa2profile <i:msaDB> <o:profileDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE | COMMAND_DATABASE_CREATION` |
-| Called by modules | [`databases`](../reference/databases.md), [`pickconsensusrep`](../reference/pickconsensusrep.md) |
+| Called by modules | [`databases`](#modcmd-databases), [`pickconsensusrep`](#modcmd-pickconsensusrep) |
 | Calls modules | `n/a` |
-| Related functional groups | [`clustering`](./clustering.md), [`database`](./database.md) |
+| Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database) |
 | Workflow script usage | `databases.sh`, `pickconsensusrep.sh` |
 
-Reference links: [Full CLI](../reference/msa2profile.md), [Dependency map](../reference/dependency_map.md#cmd-msa2profile).
+Reference links: [Full CLI](#refcmd-msa2profile), [Dependency entry](#depcmd-msa2profile).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -109,7 +109,7 @@ Reference links: [Full CLI](../reference/msa2profile.md), [Dependency map](../re
 | `--pseudo-cnt-mode` | use 0: substitution-matrix or 1: context-specific pseudocounts |
 | `--pca` | Pseudo count admixture strength |
 
-## `msa2result`
+### `msa2result` {#modcmd-msa2result}
 
 Convert a MSA DB to a profile DB.
 
@@ -123,9 +123,9 @@ Convert a MSA DB to a profile DB.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/msa2result.md), [Dependency map](../reference/dependency_map.md#cmd-msa2result).
+Reference links: [Full CLI](#refcmd-msa2result), [Dependency entry](#depcmd-msa2result).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -138,7 +138,7 @@ Reference links: [Full CLI](../reference/msa2result.md), [Dependency map](../ref
 | `--pseudo-cnt-mode` | use 0: substitution-matrix or 1: context-specific pseudocounts |
 | `--pca` | Pseudo count admixture strength |
 
-## `pairaln`
+### `pairaln` {#modcmd-pairaln}
 
 Pair sequences to match best protein A and B from a species.
 
@@ -152,9 +152,9 @@ Pair sequences to match best protein A and B from a species.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/pairaln.md), [Dependency map](../reference/dependency_map.md#cmd-pairaln).
+Reference links: [Full CLI](#refcmd-pairaln), [Dependency entry](#depcmd-pairaln).
 
-## `profile2consensus`
+### `profile2consensus` {#modcmd-profile2consensus}
 
 Extract consensus sequence DB from a profile DB.
 
@@ -163,14 +163,14 @@ Extract consensus sequence DB from a profile DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | [`search`](../reference/search.md) |
+| Called by modules | [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `iterativepp.sh` |
 
-Reference links: [Full CLI](../reference/profile2consensus.md), [Dependency map](../reference/dependency_map.md#cmd-profile2consensus).
+Reference links: [Full CLI](#refcmd-profile2consensus), [Dependency entry](#depcmd-profile2consensus).
 
-## `profile2neff`
+### `profile2neff` {#modcmd-profile2neff}
 
 Convert a profile DB to a tab-separated list of Neff scores.
 
@@ -184,9 +184,9 @@ Convert a profile DB to a tab-separated list of Neff scores.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/profile2neff.md), [Dependency map](../reference/dependency_map.md#cmd-profile2neff).
+Reference links: [Full CLI](#refcmd-profile2neff), [Dependency entry](#depcmd-profile2neff).
 
-## `profile2pssm`
+### `profile2pssm` {#modcmd-profile2pssm}
 
 Convert a profile DB to a tab-separated PSSM file.
 
@@ -200,9 +200,9 @@ Convert a profile DB to a tab-separated PSSM file.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/profile2pssm.md), [Dependency map](../reference/dependency_map.md#cmd-profile2pssm).
+Reference links: [Full CLI](#refcmd-profile2pssm), [Dependency entry](#depcmd-profile2pssm).
 
-## `profile2repseq`
+### `profile2repseq` {#modcmd-profile2repseq}
 
 Extract representative sequence DB from a profile DB.
 
@@ -216,9 +216,9 @@ Extract representative sequence DB from a profile DB.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/profile2repseq.md), [Dependency map](../reference/dependency_map.md#cmd-profile2repseq).
+Reference links: [Full CLI](#refcmd-profile2repseq), [Dependency entry](#depcmd-profile2repseq).
 
-## `result2profile`
+### `result2profile` {#modcmd-result2profile}
 
 Compute profile DB from a result DB.
 
@@ -227,14 +227,14 @@ Compute profile DB from a result DB.
 | Usage | `usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | [`search`](../reference/search.md) |
+| Called by modules | [`search`](#modcmd-search) |
 | Calls modules | `n/a` |
-| Related functional groups | [`search_workflows`](./search.md) |
+| Related functional groups | [`search_workflows`](#mod-search-workflows) |
 | Workflow script usage | `blastpgp.sh`, `enrich.sh` |
 
-Reference links: [Full CLI](../reference/result2profile.md), [Dependency map](../reference/dependency_map.md#cmd-result2profile).
+Reference links: [Full CLI](#refcmd-result2profile), [Dependency entry](#depcmd-result2profile).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -247,7 +247,7 @@ Reference links: [Full CLI](../reference/result2profile.md), [Dependency map](..
 | `--e-profile` | Include sequences matches with < E-value thr. into the profile (>=0.0) |
 | `--wg` | Use global sequence weighting for profile calculation |
 
-## `sequence2profile`
+### `sequence2profile` {#modcmd-sequence2profile}
 
 Turn sequence into profile by adding context specific pseudo counts.
 
@@ -261,9 +261,9 @@ Turn sequence into profile by adding context specific pseudo counts.
 | Related functional groups | `n/a` |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/sequence2profile.md), [Dependency map](../reference/dependency_map.md#cmd-sequence2profile).
+Reference links: [Full CLI](#refcmd-sequence2profile), [Dependency entry](#depcmd-sequence2profile).
 
-## `tsv2exprofiledb`
+### `tsv2exprofiledb` {#modcmd-tsv2exprofiledb}
 
 Create a expandable profile db from TSV files.
 
@@ -273,13 +273,13 @@ Create a expandable profile db from TSV files.
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 | Called by modules | `n/a` |
-| Calls modules | [`aliasdb`](../reference/aliasdb.md), [`compress`](../reference/compress.md), [`mvdb`](../reference/mvdb.md), [`rmdb`](../reference/rmdb.md), [`tsv2db`](../reference/tsv2db.md) |
-| Related functional groups | [`database`](./database.md), [`utilities`](./utilities.md) |
+| Calls modules | [`aliasdb`](#modcmd-aliasdb), [`compress`](#modcmd-compress), [`mvdb`](#modcmd-mvdb), [`rmdb`](#modcmd-rmdb), [`tsv2db`](#modcmd-tsv2db) |
+| Related functional groups | [`database`](#mod-database), [`utilities`](#mod-utilities) |
 | Workflow script usage | `n/a` |
 
-Reference links: [Full CLI](../reference/tsv2exprofiledb.md), [Dependency map](../reference/dependency_map.md#cmd-tsv2exprofiledb).
+Reference links: [Full CLI](#refcmd-tsv2exprofiledb), [Dependency entry](#depcmd-tsv2exprofiledb).
 
-### Key Options
+#### Key Options
 
 | Option | Purpose |
 | :--- | :--- |

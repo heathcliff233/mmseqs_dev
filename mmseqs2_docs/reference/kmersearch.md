@@ -1,30 +1,30 @@
-# `kmersearch`
+## `kmersearch` {#refcmd-kmersearch}
 
 Find bottom-m-hashed k-mer matches between target and query DB.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `mid_level_api` |
-| Primary functional group | [`prefiltering`](../submodules/prefiltering.md) |
+| Primary functional group | [`prefiltering`](#mod-prefiltering) |
 | Category flags | `COMMAND_PREFILTER` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`linsearch`](./linsearch.md) |
+| Called by modules | [`linsearch`](#refcmd-linsearch) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `linsearch.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs kmersearch <i:queryDB> <i:kmerIndexDB> <o:prefilterDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -41,7 +41,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--pick-n-sim-kmer` | Add N similar k-mers to search |
 | `--result-direction` | result is 0: query, 1: target centric |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs kmersearch <i:queryDB> <i:kmerIndexDB> <o:prefilterDB> [options]
@@ -75,7 +75,7 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/prefiltering.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-kmersearch), [command reference index](#sec-command-reference), and [functional module page](#mod-prefiltering).
 

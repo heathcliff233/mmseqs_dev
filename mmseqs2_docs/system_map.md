@@ -1,8 +1,8 @@
-# System Map: Cascaded APIs and Module Connections
+# System Map: Cascaded APIs and Module Connections {#sec-system-map}
 
 MMseqs2 commands are layered. Workflow and high-level commands orchestrate lower-level modules, and those modules enforce the actual data contracts. This layering is both an architecture map and a performance map: most runtime and correctness characteristics are inherited from the lower levels each workflow chooses.
 
-Primary generated maps are `reference/index.md` and `reference/dependency_map.md`.
+Primary generated maps are [Command Reference Index](#sec-command-reference) and [Dependency Map](#sec-dependency-map).
 
 ## API Layers
 
@@ -39,8 +39,8 @@ Each command entry in `submodules/*.md` includes a structured metadata table wit
 
 ## When to Start from the Dependency View
 
-Start with `reference/dependency_map.md` when tuning runtime at workflow level, debugging unexpected output semantics, or composing custom pipelines from low-level modules. Start with `manual.md` and submodule pages when task intent is clear and you need command selection guidance first.
+Start with [Dependency Map](#sec-dependency-map) when tuning runtime at workflow level, debugging unexpected output semantics, or composing custom pipelines from low-level modules. Start with [Functional Modules Manual](#sec-functional-modules-manual) and submodule pages when task intent is clear and you need command selection guidance first.
 
 ## Transition to Performance Foundations
 
-This chapter explains where commands sit in the cascade. The next chapter, `foundations.md`, explains why that cascade is fast in practice: internal storage format, index and load mechanics, memory and split tradeoffs, and parallel execution strategies.
+This chapter explains where commands sit in the cascade. The next chapter, [Performance Foundations](#sec-performance-foundations), explains why that cascade is fast in practice: internal storage format, index and load mechanics, memory and split tradeoffs, and parallel execution strategies.

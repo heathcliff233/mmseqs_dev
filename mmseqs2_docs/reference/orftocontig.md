@@ -1,30 +1,30 @@
-# `orftocontig`
+## `orftocontig` {#refcmd-orftocontig}
 
 Write ORF locations in alignment format.
 
 In connection tables, `n/a` means no direct static edge was resolved by static extraction.
 
-## Classification
+### Classification
 
 | Aspect | Value |
 | :--- | :--- |
 | API layer | `low_level_api` |
-| Primary functional group | [`sequence_manipulation`](../submodules/sequence_manipulation.md) |
+| Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-## Connections
+### Connections
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`multihitdb`](./multihitdb.md) |
+| Called by modules | [`multihitdb`](#refcmd-multihitdb) |
 | Calls modules | `n/a` |
 | Seen in workflow scripts | `multihitdb.sh` |
 
-## Usage
+### Usage
 
 `usage: mmseqs orftocontig <i:contigsSequenceDB> <i:extractedOrfsHeadersDB> <o:orfsAlignedToContigDB> [options]`
 
-## Key Options
+### Key Options
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +32,7 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-## Full CLI Help Snapshot
+### Full CLI Help Snapshot
 
 ```text
 usage: mmseqs orftocontig <i:contigsSequenceDB> <i:extractedOrfsHeadersDB> <o:orfsAlignedToContigDB> [options]
@@ -45,7 +45,7 @@ options: common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-## Cross References
+### Cross References
 
-See [Dependency map](./dependency_map.md), [Command reference index](./index.md), and [functional module page](../submodules/sequence_manipulation.md).
+See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-orftocontig), [command reference index](#sec-command-reference), and [functional module page](#mod-sequence-manipulation).
 
