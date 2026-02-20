@@ -1,346 +1,282 @@
-# AGENTS.md
+# AGENTS_mmseqs.md
 
-This repository contains MMseqs2/Foldseek sources plus local documentation workspaces.
-This guide is for agents working on `mmseqs2_docs` and the MMseqs2 source tree.
+This guide defines how to maintain and improve the MMseqs2 documentation in this repository. It is written for human and AI contributors working across `mmseqs2_docs/`, `MMseqs2/`, and `mmseqs_help_output/`.
 
-## Scope
+The main goal is not only correctness, but also clarity of explanation: readers should understand what to run, why it behaves that way, and how modules connect across the MMseqs2 cascade.
 
-- Primary documentation workspace: `mmseqs2_docs/`
-- Primary source of truth for MMseqs2 behavior: `MMseqs2/`
-- Command help snapshots for docs authoring: `mmseqs_help_output/`
-- PDF build entrypoint: `mmseqs2_docs/build_pdf.sh`
+## Mission and Scope
 
-## Repository Map
+Use this repository to produce a source-grounded MMseqs2 manual with a stable narrative architecture:
 
-- `MMseqs2/src/`: C++ implementation of commands and workflows.
-- `MMseqs2/data/workflow/`: shell workflow templates embedded at build time.
-- `MMseqs2/src/MMseqsBase.cpp`: central command registry (command name, description, categories, examples).
-- `MMseqs2/src/CommandDeclarations.h`: full list of command entry points.
-- `mmseqs2_docs/`: markdown sources for the MMseqs2 PDF manual.
-- `mmseqs_help_output/`: `mmseqs <module> -h` outputs (generated snapshots).
-- `generate_mmseqs_docs.sh`: helper to refresh `mmseqs_help_output/`.
+1. Overview and mental model.
+2. Algorithmic and systems acceleration foundations.
+3. Functional modules and submodules.
+4. Expert operation and source-development guidance.
+5. Full command reference and dependency topology.
 
-## Build and Refresh Workflows
+Primary workspace and boundaries:
 
-1. Refresh help snapshots (when command-line options change):
+| Area | Role |
+| :--- | :--- |
+| `MMseqs2/` | Source of truth for behavior and architecture |
+| `mmseqs_help_output/` | Local CLI help snapshots (`mmseqs <cmd> -h`) |
+| `mmseqs2_docs/` | Markdown sources, generators, validator, PDF build |
+| `AGENTS_mmseqs.md` | This operating handbook |
+
+## Source-of-Truth Policy
+
+When documents disagree, use this precedence order:
+
+1. MMseqs2 source code and workflow scripts.
+2. Local help snapshots generated from the active `mmseqs` binary.
+3. Generated docs (`reference/*.md`, `submodules/*.md`) after regeneration.
+4. Narrative chapters (`introduction.md`, `foundations.md`, `system_map.md`, `expert_manual.md`, `manual.md`).
+
+Canonical source anchors:
+
+| Topic | Primary files |
+| :--- | :--- |
+| Command visibility, categories, descriptions | `MMseqs2/src/MMseqsBase.cpp` |
+| Command entry declarations | `MMseqs2/src/CommandDeclarations.h` |
+| Workflow orchestration | `MMseqs2/src/workflow/*.cpp`, `MMseqs2/data/workflow/*.sh` |
+| Prefiltering and k-mer candidate generation | `MMseqs2/src/prefiltering/*` |
+| Alignment and scoring kernels | `MMseqs2/src/alignment/*` |
+| Clustering and Linclust internals | `MMseqs2/src/clustering/*`, `MMseqs2/src/linclust/*` |
+| Taxonomy logic | `MMseqs2/src/taxonomy/*` |
+| Multi-hit logic | `MMseqs2/src/multihit/*` |
+| Shared infrastructure and DB contracts | `MMseqs2/src/commons/*`, `MMseqs2/src/util/*` |
+
+## Current Manual Architecture
+
+The PDF is assembled by `mmseqs2_docs/build_pdf.sh` in this order:
+
+1. `cover.md`
+2. `numbering.md`
+3. `toc.md`
+4. `introduction.md`
+5. `foundations.md`
+6. `system_map.md`
+7. `manual.md`
+8. all functional module pages in `mmseqs2_docs/submodules/` (explicit order in script)
+9. `expert_manual.md`
+10. `reference/index.md`
+11. generated command pages (`reference/*.md`, excluding `index.md` and `dependency_map.md`)
+12. `reference/dependency_map.md`
+
+`appendix_wiki_reference.md`, `appendix_developer.md`, and `sharp_bits.md` are legacy files and are not part of the current PDF build.
+
+`developer_manual.md` is retained as a lightweight standalone context file, but the canonical developer guidance in the manual is `expert_manual.md`, section `MMseqs2 Source Development Guide`.
+
+## Documentation Logic Requirements
+
+The documentation should present a consistent cascade-aware logic:
+
+1. Start with a systems overview and reading strategy.
+2. Explain algorithmic and systems acceleration as coupled design.
+3. Map command layers and module interactions.
+4. Present task-oriented functional module pages.
+5. End with expert operation rules and source tracing guidance.
+6. Provide full command and dependency references as generated evidence.
+
+Do not flatten this into disconnected command descriptions. MMseqs2 behavior is defined by stage composition, not isolated modules.
+
+## Writing Principles
+
+Prefer prose that explains causality and design tradeoffs. Use bullets only where they are structurally necessary (checklists, concise enumerations, procedural sequences). Use tables for dense comparisons and metadata summaries; do not replace explanatory paragraphs with large bullet dumps.
+
+Core writing rules:
+
+1. Explain "why" before "how" for every major section.
+2. Keep one canonical explanation per concept; cross-link instead of duplicating.
+3. Avoid empty placeholders (`none`, `n/a`, or vacuous text) in command/module narratives unless they represent real unavailable data.
+4. Use consistent terminology: workflow, high-level API, mid-level API, low-level API, functional group, DB contract, sidecar, split policy.
+5. Make performance claims traceable to source files or measured behavior.
+6. Separate semantic changes from formatting changes whenever possible.
+
+A good section should let a reader answer three questions quickly:
+
+1. What is this component for?
+2. Where does it sit in the cascade and what does it depend on?
+3. What tradeoffs control speed, memory, and output semantics?
+
+## Cross-Link and Anchor Rules
+
+Internal links must be anchor-based, not file-path based, so PDF navigation works.
+
+Use:
+
+- `[Performance Foundations](#sec-performance-foundations)`
+- `[Dependency Map](#sec-dependency-map)`
+- `[Full CLI](#refcmd-search)`
+
+Do not use:
+
+- `](./file.md#section)`
+- `](../submodules/x.md)`
+
+Anchor naming conventions in generated docs:
+
+| Anchor type | Pattern | Example |
+| :--- | :--- | :--- |
+| Major sections | `sec-*` | `#sec-functional-modules-manual` |
+| Functional groups | `mod-*` | `#mod-search-workflows` |
+| Functional command entries | `modcmd-*` | `#modcmd-search` |
+| Reference command pages | `refcmd-*` | `#refcmd-search` |
+| Dependency command entries | `depcmd-*` | `#depcmd-search` |
+| Dependency groups | `depgroup-*` | `#depgroup-search-workflows` |
+
+The validator rejects legacy local file-path links.
+
+## Section Numbering and TOC Discipline
+
+Keep heading levels stable to avoid confusing Contents output:
+
+1. Major chapter files use `#`.
+2. Functional module files use `##` for module headers and `###` for command entries.
+3. Command reference index starts at `#`; generated command pages start at `###` so they stay subordinate to index structure in the merged PDF.
+
+Do not create extra top-level chapter files for narrow topics that belong inside existing chapters.
+
+## Typst and Formatting Policy
+
+Default to Markdown grammar. Use raw Typst blocks only when required for PDF-specific behavior (callouts, page control, or other formatting that Markdown cannot express cleanly).
+
+Current Typst helper macros are defined in `mmseqs2_docs/numbering.md`:
+
+- `doc_note`
+- `doc_perf`
+- `doc_warning`
+- `doc_tip`
+
+Table behavior and image fallback handling are controlled by `mmseqs2_docs/fix-rule.lua`. Do not bypass this pipeline with ad hoc formatting hacks.
+
+## Generated Artifacts and Ownership
+
+Treat these as generated outputs:
+
+| Generated file set | Generator |
+| :--- | :--- |
+| `mmseqs2_docs/reference/dependency_map.json` | `scripts/build_dependency_graph.py` |
+| `mmseqs2_docs/reference/dependency_map.md` | `scripts/build_dependency_graph.py` |
+| `mmseqs2_docs/reference/index.md` + `reference/*.md` command pages | `scripts/generate_command_reference.py` |
+| `mmseqs2_docs/submodules/*.md` | `scripts/generate_module_docs.py` |
+
+If you need durable structural changes, edit the generator scripts rather than hand-editing generated pages and expecting changes to persist.
+
+## Standard Update Workflow
+
+### 1) Refresh help snapshots (if CLI changed)
+
 ```bash
 ./generate_mmseqs_docs.sh /path/to/mmseqs
 ```
 
-2. Build the MMseqs2 PDF:
+This writes `mmseqs_help_output/*.txt` for visible commands.
+
+### 2) Regenerate topology, command reference, and functional pages
+
+```bash
+./mmseqs2_docs/scripts/build_dependency_graph.py
+./mmseqs2_docs/scripts/generate_command_reference.py
+./mmseqs2_docs/scripts/generate_module_docs.py
+```
+
+Or run the full refresh:
+
+```bash
+./mmseqs2_docs/scripts/rebuild_docs.sh
+```
+
+### 3) Validate structural consistency
+
+```bash
+python3 mmseqs2_docs/scripts/validate_docs.py
+```
+
+Warnings for missing help snapshots are acceptable when snapshots are not yet available. Errors must be resolved before finishing.
+
+### 4) Build PDF
+
 ```bash
 ./mmseqs2_docs/build_pdf.sh
 ```
 
-3. Expected output:
-- `mmseqs2_docs/mmseqs2_doc.pdf`
+The script prefers `typst`, then falls back to `xelatex`, then `pdflatex`. Use the `foldcomp` conda environment when available.
 
-## Source-of-Truth Rules for Docs
+## Algorithm Coverage Expectations
 
-- Command list + one-line command intent:
-  - `MMseqs2/src/MMseqsBase.cpp`
-- Exact CLI flags/defaults:
-  - `mmseqs_help_output/*.txt` (regenerate from the current binary when needed)
-- Workflow orchestration behavior:
-  - `MMseqs2/src/workflow/*.cpp`
-  - `MMseqs2/data/workflow/*.sh`
-- Core algorithm/data behavior:
-  - `MMseqs2/src/{prefiltering,alignment,clustering,taxonomy,linclust,multihit,commons,util}/`
+`foundations.md` is the canonical chapter for speed architecture and should be kept deep and source-linked. It must continue to cover:
 
-When docs and help snapshots disagree, treat regenerated help output from the current binary as canonical for argument tables.
+1. Shared comparison backbone between search and clustering.
+2. Candidate generation via k-mer indexing/expansion.
+3. Diagonal and ungapped filters.
+4. SIMD gapped alignment and output-cost tradeoffs.
+5. Clustering-specific acceleration design.
+6. Masking and composition-bias controls.
+7. GPU search backend (`ungappedprefilter`, `gpuserver`) and scope limits.
+8. Internal DB/storage contract model.
+9. Index/load strategy.
+10. Memory split and parallel execution tradeoffs.
 
-## MMseqs2 Source Modules (Code-Level)
+When algorithm behavior changes in source, update this chapter first, then update module/reference wording if needed.
 
-- `MMseqs2/src/workflow`
-  - High-level orchestrators (`search`, `cluster`, `taxonomy`, `easy-*`, etc.) that wire modules into end-to-end workflows.
-- `MMseqs2/src/prefiltering`
-  - K-mer based candidate generation, indexing, ungapped filtering, and prefilter database production.
-- `MMseqs2/src/alignment`
-  - Gapped/ungapped alignment engines, scoring, backtraces, profile/MSA-related alignment components.
-- `MMseqs2/src/clustering`
-  - Cluster graph/algorithm implementations (`clust`, connected components, set-cover style clustering).
-- `MMseqs2/src/linclust`
-  - Linear-time clustering/search indexing and k-mer matching primitives.
-- `MMseqs2/src/taxonomy`
-  - LCA, taxonomy DB creation/mapping/filtering, taxonomy report generation.
-- `MMseqs2/src/multihit`
-  - Multi-sequence-set search and aggregation (`multihit*`, per-set p-value/best-hit operations).
-- `MMseqs2/src/util`
-  - Utility/format-conversion/database-manipulation commands (large command surface).
-- `MMseqs2/src/commons`
-  - Shared infrastructure: DB I/O (`DBReader`/`DBWriter`), parameters, command plumbing, file/memory helpers.
+## Command and Module Mapping Maintenance
 
-## Documentation Modules (Docs-Level) and Command Descriptions
+Dependency extraction quality depends on explicit mapping tables in `build_dependency_graph.py`:
 
-### `mmseqs2_docs/submodules/easy_workflows.md`
-- `easy-search`: Sensitive homology search.
-- `easy-linsearch`: Fast, less sensitive homology search.
-- `easy-cluster`: Slower, sensitive clustering.
-- `easy-linclust`: Fast linear time cluster, less sensitive clustering.
-- `easy-taxonomy`: Taxonomic classification.
-- `easy-rbh`: Find reciprocal best hit.
-- Code anchors:
-  - `MMseqs2/src/workflow/EasySearch.cpp`
-  - `MMseqs2/src/workflow/EasyLinclust.cpp`
-  - `MMseqs2/src/workflow/EasyCluster.cpp`
-  - `MMseqs2/src/workflow/EasyTaxonomy.cpp`
-  - `MMseqs2/src/workflow/EasyRbh.cpp`
-  - `MMseqs2/data/workflow/easysearch.sh`
-  - `MMseqs2/data/workflow/easycluster.sh`
-  - `MMseqs2/data/workflow/easytaxonomy.sh`
-  - `MMseqs2/data/workflow/easyrbh.sh`
+- `SCRIPT_OWNERS`
+- `WORKFLOW_CPP_OWNERS`
+- `GROUP_HINT_OVERRIDES`
+- `GROUP_ORDER`
 
-### `mmseqs2_docs/submodules/search.md`
-- `search`: Sensitive homology search.
-- Code anchors:
-  - `MMseqs2/src/workflow/Search.cpp`
-  - `MMseqs2/data/workflow/blastp.sh`
-  - `MMseqs2/data/workflow/blastpgp.sh`
-  - `MMseqs2/data/workflow/blastn.sh`
-  - `MMseqs2/data/workflow/translated_search.sh`
-  - `MMseqs2/data/workflow/searchtargetprofile.sh`
-  - `MMseqs2/data/workflow/searchslicedtargetprofile.sh`
-  - `MMseqs2/data/workflow/iterativepp.sh`
+When new workflows or command groups are added, update these maps; otherwise grouping and edges will degrade.
 
-### `mmseqs2_docs/submodules/clustering.md`
-- `linclust`: Fast, less sensitive clustering.
-- `cluster`: Slower, sensitive clustering.
-- `clust`: Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
-- `clusthash`: Hash-based clustering of equal length sequences.
-- `clusterupdate`: Update previous clustering with new sequences.
-- `mergeclusters`: Merge multiple cascaded clustering steps.
-- Code anchors:
-  - `MMseqs2/src/workflow/Linclust.cpp`
-  - `MMseqs2/src/workflow/Cluster.cpp`
-  - `MMseqs2/src/workflow/ClusterUpdate.cpp`
-  - `MMseqs2/src/clustering/Main.cpp`
-  - `MMseqs2/src/util/mergeclusters.cpp`
-  - `MMseqs2/data/workflow/linclust.sh`
-  - `MMseqs2/data/workflow/clustering.sh`
-  - `MMseqs2/data/workflow/cascaded_clustering.sh`
-  - `MMseqs2/data/workflow/update_clustering.sh`
-  - `MMseqs2/data/workflow/nucleotide_clustering.sh`
+Keep command classification concise. The prior per-command classification block was removed by design because it added noise without improving task decisions.
 
-### `mmseqs2_docs/submodules/prefiltering.md`
-- `prefilter`: Double consecutive diagonal k-mer search.
-- `ungappedprefilter`: Optimal diagonal score search.
-- `gappedprefilter`: Optimal Smith-Waterman-based prefiltering (slow).
-- `kmermatcher`: Find bottom-m-hashed k-mer matches within sequence DB.
-- `kmersearch`: Find bottom-m-hashed k-mer matches between target and query DB.
-- Code anchors:
-  - `MMseqs2/src/prefiltering/Main.cpp`
-  - `MMseqs2/src/prefiltering/Prefiltering.cpp`
-  - `MMseqs2/src/prefiltering/ungappedprefilter.cpp`
-  - `MMseqs2/src/linclust/kmermatcher.cpp`
-  - `MMseqs2/src/linclust/kmersearch.cpp`
+## Anti-Duplication Policy
 
-### `mmseqs2_docs/submodules/alignment.md`
-- `align`: Optimal gapped local alignment.
-- `alignall`: Within-result all-vs-all gapped local alignment.
-- `alignbykmer`: Heuristic gapped local k-mer based alignment.
-- `expandaln`: Expand an alignment result based on another.
-- `offsetalignment`: Offset alignment by ORF start position.
-- `proteinaln2nucl`: Transform protein alignments to nucleotide alignments.
-- `rescorediagonal`: Compute sequence identity for diagonal.
-- Code anchors:
-  - `MMseqs2/src/alignment/Main.cpp`
-  - `MMseqs2/src/alignment/Alignment.cpp`
-  - `MMseqs2/src/alignment/rescorediagonal.cpp`
-  - `MMseqs2/src/util/alignall.cpp`
-  - `MMseqs2/src/util/alignbykmer.cpp`
-  - `MMseqs2/src/util/expandaln.cpp`
-  - `MMseqs2/src/util/offsetalignment.cpp`
-  - `MMseqs2/src/util/proteinaln2nucl.cpp`
+Redundant text is a real maintenance bug. Before finalizing:
 
-### `mmseqs2_docs/submodules/profiles.md`
-- `msa2profile`: Convert a MSA DB to a profile DB.
-- `msa2result`: Convert a MSA DB to a profile DB/result representation.
-- `result2profile`: Compute profile DB from a result DB.
-- `convertmsa`: Convert Stockholm/PFAM MSA file to a MSA DB.
-- `tsv2exprofiledb`: Create an expandable profile DB from TSV files.
-- Code anchors:
-  - `MMseqs2/src/util/msa2profile.cpp`
-  - `MMseqs2/src/util/msa2result.cpp`
-  - `MMseqs2/src/util/result2profile.cpp`
-  - `MMseqs2/src/util/convertmsa.cpp`
-  - `MMseqs2/src/util/tsv2exprofiledb.cpp`
-  - `MMseqs2/data/workflow/tsv2exprofiledb.sh`
+1. Search for repeated paragraphs across chapters (`rg` on key phrases).
+2. Keep the strongest version in the most canonical chapter.
+3. Replace duplicates with short bridge text plus anchor links.
 
-### `mmseqs2_docs/submodules/database.md`
-- `createdb`: Convert FASTA/Q file(s) to a sequence DB.
-- `createindex`: Store precomputed index on disk to reduce search overhead.
-- `createlinindex`: Create linsearch index.
-- `subtractdbs`: Remove entries from first DB that occur in second DB by key.
-- `tar2db`: Convert tar archive content to a DB.
-- `swapdb`: Transpose DB with integer values in first column.
-- `aliasdb`: Create relative symlink of DB to another name in the same folder.
-- `cpdb`: Copy a DB.
-- `concatdbs`: Concatenate two DBs, reassigning IDs from second DB.
-- `createsubdb`: Create subset DB from DB keys/list.
-- `db2tar`: Archive DB contents to tar.
-- `lndb`: Symlink a DB.
-- `mergedbs`: Merge entries from multiple DBs.
-- `splitsequence`: Split sequences by length.
-- `mvdb`: Move a DB.
-- `renamedbkeys`: Create DB with renamed keys.
-- `splitdb`: Split DB into subsets.
-- `tsv2db`: Convert TSV file to DB.
-- Code anchors:
-  - `MMseqs2/src/util/createdb.cpp`
-  - `MMseqs2/src/workflow/CreateIndex.cpp`
-  - `MMseqs2/src/util/indexdb.cpp`
-  - `MMseqs2/src/linclust/kmerindexdb.cpp` (lin index backend)
-  - `MMseqs2/src/util/subtractdbs.cpp`
-  - `MMseqs2/src/util/tar2db.cpp`
-  - `MMseqs2/src/util/cpmvrmlndb.cpp` (`cpdb`/`mvdb`/`lndb`/`aliasdb`/`swapdb` implementation group)
-  - `MMseqs2/src/commons/DBConcat.cpp` (`concatdbs` implementation)
-  - `MMseqs2/src/util/createsubdb.cpp`
-  - `MMseqs2/src/util/db2tar.cpp`
-  - `MMseqs2/src/util/mergedbs.cpp`
-  - `MMseqs2/src/util/splitsequence.cpp`
-  - `MMseqs2/src/util/renamedbkeys.cpp`
-  - `MMseqs2/src/util/splitdb.cpp`
-  - `MMseqs2/src/util/tsv2db.cpp`
-  - `MMseqs2/data/workflow/createindex.sh`
+A command should have one detailed definition, then be referenced elsewhere.
 
-### `mmseqs2_docs/submodules/sequence_manipulation.md`
-- `extractorfs`: Six-frame extraction of open reading frames.
-- `extractframes`: Extract frames from nucleotide sequence DB.
-- `reverseseq`: Reverse sequences (no complement).
-- `translateaa`: Translate proteins to lexicographically lowest codons.
-- `translatenucs`: Translate nucleotides to proteins.
-- `recoverlongestorf`: Recover longest ORF after filtering/elimination.
-- `orftocontig`: Write ORF locations in alignment format.
-- `makepaddedseqdb`: Generate padded sequence DB.
-- `masksequence`: Soft-mask sequence DB using tantan.
-- `extractalignedregion`: Extract aligned query region.
-- Code anchors:
-  - `MMseqs2/src/util/extractorfs.cpp`
-  - `MMseqs2/src/util/extractframes.cpp`
-  - `MMseqs2/src/util/reverseseq.cpp`
-  - `MMseqs2/src/util/translateaa.cpp`
-  - `MMseqs2/src/util/translatenucs.cpp`
-  - `MMseqs2/src/util/recoverlongestorf.cpp`
-  - `MMseqs2/src/util/orftocontig.cpp`
-  - `MMseqs2/src/util/makepaddedseqdb.cpp`
-  - `MMseqs2/src/util/masksequence.cpp`
-  - `MMseqs2/src/util/extractalignedregion.cpp`
-  - `MMseqs2/src/commons/Orf.cpp`
-  - `MMseqs2/src/commons/TranslateNucl.h`
-  - `MMseqs2/src/commons/Masker.cpp`
+## Quality Gate (Definition of Done)
 
-### `mmseqs2_docs/submodules/result_handling.md`
-- `convertalis`: Convert alignment DB to BLAST-tab/SAM/custom format.
-- `createtsv`: Convert result DB to tab-separated flat file.
-- `result2flat`: Add FASTA headers to DB entries in flat output.
-- `createseqfiledb`: Create DB of unaligned FASTA entries.
-- `swapresults`: Transpose prefilter/alignment DB.
-- `result2rbh`: Keep reciprocal best hits from merged result DB.
-- `result2msa`: Compute MSA DB from result DB.
-- `result2dnamsa`: Compute DNA MSA DB without query insertions.
-- `result2stats`: Compute per-entry statistics.
-- `filterresult`: Pairwise alignment result filter.
-- `result2repseq`: Extract representative sequences from result DB.
-- `sortresult`: Sort result DB in canonical order.
-- `summarizealis`: Summarize alignment result to one row.
-- `summarizeresult`: Extract annotations from alignment DB.
-- Code anchors:
-  - `MMseqs2/src/util/convertalignments.cpp`
-  - `MMseqs2/src/util/createtsv.cpp`
-  - `MMseqs2/src/util/result2flat.cpp`
-  - `MMseqs2/src/util/createseqfiledb.cpp`
-  - `MMseqs2/src/util/swapresults.cpp`
-  - `MMseqs2/src/util/result2rbh.cpp`
-  - `MMseqs2/src/util/result2msa.cpp`
-  - `MMseqs2/src/util/result2dnamsa.cpp`
-  - `MMseqs2/src/util/result2stats.cpp`
-  - `MMseqs2/src/util/result2profile.cpp` (`filterresult` implementation)
-  - `MMseqs2/src/util/result2repseq.cpp`
-  - `MMseqs2/src/util/sortresult.cpp`
-  - `MMseqs2/src/util/summarizealis.cpp`
-  - `MMseqs2/src/util/summarizeresult.cpp`
+Before finalizing doc changes:
 
-### `mmseqs2_docs/submodules/multi_hit.md`
-- `multihitdb`: Create sequence DB for multi-hit searches.
-- `besthitperset`: Best element per set with updated p-value.
-- `combinepvalperset`: Combine p-values per set.
-- `mergeresultsbyset`: Merge ORF-level results back to set/contig level.
-- `multihitsearch`: Search grouped sequence sets.
-- Code anchors:
-  - `MMseqs2/src/multihit/MultiHitDb.cpp`
-  - `MMseqs2/src/multihit/MultiHitSearch.cpp`
-  - `MMseqs2/src/multihit/besthitperset.cpp`
-  - `MMseqs2/src/multihit/combinepvalperset.cpp`
-  - `MMseqs2/src/multihit/Aggregation.cpp`
-  - `MMseqs2/src/util/mergeresultsbyset.cpp`
-  - `MMseqs2/data/workflow/multihitdb.sh`
-  - `MMseqs2/data/workflow/multihitsearch.sh`
+1. Source claims have been cross-checked in `MMseqs2/` and/or fresh help snapshots.
+2. No broken anchors and no `.md` path links remain.
+3. No duplicate command entries across submodule pages.
+4. No command section contains empty placeholder prose.
+5. TOC hierarchy is readable and section numbering is coherent.
+6. `validate_docs.py` reports zero errors.
+7. `build_pdf.sh` succeeds and PDF navigation works for cross-links.
+8. Any architecture-level changes are reflected in this `AGENTS_mmseqs.md`.
 
-### `mmseqs2_docs/submodules/taxonomy.md`
-- `taxonomy`: Taxonomic classification workflow.
-- Related taxonomy modules often cross-referenced:
-  - `createtaxdb`, `taxonomyreport`, `filtertaxdb`, `filtertaxseqdb`, `lca`, `lcaalign`, `aggregatetax`.
-- Code anchors:
-  - `MMseqs2/src/workflow/Taxonomy.cpp`
-  - `MMseqs2/src/workflow/EasyTaxonomy.cpp`
-  - `MMseqs2/src/taxonomy/createtaxdb.cpp`
-  - `MMseqs2/src/taxonomy/lca.cpp`
-  - `MMseqs2/src/taxonomy/filtertaxdb.cpp`
-  - `MMseqs2/src/taxonomy/filtertaxseqdb.cpp`
-  - `MMseqs2/src/taxonomy/aggregatetax.cpp`
-  - `MMseqs2/src/taxonomy/taxonomyreport.cpp`
-  - `MMseqs2/src/taxonomy/addtaxonomy.cpp`
-  - `MMseqs2/data/workflow/taxonomy.sh`
-  - `MMseqs2/data/workflow/taxpercontig.sh`
-  - `MMseqs2/data/workflow/createtaxdb.sh`
+## Fast Triage Guide
 
-### `mmseqs2_docs/submodules/utilities.md`
-- `compress`: Compress DB entries.
-- `decompress`: Decompress DB entries.
-- `gpuserver`: Start a GPU server.
-- `apply`: Execute external program on each DB entry.
-- `prefixid`: Prefix each entry with its key.
-- `suffixid`: Suffix each entry with its key.
-- `touchdb`: Preload DB into page cache.
-- `unpackdb`: Unpack DB into files.
-- `view`: Print selected DB entries.
-- `filterdb`: Filter DB by conditions/sort/filter expressions.
-- `setextendeddbtype`: Set/write extended DB type metadata.
-- `map`: Map nearly identical sequences.
-- `rbh`: Reciprocal best hit search.
-- Code anchors:
-  - `MMseqs2/src/util/compress.cpp`
-  - `MMseqs2/src/util/apply.cpp`
-  - `MMseqs2/src/util/prefixid.cpp`
-  - `MMseqs2/src/util/touchdb.cpp`
-  - `MMseqs2/src/util/unpackdb.cpp`
-  - `MMseqs2/src/util/view.cpp`
-  - `MMseqs2/src/util/filterdb.cpp`
-  - `MMseqs2/src/util/setextendeddbtype.cpp`
-  - `MMseqs2/src/workflow/Map.cpp`
-  - `MMseqs2/src/workflow/Rbh.cpp`
-  - `MMseqs2/data/workflow/map.sh`
-  - `MMseqs2/data/workflow/rbh.sh`
+If a user reports a docs issue, debug in this order:
 
-## Hidden/Advanced Commands
+1. Wrong command description or missing command:
+   check `MMseqs2/src/MMseqsBase.cpp`, then regenerate dependency/reference/module pages.
+2. Wrong options/defaults:
+   refresh `mmseqs_help_output` from the current binary and regenerate reference pages.
+3. Broken PDF links:
+   replace file-path links with anchors; confirm anchor existence; rerun validator.
+4. Confusing module placement:
+   adjust group inference/mapping in `build_dependency_graph.py`, regenerate submodules and index.
+5. Bloated or repetitive narrative:
+   consolidate in canonical chapters and cross-link out.
 
-- Commands marked `COMMAND_HIDDEN` in `MMseqs2/src/MMseqsBase.cpp` are generally not part of user-facing docs unless there is an explicit doc goal.
-- If adding/removing documented modules, check:
-  - `mmseqs2_docs/manual.md` module index
-  - corresponding `mmseqs2_docs/submodules/*.md`
-  - `mmseqs2_docs/build_pdf.sh` inclusion order
+## Contributor Notes
 
-## PDF Assembly Order (Current)
+When making broad rewrites, keep commits reviewable by separating:
 
-`mmseqs2_docs/build_pdf.sh` builds in this order:
-- `cover.md`
-- `numbering.md`
-- `toc.md`
-- `introduction.md`
-- `wiki.md`
-- `manual.md`
-- all files in `mmseqs2_docs/submodules/` (explicit list)
-- `expert_manual.md`
-- `developer_manual.md`
+1. generator logic changes,
+2. regenerated artifacts,
+3. manual narrative edits.
 
-Keep this order stable unless you intentionally change document structure.
+If this guidance and active repository behavior diverge, update this file immediately as part of the same change set.

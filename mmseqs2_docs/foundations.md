@@ -28,11 +28,25 @@ Because this backbone is shared, upstream prefilter/index decisions usually have
 
 The prefilter core (`MMseqs2/src/prefiltering/Prefiltering.cpp`, `QueryMatcher.cpp`, `IndexBuilder.cpp`) controls candidate growth through index-driven k-mer retrieval and thresholded similar-k-mer expansion.
 
-For amino-acid searches, similar k-mers are generated from precomputed score matrices (`ExtendedSubstitutionMatrix`, `KmerGenerator`) rather than brute-force enumeration. For nucleotide or exact-match paths, MMseqs2 can switch to direct exact-k-mer behavior (`takeOnlyBestKmer`) to reduce expansion overhead.
+For amino-acid searches, similar k-mers are generated from precomputed score matrices (`ExtendedSubstitutionMatrix`, `KmerGenerator`) rather than brute-force enumeration. In the main query loop (`QueryMatcher::match`), MMseqs2 either looks up one exact k-mer index entry or expands into many score-qualified similar k-mers. This branch alone can change candidate fan-out by orders of magnitude and is often the largest runtime lever before alignment.
 
-Composition-bias correction in `QueryMatcher::matchQuery` shifts effective k-mer thresholds per position. This couples sensitivity and bias controls: `-s`, `--k-score`, `--alph-size`, `--spaced-kmer-mode`, and bias settings jointly determine index lookup volume and therefore prefilter cost.
+Composition-bias correction in `QueryMatcher::matchQuery` shifts effective k-mer thresholds per position before k-mer list generation. This means sensitivity and bias controls are coupled in practice: `-s`, `--k-score`, bias correction settings, and k-mer mode selections jointly determine lookup volume and therefore prefilter cost.
 
-When an index DB is reused, metadata compatibility checks (k-mer size, alphabet, spaced-kmer mode, split assumptions) are operationally important. Mismatch is not only a correctness issue; it can change the effective complexity of candidate generation.
+## Reduced Alphabets and Information-Preserving Coupling {#sec-sharp-reduced-alphabet}
+
+Reduced alphabets are a first-class acceleration path in MMseqs2. When amino-acid `--alph-size` is set below 21, prefiltering and linear-k-mer modules build a `ReducedMatrix` instead of the full substitution matrix (`Prefiltering::getSubstitutionMatrix`, `kmermatcher`, `kmerindexdb`, `kmersearch`, `alignbykmer`, `clusthash`).
+
+The reduction is not a fixed hardcoded mapping. `ReducedMatrix` iteratively couples amino-acid states by maximizing retained mutual information in the substitution model, then rewrites residue-to-index mappings and the derived score matrix for the reduced state space. Operationally, this shrinks the k-mer combinatorial space (`a^k` term) used in index structures and similar-k-mer generation, which directly reduces memory and candidate-generation cost.
+
+Workflow defaults use this intentionally. General search defaults keep full amino-acid alphabet size (`aa:21`), but linear clustering/search-oriented paths use smaller defaults (`aa:13` in linclust family), and `clusthash` forces an even smaller amino-acid alphabet (`aa:3`) for fast redundancy pruning.
+
+## Exact, Similar, and Spaced K-mer Modes {#sec-sharp-kmer-modes}
+
+MMseqs2 exposes both exact and non-exact k-mer matching. In prefilter/search CLI, `--exact-kmer-matching` forces exact lookup, while the default path expands similar k-mers under `--k-score` thresholding. In the current prefilter implementation, the same exact-only branch (`takeOnlyBestKmer`) is also activated for nucleotide-vs-nucleotide search, amino-acid query against profile target, and `--target-search-mode 1`.
+
+Spaced k-mers are an additional speed/sensitivity control (`--spaced-kmer-mode`, `--spaced-kmer-pattern`). In linear modules, MMseqs2 also adapts k-mer behavior through automatic k-mer length/alphabet heuristics and nucleotide-specific adaptive k-mer length logic (`--adjust-kmer-len`) so the candidate generator stays tractable across identity regimes and sequence lengths.
+
+When an index DB is reused, compatibility metadata checks (k-mer size, alphabet size, spaced-kmer mode/pattern, split assumptions) become part of performance correctness. A mismatch is not only a reproducibility risk; it also changes candidate-generation complexity and therefore runtime behavior.
 
 ## Diagonal and Ungapped Filters {#sec-sharp-ungapped}
 
@@ -57,6 +71,8 @@ Use richer alignment outputs only when downstream interpretation explicitly need
 ## Clustering-Specific Accelerators {#sec-sharp-clustering}
 
 Clustering workflows add graph-level acceleration on top of search-like filtering. Cascaded clustering intentionally starts with cheaper passes and increases sensitivity later (`MMseqs2/src/workflow/Cluster.cpp`). Early passes shrink graph density before expensive stages.
+
+This staged design also changes k-mer representation on purpose. Cascaded clustering temporarily switches to linclust-oriented defaults (including reduced amino-acid alphabet) for early low-cost filtering, then restores broader settings for later steps. In single-step clustering, a dedicated `clusthash` redundancy pass uses an even smaller alphabet to remove near-duplicates cheaply before full prefilter/alignment work.
 
 Single-step clustering scripts use redundancy shortcuts such as `clusthash` before full prefilter+alignment. Linclust (`MMseqs2/src/workflow/Linclust.cpp`) applies bounded-k-mer selection plus cheap filters (Hamming and ungapped rescoring) before full local alignment, which is why it scales near-linearly for very large sequence sets.
 
