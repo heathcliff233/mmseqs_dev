@@ -2,8 +2,6 @@
 
 Concatenate two DBs, giving new IDs to entries from 2nd DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_SET` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`linsearch`](#refcmd-linsearch) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `linsearch.sh`, `nucleotide_clustering.sh`, `update_clustering.sh` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
+| Workflow script count | `3` |
+| Detailed dependency entry | [Open in map](#depcmd-concatdbs) |
 
 ### Usage
 

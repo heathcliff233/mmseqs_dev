@@ -2,8 +2,6 @@
 
 For each set of sequences compute the best element and update p-value.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`multi_hit`](#mod-multi-hit) |
 | Category flags | `COMMAND_MULTIHIT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`multihitsearch`](#refcmd-multihitsearch) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `multihitsearch.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-besthitperset) |
 
 ### Usage
 

@@ -4,7 +4,7 @@ Modules for taxonomy DB preparation, assignment, filtering, and reporting workfl
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -23,10 +23,9 @@ Add taxonomic labels to result DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easytaxonomy.sh` |
 
 Reference links: [Full CLI](#refcmd-addtaxonomy), [Dependency entry](#depcmd-addtaxonomy).
 
@@ -39,10 +38,9 @@ Aggregate multiple taxon labels to a single label.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-aggregatetax), [Dependency entry](#depcmd-aggregatetax).
 
@@ -55,10 +53,9 @@ Aggregate multiple taxon labels to a single label.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `taxpercontig.sh` |
 
 Reference links: [Full CLI](#refcmd-aggregatetaxweights), [Dependency entry](#depcmd-aggregatetaxweights).
 
@@ -71,10 +68,9 @@ Create binary taxonomy mapping from tabular taxonomy mapping.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-createbintaxmapping), [Dependency entry](#depcmd-createbintaxmapping).
 
@@ -87,10 +83,9 @@ Create binary taxonomy from NCBI input.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | [`createtaxdb`](#modcmd-createtaxdb) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `createtaxdb.sh` |
 
 Reference links: [Full CLI](#refcmd-createbintaxonomy), [Dependency entry](#depcmd-createbintaxonomy).
 
@@ -103,10 +98,9 @@ Create dmp files from binary taxonomy.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-createdmptaxonomy), [Dependency entry](#depcmd-createdmptaxonomy).
 
@@ -119,10 +113,9 @@ Add taxonomic labels to sequence DB.
 | Usage | `usage: mmseqs createtaxdb <i:sequenceDB> <tmpDir> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`databases`](#modcmd-databases) |
-| Calls modules | [`createbintaxonomy`](#modcmd-createbintaxonomy) |
+| Upstream command count | `1` |
+| Downstream command count | `1` |
 | Related functional groups | [`database`](#mod-database) |
-| Workflow script usage | `databases.sh` |
 
 Reference links: [Full CLI](#refcmd-createtaxdb), [Dependency entry](#depcmd-createtaxdb).
 
@@ -146,10 +139,9 @@ Filter taxonomy result database.
 | Usage | `usage: mmseqs filtertaxdb <i:targetDB> <i:taxDB> <o:taxDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-filtertaxdb), [Dependency entry](#depcmd-filtertaxdb).
 
@@ -171,10 +163,9 @@ Filter taxonomy sequence database.
 | Usage | `usage: mmseqs filtertaxseqdb <i:taxSeqDB> <o:taxSeqDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-filtertaxseqdb), [Dependency entry](#depcmd-filtertaxseqdb).
 
@@ -197,10 +188,9 @@ Compute the lowest common ancestor.
 | Usage | `usage: mmseqs lca <i:targetDB> <i:resultDB> <o:taxaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `taxonomy.sh` |
 
 Reference links: [Full CLI](#refcmd-lca), [Dependency entry](#depcmd-lca).
 
@@ -224,10 +214,9 @@ Efficient gapped alignment for lca computation.
 | Usage | `usage: mmseqs lcaalign <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-lcaalign), [Dependency entry](#depcmd-lcaalign).
 
@@ -253,10 +242,9 @@ Compute the lowest common ancestor using majority voting.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-majoritylca), [Dependency entry](#depcmd-majoritylca).
 
@@ -269,10 +257,9 @@ Create taxonomy mapping for NR database.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | [`databases`](#modcmd-databases) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`database`](#mod-database) |
-| Workflow script usage | `databases.sh` |
 
 Reference links: [Full CLI](#refcmd-nrtotaxmapping), [Dependency entry](#depcmd-nrtotaxmapping).
 
@@ -285,10 +272,9 @@ Taxonomic classification.
 | Usage | `usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | [`aggregatetax`](#modcmd-aggregatetax), [`aggregatetaxweights`](#modcmd-aggregatetaxweights), [`createsubdb`](#modcmd-createsubdb), [`extractorfs`](#modcmd-extractorfs), [`filterdb`](#modcmd-filterdb), [`lca`](#modcmd-lca), [`mergeresultsbyset`](#modcmd-mergeresultsbyset), [`mvdb`](#modcmd-mvdb), [`prefilter`](#modcmd-prefilter), [`recoverlongestorf`](#modcmd-recoverlongestorf), [`rescorediagonal`](#modcmd-rescorediagonal), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`swapdb`](#modcmd-swapdb), [`taxonomy`](#modcmd-taxonomy) |
+| Upstream command count | `2` |
+| Downstream command count | `15` |
 | Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`prefiltering`](#mod-prefiltering), [`search_workflows`](#mod-search-workflows), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
-| Workflow script usage | `easytaxonomy.sh`, `taxpercontig.sh` |
 
 Reference links: [Full CLI](#refcmd-taxonomy), [Dependency entry](#depcmd-taxonomy).
 
@@ -314,10 +300,9 @@ Create a taxonomy report in Kraken or Krona format.
 | Usage | `usage: mmseqs taxonomyreport <i:seqTaxDB> <i:taxResultDB/resultDB/sequenceDB> <o:taxonomyReport> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_FORMAT_CONVERSION` |
-| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easytaxonomy.sh` |
 
 Reference links: [Full CLI](#refcmd-taxonomyreport), [Dependency entry](#depcmd-taxonomyreport).
 

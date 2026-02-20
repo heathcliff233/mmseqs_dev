@@ -4,7 +4,7 @@ Core candidate-generation modules used to reduce search space before expensive a
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -17,10 +17,9 @@ Count k-mers.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-countkmer), [Dependency entry](#depcmd-countkmer).
 
@@ -33,10 +32,9 @@ Optimal Smith-Waterman-based prefiltering (slow).
 | Usage | `usage: mmseqs gappedprefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-gappedprefilter), [Dependency entry](#depcmd-gappedprefilter).
 
@@ -62,10 +60,9 @@ Find bottom-m-hashed k-mer matches within sequence DB.
 | Usage | `usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`linclust`](#modcmd-linclust) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-| Workflow script usage | `linclust.sh` |
 
 Reference links: [Full CLI](#refcmd-kmermatcher), [Dependency entry](#depcmd-kmermatcher).
 
@@ -91,10 +88,9 @@ Find bottom-m-hashed k-mer matches between target and query DB.
 | Usage | `usage: mmseqs kmersearch <i:queryDB> <i:kmerIndexDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`linsearch`](#modcmd-linsearch) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `linsearch.sh` |
 
 Reference links: [Full CLI](#refcmd-kmersearch), [Dependency entry](#depcmd-kmersearch).
 
@@ -120,10 +116,9 @@ Double consecutive diagonal k-mer search.
 | Usage | `usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxpercontig.sh`, `translated_search.sh` |
 
 Reference links: [Full CLI](#refcmd-prefilter), [Dependency entry](#depcmd-prefilter).
 
@@ -149,10 +144,9 @@ Optimal diagonal score search.
 | Usage | `usage: mmseqs ungappedprefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PREFILTER` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastp.sh`, `blastpgp.sh` |
 
 Reference links: [Full CLI](#refcmd-ungappedprefilter), [Dependency entry](#depcmd-ungappedprefilter).
 

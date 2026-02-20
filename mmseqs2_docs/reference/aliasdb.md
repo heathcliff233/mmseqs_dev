@@ -2,8 +2,6 @@
 
 Create relative symlink of DB to another name in the same folder.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_STORAGE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`tsv2exprofiledb`](#refcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `tsv2exprofiledb.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-aliasdb) |
 
 ### Usage
 

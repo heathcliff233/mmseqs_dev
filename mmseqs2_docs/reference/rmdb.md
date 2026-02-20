@@ -2,8 +2,6 @@
 
 Remove a DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_STORAGE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`createindex`](#refcmd-createindex), [`createlinindex`](#refcmd-createlinindex), [`databases`](#refcmd-databases), [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust), [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-rbh`](#refcmd-easy-rbh), [`easy-search`](#refcmd-easy-search), [`easy-taxonomy`](#refcmd-easy-taxonomy), [`linclust`](#refcmd-linclust), [`linsearch`](#refcmd-linsearch), [`multihitsearch`](#refcmd-multihitsearch), [`pickconsensusrep`](#refcmd-pickconsensusrep), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy), [`tsv2exprofiledb`](#refcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastn.sh`, `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `createindex.sh`, `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `iterativepp.sh`, `linclust.sh`, `linsearch.sh`, `multihitsearch.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxonomy.sh`, `taxpercontig.sh`, `translated_search.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
+| Upstream command count | `19` |
+| Downstream command count | `0` |
+| Workflow script count | `25` |
+| Detailed dependency entry | [Open in map](#depcmd-rmdb) |
 
 ### Usage
 

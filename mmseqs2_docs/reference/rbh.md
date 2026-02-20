@@ -2,8 +2,6 @@
 
 Reciprocal best hit search.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-rbh`](#refcmd-easy-rbh) |
-| Calls modules | [`filterdb`](#refcmd-filterdb), [`mergedbs`](#refcmd-mergedbs), [`result2rbh`](#refcmd-result2rbh), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`swapresults`](#refcmd-swapresults) |
-| Seen in workflow scripts | `easyrbh.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `6` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-rbh) |
 
 ### Usage
 

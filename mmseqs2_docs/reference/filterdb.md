@@ -2,8 +2,6 @@
 
 DB filtering by given conditions.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`utilities`](#mod-utilities) |
 | Category flags | `COMMAND_DB` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`easy-taxonomy`](#refcmd-easy-taxonomy), [`linclust`](#refcmd-linclust), [`linsearch`](#refcmd-linsearch), [`multihitdb`](#refcmd-multihitdb), [`rbh`](#refcmd-rbh), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `cascaded_clustering.sh`, `easytaxonomy.sh`, `linclust.sh`, `linsearch.sh`, `multihitdb.sh`, `rbh.sh`, `taxonomy.sh`, `taxpercontig.sh`, `update_clustering.sh` |
+| Upstream command count | `8` |
+| Downstream command count | `0` |
+| Workflow script count | `9` |
+| Detailed dependency entry | [Open in map](#depcmd-filterdb) |
 
 ### Usage
 

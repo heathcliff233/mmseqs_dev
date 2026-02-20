@@ -2,8 +2,6 @@
 
 Fast linear time cluster, less sensitive clustering.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`createdb`](#refcmd-createdb), [`createseqfiledb`](#refcmd-createseqfiledb), [`createtsv`](#refcmd-createtsv), [`linclust`](#refcmd-linclust), [`result2flat`](#refcmd-result2flat), [`result2repseq`](#refcmd-result2repseq), [`rmdb`](#refcmd-rmdb) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `7` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-easy-linclust) |
 
 ### Usage
 

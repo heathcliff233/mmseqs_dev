@@ -4,7 +4,7 @@ Modules that transform, filter, summarize, and export result databases.
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -23,10 +23,9 @@ Convert sequence DB to FASTA format.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-convert2fasta), [Dependency entry](#depcmd-convert2fasta).
 
@@ -39,10 +38,9 @@ Convert alignment DB to BLAST-tab, SAM or custom format.
 | Usage | `usage: mmseqs convertalis <i:queryDb> <i:targetDb> <i:alignmentDB> <o:alignmentFile> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
-| Called by modules | [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-rbh`](#modcmd-easy-rbh), [`easy-search`](#modcmd-easy-search), [`easy-taxonomy`](#modcmd-easy-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh` |
 
 Reference links: [Full CLI](#refcmd-convertalis), [Dependency entry](#depcmd-convertalis).
 
@@ -68,10 +66,9 @@ Create a DB of unaligned FASTA entries.
 | Usage | `usage: mmseqs createseqfiledb <i:sequenceDB> <i:resultDB> <o:fastaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
-| Called by modules | [`easy-cluster`](#modcmd-easy-cluster), [`easy-linclust`](#modcmd-easy-linclust) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easycluster.sh` |
 
 Reference links: [Full CLI](#refcmd-createseqfiledb), [Dependency entry](#depcmd-createseqfiledb).
 
@@ -96,10 +93,9 @@ Convert result DB to tab-separated flat file.
 | Usage | `usage: mmseqs createtsv <i:queryDB> [<i:targetDB>] <i:resultDB> <o:tsvFile> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
-| Called by modules | [`easy-cluster`](#modcmd-easy-cluster), [`easy-linclust`](#modcmd-easy-linclust), [`easy-taxonomy`](#modcmd-easy-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easycluster.sh`, `easytaxonomy.sh` |
 
 Reference links: [Full CLI](#refcmd-createtsv), [Dependency entry](#depcmd-createtsv).
 
@@ -125,10 +121,9 @@ Extract highest scoring alignment regions for each sequence from BLAST-tab file.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-extractdomains), [Dependency entry](#depcmd-extractdomains).
 
@@ -141,10 +136,9 @@ Pairwise alignment result filter.
 | Usage | `usage: mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `searchslicedtargetprofile.sh` |
 
 Reference links: [Full CLI](#refcmd-filterresult), [Dependency entry](#depcmd-filterresult).
 
@@ -170,10 +164,9 @@ Compute MSA DB with out insertions in the query for DNA sequences.
 | Usage | `usage: mmseqs result2dnamsa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-result2dnamsa), [Dependency entry](#depcmd-result2dnamsa).
 
@@ -195,10 +188,9 @@ Create flat file by adding FASTA headers to DB entries.
 | Usage | `usage: mmseqs result2flat <i:queryDB> <i:targetDB> <i:resultDB> <o:fastaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
-| Called by modules | [`easy-cluster`](#modcmd-easy-cluster), [`easy-linclust`](#modcmd-easy-linclust) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easycluster.sh` |
 
 Reference links: [Full CLI](#refcmd-result2flat), [Dependency entry](#depcmd-result2flat).
 
@@ -218,10 +210,9 @@ Compute MSA DB from a result DB.
 | Usage | `usage: mmseqs result2msa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`pickconsensusrep`](#modcmd-pickconsensusrep) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-| Workflow script usage | `pickconsensusrep.sh` |
 
 Reference links: [Full CLI](#refcmd-result2msa), [Dependency entry](#depcmd-result2msa).
 
@@ -247,10 +238,9 @@ Filter a merged result DB to retain only reciprocal best hits.
 | Usage | `usage: mmseqs result2rbh <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`rbh`](#modcmd-rbh) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `rbh.sh` |
 
 Reference links: [Full CLI](#refcmd-result2rbh), [Dependency entry](#depcmd-result2rbh).
 
@@ -271,10 +261,9 @@ Get representative sequences from result DB.
 | Usage | `usage: mmseqs result2repseq <i:sequenceDB> <i:resultDB> <o:sequenceDb> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`clusterupdate`](#modcmd-clusterupdate), [`easy-cluster`](#modcmd-easy-cluster), [`easy-linclust`](#modcmd-easy-linclust) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easycluster.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-result2repseq), [Dependency entry](#depcmd-result2repseq).
 
@@ -296,10 +285,9 @@ Compute statistics for each entry in a DB.
 | Usage | `usage: mmseqs result2stats <i:queryDB> <i:targetDB> <i:resultDB> <o:statsDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`multihitdb`](#modcmd-multihitdb), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `multihitdb.sh`, `searchslicedtargetprofile.sh` |
 
 Reference links: [Full CLI](#refcmd-result2stats), [Dependency entry](#depcmd-result2stats).
 
@@ -322,10 +310,9 @@ Sort a result DB in the same order as the prefilter or align module.
 | Usage | `usage: mmseqs sortresult <i:resultbDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-sortresult), [Dependency entry](#depcmd-sortresult).
 
@@ -346,10 +333,9 @@ Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.).
 | Usage | `usage: mmseqs summarizealis <i:alignmentDB> <o:summerizedDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easytaxonomy.sh` |
 
 Reference links: [Full CLI](#refcmd-summarizealis), [Dependency entry](#depcmd-summarizealis).
 
@@ -370,10 +356,9 @@ Summarize FASTA headers of result DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-summarizeheaders), [Dependency entry](#depcmd-summarizeheaders).
 
@@ -386,10 +371,9 @@ Extract annotations from alignment DB.
 | Usage | `usage: mmseqs summarizeresult <i:alignmentDB> <o:alignmentDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-search`](#modcmd-easy-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-| Workflow script usage | `easysearch.sh` |
 
 Reference links: [Full CLI](#refcmd-summarizeresult), [Dependency entry](#depcmd-summarizeresult).
 
@@ -413,10 +397,9 @@ Transpose prefilter/alignment DB.
 | Usage | `usage: mmseqs swapresults <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`easy-taxonomy`](#modcmd-easy-taxonomy), [`linsearch`](#modcmd-linsearch), [`rbh`](#modcmd-rbh), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `easytaxonomy.sh`, `linsearch.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh` |
 
 Reference links: [Full CLI](#refcmd-swapresults), [Dependency entry](#depcmd-swapresults).
 

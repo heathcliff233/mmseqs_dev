@@ -4,7 +4,7 @@ Modules for profile/MSA conversion, profile construction, and profile-driven wor
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -17,10 +17,9 @@ Convert a cA3M DB to a result DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-convertca3m), [Dependency entry](#depcmd-convertca3m).
 
@@ -33,10 +32,9 @@ Convert Stockholm/PFAM MSA file to a MSA DB.
 | Usage | `usage: mmseqs convertmsa <i:msaFile.sto[.gz]> <o:msaDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Called by modules | [`databases`](#modcmd-databases) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`database`](#mod-database) |
-| Workflow script usage | `databases.sh` |
 
 Reference links: [Full CLI](#refcmd-convertmsa), [Dependency entry](#depcmd-convertmsa).
 
@@ -57,10 +55,9 @@ Convert a HH-suite HHM DB to a profile DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-convertprofiledb), [Dependency entry](#depcmd-convertprofiledb).
 
@@ -73,10 +70,9 @@ Expand an alignment result based on another and create a profile.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `iterativepp.sh` |
 
 Reference links: [Full CLI](#refcmd-expand2profile), [Dependency entry](#depcmd-expand2profile).
 
@@ -89,10 +85,9 @@ Convert a MSA DB to a profile DB.
 | Usage | `usage: mmseqs msa2profile <i:msaDB> <o:profileDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE | COMMAND_DATABASE_CREATION` |
-| Called by modules | [`databases`](#modcmd-databases), [`pickconsensusrep`](#modcmd-pickconsensusrep) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database) |
-| Workflow script usage | `databases.sh`, `pickconsensusrep.sh` |
 
 Reference links: [Full CLI](#refcmd-msa2profile), [Dependency entry](#depcmd-msa2profile).
 
@@ -118,10 +113,9 @@ Convert a MSA DB to a profile DB.
 | Usage | `usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE | COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-msa2result), [Dependency entry](#depcmd-msa2result).
 
@@ -147,10 +141,9 @@ Pair sequences to match best protein A and B from a species.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-pairaln), [Dependency entry](#depcmd-pairaln).
 
@@ -163,10 +156,9 @@ Extract consensus sequence DB from a profile DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `iterativepp.sh` |
 
 Reference links: [Full CLI](#refcmd-profile2consensus), [Dependency entry](#depcmd-profile2consensus).
 
@@ -179,10 +171,9 @@ Convert a profile DB to a tab-separated list of Neff scores.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-profile2neff), [Dependency entry](#depcmd-profile2neff).
 
@@ -195,10 +186,9 @@ Convert a profile DB to a tab-separated PSSM file.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-profile2pssm), [Dependency entry](#depcmd-profile2pssm).
 
@@ -211,10 +201,9 @@ Extract representative sequence DB from a profile DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-profile2repseq), [Dependency entry](#depcmd-profile2repseq).
 
@@ -227,10 +216,9 @@ Compute profile DB from a result DB.
 | Usage | `usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastpgp.sh`, `enrich.sh` |
 
 Reference links: [Full CLI](#refcmd-result2profile), [Dependency entry](#depcmd-result2profile).
 
@@ -256,10 +244,9 @@ Turn sequence into profile by adding context specific pseudo counts.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-sequence2profile), [Dependency entry](#depcmd-sequence2profile).
 
@@ -272,10 +259,9 @@ Create a expandable profile db from TSV files.
 | Usage | `usage: mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Called by modules | `n/a` |
-| Calls modules | [`aliasdb`](#modcmd-aliasdb), [`compress`](#modcmd-compress), [`mvdb`](#modcmd-mvdb), [`rmdb`](#modcmd-rmdb), [`tsv2db`](#modcmd-tsv2db) |
+| Upstream command count | `0` |
+| Downstream command count | `5` |
 | Related functional groups | [`database`](#mod-database), [`utilities`](#mod-utilities) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-tsv2exprofiledb), [Dependency entry](#depcmd-tsv2exprofiledb).
 

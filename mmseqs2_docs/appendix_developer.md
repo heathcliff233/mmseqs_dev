@@ -1,15 +1,40 @@
-# Appendix B: Developer Reference {#sec-appendix-developer}
+# Appendix B: MMseqs2 Developer Guide {#sec-appendix-developer}
 
-Developer maintenance should start from generated artifacts, then fall back to narrative chapters when additional context is needed.
+This appendix is for MMseqs2 code development. For behavior and implementation questions, treat `MMseqs2/` source files as canonical. Documentation markdown is a derived view for users.
 
-| Maintenance Need | Primary Artifact |
+## Command-Level Trace Map
+
+| Development Goal | Start Here | Then Inspect |
+| :--- | :--- | :--- |
+| Add/remove or reclassify a visible command | `MMseqs2/src/MMseqsBase.cpp` | `MMseqs2/src/CommandDeclarations.h`, command implementation in `MMseqs2/src/*/*.cpp` |
+| Change workflow orchestration | `MMseqs2/src/workflow/*.cpp` | `MMseqs2/data/workflow/*.sh`, downstream called modules |
+| Change prefilter/alignment/clustering behavior | `MMseqs2/src/prefiltering/`, `MMseqs2/src/alignment/`, `MMseqs2/src/clustering/`, `MMseqs2/src/linclust/` | `MMseqs2/src/workflow/*.cpp` call sites |
+| Change taxonomy or multi-hit behavior | `MMseqs2/src/taxonomy/`, `MMseqs2/src/multihit/` | workflow integration in `MMseqs2/src/workflow/Taxonomy.cpp` and related scripts |
+| Change DB contract or storage behavior | `MMseqs2/src/commons/DBReader.h`, `MMseqs2/src/commons/DBWriter.h`, `MMseqs2/src/commons/Parameters.{h,cpp}` | data conversion utilities under `MMseqs2/src/util/` |
+| Change export/result formatting | `MMseqs2/src/util/convertalignments.cpp`, `MMseqs2/src/util/createtsv.cpp`, `MMseqs2/src/util/result2*.cpp` | consuming workflows and command docs |
+
+## Source Tree Responsibilities
+
+| Path | Primary Responsibility |
 | :--- | :--- |
-| Canonical architecture and performance foundations | [System Map](#sec-system-map), [Performance Foundations](#sec-performance-foundations) |
-| Command topology and cascade edges | [Dependency Map](#sec-dependency-map) |
-| Command catalog and snapshot coverage | [Command Reference Index](#sec-command-reference) |
-| Dependency extraction logic | `scripts/build_dependency_graph.py` |
-| Command page generation | `scripts/generate_command_reference.py` |
-| Functional module generation | `scripts/generate_module_docs.py` |
-| Structural consistency checks | `scripts/validate_docs.py` |
+| `MMseqs2/src/workflow/` | High-level orchestration (`search`, `cluster`, `taxonomy`, `easy-*`) |
+| `MMseqs2/src/prefiltering/` | Candidate generation and prefilter index/matching |
+| `MMseqs2/src/alignment/` | Core alignment, rescoring, and matching engines |
+| `MMseqs2/src/clustering/` | Cluster graph and clustering algorithms |
+| `MMseqs2/src/linclust/` | Linear-time k-mer matching/indexing components |
+| `MMseqs2/src/taxonomy/` | Taxonomy DB creation, assignment, and reporting |
+| `MMseqs2/src/multihit/` | Set-based search and aggregation logic |
+| `MMseqs2/src/util/` | Database transforms, exports, wrappers, and utility commands |
+| `MMseqs2/src/commons/` | Shared infra: parameters, DB I/O, memory, utility abstractions |
 
-Legacy developer-oriented prose is preserved in `developer_manual.md`.
+## Source-First Debug Workflow
+
+| Step | Purpose | Example Command |
+| :--- | :--- | :--- |
+| Locate command registration | Confirm visibility/category/description | `rg -n "\"<command>\"" MMseqs2/src/MMseqsBase.cpp` |
+| Trace orchestration path | See which module chain is executed | `rg -n "createParameterString\\(par\\." MMseqs2/src/workflow/*.cpp` |
+| Inspect compute kernel entry | Verify algorithm-level behavior | `rg -n "<function_or_class>" MMseqs2/src/{prefiltering,alignment,clustering,linclust,taxonomy,multihit}/*.cpp` |
+| Validate DB I/O boundaries | Check type/sidecar assumptions | `rg -n "DBReader|DBWriter|DBTYPE" MMseqs2/src/{workflow,util,commons}/*.{h,cpp}` |
+| Check workflow script plumbing | Confirm shell-level variable wiring | `rg -n "MMSEQS|RUNNER|\\$\\{.*_PAR\\}" MMseqs2/data/workflow/*.sh` |
+
+Documentation updates should follow source validation, not drive it.

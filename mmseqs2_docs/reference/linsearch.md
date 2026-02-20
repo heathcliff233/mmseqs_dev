@@ -2,8 +2,6 @@
 
 Fast, less sensitive homology search.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN|COMMAND_EXPERT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-search`](#refcmd-easy-search) |
-| Calls modules | [`align`](#refcmd-align), [`concatdbs`](#refcmd-concatdbs), [`extractorfs`](#refcmd-extractorfs), [`filterdb`](#refcmd-filterdb), [`kmersearch`](#refcmd-kmersearch), [`offsetalignment`](#refcmd-offsetalignment), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb), [`swapresults`](#refcmd-swapresults) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `9` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-linsearch) |
 
 ### Usage
 

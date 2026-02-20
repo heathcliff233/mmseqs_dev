@@ -2,8 +2,6 @@
 
 Transpose DB with integer values in first column.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DB` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`multihitdb`](#refcmd-multihitdb), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `cascaded_clustering.sh`, `multihitdb.sh`, `taxpercontig.sh`, `update_clustering.sh` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
+| Workflow script count | `4` |
+| Detailed dependency entry | [Open in map](#depcmd-swapdb) |
 
 ### Usage
 

@@ -2,8 +2,6 @@
 
 Convert UniProtKB data to a DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`utilities`](#mod-utilities) |
 | Category flags | `COMMAND_SPECIAL` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-convertkb) |
 
 ### Usage
 

@@ -2,8 +2,6 @@
 
 Efficient gapped alignment for lca computation.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`taxonomy`](#mod-taxonomy) |
 | Category flags | `COMMAND_TAXONOMY` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-lcaalign) |
 
 ### Usage
 

@@ -2,8 +2,6 @@
 
 Merge results from multiple ORFs back to their respective contig.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`multi_hit`](#mod-multi-hit) |
 | Category flags | `COMMAND_MULTIHIT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`multihitsearch`](#refcmd-multihitsearch), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `multihitsearch.sh`, `taxpercontig.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
+| Workflow script count | `2` |
+| Detailed dependency entry | [Open in map](#depcmd-mergeresultsbyset) |
 
 ### Usage
 

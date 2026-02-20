@@ -2,8 +2,6 @@
 
 Create sequence DB for multi hit searches.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`multi_hit`](#mod-multi-hit) |
 | Category flags | `COMMAND_MULTIHIT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`createdb`](#refcmd-createdb), [`extractorfs`](#refcmd-extractorfs), [`filterdb`](#refcmd-filterdb), [`orftocontig`](#refcmd-orftocontig), [`result2stats`](#refcmd-result2stats), [`swapdb`](#refcmd-swapdb), [`translatenucs`](#refcmd-translatenucs), [`tsv2db`](#refcmd-tsv2db) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `8` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-multihitdb) |
 
 ### Usage
 

@@ -2,8 +2,6 @@
 
 Create a DB of unaligned FASTA entries.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_FORMAT_CONVERSION | COMMAND_EXPERT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `easycluster.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-createseqfiledb) |
 
 ### Usage
 

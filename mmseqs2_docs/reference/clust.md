@@ -2,8 +2,6 @@
 
 Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_CLUSTER` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`linclust`](#refcmd-linclust) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
+| Workflow script count | `4` |
+| Detailed dependency entry | [Open in map](#depcmd-clust) |
 
 ### Usage
 

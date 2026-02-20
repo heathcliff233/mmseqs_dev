@@ -2,8 +2,6 @@
 
 Transpose prefilter/alignment DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_RESULT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-taxonomy`](#refcmd-easy-taxonomy), [`linsearch`](#refcmd-linsearch), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `easytaxonomy.sh`, `linsearch.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
+| Workflow script count | `5` |
+| Detailed dependency entry | [Open in map](#depcmd-swapresults) |
 
 ### Usage
 

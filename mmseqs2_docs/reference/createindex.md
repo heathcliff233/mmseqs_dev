@@ -2,8 +2,6 @@
 
 Store precomputed index on disk to reduce search overhead.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`extractframes`](#refcmd-extractframes), [`extractorfs`](#refcmd-extractorfs), [`rmdb`](#refcmd-rmdb), [`splitsequence`](#refcmd-splitsequence) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `4` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-createindex) |
 
 ### Usage
 

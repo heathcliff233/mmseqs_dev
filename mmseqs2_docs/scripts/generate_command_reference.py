@@ -30,8 +30,6 @@ GROUP_ORDER = [
     "utilities",
 ]
 
-NO_EDGE_TEXT = "`n/a`"
-
 
 def parse_usage_and_options(help_text: str) -> tuple[str, list[tuple[str, str]]]:
     usage = ""
@@ -80,18 +78,6 @@ def reference_group_anchor(group: str) -> str:
     return f"refgroup-{label_slug(group)}"
 
 
-def command_links(items: list[str]) -> str:
-    if items:
-        return ", ".join(f"[`{x}`](#{reference_command_anchor(x)})" for x in items)
-    return NO_EDGE_TEXT
-
-
-def plain_list(items: list[str]) -> str:
-    if items:
-        return ", ".join(f"`{x}`" for x in items)
-    return NO_EDGE_TEXT
-
-
 def sentence(text: str) -> str:
     if text.endswith((".", "!", "?")):
         return text
@@ -127,8 +113,6 @@ def write_command_page(name: str, meta: dict) -> bool:
     if meta.get("description"):
         lines.append(sentence(meta["description"]))
         lines.append("")
-    lines.append("In connection tables, `n/a` means no direct static edge was resolved by static extraction.")
-    lines.append("")
 
     lines.append("### Classification")
     lines.append("")
@@ -141,13 +125,14 @@ def write_command_page(name: str, meta: dict) -> bool:
     lines.append(f"| Category flags | `{meta['category']}` |")
     lines.append("")
 
-    lines.append("### Connections")
+    lines.append("### Topology")
     lines.append("")
     lines.append("| Aspect | Value |")
     lines.append("| :--- | :--- |")
-    lines.append(f"| Called by modules | {command_links(meta['called_by'])} |")
-    lines.append(f"| Calls modules | {command_links(meta['calls'])} |")
-    lines.append(f"| Seen in workflow scripts | {plain_list(meta['workflow_scripts'])} |")
+    lines.append(f"| Upstream command count | `{len(meta['called_by'])}` |")
+    lines.append(f"| Downstream command count | `{len(meta['calls'])}` |")
+    lines.append(f"| Workflow script count | `{len(meta['workflow_scripts'])}` |")
+    lines.append(f"| Detailed dependency entry | [Open in map](#{dependency_command_anchor(name)}) |")
     lines.append("")
 
     lines.append("### Usage")

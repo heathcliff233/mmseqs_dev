@@ -2,8 +2,6 @@
 
 Translate nucleotides to proteins.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`multihitdb`](#refcmd-multihitdb) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `multihitdb.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-translatenucs) |
 
 ### Usage
 

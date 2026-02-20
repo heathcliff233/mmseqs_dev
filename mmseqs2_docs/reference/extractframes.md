@@ -2,8 +2,6 @@
 
 Extract frames from a nucleotide sequence DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`createindex`](#refcmd-createindex), [`createlinindex`](#refcmd-createlinindex), [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastn.sh`, `createindex.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
+| Workflow script count | `4` |
+| Detailed dependency entry | [Open in map](#depcmd-extractframes) |
 
 ### Usage
 

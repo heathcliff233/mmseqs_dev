@@ -2,8 +2,6 @@
 
 Fast, less sensitive clustering.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`easy-linclust`](#refcmd-easy-linclust) |
-| Calls modules | [`align`](#refcmd-align), [`clust`](#refcmd-clust), [`createsubdb`](#refcmd-createsubdb), [`filterdb`](#refcmd-filterdb), [`kmermatcher`](#refcmd-kmermatcher), [`mergeclusters`](#refcmd-mergeclusters), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb) |
-| Seen in workflow scripts | `cascaded_clustering.sh`, `nucleotide_clustering.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `8` |
+| Workflow script count | `2` |
+| Detailed dependency entry | [Open in map](#depcmd-linclust) |
 
 ### Usage
 

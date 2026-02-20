@@ -32,10 +32,11 @@ Each command entry in `submodules/*.md` includes a structured metadata table wit
 | Field | Purpose |
 | :--- | :--- |
 | API layer and category | Places command in the execution stack |
-| Called-by and calls | Exposes upstream and downstream dependencies |
+| Upstream/downstream counts | Shows coupling intensity without repeating full edge lists |
 | Related functional groups | Shows cross-domain coupling |
-| Workflow script usage | Shows script-level evidence from extracted workflows |
 | Reference links | Links to full CLI help and dependency-map anchor |
+
+Full upstream/downstream command lists and workflow-script evidence are centralized in `reference/dependency_map.md`.
 
 ## When to Start from the Dependency View
 

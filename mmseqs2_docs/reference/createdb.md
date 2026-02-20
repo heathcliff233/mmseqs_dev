@@ -2,8 +2,6 @@
 
 Convert FASTA/Q file(s) to a sequence DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`databases`](#refcmd-databases), [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust), [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-rbh`](#refcmd-easy-rbh), [`easy-search`](#refcmd-easy-search), [`easy-taxonomy`](#refcmd-easy-taxonomy), [`multihitdb`](#refcmd-multihitdb) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `multihitdb.sh` |
+| Upstream command count | `8` |
+| Downstream command count | `0` |
+| Workflow script count | `6` |
+| Detailed dependency entry | [Open in map](#depcmd-createdb) |
 
 ### Usage
 

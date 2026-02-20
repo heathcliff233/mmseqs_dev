@@ -2,8 +2,6 @@
 
 Merge entries from multiple DBs.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_SET` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `update_clustering.sh` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
+| Workflow script count | `8` |
+| Detailed dependency entry | [Open in map](#depcmd-mergedbs) |
 
 ### Usage
 

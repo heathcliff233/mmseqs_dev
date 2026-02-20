@@ -2,8 +2,6 @@
 
 Update previous clustering with new sequences.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`cluster`](#refcmd-cluster), [`concatdbs`](#refcmd-concatdbs), [`createsubdb`](#refcmd-createsubdb), [`diffseqdbs`](#refcmd-diffseqdbs), [`filterdb`](#refcmd-filterdb), [`mergedbs`](#refcmd-mergedbs), [`mvdb`](#refcmd-mvdb), [`prefixid`](#refcmd-prefixid), [`renamedbkeys`](#refcmd-renamedbkeys), [`result2repseq`](#refcmd-result2repseq), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`swapdb`](#refcmd-swapdb) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `13` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-clusterupdate) |
 
 ### Usage
 

@@ -2,8 +2,6 @@
 
 Taxonomic classification.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`taxonomy`](#mod-taxonomy) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-taxonomy`](#refcmd-easy-taxonomy), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | [`aggregatetax`](#refcmd-aggregatetax), [`aggregatetaxweights`](#refcmd-aggregatetaxweights), [`createsubdb`](#refcmd-createsubdb), [`extractorfs`](#refcmd-extractorfs), [`filterdb`](#refcmd-filterdb), [`lca`](#refcmd-lca), [`mergeresultsbyset`](#refcmd-mergeresultsbyset), [`mvdb`](#refcmd-mvdb), [`prefilter`](#refcmd-prefilter), [`recoverlongestorf`](#refcmd-recoverlongestorf), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`swapdb`](#refcmd-swapdb), [`taxonomy`](#refcmd-taxonomy) |
-| Seen in workflow scripts | `easytaxonomy.sh`, `taxpercontig.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `15` |
+| Workflow script count | `2` |
+| Detailed dependency entry | [Open in map](#depcmd-taxonomy) |
 
 ### Usage
 

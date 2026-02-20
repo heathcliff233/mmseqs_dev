@@ -2,8 +2,6 @@
 
 Create a subset of a DB from list of DB keys.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_SET` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`clusterupdate`](#refcmd-clusterupdate), [`linclust`](#refcmd-linclust), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh`, `translated_search.sh`, `update_clustering.sh` |
+| Upstream command count | `5` |
+| Downstream command count | `0` |
+| Workflow script count | `8` |
+| Detailed dependency entry | [Open in map](#depcmd-createsubdb) |
 
 ### Usage
 

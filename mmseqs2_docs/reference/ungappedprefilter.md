@@ -2,8 +2,6 @@
 
 Optimal diagonal score search.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`prefiltering`](#mod-prefiltering) |
 | Category flags | `COMMAND_PREFILTER` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastp.sh`, `blastpgp.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `2` |
+| Detailed dependency entry | [Open in map](#depcmd-ungappedprefilter) |
 
 ### Usage
 

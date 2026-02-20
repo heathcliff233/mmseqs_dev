@@ -4,7 +4,7 @@ Modules for grouped-sequence (set-based) search and per-set aggregation pipeline
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -17,10 +17,9 @@ For each set of sequences compute the best element and update p-value.
 | Usage | `usage: mmseqs besthitperset  <i:targetSetDB> <i:resultDB> <o:resultDB> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | [`multihitsearch`](#modcmd-multihitsearch) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `multihitsearch.sh` |
 
 Reference links: [Full CLI](#refcmd-besthitperset), [Dependency entry](#depcmd-besthitperset).
 
@@ -42,10 +41,9 @@ For each set compute the combined p-value.
 | Usage | `usage: mmseqs combinepvalperset <i:querySetDB> <i:targetSetDB> <i:resultDB> <o:pvalDB> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-combinepvalperset), [Dependency entry](#depcmd-combinepvalperset).
 
@@ -68,10 +66,9 @@ Merge results from multiple ORFs back to their respective contig.
 | Usage | `usage: mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | [`multihitsearch`](#modcmd-multihitsearch), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `multihitsearch.sh`, `taxpercontig.sh` |
 
 Reference links: [Full CLI](#refcmd-mergeresultsbyset), [Dependency entry](#depcmd-mergeresultsbyset).
 
@@ -93,10 +90,9 @@ Create sequence DB for multi hit searches.
 | Usage | `usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | `n/a` |
-| Calls modules | [`createdb`](#modcmd-createdb), [`extractorfs`](#modcmd-extractorfs), [`filterdb`](#modcmd-filterdb), [`orftocontig`](#modcmd-orftocontig), [`result2stats`](#modcmd-result2stats), [`swapdb`](#modcmd-swapdb), [`translatenucs`](#modcmd-translatenucs), [`tsv2db`](#modcmd-tsv2db) |
+| Upstream command count | `0` |
+| Downstream command count | `8` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-multihitdb), [Dependency entry](#depcmd-multihitdb).
 
@@ -122,10 +118,9 @@ Search with a grouped set of sequences against another grouped set.
 | Usage | `usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MULTIHIT` |
-| Called by modules | `n/a` |
-| Calls modules | [`besthitperset`](#modcmd-besthitperset), [`mergeresultsbyset`](#modcmd-mergeresultsbyset), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search) |
+| Upstream command count | `0` |
+| Downstream command count | `4` |
 | Related functional groups | [`database`](#mod-database), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-multihitsearch), [Dependency entry](#depcmd-multihitsearch).
 

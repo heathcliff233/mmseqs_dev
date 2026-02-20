@@ -2,8 +2,6 @@
 
 Hash-based clustering of equal length sequences.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_CLUSTER` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `clustering.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-clusthash) |
 
 ### Usage
 

@@ -2,8 +2,6 @@
 
 List and download databases.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`convertmsa`](#refcmd-convertmsa), [`createdb`](#refcmd-createdb), [`createtaxdb`](#refcmd-createtaxdb), [`msa2profile`](#refcmd-msa2profile), [`nrtotaxmapping`](#refcmd-nrtotaxmapping), [`prefixid`](#refcmd-prefixid), [`rmdb`](#refcmd-rmdb), [`tar2db`](#refcmd-tar2db) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `8` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-databases) |
 
 ### Usage
 

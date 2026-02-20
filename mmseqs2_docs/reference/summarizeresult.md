@@ -2,8 +2,6 @@
 
 Extract annotations from alignment DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_RESULT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-search`](#refcmd-easy-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `easysearch.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-summarizeresult) |
 
 ### Usage
 

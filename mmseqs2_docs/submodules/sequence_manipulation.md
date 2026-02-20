@@ -4,7 +4,7 @@ Modules that transform sequence content, frames, ORFs, and masked/aligned region
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -23,10 +23,9 @@ Extract aligned sequence region from query.
 | Usage | `usage: mmseqs extractalignedregion <i:queryDB> <i:targetDB> <i:resultDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-extractalignedregion), [Dependency entry](#depcmd-extractalignedregion).
 
@@ -49,10 +48,9 @@ Extract frames from a nucleotide sequence DB.
 | Usage | `usage: mmseqs extractframes <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`createindex`](#modcmd-createindex), [`createlinindex`](#modcmd-createlinindex), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastn.sh`, `createindex.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
 
 Reference links: [Full CLI](#refcmd-extractframes), [Dependency entry](#depcmd-extractframes).
 
@@ -78,10 +76,9 @@ Six-frame extraction of open reading frames.
 | Usage | `usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`createindex`](#modcmd-createindex), [`createlinindex`](#modcmd-createlinindex), [`linsearch`](#modcmd-linsearch), [`multihitdb`](#modcmd-multihitdb), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `6` |
+| Downstream command count | `0` |
 | Related functional groups | [`database`](#mod-database), [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `createindex.sh`, `multihitdb.sh`, `taxpercontig.sh`, `translated_search.sh` |
 
 Reference links: [Full CLI](#refcmd-extractorfs), [Dependency entry](#depcmd-extractorfs).
 
@@ -107,10 +104,9 @@ Soft mask sequence DB using tantan.
 | Usage | `usage: mmseqs masksequence <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-masksequence), [Dependency entry](#depcmd-masksequence).
 
@@ -135,10 +131,9 @@ Write ORF locations in alignment format.
 | Usage | `usage: mmseqs orftocontig <i:contigsSequenceDB> <i:extractedOrfsHeadersDB> <o:orfsAlignedToContigDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`multihitdb`](#modcmd-multihitdb) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`multi_hit`](#mod-multi-hit) |
-| Workflow script usage | `multihitdb.sh` |
 
 Reference links: [Full CLI](#refcmd-orftocontig), [Dependency entry](#depcmd-orftocontig).
 
@@ -159,10 +154,9 @@ Recover longest ORF for taxonomy annotation after elimination.
 | Usage | `usage: mmseqs recoverlongestorf <i:orfDB> <i:resultDB> <o:tsvFile> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_EXPERT` |
-| Called by modules | [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `taxpercontig.sh` |
 
 Reference links: [Full CLI](#refcmd-recoverlongestorf), [Dependency entry](#depcmd-recoverlongestorf).
 
@@ -182,10 +176,9 @@ Reverse (without complement) sequences.
 | Usage | `usage: mmseqs reverseseq <i:sequenceDB> <o:revSequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-reverseseq), [Dependency entry](#depcmd-reverseseq).
 
@@ -206,10 +199,9 @@ Translate proteins to lexicographically lowest codons.
 | Usage | `usage: mmseqs translateaa <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-translateaa), [Dependency entry](#depcmd-translateaa).
 
@@ -230,10 +222,9 @@ Translate nucleotides to proteins.
 | Usage | `usage: mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`multihitdb`](#modcmd-multihitdb) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`multi_hit`](#mod-multi-hit) |
-| Workflow script usage | `multihitdb.sh` |
 
 Reference links: [Full CLI](#refcmd-translatenucs), [Dependency entry](#depcmd-translatenucs).
 

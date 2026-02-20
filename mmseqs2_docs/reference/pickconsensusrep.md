@@ -2,8 +2,6 @@
 
 Select new representatives for each cluster based on consensus.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_CLUSTER` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`align`](#refcmd-align), [`msa2profile`](#refcmd-msa2profile), [`prefixid`](#refcmd-prefixid), [`renamedbkeys`](#refcmd-renamedbkeys), [`result2msa`](#refcmd-result2msa), [`rmdb`](#refcmd-rmdb), [`tsv2db`](#refcmd-tsv2db) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `7` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-pickconsensusrep) |
 
 ### Usage
 

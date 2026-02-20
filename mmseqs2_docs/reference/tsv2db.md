@@ -2,8 +2,6 @@
 
 Convert a TSV file to any DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`multihitdb`](#refcmd-multihitdb), [`pickconsensusrep`](#refcmd-pickconsensusrep), [`tsv2exprofiledb`](#refcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `cascaded_clustering.sh`, `multihitdb.sh`, `pickconsensusrep.sh`, `tsv2exprofiledb.sh` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
+| Workflow script count | `4` |
+| Detailed dependency entry | [Open in map](#depcmd-tsv2db) |
 
 ### Usage
 

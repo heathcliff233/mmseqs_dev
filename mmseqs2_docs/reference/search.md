@@ -2,8 +2,6 @@
 
 Sensitive homology search.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`clusterupdate`](#refcmd-clusterupdate), [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-search`](#refcmd-easy-search), [`map`](#refcmd-map), [`multihitsearch`](#refcmd-multihitsearch), [`rbh`](#refcmd-rbh), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | [`align`](#refcmd-align), [`createsubdb`](#refcmd-createsubdb), [`expand2profile`](#refcmd-expand2profile), [`expandaln`](#refcmd-expandaln), [`extractframes`](#refcmd-extractframes), [`extractorfs`](#refcmd-extractorfs), [`filterresult`](#refcmd-filterresult), [`lcaalign`](#refcmd-lcaalign), [`mergedbs`](#refcmd-mergedbs), [`mvdb`](#refcmd-mvdb), [`offsetalignment`](#refcmd-offsetalignment), [`prefilter`](#refcmd-prefilter), [`profile2consensus`](#refcmd-profile2consensus), [`rescorediagonal`](#refcmd-rescorediagonal), [`result2profile`](#refcmd-result2profile), [`result2stats`](#refcmd-result2stats), [`rmdb`](#refcmd-rmdb), [`search`](#refcmd-search), [`splitsequence`](#refcmd-splitsequence), [`subtractdbs`](#refcmd-subtractdbs), [`swapresults`](#refcmd-swapresults), [`ungappedprefilter`](#refcmd-ungappedprefilter) |
-| Seen in workflow scripts | `enrich.sh`, `iterativepp.sh`, `map.sh`, `multihitsearch.sh`, `rbh.sh`, `taxonomy.sh`, `update_clustering.sh` |
+| Upstream command count | `8` |
+| Downstream command count | `22` |
+| Workflow script count | `7` |
+| Detailed dependency entry | [Open in map](#depcmd-search) |
 
 ### Usage
 

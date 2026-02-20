@@ -4,7 +4,7 @@ Modules for creating, indexing, splitting, merging, and maintaining MMseqs2 data
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -17,10 +17,9 @@ Create relative symlink of DB to another name in the same folder.
 | Usage | `usage: mmseqs aliasdb <i:srcDB> <o:dstDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | [`tsv2exprofiledb`](#modcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`profiles`](#mod-profiles) |
-| Workflow script usage | `tsv2exprofiledb.sh` |
 
 Reference links: [Full CLI](#refcmd-aliasdb), [Dependency entry](#depcmd-aliasdb).
 
@@ -39,10 +38,9 @@ Concatenate two DBs, giving new IDs to entries from 2nd DB.
 | Usage | `usage: mmseqs concatdbs <i:DB> <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`linsearch`](#modcmd-linsearch) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `linsearch.sh`, `nucleotide_clustering.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-concatdbs), [Dependency entry](#depcmd-concatdbs).
 
@@ -65,10 +63,9 @@ Copy a DB.
 | Usage | `usage: mmseqs cpdb <i:srcDB> <o:dstDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-cpdb), [Dependency entry](#depcmd-cpdb).
 
@@ -87,10 +84,9 @@ Convert FASTA/Q file(s) to a sequence DB.
 | Usage | `usage: mmseqs createdb <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]>|<i:stdin> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Called by modules | [`databases`](#modcmd-databases), [`easy-cluster`](#modcmd-easy-cluster), [`easy-linclust`](#modcmd-easy-linclust), [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-rbh`](#modcmd-easy-rbh), [`easy-search`](#modcmd-easy-search), [`easy-taxonomy`](#modcmd-easy-taxonomy), [`multihitdb`](#modcmd-multihitdb) |
-| Calls modules | `n/a` |
+| Upstream command count | `8` |
+| Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit) |
-| Workflow script usage | `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `multihitdb.sh` |
 
 Reference links: [Full CLI](#refcmd-createdb), [Dependency entry](#depcmd-createdb).
 
@@ -115,10 +111,9 @@ Store precomputed index on disk to reduce search overhead.
 | Usage | `usage: mmseqs createindex <i:sequenceDB> <tmpDir> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Called by modules | `n/a` |
-| Calls modules | [`extractframes`](#modcmd-extractframes), [`extractorfs`](#modcmd-extractorfs), [`rmdb`](#modcmd-rmdb), [`splitsequence`](#modcmd-splitsequence) |
+| Upstream command count | `0` |
+| Downstream command count | `4` |
 | Related functional groups | [`sequence_manipulation`](#mod-sequence-manipulation) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-createindex), [Dependency entry](#depcmd-createindex).
 
@@ -144,10 +139,9 @@ Create linsearch index.
 | Usage | `usage: mmseqs createlinindex <i:sequenceDB> <tmpDir> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
-| Called by modules | [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-search`](#modcmd-easy-search) |
-| Calls modules | [`extractframes`](#modcmd-extractframes), [`extractorfs`](#modcmd-extractorfs), [`rmdb`](#modcmd-rmdb), [`splitsequence`](#modcmd-splitsequence) |
+| Upstream command count | `2` |
+| Downstream command count | `4` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows), [`sequence_manipulation`](#mod-sequence-manipulation) |
-| Workflow script usage | `easysearch.sh` |
 
 Reference links: [Full CLI](#refcmd-createlinindex), [Dependency entry](#depcmd-createlinindex).
 
@@ -173,10 +167,9 @@ Create a subset of a DB from list of DB keys.
 | Usage | `usage: mmseqs createsubdb <i:subsetFile|DB> <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`linclust`](#modcmd-linclust), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `5` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `blastp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `linclust.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh`, `translated_search.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-createsubdb), [Dependency entry](#depcmd-createsubdb).
 
@@ -197,10 +190,9 @@ List and download databases.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
-| Called by modules | `n/a` |
-| Calls modules | [`convertmsa`](#modcmd-convertmsa), [`createdb`](#modcmd-createdb), [`createtaxdb`](#modcmd-createtaxdb), [`msa2profile`](#modcmd-msa2profile), [`nrtotaxmapping`](#modcmd-nrtotaxmapping), [`prefixid`](#modcmd-prefixid), [`rmdb`](#modcmd-rmdb), [`tar2db`](#modcmd-tar2db) |
+| Upstream command count | `0` |
+| Downstream command count | `8` |
 | Related functional groups | [`profiles`](#mod-profiles), [`taxonomy`](#mod-taxonomy), [`utilities`](#mod-utilities) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-databases), [Dependency entry](#depcmd-databases).
 
@@ -213,10 +205,9 @@ Archive contents of a DB to a tar archive.
 | Usage | `usage: mmseqs db2tar <i:DB> <o:tar[.gz]> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-db2tar), [Dependency entry](#depcmd-db2tar).
 
@@ -235,10 +226,9 @@ Symlink a DB.
 | Usage | `usage: mmseqs lndb <i:srcDB> <o:dstDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-lndb), [Dependency entry](#depcmd-lndb).
 
@@ -257,10 +247,9 @@ Merge entries from multiple DBs.
 | Usage | `usage: mmseqs mergedbs <i:DB> <o:DB> <i:DB1> ... <i:DBn> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`rbh`](#modcmd-rbh), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-mergedbs), [Dependency entry](#depcmd-mergedbs).
 
@@ -282,10 +271,9 @@ Move a DB.
 | Usage | `usage: mmseqs mvdb <i:srcDB> <o:dstDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy), [`tsv2exprofiledb`](#modcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
+| Upstream command count | `5` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`profiles`](#mod-profiles), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `blastp.sh`, `cascaded_clustering.sh`, `searchslicedtargetprofile.sh`, `taxonomy.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-mvdb), [Dependency entry](#depcmd-mvdb).
 
@@ -304,10 +292,9 @@ Create a new DB with original keys renamed.
 | Usage | `usage: mmseqs renamedbkeys <i:idMapFile|stdin> <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | [`clusterupdate`](#modcmd-clusterupdate), [`pickconsensusrep`](#modcmd-pickconsensusrep) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-| Workflow script usage | `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-renamedbkeys), [Dependency entry](#depcmd-renamedbkeys).
 
@@ -328,10 +315,9 @@ Remove a DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`createindex`](#modcmd-createindex), [`createlinindex`](#modcmd-createlinindex), [`databases`](#modcmd-databases), [`easy-cluster`](#modcmd-easy-cluster), [`easy-linclust`](#modcmd-easy-linclust), [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-rbh`](#modcmd-easy-rbh), [`easy-search`](#modcmd-easy-search), [`easy-taxonomy`](#modcmd-easy-taxonomy), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`multihitsearch`](#modcmd-multihitsearch), [`pickconsensusrep`](#modcmd-pickconsensusrep), [`rbh`](#modcmd-rbh), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy), [`tsv2exprofiledb`](#modcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
+| Upstream command count | `19` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`profiles`](#mod-profiles), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `blastn.sh`, `blastp.sh`, `blastpgp.sh`, `cascaded_clustering.sh`, `clustering.sh`, `createindex.sh`, `databases.sh`, `easycluster.sh`, `easyrbh.sh`, `easysearch.sh`, `easytaxonomy.sh`, `iterativepp.sh`, `linclust.sh`, `linsearch.sh`, `multihitsearch.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `rbh.sh`, `searchslicedtargetprofile.sh`, `searchtargetprofile.sh`, `taxonomy.sh`, `taxpercontig.sh`, `translated_search.sh`, `tsv2exprofiledb.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-rmdb), [Dependency entry](#depcmd-rmdb).
 
@@ -344,10 +330,9 @@ Split DB into subsets.
 | Usage | `usage: mmseqs splitdb <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-splitdb), [Dependency entry](#depcmd-splitdb).
 
@@ -369,10 +354,9 @@ Split sequences by length.
 | Usage | `usage: mmseqs splitsequence <i:sequenceDB> <o:sequenceDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SEQUENCE` |
-| Called by modules | [`createindex`](#modcmd-createindex), [`createlinindex`](#modcmd-createlinindex), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastn.sh`, `createindex.sh` |
 
 Reference links: [Full CLI](#refcmd-splitsequence), [Dependency entry](#depcmd-splitsequence).
 
@@ -398,10 +382,9 @@ Remove all entries from first DB occurring in second DB by key.
 | Usage | `usage: mmseqs subtractdbs <i:resultDBLeft> <i:resultDBRight> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SET` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-subtractdbs), [Dependency entry](#depcmd-subtractdbs).
 
@@ -424,10 +407,9 @@ Transpose DB with integer values in first column.
 | Usage | `usage: mmseqs swapdb <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`multihitdb`](#modcmd-multihitdb), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`multi_hit`](#mod-multi-hit), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `cascaded_clustering.sh`, `multihitdb.sh`, `taxpercontig.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-swapdb), [Dependency entry](#depcmd-swapdb).
 
@@ -449,10 +431,9 @@ Convert content of tar archives to any DB.
 | Usage | `usage: mmseqs tar2db <i:tar[.gz]> ... <i:tar[.gz]> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
-| Called by modules | [`databases`](#modcmd-databases) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `databases.sh` |
 
 Reference links: [Full CLI](#refcmd-tar2db), [Dependency entry](#depcmd-tar2db).
 
@@ -476,10 +457,9 @@ Convert a TSV file to any DB.
 | Usage | `usage: mmseqs tsv2db <i:tsvFile> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`multihitdb`](#modcmd-multihitdb), [`pickconsensusrep`](#modcmd-pickconsensusrep), [`tsv2exprofiledb`](#modcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
+| Upstream command count | `4` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`multi_hit`](#mod-multi-hit), [`profiles`](#mod-profiles) |
-| Workflow script usage | `cascaded_clustering.sh`, `multihitdb.sh`, `pickconsensusrep.sh`, `tsv2exprofiledb.sh` |
 
 Reference links: [Full CLI](#refcmd-tsv2db), [Dependency entry](#depcmd-tsv2db).
 

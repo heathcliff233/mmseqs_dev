@@ -32,7 +32,7 @@ The documentation exposes two orthogonal views of the same commands. The functio
 
 ```{=typst}
 #doc_note[
-When narrative text and command defaults disagree, treat local help snapshots in `mmseqs_help_output` as canonical for CLI behavior. Treat [Performance Foundations](#sec-performance-foundations) as the canonical summary of storage and parallel mechanics in this manual.
+When narrative text and command defaults disagree, treat local help snapshots in `mmseqs_help_output` as canonical for CLI behavior. Treat #link(<sec-performance-foundations>)[Performance Foundations] as the canonical summary of storage and parallel mechanics in this manual.
 ]
 ```
 

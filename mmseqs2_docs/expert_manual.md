@@ -1,6 +1,6 @@
 # Expert Manual {#sec-expert-manual}
 
-This chapter focuses on advanced pipeline composition, reproducibility controls, and documentation maintenance. Foundational storage and parallel mechanics are summarized in [Performance Foundations](#sec-performance-foundations); this chapter assumes that baseline model.
+This chapter focuses on advanced pipeline composition, reproducibility controls, and source-level engineering discipline. Foundational storage and parallel mechanics are summarized in [Performance Foundations](#sec-performance-foundations); this chapter assumes that baseline model.
 
 ## Expert Operating Discipline
 
@@ -64,18 +64,19 @@ In most production pipelines, index/load/split decisions create larger runtime s
 ]
 ```
 
-## Documentation Maintenance Workflow
+## MMseqs2 Engineering Workflow
 
-Use this workflow when MMseqs2 source, options, or dependencies evolve:
+Use this workflow when changing MMseqs2 behavior in source code:
 
-| Step | Purpose | Command |
+| Step | Purpose | Primary Location |
 | :--- | :--- | :--- |
-| Refresh help snapshots | Sync CLI defaults with active binary | `./generate_mmseqs_docs.sh /path/to/mmseqs` |
-| Rebuild dependency artifacts | Refresh command topology from source and workflow scripts | `mmseqs2_docs/scripts/build_dependency_graph.py` |
-| Regenerate command reference | Rebuild per-command pages and reference index | `mmseqs2_docs/scripts/generate_command_reference.py` |
-| Regenerate module pages | Rebuild `submodules/*.md` with dependency crosslinks | `mmseqs2_docs/scripts/generate_module_docs.py` |
-| Validate structure | Detect missing pages, duplicate command sections, broken links | `mmseqs2_docs/scripts/validate_docs.py` |
-| Build deliverable PDF | Produce final manual | `./mmseqs2_docs/build_pdf.sh` |
+| Register or confirm command metadata | Ensure command visibility/category/description are correct | `MMseqs2/src/MMseqsBase.cpp`, `MMseqs2/src/CommandDeclarations.h` |
+| Trace workflow orchestration | Validate module chaining and parameter propagation | `MMseqs2/src/workflow/*.cpp`, `MMseqs2/data/workflow/*.sh` |
+| Validate algorithm-level behavior | Inspect prefilter/alignment/clustering/taxonomy kernels | `MMseqs2/src/{prefiltering,alignment,clustering,linclust,taxonomy,multihit}/*.cpp` |
+| Validate DB contract boundaries | Check DB types, sidecars, and I/O assumptions | `MMseqs2/src/commons/DBReader.h`, `MMseqs2/src/commons/DBWriter.h`, `MMseqs2/src/commons/Parameters.{h,cpp}` |
+| Validate output semantics | Confirm exports/transforms still match downstream expectations | `MMseqs2/src/util/*.cpp` |
+
+When publishing user-facing docs after a code change, refresh generated docs as a secondary step.
 
 ## Cross References
 
@@ -87,3 +88,4 @@ Use these chapters together:
 | Architecture and dependency navigation | [System Map](#sec-system-map), [Dependency Map](#sec-dependency-map) |
 | Task-oriented command selection | [Functional Modules Manual](#sec-functional-modules-manual), functional module pages |
 | Full command-level option detail | [Command Reference Index](#sec-command-reference), command reference entries |
+| Source-level developer entry points | [Appendix B: MMseqs2 Developer Guide](#sec-appendix-developer) |

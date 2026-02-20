@@ -4,7 +4,7 @@ General-purpose helpers and special-purpose modules that support advanced workfl
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -17,10 +17,9 @@ Execute given program on each DB entry.
 | Usage | `usage: mmseqs apply <i:DB> <o:DB> -- program [args...] [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-apply), [Dependency entry](#depcmd-apply).
 
@@ -41,10 +40,9 @@ Compress DB entries.
 | Usage | `usage: mmseqs compress <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | [`tsv2exprofiledb`](#modcmd-tsv2exprofiledb) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`profiles`](#mod-profiles) |
-| Workflow script usage | `tsv2exprofiledb.sh` |
 
 Reference links: [Full CLI](#refcmd-compress), [Dependency entry](#depcmd-compress).
 
@@ -64,10 +62,9 @@ Convert UniProtKB data to a DB.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-convertkb), [Dependency entry](#depcmd-convertkb).
 
@@ -80,10 +77,9 @@ Decompress DB entries.
 | Usage | `usage: mmseqs decompress <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-decompress), [Dependency entry](#depcmd-decompress).
 
@@ -103,10 +99,9 @@ Compute diff of two sequence DBs.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | [`clusterupdate`](#modcmd-clusterupdate) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-| Workflow script usage | `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-diffseqdbs), [Dependency entry](#depcmd-diffseqdbs).
 
@@ -119,10 +114,9 @@ DB filtering by given conditions.
 | Usage | `usage: mmseqs filterdb <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`clusterupdate`](#modcmd-clusterupdate), [`easy-taxonomy`](#modcmd-easy-taxonomy), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`multihitdb`](#modcmd-multihitdb), [`rbh`](#modcmd-rbh), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `8` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `cascaded_clustering.sh`, `easytaxonomy.sh`, `linclust.sh`, `linsearch.sh`, `multihitdb.sh`, `rbh.sh`, `taxonomy.sh`, `taxpercontig.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-filterdb), [Dependency entry](#depcmd-filterdb).
 
@@ -148,10 +142,9 @@ Extract regions from a sequence database based on a GFF3 file.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-gff2db), [Dependency entry](#depcmd-gff2db).
 
@@ -164,10 +157,9 @@ Start a GPU server.
 | Usage | `usage: mmseqs gpuserver <i:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-gpuserver), [Dependency entry](#depcmd-gpuserver).
 
@@ -189,10 +181,9 @@ Mask out sequence regions in a sequence DB by features selected from a GFF3 file
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-maskbygff), [Dependency entry](#depcmd-maskbygff).
 
@@ -205,10 +196,9 @@ For each entry in a DB prepend the entry key to the entry itself.
 | Usage | `usage: mmseqs prefixid <i:DB> <o:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | [`clusterupdate`](#modcmd-clusterupdate), [`databases`](#modcmd-databases), [`pickconsensusrep`](#modcmd-pickconsensusrep) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database) |
-| Workflow script usage | `databases.sh`, `pickconsensusrep.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-prefixid), [Dependency entry](#depcmd-prefixid).
 
@@ -232,10 +222,9 @@ Write an extended DB.
 | Usage | `usage: mmseqs setextendeddbtype <i:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-setextendeddbtype), [Dependency entry](#depcmd-setextendeddbtype).
 
@@ -255,10 +244,9 @@ For each entry in a DB append the entry key to the entry itself.
 | Usage | `usage: mmseqs suffixid <i:resultDB> <o:resultDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-suffixid), [Dependency entry](#depcmd-suffixid).
 
@@ -282,10 +270,9 @@ Extract annotations from HHblits BLAST-tab-formatted results.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-summarizetabs), [Dependency entry](#depcmd-summarizetabs).
 
@@ -298,10 +285,9 @@ Preload DB into memory (page cache).
 | Usage | `usage: mmseqs touchdb <i:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-touchdb), [Dependency entry](#depcmd-touchdb).
 
@@ -321,10 +307,9 @@ Unpack a DB into separate files.
 | Usage | `usage: mmseqs unpackdb <i:DB> <o:outDir> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-unpackdb), [Dependency entry](#depcmd-unpackdb).
 
@@ -346,10 +331,9 @@ Print DB entries given in --id-list to stdout.
 | Usage | `usage: mmseqs view <i:DB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DB` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-view), [Dependency entry](#depcmd-view).
 

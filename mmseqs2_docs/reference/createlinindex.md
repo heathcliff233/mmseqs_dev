@@ -2,8 +2,6 @@
 
 Create linsearch index.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-linsearch`](#refcmd-easy-linsearch), [`easy-search`](#refcmd-easy-search) |
-| Calls modules | [`extractframes`](#refcmd-extractframes), [`extractorfs`](#refcmd-extractorfs), [`rmdb`](#refcmd-rmdb), [`splitsequence`](#refcmd-splitsequence) |
-| Seen in workflow scripts | `easysearch.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `4` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-createlinindex) |
 
 ### Usage
 

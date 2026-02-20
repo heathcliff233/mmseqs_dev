@@ -2,8 +2,6 @@
 
 Offset alignment by ORF start position.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`alignment`](#mod-alignment) |
 | Category flags | `COMMAND_RESULT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`linsearch`](#refcmd-linsearch), [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastn.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
+| Workflow script count | `4` |
+| Detailed dependency entry | [Open in map](#depcmd-offsetalignment) |
 
 ### Usage
 

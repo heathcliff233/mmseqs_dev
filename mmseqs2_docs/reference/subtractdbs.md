@@ -2,8 +2,6 @@
 
 Remove all entries from first DB occurring in second DB by key.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`database`](#mod-database) |
 | Category flags | `COMMAND_SET` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`cluster`](#refcmd-cluster), [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `blastpgp.sh`, `cascaded_clustering.sh`, `enrich.sh`, `iterativepp.sh`, `nucleotide_clustering.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `0` |
+| Workflow script count | `5` |
+| Detailed dependency entry | [Open in map](#depcmd-subtractdbs) |
 
 ### Usage
 

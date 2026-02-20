@@ -2,8 +2,6 @@
 
 Expand an alignment result based on another and create a profile.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`search`](#refcmd-search) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `iterativepp.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-expand2profile) |
 
 ### Usage
 

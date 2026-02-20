@@ -2,8 +2,6 @@
 
 Get representative sequences from result DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`result_handling`](#mod-result-handling) |
 | Category flags | `COMMAND_RESULT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`clusterupdate`](#refcmd-clusterupdate), [`easy-cluster`](#refcmd-easy-cluster), [`easy-linclust`](#refcmd-easy-linclust) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `easycluster.sh`, `update_clustering.sh` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
+| Workflow script count | `2` |
+| Detailed dependency entry | [Open in map](#depcmd-result2repseq) |
 
 ### Usage
 

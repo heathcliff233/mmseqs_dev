@@ -2,8 +2,6 @@
 
 Convert a MSA DB to a profile DB.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_PROFILE | COMMAND_EXPERT` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-msa2result) |
 
 ### Usage
 

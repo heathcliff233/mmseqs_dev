@@ -2,8 +2,6 @@
 
 Six-frame extraction of open reading frames.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
 | Category flags | `COMMAND_SEQUENCE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`createindex`](#refcmd-createindex), [`createlinindex`](#refcmd-createlinindex), [`linsearch`](#refcmd-linsearch), [`multihitdb`](#refcmd-multihitdb), [`search`](#refcmd-search), [`taxonomy`](#refcmd-taxonomy) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `createindex.sh`, `multihitdb.sh`, `taxpercontig.sh`, `translated_search.sh` |
+| Upstream command count | `6` |
+| Downstream command count | `0` |
+| Workflow script count | `4` |
+| Detailed dependency entry | [Open in map](#depcmd-extractorfs) |
 
 ### Usage
 

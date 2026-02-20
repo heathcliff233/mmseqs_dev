@@ -2,8 +2,6 @@
 
 Taxonomic classification.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
 | Category flags | `COMMAND_EASY` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`addtaxonomy`](#refcmd-addtaxonomy), [`convertalis`](#refcmd-convertalis), [`createdb`](#refcmd-createdb), [`createtsv`](#refcmd-createtsv), [`filterdb`](#refcmd-filterdb), [`lca`](#refcmd-lca), [`rmdb`](#refcmd-rmdb), [`summarizealis`](#refcmd-summarizealis), [`swapresults`](#refcmd-swapresults), [`taxonomy`](#refcmd-taxonomy), [`taxonomyreport`](#refcmd-taxonomyreport) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `11` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-easy-taxonomy) |
 
 ### Usage
 

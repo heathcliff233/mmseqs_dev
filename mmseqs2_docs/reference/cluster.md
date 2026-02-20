@@ -2,8 +2,6 @@
 
 Slower, sensitive clustering.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`clustering`](#mod-clustering) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`clusterupdate`](#refcmd-clusterupdate), [`easy-cluster`](#refcmd-easy-cluster) |
-| Calls modules | [`align`](#refcmd-align), [`clust`](#refcmd-clust), [`clusthash`](#refcmd-clusthash), [`concatdbs`](#refcmd-concatdbs), [`createsubdb`](#refcmd-createsubdb), [`extractframes`](#refcmd-extractframes), [`filterdb`](#refcmd-filterdb), [`linclust`](#refcmd-linclust), [`mergeclusters`](#refcmd-mergeclusters), [`mergedbs`](#refcmd-mergedbs), [`mvdb`](#refcmd-mvdb), [`offsetalignment`](#refcmd-offsetalignment), [`prefilter`](#refcmd-prefilter), [`rescorediagonal`](#refcmd-rescorediagonal), [`rmdb`](#refcmd-rmdb), [`subtractdbs`](#refcmd-subtractdbs), [`swapdb`](#refcmd-swapdb), [`tsv2db`](#refcmd-tsv2db) |
-| Seen in workflow scripts | `update_clustering.sh` |
+| Upstream command count | `2` |
+| Downstream command count | `18` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-cluster) |
 
 ### Usage
 

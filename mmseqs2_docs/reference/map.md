@@ -2,8 +2,6 @@
 
 Map nearly identical sequences.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`search_workflows`](#mod-search-workflows) |
 | Category flags | `COMMAND_MAIN` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`search`](#refcmd-search) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `1` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-map) |
 
 ### Usage
 

@@ -4,7 +4,7 @@ Core alignment and alignment-adjacent modules for scoring, rescoring, and coordi
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -17,10 +17,9 @@ Optimal gapped local alignment.
 | Usage | `usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`pickconsensusrep`](#modcmd-pickconsensusrep), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `5` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `iterativepp.sh`, `nucleotide_clustering.sh`, `pickconsensusrep.sh`, `searchslicedtargetprofile.sh` |
 
 Reference links: [Full CLI](#refcmd-align), [Dependency entry](#depcmd-align).
 
@@ -46,10 +45,9 @@ Within-result all-vs-all gapped local alignment.
 | Usage | `usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-alignall), [Dependency entry](#depcmd-alignall).
 
@@ -75,10 +73,9 @@ Heuristic gapped local k-mer based alignment.
 | Usage | `usage: mmseqs alignbykmer <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-alignbykmer), [Dependency entry](#depcmd-alignbykmer).
 
@@ -104,10 +101,9 @@ Expand an alignment result based on another.
 | Usage | `usage: mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
-| Called by modules | [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `enrich.sh`, `iterativepp.sh` |
 
 Reference links: [Full CLI](#refcmd-expandaln), [Dependency entry](#depcmd-expandaln).
 
@@ -133,10 +129,9 @@ Forward Backward Alignment.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-fwbw), [Dependency entry](#depcmd-fwbw).
 
@@ -149,10 +144,9 @@ Offset alignment by ORF start position.
 | Usage | `usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`linsearch`](#modcmd-linsearch), [`search`](#modcmd-search) |
-| Calls modules | `n/a` |
+| Upstream command count | `3` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `blastn.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `translated_search.sh` |
 
 Reference links: [Full CLI](#refcmd-offsetalignment), [Dependency entry](#depcmd-offsetalignment).
 
@@ -177,10 +171,9 @@ Transform protein alignments to nucleotide alignments.
 | Usage | `usage: mmseqs proteinaln2nucl <i:nuclQueryDB> <i:nuclTargetDB> <i:aaQueryDB> <i:aaTargetDB> <i:alnDB> <o:alnDB> [options]` |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_RESULT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-proteinaln2nucl), [Dependency entry](#depcmd-proteinaln2nucl).
 
@@ -204,10 +197,9 @@ Compute sequence identity for diagonal.
 | Usage | `usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]` |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | [`cluster`](#modcmd-cluster), [`linclust`](#modcmd-linclust), [`linsearch`](#modcmd-linsearch), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | `n/a` |
+| Upstream command count | `5` |
+| Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `linclust.sh`, `linsearch.sh`, `nucleotide_clustering.sh`, `taxpercontig.sh` |
 
 Reference links: [Full CLI](#refcmd-rescorediagonal), [Dependency entry](#depcmd-rescorediagonal).
 
@@ -233,10 +225,9 @@ Transfer alignments via transitivity.
 | Usage | Help snapshot unavailable locally. |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
-| Called by modules | `n/a` |
-| Calls modules | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `0` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-transitivealign), [Dependency entry](#depcmd-transitivealign).
 

@@ -144,18 +144,6 @@ def key_options_for(cmd: str) -> tuple[str, list[tuple[str, str]]]:
     return parse_usage_and_options(help_file.read_text())
 
 
-def command_links(items: list[str]) -> str:
-    if items:
-        return ", ".join(f"[`{x}`](#{module_command_anchor(x)})" for x in items)
-    return NO_EDGE_TEXT
-
-
-def plain_list(items: list[str]) -> str:
-    if items:
-        return ", ".join(f"`{x}`" for x in items)
-    return NO_EDGE_TEXT
-
-
 def group_links(items: list[str]) -> str:
     if not items:
         return NO_EDGE_TEXT
@@ -203,9 +191,8 @@ def render_module(group: str, title: str, intro: str, dep_map: dict[str, dict]) 
     lines.extend(
         typst_callout(
                 "note",
-                "This page emphasizes module relationships and practical options. "
-                + "For complete CLI details, open the linked command reference pages. "
-                + "In connection tables, `n/a` means no direct static edge was resolved.",
+                "This page focuses on task-oriented usage and practical options. "
+                + "Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.",
             )
         )
     if group in {"search_workflows", "clustering", "easy_workflows"}:
@@ -248,10 +235,9 @@ def render_module(group: str, title: str, intro: str, dep_map: dict[str, dict]) 
         lines.append(f"| Usage | `{usage}` |" if usage else "| Usage | Help snapshot unavailable locally. |")
         lines.append(f"| API layer | `{meta['layer']}` |")
         lines.append(f"| Category flags | `{meta['category']}` |")
-        lines.append(f"| Called by modules | {command_links(meta['called_by'])} |")
-        lines.append(f"| Calls modules | {command_links(meta['calls'])} |")
+        lines.append(f"| Upstream command count | `{len(meta['called_by'])}` |")
+        lines.append(f"| Downstream command count | `{len(meta['calls'])}` |")
         lines.append(f"| Related functional groups | {group_links(related_groups)} |")
-        lines.append(f"| Workflow script usage | {plain_list(meta['workflow_scripts'])} |")
         lines.append("")
 
         lines.append(

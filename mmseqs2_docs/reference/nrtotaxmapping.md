@@ -2,8 +2,6 @@
 
 Create taxonomy mapping for NR database.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`taxonomy`](#mod-taxonomy) |
 | Category flags | `COMMAND_SPECIAL` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`databases`](#refcmd-databases) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `databases.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-nrtotaxmapping) |
 
 ### Usage
 

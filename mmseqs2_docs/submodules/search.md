@@ -4,7 +4,7 @@ Workflow-level search and mapping modules that orchestrate prefiltering and alig
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -23,10 +23,9 @@ Fast, less sensitive homology search.
 | Usage | `usage: mmseqs linsearch <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN|COMMAND_EXPERT` |
-| Called by modules | [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-search`](#modcmd-easy-search) |
-| Calls modules | [`align`](#modcmd-align), [`concatdbs`](#modcmd-concatdbs), [`extractorfs`](#modcmd-extractorfs), [`filterdb`](#modcmd-filterdb), [`kmersearch`](#modcmd-kmersearch), [`offsetalignment`](#modcmd-offsetalignment), [`rescorediagonal`](#modcmd-rescorediagonal), [`rmdb`](#modcmd-rmdb), [`swapresults`](#modcmd-swapresults) |
+| Upstream command count | `2` |
+| Downstream command count | `9` |
 | Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`prefiltering`](#mod-prefiltering), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-linsearch), [Dependency entry](#depcmd-linsearch).
 
@@ -52,10 +51,9 @@ Map nearly identical sequences.
 | Usage | `usage: mmseqs map <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | `n/a` |
-| Calls modules | [`search`](#modcmd-search) |
+| Upstream command count | `0` |
+| Downstream command count | `1` |
 | Related functional groups | `n/a` |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-map), [Dependency entry](#depcmd-map).
 
@@ -81,10 +79,9 @@ Reciprocal best hit search.
 | Usage | `usage: mmseqs rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | [`easy-rbh`](#modcmd-easy-rbh) |
-| Calls modules | [`filterdb`](#modcmd-filterdb), [`mergedbs`](#modcmd-mergedbs), [`result2rbh`](#modcmd-result2rbh), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`swapresults`](#modcmd-swapresults) |
+| Upstream command count | `1` |
+| Downstream command count | `6` |
 | Related functional groups | [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`result_handling`](#mod-result-handling), [`utilities`](#mod-utilities) |
-| Workflow script usage | `easyrbh.sh` |
 
 Reference links: [Full CLI](#refcmd-rbh), [Dependency entry](#depcmd-rbh).
 
@@ -110,10 +107,9 @@ Sensitive homology search.
 | Usage | `usage: mmseqs search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
 | API layer | `high_level_api` |
 | Category flags | `COMMAND_MAIN` |
-| Called by modules | [`clusterupdate`](#modcmd-clusterupdate), [`easy-linsearch`](#modcmd-easy-linsearch), [`easy-search`](#modcmd-easy-search), [`map`](#modcmd-map), [`multihitsearch`](#modcmd-multihitsearch), [`rbh`](#modcmd-rbh), [`search`](#modcmd-search), [`taxonomy`](#modcmd-taxonomy) |
-| Calls modules | [`align`](#modcmd-align), [`createsubdb`](#modcmd-createsubdb), [`expand2profile`](#modcmd-expand2profile), [`expandaln`](#modcmd-expandaln), [`extractframes`](#modcmd-extractframes), [`extractorfs`](#modcmd-extractorfs), [`filterresult`](#modcmd-filterresult), [`lcaalign`](#modcmd-lcaalign), [`mergedbs`](#modcmd-mergedbs), [`mvdb`](#modcmd-mvdb), [`offsetalignment`](#modcmd-offsetalignment), [`prefilter`](#modcmd-prefilter), [`profile2consensus`](#modcmd-profile2consensus), [`rescorediagonal`](#modcmd-rescorediagonal), [`result2profile`](#modcmd-result2profile), [`result2stats`](#modcmd-result2stats), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`splitsequence`](#modcmd-splitsequence), [`subtractdbs`](#modcmd-subtractdbs), [`swapresults`](#modcmd-swapresults), [`ungappedprefilter`](#modcmd-ungappedprefilter) |
+| Upstream command count | `8` |
+| Downstream command count | `22` |
 | Related functional groups | [`alignment`](#mod-alignment), [`clustering`](#mod-clustering), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`prefiltering`](#mod-prefiltering), [`profiles`](#mod-profiles), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`taxonomy`](#mod-taxonomy) |
-| Workflow script usage | `enrich.sh`, `iterativepp.sh`, `map.sh`, `multihitsearch.sh`, `rbh.sh`, `taxonomy.sh`, `update_clustering.sh` |
 
 Reference links: [Full CLI](#refcmd-search), [Dependency entry](#depcmd-search).
 

@@ -2,8 +2,6 @@
 
 Create a taxonomy report in Kraken or Krona format.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`taxonomy`](#mod-taxonomy) |
 | Category flags | `COMMAND_TAXONOMY | COMMAND_FORMAT_CONVERSION` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | [`easy-taxonomy`](#refcmd-easy-taxonomy) |
-| Calls modules | `n/a` |
-| Seen in workflow scripts | `easytaxonomy.sh` |
+| Upstream command count | `1` |
+| Downstream command count | `0` |
+| Workflow script count | `1` |
+| Detailed dependency entry | [Open in map](#depcmd-taxonomyreport) |
 
 ### Usage
 

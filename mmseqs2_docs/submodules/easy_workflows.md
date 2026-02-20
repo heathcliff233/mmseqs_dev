@@ -4,7 +4,7 @@ High-level shortcuts that operate directly on FASTA/FASTQ and produce user-facin
 
 ```{=typst}
 #doc_note[
-This page emphasizes module relationships and practical options. For complete CLI details, open the linked command reference pages. In connection tables, `n/a` means no direct static edge was resolved.
+This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
 ]
 ```
 
@@ -23,10 +23,9 @@ Slower, sensitive clustering.
 | Usage | `usage: mmseqs easy-cluster <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]` |
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Called by modules | `n/a` |
-| Calls modules | [`cluster`](#modcmd-cluster), [`createdb`](#modcmd-createdb), [`createseqfiledb`](#modcmd-createseqfiledb), [`createtsv`](#modcmd-createtsv), [`result2flat`](#modcmd-result2flat), [`result2repseq`](#modcmd-result2repseq), [`rmdb`](#modcmd-rmdb) |
+| Upstream command count | `0` |
+| Downstream command count | `7` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`result_handling`](#mod-result-handling) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-easy-cluster), [Dependency entry](#depcmd-easy-cluster).
 
@@ -52,10 +51,9 @@ Fast linear time cluster, less sensitive clustering.
 | Usage | `usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]` |
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Called by modules | `n/a` |
-| Calls modules | [`createdb`](#modcmd-createdb), [`createseqfiledb`](#modcmd-createseqfiledb), [`createtsv`](#modcmd-createtsv), [`linclust`](#modcmd-linclust), [`result2flat`](#modcmd-result2flat), [`result2repseq`](#modcmd-result2repseq), [`rmdb`](#modcmd-rmdb) |
+| Upstream command count | `0` |
+| Downstream command count | `7` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`result_handling`](#mod-result-handling) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-easy-linclust), [Dependency entry](#depcmd-easy-linclust).
 
@@ -81,10 +79,9 @@ Fast, less sensitive homology search.
 | Usage | `usage: mmseqs easy-linsearch <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]` |
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY | COMMAND_EXPERT` |
-| Called by modules | `n/a` |
-| Calls modules | [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`createlinindex`](#modcmd-createlinindex), [`linsearch`](#modcmd-linsearch), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`summarizeresult`](#modcmd-summarizeresult) |
+| Upstream command count | `0` |
+| Downstream command count | `7` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-easy-linsearch), [Dependency entry](#depcmd-easy-linsearch).
 
@@ -110,10 +107,9 @@ Find reciprocal best hit.
 | Usage | `usage: mmseqs easy-rbh <i:queryFastaFile1[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]` |
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Called by modules | `n/a` |
-| Calls modules | [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`rbh`](#modcmd-rbh), [`rmdb`](#modcmd-rmdb) |
+| Upstream command count | `0` |
+| Downstream command count | `4` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-easy-rbh), [Dependency entry](#depcmd-easy-rbh).
 
@@ -139,10 +135,9 @@ Sensitive homology search.
 | Usage | `usage: mmseqs easy-search <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]>|<i:stdin> <i:targetFastaFile[.gz]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]` |
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Called by modules | `n/a` |
-| Calls modules | [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`createlinindex`](#modcmd-createlinindex), [`linsearch`](#modcmd-linsearch), [`rmdb`](#modcmd-rmdb), [`search`](#modcmd-search), [`summarizeresult`](#modcmd-summarizeresult) |
+| Upstream command count | `0` |
+| Downstream command count | `7` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-easy-search), [Dependency entry](#depcmd-easy-search).
 
@@ -168,10 +163,9 @@ Taxonomic classification.
 | Usage | `usage: mmseqs easy-taxonomy <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <i:targetDB> <o:taxReports> <tmpDir> [options]` |
 | API layer | `workflow` |
 | Category flags | `COMMAND_EASY` |
-| Called by modules | `n/a` |
-| Calls modules | [`addtaxonomy`](#modcmd-addtaxonomy), [`convertalis`](#modcmd-convertalis), [`createdb`](#modcmd-createdb), [`createtsv`](#modcmd-createtsv), [`filterdb`](#modcmd-filterdb), [`lca`](#modcmd-lca), [`rmdb`](#modcmd-rmdb), [`summarizealis`](#modcmd-summarizealis), [`swapresults`](#modcmd-swapresults), [`taxonomy`](#modcmd-taxonomy), [`taxonomyreport`](#modcmd-taxonomyreport) |
+| Upstream command count | `0` |
+| Downstream command count | `11` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`taxonomy`](#mod-taxonomy), [`utilities`](#mod-utilities) |
-| Workflow script usage | `n/a` |
 
 Reference links: [Full CLI](#refcmd-easy-taxonomy), [Dependency entry](#depcmd-easy-taxonomy).
 

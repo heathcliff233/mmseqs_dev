@@ -15,7 +15,7 @@ pick_pdf_engine() {
   local help_text
   help_text="$(pandoc --help 2>/dev/null || true)"
 
-  if command -v typst >/dev/null 2>&1 && echo "$help_text" | grep -qi "typst"; then
+  if command -v typst >/dev/null 2>&1; then
     echo "typst"
     return
   fi

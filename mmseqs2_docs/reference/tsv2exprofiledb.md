@@ -2,8 +2,6 @@
 
 Create a expandable profile db from TSV files.
 
-In connection tables, `n/a` means no direct static edge was resolved by static extraction.
-
 ### Classification
 
 | Aspect | Value |
@@ -12,13 +10,14 @@ In connection tables, `n/a` means no direct static edge was resolved by static e
 | Primary functional group | [`profiles`](#mod-profiles) |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 
-### Connections
+### Topology
 
 | Aspect | Value |
 | :--- | :--- |
-| Called by modules | `n/a` |
-| Calls modules | [`aliasdb`](#refcmd-aliasdb), [`compress`](#refcmd-compress), [`mvdb`](#refcmd-mvdb), [`rmdb`](#refcmd-rmdb), [`tsv2db`](#refcmd-tsv2db) |
-| Seen in workflow scripts | `n/a` |
+| Upstream command count | `0` |
+| Downstream command count | `5` |
+| Workflow script count | `0` |
+| Detailed dependency entry | [Open in map](#depcmd-tsv2exprofiledb) |
 
 ### Usage
 
