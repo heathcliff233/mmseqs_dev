@@ -1,29 +1,20 @@
-## `rbh` {#refcmd-rbh}
+### `rbh` {#refcmd-rbh}
 
 Reciprocal best hit search.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](#mod-search-workflows) |
-| Category flags | `COMMAND_MAIN` |
+This command family balances sensitivity against runtime by controlling candidate generation, alignment workload, and split policy. The current dependency map records 1 upstream caller(s) and 6 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control over search sensitivity, filtering, and alignment behavior for DB-to-DB runs.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `6` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-rbh) |
+Dependency entry: [Open in map](#depcmd-rbh); functional module: [`search_workflows`](#mod-search-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Reciprocal best hit search.
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -186,7 +177,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-rbh), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
-

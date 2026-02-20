@@ -1,29 +1,20 @@
-## `filtertaxseqdb` {#refcmd-filtertaxseqdb}
+### `filtertaxseqdb` {#refcmd-filtertaxseqdb}
 
 Filter taxonomy sequence database.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`taxonomy`](#mod-taxonomy) |
-| Category flags | `COMMAND_TAXONOMY` |
+This command family maps sequence evidence into taxonomy labels and reports under explicit aggregation rules. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-filtertaxseqdb) |
+Dependency entry: [Open in map](#depcmd-filtertaxseqdb); functional module: [`taxonomy`](#mod-taxonomy).
 
-### Usage
+**Usage**
 
 `usage: mmseqs filtertaxseqdb <i:taxSeqDB> <o:taxSeqDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -33,7 +24,7 @@ Filter taxonomy sequence database.
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs filtertaxseqdb <i:taxSeqDB> <o:taxSeqDB> [options]
@@ -63,7 +54,3 @@ examples:
 references:
  - Mirdita M, Steinegger M, Breitwieser F, Soding J, Levy Karin E: Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, btab184 (2021)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-filtertaxseqdb), [command reference index](#sec-command-reference), and [functional module page](#mod-taxonomy).
-

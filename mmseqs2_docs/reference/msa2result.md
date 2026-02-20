@@ -1,29 +1,20 @@
-## `msa2result` {#refcmd-msa2result}
+### `msa2result` {#refcmd-msa2result}
 
 Convert a MSA DB to a profile DB.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`profiles`](#mod-profiles) |
-| Category flags | `COMMAND_PROFILE | COMMAND_EXPERT` |
+This command family preserves profile semantics across conversion and search steps. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-msa2result) |
+Dependency entry: [Open in map](#depcmd-msa2result); functional module: [`profiles`](#mod-profiles).
 
-### Usage
+**Usage**
 
 `usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Convert a MSA DB to a profile DB.
 | `--filter-msa` | Filter msa: 0: do not filter, 1: filter |
 | `--filter-min-enable` | Only filter MSAs with more than N sequences, 0 always filters |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]
@@ -81,7 +72,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-msa2result), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
-

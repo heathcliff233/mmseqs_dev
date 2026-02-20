@@ -1,22 +1,24 @@
 ## Clustering {#mod-clustering}
 
-Modules for cluster construction, updates, and representative handling across different clustering strategies.
+Modules for cluster construction, incremental updates, and representative selection across cascaded and linear-time strategies.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ```{=typst}
 #doc_perf[
-For repeated runs against stable targets, prioritize index reuse and split-memory tuning before increasing sensitivity.
+In production, tune index/load and split-memory policy before increasing sensitivity. Infrastructure choices usually dominate runtime swings.
 ]
 ```
 
 ### `clust` {#modcmd-clust}
 
 Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
+
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -25,9 +27,8 @@ Cluster result by Set-Cover/Connected-Component/Greedy-Incremental.
 | Category flags | `COMMAND_CLUSTER` |
 | Upstream command count | `2` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-clust), [Dependency entry](#depcmd-clust).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-clust) · [Dependency entry](#depcmd-clust) |
 
 #### Key Options
 
@@ -46,6 +47,8 @@ Reference links: [Full CLI](#refcmd-clust), [Dependency entry](#depcmd-clust).
 
 Slower, sensitive clustering.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 2 upstream caller(s) and 18 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]` |
@@ -54,8 +57,7 @@ Slower, sensitive clustering.
 | Upstream command count | `2` |
 | Downstream command count | `18` |
 | Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`prefiltering`](#mod-prefiltering), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-cluster), [Dependency entry](#depcmd-cluster).
+| References | [Full CLI](#refcmd-cluster) · [Dependency entry](#depcmd-cluster) |
 
 #### Key Options
 
@@ -74,6 +76,8 @@ Reference links: [Full CLI](#refcmd-cluster), [Dependency entry](#depcmd-cluster
 
 Update previous clustering with new sequences.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 0 upstream caller(s) and 13 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newMappedSequenceDB> <o:newClustResultDB> <tmpDir> [options]` |
@@ -82,8 +86,7 @@ Update previous clustering with new sequences.
 | Upstream command count | `0` |
 | Downstream command count | `13` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-clusterupdate), [Dependency entry](#depcmd-clusterupdate).
+| References | [Full CLI](#refcmd-clusterupdate) · [Dependency entry](#depcmd-clusterupdate) |
 
 #### Key Options
 
@@ -102,6 +105,8 @@ Reference links: [Full CLI](#refcmd-clusterupdate), [Dependency entry](#depcmd-c
 
 Hash-based clustering of equal length sequences.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs clusthash <i:sequenceDB> <o:alignmentDB> [options]` |
@@ -109,9 +114,8 @@ Hash-based clustering of equal length sequences.
 | Category flags | `COMMAND_CLUSTER` |
 | Upstream command count | `1` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-clusthash), [Dependency entry](#depcmd-clusthash).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-clusthash) · [Dependency entry](#depcmd-clusthash) |
 
 #### Key Options
 
@@ -130,6 +134,8 @@ Reference links: [Full CLI](#refcmd-clusthash), [Dependency entry](#depcmd-clust
 
 Fast, less sensitive clustering.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 2 upstream caller(s) and 8 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs linclust <i:sequenceDB> <o:clusterDB> <tmpDir> [options]` |
@@ -138,8 +144,7 @@ Fast, less sensitive clustering.
 | Upstream command count | `2` |
 | Downstream command count | `8` |
 | Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`prefiltering`](#mod-prefiltering), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-linclust), [Dependency entry](#depcmd-linclust).
+| References | [Full CLI](#refcmd-linclust) · [Dependency entry](#depcmd-linclust) |
 
 #### Key Options
 
@@ -158,6 +163,8 @@ Reference links: [Full CLI](#refcmd-linclust), [Dependency entry](#depcmd-linclu
 
 Merge multiple cascaded clustering steps.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs mergeclusters <i:sequenceDB> <o:clusterDB> <i:clusterDB1> ... <i:clusterDBn> [options]` |
@@ -165,9 +172,8 @@ Merge multiple cascaded clustering steps.
 | Category flags | `COMMAND_CLUSTER` |
 | Upstream command count | `2` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-mergeclusters), [Dependency entry](#depcmd-mergeclusters).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-mergeclusters) · [Dependency entry](#depcmd-mergeclusters) |
 
 #### Key Options
 
@@ -181,14 +187,17 @@ Reference links: [Full CLI](#refcmd-mergeclusters), [Dependency entry](#depcmd-m
 
 Select new representatives for each cluster based on consensus.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is reducing graph density early, then applying clustering criteria consistently across workflow steps. Current coupling is 0 upstream caller(s) and 7 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs pickconsensusrep <inputDB(s)> <outputDB> [options]` (source-derived synopsis; run `mmseqs pickconsensusrep` for exact syntax) |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_CLUSTER` |
 | Upstream command count | `0` |
 | Downstream command count | `7` |
 | Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`profiles`](#mod-profiles), [`result_handling`](#mod-result-handling), [`utilities`](#mod-utilities) |
+| References | [Full CLI](#refcmd-pickconsensusrep) · [Dependency entry](#depcmd-pickconsensusrep) |
 
-Reference links: [Full CLI](#refcmd-pickconsensusrep), [Dependency entry](#depcmd-pickconsensusrep).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 

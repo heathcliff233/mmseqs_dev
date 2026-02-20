@@ -1,41 +1,30 @@
-## `expand2profile` {#refcmd-expand2profile}
+### `expand2profile` {#refcmd-expand2profile}
 
 Expand an alignment result based on another and create a profile.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`profiles`](#mod-profiles) |
-| Category flags | `COMMAND_PROFILE_PROFILE` |
+This command family preserves profile semantics across conversion and search steps. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-expand2profile) |
+Dependency entry: [Open in map](#depcmd-expand2profile); functional module: [`profiles`](#mod-profiles).
 
-### Usage
+**Usage**
 
-No local help snapshot usage line is available.
+`usage: mmseqs expand2profile <inputDB(s)> <outputDB> [options]`
 
-### Key Options
+The syntax line above is source-derived from command layer/category metadata. Run `mmseqs expand2profile` locally for exact positional arguments in your build.
 
-No parsed options are available for this command.
+**Key Options**
 
-### Full CLI Help Snapshot
+Local CLI option snapshots are not available for this command. Use the dependency entry and calling workflow source files to recover parameter bundles for your runtime path.
+
+**Full CLI Help Snapshot**
 
 ```{=typst}
-#doc_warning[
-Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.
+#doc_note[
+This page keeps a source-derived summary because no local help snapshot was found for this command.
 ]
 ```
-
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-expand2profile), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
 

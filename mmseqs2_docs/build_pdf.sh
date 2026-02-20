@@ -46,8 +46,8 @@ if [ "$PDF_ENGINE" != "typst" ]; then
 fi
 
 # Order:
-# cover -> intro -> sharp bits -> system map -> foundations -> functional manual/submodules -> expert
-# -> appendices/reference indexes
+# cover -> intro -> performance foundations -> system map -> functional manual/submodules
+# -> expert -> command reference -> dependency map
 reference_pages=()
 while IFS= read -r page; do
   reference_pages+=("$page")
@@ -61,9 +61,8 @@ pandoc \
   numbering.md \
   toc.md \
   introduction.md \
-  sharp_bits.md \
-  system_map.md \
   foundations.md \
+  system_map.md \
   manual.md \
   submodules/easy_workflows.md \
   submodules/search.md \
@@ -78,8 +77,6 @@ pandoc \
   submodules/taxonomy.md \
   submodules/utilities.md \
   expert_manual.md \
-  appendix_wiki_reference.md \
-  appendix_developer.md \
   reference/index.md \
   "${reference_pages[@]}" \
   reference/dependency_map.md \

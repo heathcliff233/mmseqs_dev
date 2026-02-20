@@ -1,29 +1,20 @@
-## `clusterupdate` {#refcmd-clusterupdate}
+### `clusterupdate` {#refcmd-clusterupdate}
 
 Update previous clustering with new sequences.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`clustering`](#mod-clustering) |
-| Category flags | `COMMAND_MAIN` |
+This command family controls graph construction and cluster assignment behavior, so early filter decisions strongly affect downstream structure. The current dependency map records 0 upstream caller(s) and 13 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when constructing, refining, or updating cluster assignments while preserving explicit coverage/identity criteria.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `13` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-clusterupdate) |
+Dependency entry: [Open in map](#depcmd-clusterupdate); functional module: [`clustering`](#mod-clustering).
 
-### Usage
+**Usage**
 
 `usage: mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newMappedSequenceDB> <o:newClustResultDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Update previous clustering with new sequences.
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 | `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs clusterupdate <i:oldSequenceDB> <i:newSequenceDB> <i:oldClustResultDB> <o:newMappedSequenceDB> <o:newClustResultDB> <tmpDir> [options]
@@ -221,7 +212,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-clusterupdate), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
-

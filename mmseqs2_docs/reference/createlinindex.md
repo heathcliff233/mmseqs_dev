@@ -1,29 +1,20 @@
-## `createlinindex` {#refcmd-createlinindex}
+### `createlinindex` {#refcmd-createlinindex}
 
 Create linsearch index.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`database`](#mod-database) |
-| Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
+This command family enforces DB contracts and storage/index integrity used by all workflows. The current dependency map records 2 upstream caller(s) and 4 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when preparing or restructuring DB artifacts to satisfy downstream module contracts.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `2` |
-| Downstream command count | `4` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-createlinindex) |
+Dependency entry: [Open in map](#depcmd-createlinindex); functional module: [`database`](#mod-database).
 
-### Usage
+**Usage**
 
 `usage: mmseqs createlinindex <i:sequenceDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Create linsearch index.
 | `--min-seq-id` | List matches above this sequence identity (for clustering) (range 0.0-1.0) |
 | `--hash-shift` | Shift k-mer hash initialization |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs createlinindex <i:sequenceDB> <tmpDir> [options]
@@ -96,7 +87,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-createlinindex), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
-

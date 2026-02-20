@@ -1,29 +1,20 @@
-## `unpackdb` {#refcmd-unpackdb}
+### `unpackdb` {#refcmd-unpackdb}
 
 Unpack a DB into separate files.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`utilities`](#mod-utilities) |
-| Category flags | `COMMAND_STORAGE` |
+This command family provides compositional utilities for custom pipelines, migration tasks, and diagnostics. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-unpackdb) |
+Dependency entry: [Open in map](#depcmd-unpackdb); functional module: [`utilities`](#mod-utilities).
 
-### Usage
+**Usage**
 
 `usage: mmseqs unpackdb <i:DB> <o:outDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +23,7 @@ Unpack a DB into separate files.
 | `--threads` | Number of CPU-cores used (all by default) |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs unpackdb <i:DB> <o:outDir> [options]
@@ -48,7 +39,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-unpackdb), [command reference index](#sec-command-reference), and [functional module page](#mod-utilities).
-

@@ -1,29 +1,20 @@
-## `multihitsearch` {#refcmd-multihitsearch}
+### `multihitsearch` {#refcmd-multihitsearch}
 
 Search with a grouped set of sequences against another grouped set.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`multi_hit`](#mod-multi-hit) |
-| Category flags | `COMMAND_MULTIHIT` |
+This command family aggregates sequence-level hits into set-level statistics and decisions. The current dependency map records 0 upstream caller(s) and 4 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `4` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-multihitsearch) |
+Dependency entry: [Open in map](#depcmd-multihitsearch); functional module: [`multi_hit`](#mod-multi-hit).
 
-### Usage
+**Usage**
 
 `usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Search with a grouped set of sequences against another grouped set.
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]
@@ -187,7 +178,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-multihitsearch), [command reference index](#sec-command-reference), and [functional module page](#mod-multi-hit).
-

@@ -1,16 +1,18 @@
 ## Utilities {#mod-utilities}
 
-General-purpose helpers and special-purpose modules that support advanced workflow composition.
+General-purpose helpers and special-purpose composition commands used in advanced pipelines.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ### `apply` {#modcmd-apply}
 
 Execute given program on each DB entry.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -19,9 +21,8 @@ Execute given program on each DB entry.
 | Category flags | `COMMAND_DB` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-apply), [Dependency entry](#depcmd-apply).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-apply) · [Dependency entry](#depcmd-apply) |
 
 #### Key Options
 
@@ -35,6 +36,8 @@ Reference links: [Full CLI](#refcmd-apply), [Dependency entry](#depcmd-apply).
 
 Compress DB entries.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs compress <i:DB> <o:DB> [options]` |
@@ -43,8 +46,7 @@ Compress DB entries.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`profiles`](#mod-profiles) |
-
-Reference links: [Full CLI](#refcmd-compress), [Dependency entry](#depcmd-compress).
+| References | [Full CLI](#refcmd-compress) · [Dependency entry](#depcmd-compress) |
 
 #### Key Options
 
@@ -57,20 +59,25 @@ Reference links: [Full CLI](#refcmd-compress), [Dependency entry](#depcmd-compre
 
 Convert UniProtKB data to a DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs convertkb <DB> [args] [options]` (source-derived synopsis; run `mmseqs convertkb` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-convertkb) · [Dependency entry](#depcmd-convertkb) |
 
-Reference links: [Full CLI](#refcmd-convertkb), [Dependency entry](#depcmd-convertkb).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `decompress` {#modcmd-decompress}
 
 Decompress DB entries.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -79,9 +86,8 @@ Decompress DB entries.
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-decompress), [Dependency entry](#depcmd-decompress).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-decompress) · [Dependency entry](#depcmd-decompress) |
 
 #### Key Options
 
@@ -94,20 +100,25 @@ Reference links: [Full CLI](#refcmd-decompress), [Dependency entry](#depcmd-deco
 
 Compute diff of two sequence DBs.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs diffseqdbs <DB> [args] [options]` (source-derived synopsis; run `mmseqs diffseqdbs` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
+| References | [Full CLI](#refcmd-diffseqdbs) · [Dependency entry](#depcmd-diffseqdbs) |
 
-Reference links: [Full CLI](#refcmd-diffseqdbs), [Dependency entry](#depcmd-diffseqdbs).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `filterdb` {#modcmd-filterdb}
 
 DB filtering by given conditions.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 8 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -117,8 +128,7 @@ DB filtering by given conditions.
 | Upstream command count | `8` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-filterdb), [Dependency entry](#depcmd-filterdb).
+| References | [Full CLI](#refcmd-filterdb) · [Dependency entry](#depcmd-filterdb) |
 
 #### Key Options
 
@@ -137,20 +147,25 @@ Reference links: [Full CLI](#refcmd-filterdb), [Dependency entry](#depcmd-filter
 
 Extract regions from a sequence database based on a GFF3 file.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs gff2db <DB> [args] [options]` (source-derived synopsis; run `mmseqs gff2db` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-gff2db) · [Dependency entry](#depcmd-gff2db) |
 
-Reference links: [Full CLI](#refcmd-gff2db), [Dependency entry](#depcmd-gff2db).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `gpuserver` {#modcmd-gpuserver}
 
 Start a GPU server.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -159,9 +174,8 @@ Start a GPU server.
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-gpuserver), [Dependency entry](#depcmd-gpuserver).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-gpuserver) · [Dependency entry](#depcmd-gpuserver) |
 
 #### Key Options
 
@@ -176,20 +190,25 @@ Reference links: [Full CLI](#refcmd-gpuserver), [Dependency entry](#depcmd-gpuse
 
 Mask out sequence regions in a sequence DB by features selected from a GFF3 file.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs maskbygff <DB> [args] [options]` (source-derived synopsis; run `mmseqs maskbygff` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-maskbygff) · [Dependency entry](#depcmd-maskbygff) |
 
-Reference links: [Full CLI](#refcmd-maskbygff), [Dependency entry](#depcmd-maskbygff).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `prefixid` {#modcmd-prefixid}
 
 For each entry in a DB prepend the entry key to the entry itself.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -199,8 +218,7 @@ For each entry in a DB prepend the entry key to the entry itself.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database) |
-
-Reference links: [Full CLI](#refcmd-prefixid), [Dependency entry](#depcmd-prefixid).
+| References | [Full CLI](#refcmd-prefixid) · [Dependency entry](#depcmd-prefixid) |
 
 #### Key Options
 
@@ -217,6 +235,8 @@ Reference links: [Full CLI](#refcmd-prefixid), [Dependency entry](#depcmd-prefix
 
 Write an extended DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs setextendeddbtype <i:DB> [options]` |
@@ -224,9 +244,8 @@ Write an extended DB.
 | Category flags | `COMMAND_DB` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-setextendeddbtype), [Dependency entry](#depcmd-setextendeddbtype).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-setextendeddbtype) · [Dependency entry](#depcmd-setextendeddbtype) |
 
 #### Key Options
 
@@ -239,6 +258,8 @@ Reference links: [Full CLI](#refcmd-setextendeddbtype), [Dependency entry](#depc
 
 For each entry in a DB append the entry key to the entry itself.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs suffixid <i:resultDB> <o:resultDB> [options]` |
@@ -246,9 +267,8 @@ For each entry in a DB append the entry key to the entry itself.
 | Category flags | `COMMAND_DB` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-suffixid), [Dependency entry](#depcmd-suffixid).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-suffixid) · [Dependency entry](#depcmd-suffixid) |
 
 #### Key Options
 
@@ -265,20 +285,25 @@ Reference links: [Full CLI](#refcmd-suffixid), [Dependency entry](#depcmd-suffix
 
 Extract annotations from HHblits BLAST-tab-formatted results.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs summarizetabs <DB> [args] [options]` (source-derived synopsis; run `mmseqs summarizetabs` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-summarizetabs) · [Dependency entry](#depcmd-summarizetabs) |
 
-Reference links: [Full CLI](#refcmd-summarizetabs), [Dependency entry](#depcmd-summarizetabs).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `touchdb` {#modcmd-touchdb}
 
 Preload DB into memory (page cache).
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -287,9 +312,8 @@ Preload DB into memory (page cache).
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-touchdb), [Dependency entry](#depcmd-touchdb).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-touchdb) · [Dependency entry](#depcmd-touchdb) |
 
 #### Key Options
 
@@ -302,6 +326,8 @@ Reference links: [Full CLI](#refcmd-touchdb), [Dependency entry](#depcmd-touchdb
 
 Unpack a DB into separate files.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs unpackdb <i:DB> <o:outDir> [options]` |
@@ -309,9 +335,8 @@ Unpack a DB into separate files.
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-unpackdb), [Dependency entry](#depcmd-unpackdb).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-unpackdb) · [Dependency entry](#depcmd-unpackdb) |
 
 #### Key Options
 
@@ -326,6 +351,8 @@ Reference links: [Full CLI](#refcmd-unpackdb), [Dependency entry](#depcmd-unpack
 
 Print DB entries given in --id-list to stdout.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is composability and operational control for custom pipelines and debugging workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs view <i:DB> [options]` |
@@ -333,9 +360,8 @@ Print DB entries given in --id-list to stdout.
 | Category flags | `COMMAND_DB` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-view), [Dependency entry](#depcmd-view).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-view) · [Dependency entry](#depcmd-view) |
 
 #### Key Options
 

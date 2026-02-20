@@ -1,29 +1,20 @@
-## `search` {#refcmd-search}
+### `search` {#refcmd-search}
 
 Sensitive homology search.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](#mod-search-workflows) |
-| Category flags | `COMMAND_MAIN` |
+This command family balances sensitivity against runtime by controlling candidate generation, alignment workload, and split policy. The current dependency map records 8 upstream caller(s) and 22 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control over search sensitivity, filtering, and alignment behavior for DB-to-DB runs.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `8` |
-| Downstream command count | `22` |
-| Workflow script count | `7` |
-| Detailed dependency entry | [Open in map](#depcmd-search) |
+Dependency entry: [Open in map](#depcmd-search); functional module: [`search_workflows`](#mod-search-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Sensitive homology search.
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -205,7 +196,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Kallenborn F, Chacon A, Hundt C, Sirelkhatim H, Didi K, Dallago C, Mirdita M, Schmidt B, Steinegger M: GPU-accelerated homology search with MMseqs2. bioRxiv, 2024.11.13.623350 (2024)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-search), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
-

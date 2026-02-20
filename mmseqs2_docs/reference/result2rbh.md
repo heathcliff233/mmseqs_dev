@@ -1,29 +1,20 @@
-## `result2rbh` {#refcmd-result2rbh}
+### `result2rbh` {#refcmd-result2rbh}
 
 Filter a merged result DB to retain only reciprocal best hits.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](#mod-result-handling) |
-| Category flags | `COMMAND_RESULT` |
+This command family reshapes and exports outputs; interpretation must remain consistent with upstream scoring modes. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when transforming or exporting result DBs after scoring decisions are already fixed upstream.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-result2rbh) |
+Dependency entry: [Open in map](#depcmd-result2rbh); functional module: [`result_handling`](#mod-result-handling).
 
-### Usage
+**Usage**
 
 `usage: mmseqs result2rbh <i:resultDB> <o:resultDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -31,7 +22,7 @@ Filter a merged result DB to retain only reciprocal best hits.
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs result2rbh <i:resultDB> <o:resultDB> [options]
@@ -44,7 +35,3 @@ options: common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-result2rbh), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
-

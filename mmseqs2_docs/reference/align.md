@@ -1,29 +1,20 @@
-## `align` {#refcmd-align}
+### `align` {#refcmd-align}
 
 Optimal gapped local alignment.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](#mod-alignment) |
-| Category flags | `COMMAND_ALIGNMENT` |
+This command family computes pair quality and coordinates and usually dominates per-pair compute cost after prefiltering. The current dependency map records 5 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `5` |
-| Downstream command count | `0` |
-| Workflow script count | `4` |
-| Detailed dependency entry | [Open in map](#depcmd-align) |
+Dependency entry: [Open in map](#depcmd-align); functional module: [`alignment`](#mod-alignment).
 
-### Usage
+**Usage**
 
 `usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Optimal gapped local alignment.
 | `--seq-id-mode` | 0: alignment length 1: shorter, 2: longer sequence |
 | `--alt-ali` | Show up to this many alternative alignments |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs align <i:queryDB> <i:targetDB> <i:resultDB> <o:alignmentDB> [options]
@@ -100,7 +91,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-align), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
-

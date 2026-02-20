@@ -1,29 +1,20 @@
-## `mergeresultsbyset` {#refcmd-mergeresultsbyset}
+### `mergeresultsbyset` {#refcmd-mergeresultsbyset}
 
 Merge results from multiple ORFs back to their respective contig.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`multi_hit`](#mod-multi-hit) |
-| Category flags | `COMMAND_MULTIHIT` |
+This command family aggregates sequence-level hits into set-level statistics and decisions. The current dependency map records 2 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `2` |
-| Downstream command count | `0` |
-| Workflow script count | `2` |
-| Detailed dependency entry | [Open in map](#depcmd-mergeresultsbyset) |
+Dependency entry: [Open in map](#depcmd-mergeresultsbyset); functional module: [`multi_hit`](#mod-multi-hit).
 
-### Usage
+**Usage**
 
 `usage: mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +23,7 @@ Merge results from multiple ORFs back to their respective contig.
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]
@@ -46,7 +37,3 @@ options: common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-mergeresultsbyset), [command reference index](#sec-command-reference), and [functional module page](#mod-multi-hit).
-

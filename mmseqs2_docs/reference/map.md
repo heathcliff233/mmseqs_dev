@@ -1,29 +1,20 @@
-## `map` {#refcmd-map}
+### `map` {#refcmd-map}
 
 Map nearly identical sequences.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](#mod-search-workflows) |
-| Category flags | `COMMAND_MAIN` |
+This command family balances sensitivity against runtime by controlling candidate generation, alignment workload, and split policy. The current dependency map records 0 upstream caller(s) and 1 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control over search sensitivity, filtering, and alignment behavior for DB-to-DB runs.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `1` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-map) |
+Dependency entry: [Open in map](#depcmd-map); functional module: [`search_workflows`](#mod-search-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs map <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Map nearly identical sequences.
 | `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
 | `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs map <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -131,7 +122,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Steinegger M, Mirdita M, Soding J: Protein-level assembly increases protein sequence recovery from metagenomic samples manyfold. Nature Methods, 16(7), 603-606 (2019)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-map), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
-

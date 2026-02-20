@@ -1,29 +1,20 @@
-## `easy-linclust` {#refcmd-easy-linclust}
+### `easy-linclust` {#refcmd-easy-linclust}
 
 Fast linear time cluster, less sensitive clustering.
 
-### Classification
+Execution role: workflow entrypoint that coordinates lower-level modules rather than acting as a single compute kernel.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
-| Category flags | `COMMAND_EASY` |
+This command family favors fast adoption and default-safe orchestration over maximal low-level control. The current dependency map records 0 upstream caller(s) and 7 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `7` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-easy-linclust) |
+Dependency entry: [Open in map](#depcmd-easy-linclust); functional module: [`easy_workflows`](#mod-easy-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Fast linear time cluster, less sensitive clustering.
 | `-k` | k-mer length (0: automatically set to optimum) |
 | `--split-memory-limit` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]
@@ -163,7 +154,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-linclust), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
-

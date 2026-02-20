@@ -1,29 +1,20 @@
-## `filterresult` {#refcmd-filterresult}
+### `filterresult` {#refcmd-filterresult}
 
 Pairwise alignment result filter.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`result_handling`](#mod-result-handling) |
-| Category flags | `COMMAND_RESULT` |
+This command family reshapes and exports outputs; interpretation must remain consistent with upstream scoring modes. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when transforming or exporting result DBs after scoring decisions are already fixed upstream.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-filterresult) |
+Dependency entry: [Open in map](#depcmd-filterresult); functional module: [`result_handling`](#mod-result-handling).
 
-### Usage
+**Usage**
 
 `usage: mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Pairwise alignment result filter.
 | `--diff` | Filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 |
 | `--allow-deletion` | Allow deletions in a MSA |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs filterresult <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]
@@ -73,7 +64,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-filterresult), [command reference index](#sec-command-reference), and [functional module page](#mod-result-handling).
-

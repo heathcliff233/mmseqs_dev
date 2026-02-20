@@ -1,29 +1,20 @@
-## `easy-search` {#refcmd-easy-search}
+### `easy-search` {#refcmd-easy-search}
 
 Sensitive homology search.
 
-### Classification
+Execution role: workflow entrypoint that coordinates lower-level modules rather than acting as a single compute kernel.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
-| Category flags | `COMMAND_EASY` |
+This command family favors fast adoption and default-safe orchestration over maximal low-level control. The current dependency map records 0 upstream caller(s) and 7 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `7` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-easy-search) |
+Dependency entry: [Open in map](#depcmd-easy-search); functional module: [`easy_workflows`](#mod-easy-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs easy-search <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]>|<i:stdin> <i:targetFastaFile[.gz]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Sensitive homology search.
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs easy-search <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]>|<i:stdin> <i:targetFastaFile[.gz]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]
@@ -222,7 +213,3 @@ references:
  - Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
  - Kallenborn F, Chacon A, Hundt C, Sirelkhatim H, Didi K, Dallago C, Mirdita M, Schmidt B, Steinegger M: GPU-accelerated homology search with MMseqs2. bioRxiv, 2024.11.13.623350 (2024)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-search), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
-

@@ -1,22 +1,24 @@
 ## Easy Workflows {#mod-easy-workflows}
 
-High-level shortcuts that operate directly on FASTA/FASTQ and produce user-facing outputs with minimal setup.
+High-level shortcuts that operate directly on FASTA/FASTQ inputs and orchestrate MMseqs2 modules with practical defaults.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ```{=typst}
 #doc_perf[
-For repeated runs against stable targets, prioritize index reuse and split-memory tuning before increasing sensitivity.
+In production, tune index/load and split-memory policy before increasing sensitivity. Infrastructure choices usually dominate runtime swings.
 ]
 ```
 
 ### `easy-cluster` {#modcmd-easy-cluster}
 
 Slower, sensitive clustering.
+
+Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design priority is fast onboarding with robust defaults; fine-grained behavior is inherited from downstream workflow modules. Current coupling is 0 upstream caller(s) and 7 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -26,8 +28,7 @@ Slower, sensitive clustering.
 | Upstream command count | `0` |
 | Downstream command count | `7` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`result_handling`](#mod-result-handling) |
-
-Reference links: [Full CLI](#refcmd-easy-cluster), [Dependency entry](#depcmd-easy-cluster).
+| References | [Full CLI](#refcmd-easy-cluster) · [Dependency entry](#depcmd-easy-cluster) |
 
 #### Key Options
 
@@ -46,6 +47,8 @@ Reference links: [Full CLI](#refcmd-easy-cluster), [Dependency entry](#depcmd-ea
 
 Fast linear time cluster, less sensitive clustering.
 
+Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design priority is fast onboarding with robust defaults; fine-grained behavior is inherited from downstream workflow modules. Current coupling is 0 upstream caller(s) and 7 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs easy-linclust <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <o:clusterPrefix> <tmpDir> [options]` |
@@ -54,8 +57,7 @@ Fast linear time cluster, less sensitive clustering.
 | Upstream command count | `0` |
 | Downstream command count | `7` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`result_handling`](#mod-result-handling) |
-
-Reference links: [Full CLI](#refcmd-easy-linclust), [Dependency entry](#depcmd-easy-linclust).
+| References | [Full CLI](#refcmd-easy-linclust) · [Dependency entry](#depcmd-easy-linclust) |
 
 #### Key Options
 
@@ -74,6 +76,8 @@ Reference links: [Full CLI](#refcmd-easy-linclust), [Dependency entry](#depcmd-e
 
 Fast, less sensitive homology search.
 
+Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design priority is fast onboarding with robust defaults; fine-grained behavior is inherited from downstream workflow modules. Current coupling is 0 upstream caller(s) and 7 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs easy-linsearch <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]` |
@@ -82,8 +86,7 @@ Fast, less sensitive homology search.
 | Upstream command count | `0` |
 | Downstream command count | `7` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-easy-linsearch), [Dependency entry](#depcmd-easy-linsearch).
+| References | [Full CLI](#refcmd-easy-linsearch) · [Dependency entry](#depcmd-easy-linsearch) |
 
 #### Key Options
 
@@ -102,6 +105,8 @@ Reference links: [Full CLI](#refcmd-easy-linsearch), [Dependency entry](#depcmd-
 
 Find reciprocal best hit.
 
+Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design priority is fast onboarding with robust defaults; fine-grained behavior is inherited from downstream workflow modules. Current coupling is 0 upstream caller(s) and 4 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs easy-rbh <i:queryFastaFile1[.gz|.bz2]> <i:targetFastaFile[.gz|.bz2]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]` |
@@ -110,8 +115,7 @@ Find reciprocal best hit.
 | Upstream command count | `0` |
 | Downstream command count | `4` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-easy-rbh), [Dependency entry](#depcmd-easy-rbh).
+| References | [Full CLI](#refcmd-easy-rbh) · [Dependency entry](#depcmd-easy-rbh) |
 
 #### Key Options
 
@@ -130,6 +134,8 @@ Reference links: [Full CLI](#refcmd-easy-rbh), [Dependency entry](#depcmd-easy-r
 
 Sensitive homology search.
 
+Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design priority is fast onboarding with robust defaults; fine-grained behavior is inherited from downstream workflow modules. Current coupling is 0 upstream caller(s) and 7 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs easy-search <i:queryFastaFile1[.gz|.bz2]> ... <i:queryFastaFileN[.gz|.bz2]>|<i:stdin> <i:targetFastaFile[.gz]>|<i:targetDB> <o:alignmentFile> <tmpDir> [options]` |
@@ -138,8 +144,7 @@ Sensitive homology search.
 | Upstream command count | `0` |
 | Downstream command count | `7` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-easy-search), [Dependency entry](#depcmd-easy-search).
+| References | [Full CLI](#refcmd-easy-search) · [Dependency entry](#depcmd-easy-search) |
 
 #### Key Options
 
@@ -158,6 +163,8 @@ Reference links: [Full CLI](#refcmd-easy-search), [Dependency entry](#depcmd-eas
 
 Taxonomic classification.
 
+Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design priority is fast onboarding with robust defaults; fine-grained behavior is inherited from downstream workflow modules. Current coupling is 0 upstream caller(s) and 11 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs easy-taxonomy <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <i:targetDB> <o:taxReports> <tmpDir> [options]` |
@@ -166,8 +173,7 @@ Taxonomic classification.
 | Upstream command count | `0` |
 | Downstream command count | `11` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`taxonomy`](#mod-taxonomy), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-easy-taxonomy), [Dependency entry](#depcmd-easy-taxonomy).
+| References | [Full CLI](#refcmd-easy-taxonomy) · [Dependency entry](#depcmd-easy-taxonomy) |
 
 #### Key Options
 

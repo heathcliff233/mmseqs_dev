@@ -1,29 +1,20 @@
-## `besthitperset` {#refcmd-besthitperset}
+### `besthitperset` {#refcmd-besthitperset}
 
 For each set of sequences compute the best element and update p-value.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`multi_hit`](#mod-multi-hit) |
-| Category flags | `COMMAND_MULTIHIT` |
+This command family aggregates sequence-level hits into set-level statistics and decisions. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-besthitperset) |
+Dependency entry: [Open in map](#depcmd-besthitperset); functional module: [`multi_hit`](#mod-multi-hit).
 
-### Usage
+**Usage**
 
 `usage: mmseqs besthitperset  <i:targetSetDB> <i:resultDB> <o:resultDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +23,7 @@ For each set of sequences compute the best element and update p-value.
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs besthitperset  <i:targetSetDB> <i:resultDB> <o:resultDB> [options]
@@ -47,7 +38,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-besthitperset), [command reference index](#sec-command-reference), and [functional module page](#mod-multi-hit).
-

@@ -1,41 +1,30 @@
-## `databases` {#refcmd-databases}
+### `databases` {#refcmd-databases}
 
 List and download databases.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`database`](#mod-database) |
-| Category flags | `COMMAND_DATABASE_CREATION` |
+This command family enforces DB contracts and storage/index integrity used by all workflows. The current dependency map records 0 upstream caller(s) and 8 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when preparing or restructuring DB artifacts to satisfy downstream module contracts.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `8` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-databases) |
+Dependency entry: [Open in map](#depcmd-databases); functional module: [`database`](#mod-database).
 
-### Usage
+**Usage**
 
-No local help snapshot usage line is available.
+`usage: mmseqs databases <DB> [args] [options]`
 
-### Key Options
+The syntax line above is source-derived from command layer/category metadata. Run `mmseqs databases` locally for exact positional arguments in your build.
 
-No parsed options are available for this command.
+**Key Options**
 
-### Full CLI Help Snapshot
+Local CLI option snapshots are not available for this command. Use the dependency entry and calling workflow source files to recover parameter bundles for your runtime path.
+
+**Full CLI Help Snapshot**
 
 ```{=typst}
-#doc_warning[
-Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.
+#doc_note[
+This page keeps a source-derived summary because no local help snapshot was found for this command.
 ]
 ```
-
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-databases), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
 

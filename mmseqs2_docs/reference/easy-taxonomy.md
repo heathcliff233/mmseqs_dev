@@ -1,29 +1,20 @@
-## `easy-taxonomy` {#refcmd-easy-taxonomy}
+### `easy-taxonomy` {#refcmd-easy-taxonomy}
 
 Taxonomic classification.
 
-### Classification
+Execution role: workflow entrypoint that coordinates lower-level modules rather than acting as a single compute kernel.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `workflow` |
-| Primary functional group | [`easy_workflows`](#mod-easy-workflows) |
-| Category flags | `COMMAND_EASY` |
+This command family favors fast adoption and default-safe orchestration over maximal low-level control. The current dependency map records 0 upstream caller(s) and 11 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `11` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-easy-taxonomy) |
+Dependency entry: [Open in map](#depcmd-easy-taxonomy); functional module: [`easy_workflows`](#mod-easy-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs easy-taxonomy <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <i:targetDB> <o:taxReports> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Taxonomic classification.
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs easy-taxonomy <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]> <i:targetDB> <o:taxReports> <tmpDir> [options]
@@ -233,7 +224,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Breitwieser F, Soding J, Levy Karin E: Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, btab184 (2021)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-easy-taxonomy), [command reference index](#sec-command-reference), and [functional module page](#mod-easy-workflows).
-

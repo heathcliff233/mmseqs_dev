@@ -1,29 +1,20 @@
-## `clusthash` {#refcmd-clusthash}
+### `clusthash` {#refcmd-clusthash}
 
 Hash-based clustering of equal length sequences.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`clustering`](#mod-clustering) |
-| Category flags | `COMMAND_CLUSTER` |
+This command family controls graph construction and cluster assignment behavior, so early filter decisions strongly affect downstream structure. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when constructing, refining, or updating cluster assignments while preserving explicit coverage/identity criteria.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-clusthash) |
+Dependency entry: [Open in map](#depcmd-clusthash); functional module: [`clustering`](#mod-clustering).
 
-### Usage
+**Usage**
 
 `usage: mmseqs clusthash <i:sequenceDB> <o:alignmentDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -36,7 +27,7 @@ Hash-based clustering of equal length sequences.
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs clusthash <i:sequenceDB> <o:alignmentDB> [options]
@@ -56,7 +47,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-clusthash), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
-

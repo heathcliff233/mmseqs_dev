@@ -1,29 +1,20 @@
-## `rescorediagonal` {#refcmd-rescorediagonal}
+### `rescorediagonal` {#refcmd-rescorediagonal}
 
 Compute sequence identity for diagonal.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](#mod-alignment) |
-| Category flags | `COMMAND_ALIGNMENT` |
+This command family computes pair quality and coordinates and usually dominates per-pair compute cost after prefiltering. The current dependency map records 5 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `5` |
-| Downstream command count | `0` |
-| Workflow script count | `4` |
-| Detailed dependency entry | [Open in map](#depcmd-rescorediagonal) |
+Dependency entry: [Open in map](#depcmd-rescorediagonal); functional module: [`alignment`](#mod-alignment).
 
-### Usage
+**Usage**
 
 `usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Compute sequence identity for diagonal.
 | `--sub-mat` | Substitution matrix file |
 | `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
@@ -81,7 +72,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-rescorediagonal), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
-

@@ -1,16 +1,18 @@
 ## Multi-hit {#mod-multi-hit}
 
-Modules for grouped-sequence (set-based) search and per-set aggregation pipelines.
+Set-based modules that aggregate sequence-level evidence into per-set statistics and outputs.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ### `besthitperset` {#modcmd-besthitperset}
 
 For each set of sequences compute the best element and update p-value.
+
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is robust set-level aggregation over sequence-level evidence with transparent statistical behavior. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -19,9 +21,8 @@ For each set of sequences compute the best element and update p-value.
 | Category flags | `COMMAND_MULTIHIT` |
 | Upstream command count | `1` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-besthitperset), [Dependency entry](#depcmd-besthitperset).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-besthitperset) · [Dependency entry](#depcmd-besthitperset) |
 
 #### Key Options
 
@@ -36,6 +37,8 @@ Reference links: [Full CLI](#refcmd-besthitperset), [Dependency entry](#depcmd-b
 
 For each set compute the combined p-value.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is robust set-level aggregation over sequence-level evidence with transparent statistical behavior. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs combinepvalperset <i:querySetDB> <i:targetSetDB> <i:resultDB> <o:pvalDB> [options]` |
@@ -43,9 +46,8 @@ For each set compute the combined p-value.
 | Category flags | `COMMAND_MULTIHIT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-combinepvalperset), [Dependency entry](#depcmd-combinepvalperset).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-combinepvalperset) · [Dependency entry](#depcmd-combinepvalperset) |
 
 #### Key Options
 
@@ -61,6 +63,8 @@ Reference links: [Full CLI](#refcmd-combinepvalperset), [Dependency entry](#depc
 
 Merge results from multiple ORFs back to their respective contig.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is robust set-level aggregation over sequence-level evidence with transparent statistical behavior. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs mergeresultsbyset <i:setDB> <i:DB> <o:DB> [options]` |
@@ -69,8 +73,7 @@ Merge results from multiple ORFs back to their respective contig.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-mergeresultsbyset), [Dependency entry](#depcmd-mergeresultsbyset).
+| References | [Full CLI](#refcmd-mergeresultsbyset) · [Dependency entry](#depcmd-mergeresultsbyset) |
 
 #### Key Options
 
@@ -85,6 +88,8 @@ Reference links: [Full CLI](#refcmd-mergeresultsbyset), [Dependency entry](#depc
 
 Create sequence DB for multi hit searches.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is robust set-level aggregation over sequence-level evidence with transparent statistical behavior. Current coupling is 0 upstream caller(s) and 8 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]` |
@@ -93,8 +98,7 @@ Create sequence DB for multi hit searches.
 | Upstream command count | `0` |
 | Downstream command count | `8` |
 | Related functional groups | [`database`](#mod-database), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-multihitdb), [Dependency entry](#depcmd-multihitdb).
+| References | [Full CLI](#refcmd-multihitdb) · [Dependency entry](#depcmd-multihitdb) |
 
 #### Key Options
 
@@ -113,6 +117,8 @@ Reference links: [Full CLI](#refcmd-multihitdb), [Dependency entry](#depcmd-mult
 
 Search with a grouped set of sequences against another grouped set.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is robust set-level aggregation over sequence-level evidence with transparent statistical behavior. Current coupling is 0 upstream caller(s) and 4 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs multihitsearch <i:querySetDB> <i:targetSetDB> <o:resultDB> <tmpDir> [options]` |
@@ -121,8 +127,7 @@ Search with a grouped set of sequences against another grouped set.
 | Upstream command count | `0` |
 | Downstream command count | `4` |
 | Related functional groups | [`database`](#mod-database), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-multihitsearch), [Dependency entry](#depcmd-multihitsearch).
+| References | [Full CLI](#refcmd-multihitsearch) · [Dependency entry](#depcmd-multihitsearch) |
 
 #### Key Options
 

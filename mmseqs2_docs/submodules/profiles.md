@@ -1,10 +1,10 @@
 ## Profiles {#mod-profiles}
 
-Modules for profile/MSA conversion, profile construction, and profile-driven workflow components.
+Profile and MSA modules for profile construction, conversion, and profile-driven search workflows.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
@@ -12,20 +12,25 @@ This page focuses on task-oriented usage and practical options. Detailed call to
 
 Convert a cA3M DB to a result DB.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs convertca3m <inputDB(s)> <outputDB> [options]` (source-derived synopsis; run `mmseqs convertca3m` for exact syntax) |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-convertca3m) · [Dependency entry](#depcmd-convertca3m) |
 
-Reference links: [Full CLI](#refcmd-convertca3m), [Dependency entry](#depcmd-convertca3m).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `convertmsa` {#modcmd-convertmsa}
 
 Convert Stockholm/PFAM MSA file to a MSA DB.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -35,8 +40,7 @@ Convert Stockholm/PFAM MSA file to a MSA DB.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`database`](#mod-database) |
-
-Reference links: [Full CLI](#refcmd-convertmsa), [Dependency entry](#depcmd-convertmsa).
+| References | [Full CLI](#refcmd-convertmsa) · [Dependency entry](#depcmd-convertmsa) |
 
 #### Key Options
 
@@ -50,35 +54,43 @@ Reference links: [Full CLI](#refcmd-convertmsa), [Dependency entry](#depcmd-conv
 
 Convert a HH-suite HHM DB to a profile DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs convertprofiledb <DB> [args] [options]` (source-derived synopsis; run `mmseqs convertprofiledb` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-convertprofiledb) · [Dependency entry](#depcmd-convertprofiledb) |
 
-Reference links: [Full CLI](#refcmd-convertprofiledb), [Dependency entry](#depcmd-convertprofiledb).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `expand2profile` {#modcmd-expand2profile}
 
 Expand an alignment result based on another and create a profile.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs expand2profile <inputDB(s)> <outputDB> [options]` (source-derived synopsis; run `mmseqs expand2profile` for exact syntax) |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_PROFILE_PROFILE` |
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
+| References | [Full CLI](#refcmd-expand2profile) · [Dependency entry](#depcmd-expand2profile) |
 
-Reference links: [Full CLI](#refcmd-expand2profile), [Dependency entry](#depcmd-expand2profile).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `msa2profile` {#modcmd-msa2profile}
 
 Convert a MSA DB to a profile DB.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -88,8 +100,7 @@ Convert a MSA DB to a profile DB.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database) |
-
-Reference links: [Full CLI](#refcmd-msa2profile), [Dependency entry](#depcmd-msa2profile).
+| References | [Full CLI](#refcmd-msa2profile) · [Dependency entry](#depcmd-msa2profile) |
 
 #### Key Options
 
@@ -108,6 +119,8 @@ Reference links: [Full CLI](#refcmd-msa2profile), [Dependency entry](#depcmd-msa
 
 Convert a MSA DB to a profile DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs msa2result <i:msaDB> <o:seqDB> <o:profileDB> [options]` |
@@ -115,9 +128,8 @@ Convert a MSA DB to a profile DB.
 | Category flags | `COMMAND_PROFILE | COMMAND_EXPERT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-msa2result), [Dependency entry](#depcmd-msa2result).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-msa2result) · [Dependency entry](#depcmd-msa2result) |
 
 #### Key Options
 
@@ -136,80 +148,97 @@ Reference links: [Full CLI](#refcmd-msa2result), [Dependency entry](#depcmd-msa2
 
 Pair sequences to match best protein A and B from a species.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs pairaln <DB> [args] [options]` (source-derived synopsis; run `mmseqs pairaln` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_EXPERT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-pairaln) · [Dependency entry](#depcmd-pairaln) |
 
-Reference links: [Full CLI](#refcmd-pairaln), [Dependency entry](#depcmd-pairaln).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `profile2consensus` {#modcmd-profile2consensus}
 
 Extract consensus sequence DB from a profile DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs profile2consensus <DB> [args] [options]` (source-derived synopsis; run `mmseqs profile2consensus` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
+| References | [Full CLI](#refcmd-profile2consensus) · [Dependency entry](#depcmd-profile2consensus) |
 
-Reference links: [Full CLI](#refcmd-profile2consensus), [Dependency entry](#depcmd-profile2consensus).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `profile2neff` {#modcmd-profile2neff}
 
 Convert a profile DB to a tab-separated list of Neff scores.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs profile2neff <DB> [args] [options]` (source-derived synopsis; run `mmseqs profile2neff` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-profile2neff) · [Dependency entry](#depcmd-profile2neff) |
 
-Reference links: [Full CLI](#refcmd-profile2neff), [Dependency entry](#depcmd-profile2neff).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `profile2pssm` {#modcmd-profile2pssm}
 
 Convert a profile DB to a tab-separated PSSM file.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs profile2pssm <DB> [args] [options]` (source-derived synopsis; run `mmseqs profile2pssm` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-profile2pssm) · [Dependency entry](#depcmd-profile2pssm) |
 
-Reference links: [Full CLI](#refcmd-profile2pssm), [Dependency entry](#depcmd-profile2pssm).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `profile2repseq` {#modcmd-profile2repseq}
 
 Extract representative sequence DB from a profile DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs profile2repseq <DB> [args] [options]` (source-derived synopsis; run `mmseqs profile2repseq` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-profile2repseq) · [Dependency entry](#depcmd-profile2repseq) |
 
-Reference links: [Full CLI](#refcmd-profile2repseq), [Dependency entry](#depcmd-profile2repseq).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `result2profile` {#modcmd-result2profile}
 
 Compute profile DB from a result DB.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -219,8 +248,7 @@ Compute profile DB from a result DB.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-result2profile), [Dependency entry](#depcmd-result2profile).
+| References | [Full CLI](#refcmd-result2profile) · [Dependency entry](#depcmd-result2profile) |
 
 #### Key Options
 
@@ -239,20 +267,25 @@ Reference links: [Full CLI](#refcmd-result2profile), [Dependency entry](#depcmd-
 
 Turn sequence into profile by adding context specific pseudo counts.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs sequence2profile <DB> [args] [options]` (source-derived synopsis; run `mmseqs sequence2profile` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_PROFILE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-sequence2profile) · [Dependency entry](#depcmd-sequence2profile) |
 
-Reference links: [Full CLI](#refcmd-sequence2profile), [Dependency entry](#depcmd-sequence2profile).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `tsv2exprofiledb` {#modcmd-tsv2exprofiledb}
 
 Create a expandable profile db from TSV files.
+
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is preserving profile semantics across transforms so search and scoring remain interpretable. Current coupling is 0 upstream caller(s) and 5 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -262,8 +295,7 @@ Create a expandable profile db from TSV files.
 | Upstream command count | `0` |
 | Downstream command count | `5` |
 | Related functional groups | [`database`](#mod-database), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-tsv2exprofiledb), [Dependency entry](#depcmd-tsv2exprofiledb).
+| References | [Full CLI](#refcmd-tsv2exprofiledb) · [Dependency entry](#depcmd-tsv2exprofiledb) |
 
 #### Key Options
 

@@ -1,41 +1,30 @@
-## `addtaxonomy` {#refcmd-addtaxonomy}
+### `addtaxonomy` {#refcmd-addtaxonomy}
 
 Add taxonomic labels to result DB.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`taxonomy`](#mod-taxonomy) |
-| Category flags | `COMMAND_TAXONOMY | COMMAND_EXPERT` |
+This command family maps sequence evidence into taxonomy labels and reports under explicit aggregation rules. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-addtaxonomy) |
+Dependency entry: [Open in map](#depcmd-addtaxonomy); functional module: [`taxonomy`](#mod-taxonomy).
 
-### Usage
+**Usage**
 
-No local help snapshot usage line is available.
+`usage: mmseqs addtaxonomy <DB> [args] [options]`
 
-### Key Options
+The syntax line above is source-derived from command layer/category metadata. Run `mmseqs addtaxonomy` locally for exact positional arguments in your build.
 
-No parsed options are available for this command.
+**Key Options**
 
-### Full CLI Help Snapshot
+Local CLI option snapshots are not available for this command. Use the dependency entry and calling workflow source files to recover parameter bundles for your runtime path.
+
+**Full CLI Help Snapshot**
 
 ```{=typst}
-#doc_warning[
-Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.
+#doc_note[
+This page keeps a source-derived summary because no local help snapshot was found for this command.
 ]
 ```
-
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-addtaxonomy), [command reference index](#sec-command-reference), and [functional module page](#mod-taxonomy).
 

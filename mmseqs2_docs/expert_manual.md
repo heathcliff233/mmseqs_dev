@@ -1,91 +1,77 @@
 # Expert Manual {#sec-expert-manual}
 
-This chapter focuses on advanced pipeline composition, reproducibility controls, and source-level engineering discipline. Foundational storage and parallel mechanics are summarized in [Performance Foundations](#sec-performance-foundations); this chapter assumes that baseline model.
+This chapter covers advanced MMseqs2 operation for users who build custom pipelines, run large production workloads, or debug behavior across layered workflows. It assumes familiarity with [System Map](#sec-system-map) and [Performance Foundations](#sec-performance-foundations).
 
 ## Expert Operating Discipline
 
-Custom MMseqs2 pipelines fail most often from implicit assumptions, not syntax errors. Advanced users should lock assumptions explicitly before scaling.
+At expert scale, the common failure mode is not command syntax. It is uncontrolled assumptions. Pipelines drift when DB contracts change silently, when modes are mixed across experiments, or when topology changes are not tracked.
 
-| Discipline | Practical Rule |
-| :--- | :--- |
-| Contract discipline | Validate DB type and sidecar completeness at each boundary |
-| Mode discipline | Keep alignment, rescoring, and filter modes fixed across comparisons |
-| Topology discipline | Confirm real call path with dependency map before debugging behavior |
-| Scale discipline | Validate on representative subsets before full runs |
+A disciplined workflow starts by fixing contracts and mode envelopes before threshold tuning. DB type compatibility, sidecar completeness, and mode stability should be treated as required preconditions for meaningful performance or quality comparison.
 
 ## Contract Enforcement in Custom Pipelines
 
-Module chains should be reviewed as explicit contracts:
+Every module boundary should be treated as an explicit contract surface. Structural contracts define whether downstream modules can parse and trust the input DB type and index structures. Metadata contracts define whether required sidecars (headers, lookup maps, taxonomy files, mapping tables) are present. Semantic contracts define whether output fields still mean the same thing after mode and filter choices.
 
-| Contract Surface | What to Verify |
-| :--- | :--- |
-| Structural contract | `.dbtype` and index compatibility with downstream module requirements |
-| Metadata contract | Header, lookup, taxonomy, and mapping sidecars required by downstream exports |
-| Semantic contract | Output fields remain meaningful under selected mode and filter policy |
-
-A common anti-pattern is tuning thresholds while the contract itself is broken. In practice, contract validation should happen before parameter optimization.
+A frequent anti-pattern is adjusting scoring thresholds while one of these contracts is already broken. That often yields plausible-looking output with unstable interpretation.
 
 ```{=typst}
 #doc_warning[
-If a downstream result looks wrong, verify contract and mode assumptions first. Parameter tuning should be the last step.
+When a downstream result looks wrong, verify structural, metadata, and semantic contracts first. Threshold tuning should be the last step.
 ]
 ```
 
 ## Reproducibility Controls
 
-Reproducible comparisons need a stable run envelope, not only stable command names.
+Reproducibility requires pinning an execution envelope, not only command names. You should lock alignment and rescoring modes, filter gates, profile-construction controls, taxonomy extraction/aggregation policy, and runtime envelope settings such as split mode, load mode, and parallel topology.
 
-| Reproducibility Domain | Controls to Pin |
-| :--- | :--- |
-| Core scoring semantics | `--alignment-mode`, `--alignment-output-mode`, `--rescore-mode` |
-| Selection semantics | `-e`, `-c`, `--cov-mode`, `--max-accept`, `--max-rejected` |
-| Profile behavior | Pseudocount, weighting, and MSA filtering settings |
-| Taxonomy behavior | ORF/frame extraction policy and aggregation/report mode |
-| Runtime envelope | Split policy, load mode, thread/MPI strategy, temporary-storage topology |
-
-When benchmarking, record these controls as part of run metadata. Without this context, result deltas are difficult to interpret.
+In practice, most hard-to-explain result deltas come from one unpinned control in that envelope. Record these controls with every benchmark or production run so regression triage is possible.
 
 ## Performance Triage for Advanced Workloads
 
-For slow or unstable large runs, triage in this order:
-
-| Step | Question |
-| :--- | :--- |
-| 1 | Is startup dominated by index read-in or shared-storage contention? |
-| 2 | Is split policy over-reducing memory at the cost of merge and I/O overhead? |
-| 3 | Is the distributed mode aligned with actual storage topology? |
-| 4 | Are mode and filter choices inflating downstream data volume unexpectedly? |
-
-This sequence is intentionally infrastructure-first. It reflects how MMseqs2 runtime is typically determined at scale.
+When large jobs become slow or unstable, triage in infrastructure-first order: startup/index behavior, split and merge overhead, distributed I/O topology, then mode/filter output inflation. This ordering matches how MMseqs2 workloads typically fail at scale.
 
 ```{=typst}
 #doc_perf[
-In most production pipelines, index/load/split decisions create larger runtime swings than final threshold adjustments.
+In production, index/load/split decisions usually produce larger runtime swings than late-stage threshold changes.
 ]
 ```
 
-## MMseqs2 Engineering Workflow
+## MMseqs2 Source Development Guide {#sec-expert-dev-guide}
 
-Use this workflow when changing MMseqs2 behavior in source code:
+This section is for MMseqs2 source development. The authoritative behavior definition lives in `MMseqs2/` source files; documentation markdown is a derived layer for users.
 
-| Step | Purpose | Primary Location |
-| :--- | :--- | :--- |
-| Register or confirm command metadata | Ensure command visibility/category/description are correct | `MMseqs2/src/MMseqsBase.cpp`, `MMseqs2/src/CommandDeclarations.h` |
-| Trace workflow orchestration | Validate module chaining and parameter propagation | `MMseqs2/src/workflow/*.cpp`, `MMseqs2/data/workflow/*.sh` |
-| Validate algorithm-level behavior | Inspect prefilter/alignment/clustering/taxonomy kernels | `MMseqs2/src/{prefiltering,alignment,clustering,linclust,taxonomy,multihit}/*.cpp` |
-| Validate DB contract boundaries | Check DB types, sidecars, and I/O assumptions | `MMseqs2/src/commons/DBReader.h`, `MMseqs2/src/commons/DBWriter.h`, `MMseqs2/src/commons/Parameters.{h,cpp}` |
-| Validate output semantics | Confirm exports/transforms still match downstream expectations | `MMseqs2/src/util/*.cpp` |
+### Source-First Trace Strategy
 
-When publishing user-facing docs after a code change, refresh generated docs as a secondary step.
+When you change a command, start from command registration in `MMseqs2/src/MMseqsBase.cpp` and confirm declarations in `MMseqs2/src/CommandDeclarations.h`. This tells you visibility, category flags, and baseline intent.
 
-## Cross References
+When you change workflow behavior, inspect `MMseqs2/src/workflow/*.cpp` and the corresponding script glue in `MMseqs2/data/workflow/*.sh`. Most user-visible behavior differences come from this orchestration boundary rather than isolated kernel changes.
 
-Use these chapters together:
+When you change algorithmic behavior, move to the corresponding kernel directories: `prefiltering`, `alignment`, `clustering`, `linclust`, `taxonomy`, and `multihit`. Then verify where those kernels are invoked from workflow entrypoints so you can reason about downstream impact.
 
-| Need | Chapter |
-| :--- | :--- |
-| Storage/index/split/parallel mechanics | [Performance Foundations](#sec-performance-foundations) |
-| Architecture and dependency navigation | [System Map](#sec-system-map), [Dependency Map](#sec-dependency-map) |
-| Task-oriented command selection | [Functional Modules Manual](#sec-functional-modules-manual), functional module pages |
-| Full command-level option detail | [Command Reference Index](#sec-command-reference), command reference entries |
-| Source-level developer entry points | [Appendix B: MMseqs2 Developer Guide](#sec-appendix-developer) |
+### Source Tree Responsibilities
+
+`MMseqs2/src/workflow/` is the orchestration layer for end-to-end workflows. `MMseqs2/src/prefiltering/`, `MMseqs2/src/alignment/`, `MMseqs2/src/clustering/`, and `MMseqs2/src/linclust/` host core compute modules. `MMseqs2/src/taxonomy/` and `MMseqs2/src/multihit/` cover specialized assignment and set-aggregation logic.
+
+`MMseqs2/src/util/` and `MMseqs2/src/commons/` provide DB transforms, exports, shared parameter logic, and low-level I/O abstractions. If behavior shifts unexpectedly across many commands, inspect `commons` first; it is often the shared root cause.
+
+### Practical Debug Workflow
+
+Use a repeatable debug loop:
+
+1. Locate command registration and category metadata.
+2. Trace workflow composition and parameter propagation.
+3. Inspect the target kernel implementation.
+4. Validate DB type and sidecar boundary assumptions.
+5. Re-check output semantics in result/export transforms.
+
+Representative commands for this loop:
+
+- `rg -n '"<command>"' MMseqs2/src/MMseqsBase.cpp`
+- `rg -n 'createParameterString\(par\.' MMseqs2/src/workflow/*.cpp`
+- `rg -n '<symbol>' MMseqs2/src/{prefiltering,alignment,clustering,linclust,taxonomy,multihit}/*.cpp`
+- `rg -n 'DBReader|DBWriter|DBTYPE' MMseqs2/src/{workflow,util,commons}/*.{h,cpp}`
+- `rg -n 'MMSEQS|RUNNER|\$\{.*_PAR\}' MMseqs2/data/workflow/*.sh`
+
+After source validation, regenerate documentation artifacts so command pages and module pages remain synchronized with implementation.
+
+Use [Performance Foundations](#sec-performance-foundations) for storage/index/split/parallel mechanics, [System Map](#sec-system-map) and [Dependency Map](#sec-dependency-map) for architecture and topology debugging, [Functional Modules Manual](#sec-functional-modules-manual) for task-first command selection, and this section ([MMseqs2 Source Development Guide](#sec-expert-dev-guide)) for source-first tracing paths.

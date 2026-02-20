@@ -1,29 +1,20 @@
-## `offsetalignment` {#refcmd-offsetalignment}
+### `offsetalignment` {#refcmd-offsetalignment}
 
 Offset alignment by ORF start position.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`alignment`](#mod-alignment) |
-| Category flags | `COMMAND_RESULT` |
+This command family computes pair quality and coordinates and usually dominates per-pair compute cost after prefiltering. The current dependency map records 3 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `3` |
-| Downstream command count | `0` |
-| Workflow script count | `4` |
-| Detailed dependency entry | [Open in map](#depcmd-offsetalignment) |
+Dependency entry: [Open in map](#depcmd-offsetalignment); functional module: [`alignment`](#mod-alignment).
 
-### Usage
+**Usage**
 
 `usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -35,7 +26,7 @@ Offset alignment by ORF start position.
 | `--chain-alignments` | Chain overlapping alignments |
 | `--merge-query` | Combine ORFs/split sequences to a single entry |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs offsetalignment <i:queryDB> <i:queryOrfDB> <i:targetDB> <i:targetOrfDB> <i:alnDB> <o:alnDB> [options]
@@ -54,7 +45,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-offsetalignment), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
-

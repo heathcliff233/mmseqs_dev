@@ -1,29 +1,20 @@
-## `alignall` {#refcmd-alignall}
+### `alignall` {#refcmd-alignall}
 
 Within-result all-vs-all gapped local alignment.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](#mod-alignment) |
-| Category flags | `COMMAND_ALIGNMENT` |
+This command family computes pair quality and coordinates and usually dominates per-pair compute cost after prefiltering. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-alignall) |
+Dependency entry: [Open in map](#depcmd-alignall); functional module: [`alignment`](#mod-alignment).
 
-### Usage
+**Usage**
 
 `usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Within-result all-vs-all gapped local alignment.
 | `--cov-mode` | 0: coverage of query and target |
 | `--score-bias` | Score bias when computing SW alignment (in bits) |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]
@@ -85,7 +76,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-alignall), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
-

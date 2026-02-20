@@ -1,35 +1,26 @@
-## `db2tar` {#refcmd-db2tar}
+### `db2tar` {#refcmd-db2tar}
 
 Archive contents of a DB to a tar archive.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`database`](#mod-database) |
-| Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
+This command family enforces DB contracts and storage/index integrity used by all workflows. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when preparing or restructuring DB artifacts to satisfy downstream module contracts.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-db2tar) |
+Dependency entry: [Open in map](#depcmd-db2tar); functional module: [`database`](#mod-database).
 
-### Usage
+**Usage**
 
 `usage: mmseqs db2tar <i:DB> <o:tar[.gz]> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs db2tar <i:DB> <o:tar[.gz]> [options]
@@ -44,7 +35,3 @@ examples:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-db2tar), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
-

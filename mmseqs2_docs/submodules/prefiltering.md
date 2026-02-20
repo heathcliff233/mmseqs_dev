@@ -1,10 +1,10 @@
 ## Prefiltering {#mod-prefiltering}
 
-Core candidate-generation modules used to reduce search space before expensive alignment stages.
+Candidate-generation modules that prune comparison space before expensive alignment kernels.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
@@ -12,20 +12,25 @@ This page focuses on task-oriented usage and practical options. Detailed call to
 
 Count k-mers.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is minimizing expensive downstream alignments by aggressively pruning unlikely sequence pairs. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs countkmer <DB> [args] [options]` (source-derived synopsis; run `mmseqs countkmer` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-countkmer) · [Dependency entry](#depcmd-countkmer) |
 
-Reference links: [Full CLI](#refcmd-countkmer), [Dependency entry](#depcmd-countkmer).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `gappedprefilter` {#modcmd-gappedprefilter}
 
 Optimal Smith-Waterman-based prefiltering (slow).
+
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is minimizing expensive downstream alignments by aggressively pruning unlikely sequence pairs. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -34,9 +39,8 @@ Optimal Smith-Waterman-based prefiltering (slow).
 | Category flags | `COMMAND_PREFILTER` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-gappedprefilter), [Dependency entry](#depcmd-gappedprefilter).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-gappedprefilter) · [Dependency entry](#depcmd-gappedprefilter) |
 
 #### Key Options
 
@@ -55,6 +59,8 @@ Reference links: [Full CLI](#refcmd-gappedprefilter), [Dependency entry](#depcmd
 
 Find bottom-m-hashed k-mer matches within sequence DB.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is minimizing expensive downstream alignments by aggressively pruning unlikely sequence pairs. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]` |
@@ -63,8 +69,7 @@ Find bottom-m-hashed k-mer matches within sequence DB.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-
-Reference links: [Full CLI](#refcmd-kmermatcher), [Dependency entry](#depcmd-kmermatcher).
+| References | [Full CLI](#refcmd-kmermatcher) · [Dependency entry](#depcmd-kmermatcher) |
 
 #### Key Options
 
@@ -83,6 +88,8 @@ Reference links: [Full CLI](#refcmd-kmermatcher), [Dependency entry](#depcmd-kme
 
 Find bottom-m-hashed k-mer matches between target and query DB.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is minimizing expensive downstream alignments by aggressively pruning unlikely sequence pairs. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs kmersearch <i:queryDB> <i:kmerIndexDB> <o:prefilterDB> [options]` |
@@ -91,8 +98,7 @@ Find bottom-m-hashed k-mer matches between target and query DB.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-kmersearch), [Dependency entry](#depcmd-kmersearch).
+| References | [Full CLI](#refcmd-kmersearch) · [Dependency entry](#depcmd-kmersearch) |
 
 #### Key Options
 
@@ -111,6 +117,8 @@ Reference links: [Full CLI](#refcmd-kmersearch), [Dependency entry](#depcmd-kmer
 
 Double consecutive diagonal k-mer search.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is minimizing expensive downstream alignments by aggressively pruning unlikely sequence pairs. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
@@ -119,8 +127,7 @@ Double consecutive diagonal k-mer search.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-prefilter), [Dependency entry](#depcmd-prefilter).
+| References | [Full CLI](#refcmd-prefilter) · [Dependency entry](#depcmd-prefilter) |
 
 #### Key Options
 
@@ -139,6 +146,8 @@ Reference links: [Full CLI](#refcmd-prefilter), [Dependency entry](#depcmd-prefi
 
 Optimal diagonal score search.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is minimizing expensive downstream alignments by aggressively pruning unlikely sequence pairs. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs ungappedprefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]` |
@@ -147,8 +156,7 @@ Optimal diagonal score search.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-ungappedprefilter), [Dependency entry](#depcmd-ungappedprefilter).
+| References | [Full CLI](#refcmd-ungappedprefilter) · [Dependency entry](#depcmd-ungappedprefilter) |
 
 #### Key Options
 

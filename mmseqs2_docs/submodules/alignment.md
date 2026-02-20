@@ -1,16 +1,18 @@
 ## Alignment {#mod-alignment}
 
-Core alignment and alignment-adjacent modules for scoring, rescoring, and coordinate transformations.
+Alignment and rescoring modules used after prefiltering to compute pair quality and coordinates.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ### `align` {#modcmd-align}
 
 Optimal gapped local alignment.
+
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 5 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,8 +22,7 @@ Optimal gapped local alignment.
 | Upstream command count | `5` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-align), [Dependency entry](#depcmd-align).
+| References | [Full CLI](#refcmd-align) · [Dependency entry](#depcmd-align) |
 
 #### Key Options
 
@@ -40,6 +41,8 @@ Reference links: [Full CLI](#refcmd-align), [Dependency entry](#depcmd-align).
 
 Within-result all-vs-all gapped local alignment.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs alignall <i:sequenceDB> <i:resultDB> <o:alignmentDB> [options]` |
@@ -47,9 +50,8 @@ Within-result all-vs-all gapped local alignment.
 | Category flags | `COMMAND_ALIGNMENT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-alignall), [Dependency entry](#depcmd-alignall).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-alignall) · [Dependency entry](#depcmd-alignall) |
 
 #### Key Options
 
@@ -68,6 +70,8 @@ Reference links: [Full CLI](#refcmd-alignall), [Dependency entry](#depcmd-aligna
 
 Heuristic gapped local k-mer based alignment.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs alignbykmer <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
@@ -75,9 +79,8 @@ Heuristic gapped local k-mer based alignment.
 | Category flags | `COMMAND_ALIGNMENT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-alignbykmer), [Dependency entry](#depcmd-alignbykmer).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-alignbykmer) · [Dependency entry](#depcmd-alignbykmer) |
 
 #### Key Options
 
@@ -96,6 +99,8 @@ Reference links: [Full CLI](#refcmd-alignbykmer), [Dependency entry](#depcmd-ali
 
 Expand an alignment result based on another.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs expandaln <i:queryDB> <i:targetDB> <i:resultDB> <i:resultDB|ca3mDB> <o:alignmentDB> [options]` |
@@ -104,8 +109,7 @@ Expand an alignment result based on another.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-expandaln), [Dependency entry](#depcmd-expandaln).
+| References | [Full CLI](#refcmd-expandaln) · [Dependency entry](#depcmd-expandaln) |
 
 #### Key Options
 
@@ -124,20 +128,25 @@ Reference links: [Full CLI](#refcmd-expandaln), [Dependency entry](#depcmd-expan
 
 Forward Backward Alignment.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs fwbw <inputDB(s)> <outputDB> [options]` (source-derived synopsis; run `mmseqs fwbw` for exact syntax) |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-fwbw) · [Dependency entry](#depcmd-fwbw) |
 
-Reference links: [Full CLI](#refcmd-fwbw), [Dependency entry](#depcmd-fwbw).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `offsetalignment` {#modcmd-offsetalignment}
 
 Offset alignment by ORF start position.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -147,8 +156,7 @@ Offset alignment by ORF start position.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-offsetalignment), [Dependency entry](#depcmd-offsetalignment).
+| References | [Full CLI](#refcmd-offsetalignment) · [Dependency entry](#depcmd-offsetalignment) |
 
 #### Key Options
 
@@ -166,6 +174,8 @@ Reference links: [Full CLI](#refcmd-offsetalignment), [Dependency entry](#depcmd
 
 Transform protein alignments to nucleotide alignments.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs proteinaln2nucl <i:nuclQueryDB> <i:nuclTargetDB> <i:aaQueryDB> <i:aaTargetDB> <i:alnDB> <o:alnDB> [options]` |
@@ -173,9 +183,8 @@ Transform protein alignments to nucleotide alignments.
 | Category flags | `COMMAND_RESULT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-proteinaln2nucl), [Dependency entry](#depcmd-proteinaln2nucl).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-proteinaln2nucl) · [Dependency entry](#depcmd-proteinaln2nucl) |
 
 #### Key Options
 
@@ -192,6 +201,8 @@ Reference links: [Full CLI](#refcmd-proteinaln2nucl), [Dependency entry](#depcmd
 
 Compute sequence identity for diagonal.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 5 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs rescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]` |
@@ -200,8 +211,7 @@ Compute sequence identity for diagonal.
 | Upstream command count | `5` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-rescorediagonal), [Dependency entry](#depcmd-rescorediagonal).
+| References | [Full CLI](#refcmd-rescorediagonal) · [Dependency entry](#depcmd-rescorediagonal) |
 
 #### Key Options
 
@@ -220,14 +230,17 @@ Reference links: [Full CLI](#refcmd-rescorediagonal), [Dependency entry](#depcmd
 
 Transfer alignments via transitivity.
 
+Mid-level compute module used directly in advanced pipelines and by workflows. Design priority is extracting reliable score/coverage/identity information while controlling DP and backtrace overhead. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs transitivealign <inputDB(s)> <outputDB> [options]` (source-derived synopsis; run `mmseqs transitivealign` for exact syntax) |
 | API layer | `mid_level_api` |
 | Category flags | `COMMAND_ALIGNMENT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-transitivealign) · [Dependency entry](#depcmd-transitivealign) |
 
-Reference links: [Full CLI](#refcmd-transitivealign), [Dependency entry](#depcmd-transitivealign).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 

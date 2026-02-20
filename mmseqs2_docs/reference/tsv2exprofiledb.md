@@ -1,29 +1,20 @@
-## `tsv2exprofiledb` {#refcmd-tsv2exprofiledb}
+### `tsv2exprofiledb` {#refcmd-tsv2exprofiledb}
 
 Create a expandable profile db from TSV files.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`profiles`](#mod-profiles) |
-| Category flags | `COMMAND_PROFILE_PROFILE` |
+This command family preserves profile semantics across conversion and search steps. The current dependency map records 0 upstream caller(s) and 5 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `5` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-tsv2exprofiledb) |
+Dependency entry: [Open in map](#depcmd-tsv2exprofiledb); functional module: [`profiles`](#mod-profiles).
 
-### Usage
+**Usage**
 
 `usage: mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +23,7 @@ Create a expandable profile db from TSV files.
 | `--compressed` | Write compressed output |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs tsv2exprofiledb <i:tsvFilesBase> <o:exprofileDB> [options]
@@ -46,7 +37,3 @@ options: common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-tsv2exprofiledb), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
-

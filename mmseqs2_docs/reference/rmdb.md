@@ -1,41 +1,30 @@
-## `rmdb` {#refcmd-rmdb}
+### `rmdb` {#refcmd-rmdb}
 
 Remove a DB.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`database`](#mod-database) |
-| Category flags | `COMMAND_STORAGE` |
+This command family enforces DB contracts and storage/index integrity used by all workflows. The current dependency map records 19 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when preparing or restructuring DB artifacts to satisfy downstream module contracts.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `19` |
-| Downstream command count | `0` |
-| Workflow script count | `25` |
-| Detailed dependency entry | [Open in map](#depcmd-rmdb) |
+Dependency entry: [Open in map](#depcmd-rmdb); functional module: [`database`](#mod-database).
 
-### Usage
+**Usage**
 
-No local help snapshot usage line is available.
+`usage: mmseqs rmdb <DB> [args] [options]`
 
-### Key Options
+The syntax line above is source-derived from command layer/category metadata. Run `mmseqs rmdb` locally for exact positional arguments in your build.
 
-No parsed options are available for this command.
+**Key Options**
 
-### Full CLI Help Snapshot
+Local CLI option snapshots are not available for this command. Use the dependency entry and calling workflow source files to recover parameter bundles for your runtime path.
+
+**Full CLI Help Snapshot**
 
 ```{=typst}
-#doc_warning[
-Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.
+#doc_note[
+This page keeps a source-derived summary because no local help snapshot was found for this command.
 ]
 ```
-
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-rmdb), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
 

@@ -1,29 +1,20 @@
-## `prefilter` {#refcmd-prefilter}
+### `prefilter` {#refcmd-prefilter}
 
 Double consecutive diagonal k-mer search.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`prefiltering`](#mod-prefiltering) |
-| Category flags | `COMMAND_PREFILTER` |
+This command family is the main acceleration gate that prunes candidate pairs before expensive alignment. The current dependency map records 3 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command in custom pipelines that must expose candidate-generation behavior before alignment stages.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `3` |
-| Downstream command count | `0` |
-| Workflow script count | `11` |
-| Detailed dependency entry | [Open in map](#depcmd-prefilter) |
+Dependency entry: [Open in map](#depcmd-prefilter); functional module: [`prefiltering`](#mod-prefiltering).
 
-### Usage
+**Usage**
 
 `usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Double consecutive diagonal k-mer search.
 | `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
 | `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs prefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]
@@ -93,7 +84,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-prefilter), [command reference index](#sec-command-reference), and [functional module page](#mod-prefiltering).
-

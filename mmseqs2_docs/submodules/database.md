@@ -1,16 +1,18 @@
 ## Database Management {#mod-database}
 
-Modules for creating, indexing, splitting, merging, and maintaining MMseqs2 database artifacts.
+Database lifecycle modules for creation, indexing, splitting, merging, and contract-preserving transforms.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ### `aliasdb` {#modcmd-aliasdb}
 
 Create relative symlink of DB to another name in the same folder.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -20,8 +22,7 @@ Create relative symlink of DB to another name in the same folder.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`profiles`](#mod-profiles) |
-
-Reference links: [Full CLI](#refcmd-aliasdb), [Dependency entry](#depcmd-aliasdb).
+| References | [Full CLI](#refcmd-aliasdb) · [Dependency entry](#depcmd-aliasdb) |
 
 #### Key Options
 
@@ -33,6 +34,8 @@ Reference links: [Full CLI](#refcmd-aliasdb), [Dependency entry](#depcmd-aliasdb
 
 Concatenate two DBs, giving new IDs to entries from 2nd DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs concatdbs <i:DB> <i:DB> <o:DB> [options]` |
@@ -41,8 +44,7 @@ Concatenate two DBs, giving new IDs to entries from 2nd DB.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-concatdbs), [Dependency entry](#depcmd-concatdbs).
+| References | [Full CLI](#refcmd-concatdbs) · [Dependency entry](#depcmd-concatdbs) |
 
 #### Key Options
 
@@ -58,6 +60,8 @@ Reference links: [Full CLI](#refcmd-concatdbs), [Dependency entry](#depcmd-conca
 
 Copy a DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs cpdb <i:srcDB> <o:dstDB> [options]` |
@@ -65,9 +69,8 @@ Copy a DB.
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-cpdb), [Dependency entry](#depcmd-cpdb).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-cpdb) · [Dependency entry](#depcmd-cpdb) |
 
 #### Key Options
 
@@ -79,6 +82,8 @@ Reference links: [Full CLI](#refcmd-cpdb), [Dependency entry](#depcmd-cpdb).
 
 Convert FASTA/Q file(s) to a sequence DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 8 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs createdb <i:fastaFile1[.gz|.bz2]> ... <i:fastaFileN[.gz|.bz2]>|<i:stdin> <o:sequenceDB> [options]` |
@@ -87,8 +92,7 @@ Convert FASTA/Q file(s) to a sequence DB.
 | Upstream command count | `8` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit) |
-
-Reference links: [Full CLI](#refcmd-createdb), [Dependency entry](#depcmd-createdb).
+| References | [Full CLI](#refcmd-createdb) · [Dependency entry](#depcmd-createdb) |
 
 #### Key Options
 
@@ -106,6 +110,8 @@ Reference links: [Full CLI](#refcmd-createdb), [Dependency entry](#depcmd-create
 
 Store precomputed index on disk to reduce search overhead.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 0 upstream caller(s) and 4 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs createindex <i:sequenceDB> <tmpDir> [options]` |
@@ -114,8 +120,7 @@ Store precomputed index on disk to reduce search overhead.
 | Upstream command count | `0` |
 | Downstream command count | `4` |
 | Related functional groups | [`sequence_manipulation`](#mod-sequence-manipulation) |
-
-Reference links: [Full CLI](#refcmd-createindex), [Dependency entry](#depcmd-createindex).
+| References | [Full CLI](#refcmd-createindex) · [Dependency entry](#depcmd-createindex) |
 
 #### Key Options
 
@@ -134,6 +139,8 @@ Reference links: [Full CLI](#refcmd-createindex), [Dependency entry](#depcmd-cre
 
 Create linsearch index.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 2 upstream caller(s) and 4 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs createlinindex <i:sequenceDB> <tmpDir> [options]` |
@@ -142,8 +149,7 @@ Create linsearch index.
 | Upstream command count | `2` |
 | Downstream command count | `4` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows), [`sequence_manipulation`](#mod-sequence-manipulation) |
-
-Reference links: [Full CLI](#refcmd-createlinindex), [Dependency entry](#depcmd-createlinindex).
+| References | [Full CLI](#refcmd-createlinindex) · [Dependency entry](#depcmd-createlinindex) |
 
 #### Key Options
 
@@ -162,6 +168,8 @@ Reference links: [Full CLI](#refcmd-createlinindex), [Dependency entry](#depcmd-
 
 Create a subset of a DB from list of DB keys.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 5 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs createsubdb <i:subsetFile|DB> <i:DB> <o:DB> [options]` |
@@ -170,8 +178,7 @@ Create a subset of a DB from list of DB keys.
 | Upstream command count | `5` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-createsubdb), [Dependency entry](#depcmd-createsubdb).
+| References | [Full CLI](#refcmd-createsubdb) · [Dependency entry](#depcmd-createsubdb) |
 
 #### Key Options
 
@@ -185,20 +192,25 @@ Reference links: [Full CLI](#refcmd-createsubdb), [Dependency entry](#depcmd-cre
 
 List and download databases.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 0 upstream caller(s) and 8 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs databases <DB> [args] [options]` (source-derived synopsis; run `mmseqs databases` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_DATABASE_CREATION` |
 | Upstream command count | `0` |
 | Downstream command count | `8` |
 | Related functional groups | [`profiles`](#mod-profiles), [`taxonomy`](#mod-taxonomy), [`utilities`](#mod-utilities) |
+| References | [Full CLI](#refcmd-databases) · [Dependency entry](#depcmd-databases) |
 
-Reference links: [Full CLI](#refcmd-databases), [Dependency entry](#depcmd-databases).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `db2tar` {#modcmd-db2tar}
 
 Archive contents of a DB to a tar archive.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -207,9 +219,8 @@ Archive contents of a DB to a tar archive.
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-db2tar), [Dependency entry](#depcmd-db2tar).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-db2tar) · [Dependency entry](#depcmd-db2tar) |
 
 #### Key Options
 
@@ -221,6 +232,8 @@ Reference links: [Full CLI](#refcmd-db2tar), [Dependency entry](#depcmd-db2tar).
 
 Symlink a DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs lndb <i:srcDB> <o:dstDB> [options]` |
@@ -228,9 +241,8 @@ Symlink a DB.
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-lndb), [Dependency entry](#depcmd-lndb).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-lndb) · [Dependency entry](#depcmd-lndb) |
 
 #### Key Options
 
@@ -242,6 +254,8 @@ Reference links: [Full CLI](#refcmd-lndb), [Dependency entry](#depcmd-lndb).
 
 Merge entries from multiple DBs.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 4 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs mergedbs <i:DB> <o:DB> <i:DB1> ... <i:DBn> [options]` |
@@ -250,8 +264,7 @@ Merge entries from multiple DBs.
 | Upstream command count | `4` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-mergedbs), [Dependency entry](#depcmd-mergedbs).
+| References | [Full CLI](#refcmd-mergedbs) · [Dependency entry](#depcmd-mergedbs) |
 
 #### Key Options
 
@@ -266,6 +279,8 @@ Reference links: [Full CLI](#refcmd-mergedbs), [Dependency entry](#depcmd-merged
 
 Move a DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 5 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs mvdb <i:srcDB> <o:dstDB> [options]` |
@@ -274,8 +289,7 @@ Move a DB.
 | Upstream command count | `5` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`profiles`](#mod-profiles), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-mvdb), [Dependency entry](#depcmd-mvdb).
+| References | [Full CLI](#refcmd-mvdb) · [Dependency entry](#depcmd-mvdb) |
 
 #### Key Options
 
@@ -287,6 +301,8 @@ Reference links: [Full CLI](#refcmd-mvdb), [Dependency entry](#depcmd-mvdb).
 
 Create a new DB with original keys renamed.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs renamedbkeys <i:idMapFile|stdin> <i:DB> <o:DB> [options]` |
@@ -295,8 +311,7 @@ Create a new DB with original keys renamed.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-
-Reference links: [Full CLI](#refcmd-renamedbkeys), [Dependency entry](#depcmd-renamedbkeys).
+| References | [Full CLI](#refcmd-renamedbkeys) · [Dependency entry](#depcmd-renamedbkeys) |
 
 #### Key Options
 
@@ -310,20 +325,25 @@ Reference links: [Full CLI](#refcmd-renamedbkeys), [Dependency entry](#depcmd-re
 
 Remove a DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 19 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs rmdb <DB> [args] [options]` (source-derived synopsis; run `mmseqs rmdb` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_STORAGE` |
 | Upstream command count | `19` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`profiles`](#mod-profiles), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
+| References | [Full CLI](#refcmd-rmdb) · [Dependency entry](#depcmd-rmdb) |
 
-Reference links: [Full CLI](#refcmd-rmdb), [Dependency entry](#depcmd-rmdb).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `splitdb` {#modcmd-splitdb}
 
 Split DB into subsets.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -332,9 +352,8 @@ Split DB into subsets.
 | Category flags | `COMMAND_SET` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-splitdb), [Dependency entry](#depcmd-splitdb).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-splitdb) · [Dependency entry](#depcmd-splitdb) |
 
 #### Key Options
 
@@ -349,6 +368,8 @@ Reference links: [Full CLI](#refcmd-splitdb), [Dependency entry](#depcmd-splitdb
 
 Split sequences by length.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs splitsequence <i:sequenceDB> <o:sequenceDB> [options]` |
@@ -357,8 +378,7 @@ Split sequences by length.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-splitsequence), [Dependency entry](#depcmd-splitsequence).
+| References | [Full CLI](#refcmd-splitsequence) · [Dependency entry](#depcmd-splitsequence) |
 
 #### Key Options
 
@@ -377,6 +397,8 @@ Reference links: [Full CLI](#refcmd-splitsequence), [Dependency entry](#depcmd-s
 
 Remove all entries from first DB occurring in second DB by key.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs subtractdbs <i:resultDBLeft> <i:resultDBRight> <o:resultDB> [options]` |
@@ -385,8 +407,7 @@ Remove all entries from first DB occurring in second DB by key.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-subtractdbs), [Dependency entry](#depcmd-subtractdbs).
+| References | [Full CLI](#refcmd-subtractdbs) · [Dependency entry](#depcmd-subtractdbs) |
 
 #### Key Options
 
@@ -402,6 +423,8 @@ Reference links: [Full CLI](#refcmd-subtractdbs), [Dependency entry](#depcmd-sub
 
 Transpose DB with integer values in first column.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 4 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs swapdb <i:resultDB> <o:resultDB> [options]` |
@@ -410,8 +433,7 @@ Transpose DB with integer values in first column.
 | Upstream command count | `4` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`multi_hit`](#mod-multi-hit), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-swapdb), [Dependency entry](#depcmd-swapdb).
+| References | [Full CLI](#refcmd-swapdb) · [Dependency entry](#depcmd-swapdb) |
 
 #### Key Options
 
@@ -426,6 +448,8 @@ Reference links: [Full CLI](#refcmd-swapdb), [Dependency entry](#depcmd-swapdb).
 
 Convert content of tar archives to any DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs tar2db <i:tar[.gz]> ... <i:tar[.gz]> <o:resultDB> [options]` |
@@ -433,9 +457,8 @@ Convert content of tar archives to any DB.
 | Category flags | `COMMAND_DATABASE_CREATION | COMMAND_EXPERT` |
 | Upstream command count | `1` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-tar2db), [Dependency entry](#depcmd-tar2db).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-tar2db) · [Dependency entry](#depcmd-tar2db) |
 
 #### Key Options
 
@@ -452,6 +475,8 @@ Reference links: [Full CLI](#refcmd-tar2db), [Dependency entry](#depcmd-tar2db).
 
 Convert a TSV file to any DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is keeping MMseqs2 DB contracts valid while avoiding unnecessary I/O and recomputation. Current coupling is 4 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs tsv2db <i:tsvFile> <o:resultDB> [options]` |
@@ -460,8 +485,7 @@ Convert a TSV file to any DB.
 | Upstream command count | `4` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`multi_hit`](#mod-multi-hit), [`profiles`](#mod-profiles) |
-
-Reference links: [Full CLI](#refcmd-tsv2db), [Dependency entry](#depcmd-tsv2db).
+| References | [Full CLI](#refcmd-tsv2db) · [Dependency entry](#depcmd-tsv2db) |
 
 #### Key Options
 

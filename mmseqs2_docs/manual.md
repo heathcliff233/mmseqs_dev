@@ -1,33 +1,13 @@
 # Functional Modules Manual {#sec-functional-modules-manual}
 
-This section is the task-oriented navigation hub. Each functional page groups related commands, then links every command to API layer and dependency context so you can move directly to execution details.
+This section is the task-oriented entry point to MMseqs2 modules. Each functional page groups commands by workflow intent, then links each command into API-layer and dependency context so you can trace from practical usage to implementation topology.
 
-Before diving into module pages for large production runs, read [Performance Foundations](#sec-performance-foundations). That chapter explains storage, indexing, split policy, and parallel model assumptions that shape runtime and output behavior across all modules.
+For production-scale work, read [Performance Foundations](#sec-performance-foundations) before tuning command-level options. That chapter explains the algorithmic and infrastructure assumptions that dominate runtime and output behavior.
 
 ## Functional Groups
 
-| Functional Group | Scope | Module Page |
-| :--- | :--- | :--- |
-| Easy Workflows | Shortcut workflows over FASTA/FASTQ with standard outputs | [Easy Workflows](#mod-easy-workflows) |
-| Search Workflows | Homology search and mapping workflows | [Search Workflows](#mod-search-workflows) |
-| Clustering | Cascaded and linear clustering workflows and cluster transforms | [Clustering](#mod-clustering) |
-| Prefiltering | Candidate-generation modules before expensive alignment | [Prefiltering](#mod-prefiltering) |
-| Alignment | Alignment and rescoring modules | [Alignment](#mod-alignment) |
-| Profiles | Profile and MSA creation, conversion, and profile-search helpers | [Profiles](#mod-profiles) |
-| Database Management | DB creation, indexing, merging, splitting, and storage operations | [Database Management](#mod-database) |
-| Result Handling | Result filtering, summarization, and export transforms | [Result Handling](#mod-result-handling) |
-| Sequence Manipulation | ORF, frame, masking, and sequence-level transforms | [Sequence Manipulation](#mod-sequence-manipulation) |
-| Taxonomy | Taxonomy DB preparation, assignment, filtering, and reports | [Taxonomy](#mod-taxonomy) |
-| Multi-hit | Set-based search and aggregation workflows | [Multi-hit](#mod-multi-hit) |
-| Utilities | General and special-purpose helpers used in custom pipelines | [Utilities](#mod-utilities) |
+[Easy Workflows](#mod-easy-workflows) covers shortcut workflows over FASTA/FASTQ inputs for common tasks with minimal setup. [Search Workflows](#mod-search-workflows) covers homology search and mapping entrypoints. [Clustering](#mod-clustering) covers cascaded and linear clustering paths plus update operations.
 
-## Complementary Maps
+[Prefiltering](#mod-prefiltering) and [Alignment](#mod-alignment) cover core compute kernels used inside search and clustering workflows. [Profiles](#mod-profiles) covers profile/MSA creation and conversion paths. [Database Management](#mod-database) covers creation, indexing, splitting, and storage operations required to keep DB contracts valid.
 
-Functional pages answer what to run. Generated maps answer how commands connect.
-
-| Need | Open |
-| :--- | :--- |
-| Layered architecture and navigation rules | [System Map](#sec-system-map) |
-| Storage, indexing, memory-split, and parallel execution model | [Performance Foundations](#sec-performance-foundations) |
-| Complete command catalog with CLI pages | [Command Reference Index](#sec-command-reference) |
-| Command dependency topology | [Dependency Map](#sec-dependency-map) |
+[Result Handling](#mod-result-handling), [Sequence Manipulation](#mod-sequence-manipulation), [Taxonomy](#mod-taxonomy), [Multi-hit](#mod-multi-hit), and [Utilities](#mod-utilities) cover downstream transforms, specialized analytics, and composition helpers for advanced pipelines. Functional pages answer what to run; generated maps answer how commands connect and where behavior is inherited from upstream orchestration. Use [System Map](#sec-system-map) for layered architecture framing, [Command Reference Index](#sec-command-reference) for per-command CLI pages, and [Dependency Map](#sec-dependency-map) for complete upstream/downstream topology.

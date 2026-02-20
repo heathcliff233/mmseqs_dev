@@ -1,29 +1,20 @@
-## `cluster` {#refcmd-cluster}
+### `cluster` {#refcmd-cluster}
 
 Slower, sensitive clustering.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`clustering`](#mod-clustering) |
-| Category flags | `COMMAND_MAIN` |
+This command family controls graph construction and cluster assignment behavior, so early filter decisions strongly affect downstream structure. The current dependency map records 2 upstream caller(s) and 18 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when constructing, refining, or updating cluster assignments while preserving explicit coverage/identity criteria.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `2` |
-| Downstream command count | `18` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-cluster) |
+Dependency entry: [Open in map](#depcmd-cluster); functional module: [`clustering`](#mod-clustering).
 
-### Usage
+**Usage**
 
 `usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Slower, sensitive clustering.
 | `--comp-bias-corr` | Correct for locally biased amino acid composition (range 0-1) |
 | `--comp-bias-corr-scale` | Correct for locally biased amino acid composition (range 0-1) |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]
@@ -172,7 +163,3 @@ references:
  - Hauser M, Steinegger M, Soding J: MMseqs software suite for fast and deep clustering and searching of large protein sequence sets. Bioinformatics, 32(9), 1323-1330 (2016)
  - Steinegger M, Soding J: Clustering huge protein sequence sets in linear time. Nature Communications, 9(1), 2542 (2018)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-cluster), [command reference index](#sec-command-reference), and [functional module page](#mod-clustering).
-

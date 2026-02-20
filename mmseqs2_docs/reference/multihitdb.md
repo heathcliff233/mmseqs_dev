@@ -1,29 +1,20 @@
-## `multihitdb` {#refcmd-multihitdb}
+### `multihitdb` {#refcmd-multihitdb}
 
 Create sequence DB for multi hit searches.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`multi_hit`](#mod-multi-hit) |
-| Category flags | `COMMAND_MULTIHIT` |
+This command family aggregates sequence-level hits into set-level statistics and decisions. The current dependency map records 0 upstream caller(s) and 8 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `8` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-multihitdb) |
+Dependency entry: [Open in map](#depcmd-multihitdb); functional module: [`multi_hit`](#mod-multi-hit).
 
-### Usage
+**Usage**
 
 `usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Create sequence DB for multi hit searches.
 | `--forward-frames` | Comma-separated list of frames on the forward strand to be extracted |
 | `--reverse-frames` | Comma-separated list of frames on the reverse strand to be extracted |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs multihitdb <i:fastaFile1[.gz|bz2]> ... <i:fastaFileN[.gz|bz2]> <o:setDB> <tmpDir> [options]
@@ -79,7 +70,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-multihitdb), [command reference index](#sec-command-reference), and [functional module page](#mod-multi-hit).
-

@@ -1,22 +1,24 @@
 ## Search Workflows {#mod-search-workflows}
 
-Workflow-level search and mapping modules that orchestrate prefiltering and alignment under different modes.
+Search and mapping workflows that compose prefiltering, alignment, and result conversion paths under different sensitivity and runtime envelopes.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ```{=typst}
 #doc_perf[
-For repeated runs against stable targets, prioritize index reuse and split-memory tuning before increasing sensitivity.
+In production, tune index/load and split-memory policy before increasing sensitivity. Infrastructure choices usually dominate runtime swings.
 ]
 ```
 
 ### `linsearch` {#modcmd-linsearch}
 
 Fast, less sensitive homology search.
+
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is balancing sensitivity, candidate pruning, and alignment cost under explicit memory and split constraints. Current coupling is 2 upstream caller(s) and 9 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -26,8 +28,7 @@ Fast, less sensitive homology search.
 | Upstream command count | `2` |
 | Downstream command count | `9` |
 | Related functional groups | [`alignment`](#mod-alignment), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`prefiltering`](#mod-prefiltering), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-linsearch), [Dependency entry](#depcmd-linsearch).
+| References | [Full CLI](#refcmd-linsearch) · [Dependency entry](#depcmd-linsearch) |
 
 #### Key Options
 
@@ -46,6 +47,8 @@ Reference links: [Full CLI](#refcmd-linsearch), [Dependency entry](#depcmd-linse
 
 Map nearly identical sequences.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is balancing sensitivity, candidate pruning, and alignment cost under explicit memory and split constraints. Current coupling is 0 upstream caller(s) and 1 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs map <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
@@ -53,9 +56,8 @@ Map nearly identical sequences.
 | Category flags | `COMMAND_MAIN` |
 | Upstream command count | `0` |
 | Downstream command count | `1` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-map), [Dependency entry](#depcmd-map).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-map) · [Dependency entry](#depcmd-map) |
 
 #### Key Options
 
@@ -74,6 +76,8 @@ Reference links: [Full CLI](#refcmd-map), [Dependency entry](#depcmd-map).
 
 Reciprocal best hit search.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is balancing sensitivity, candidate pruning, and alignment cost under explicit memory and split constraints. Current coupling is 1 upstream caller(s) and 6 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
@@ -82,8 +86,7 @@ Reciprocal best hit search.
 | Upstream command count | `1` |
 | Downstream command count | `6` |
 | Related functional groups | [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`result_handling`](#mod-result-handling), [`utilities`](#mod-utilities) |
-
-Reference links: [Full CLI](#refcmd-rbh), [Dependency entry](#depcmd-rbh).
+| References | [Full CLI](#refcmd-rbh) · [Dependency entry](#depcmd-rbh) |
 
 #### Key Options
 
@@ -102,6 +105,8 @@ Reference links: [Full CLI](#refcmd-rbh), [Dependency entry](#depcmd-rbh).
 
 Sensitive homology search.
 
+High-level API command for end-to-end DB workflows with explicit controls. Design priority is balancing sensitivity, candidate pruning, and alignment cost under explicit memory and split constraints. Current coupling is 8 upstream caller(s) and 22 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]` |
@@ -110,8 +115,7 @@ Sensitive homology search.
 | Upstream command count | `8` |
 | Downstream command count | `22` |
 | Related functional groups | [`alignment`](#mod-alignment), [`clustering`](#mod-clustering), [`database`](#mod-database), [`easy_workflows`](#mod-easy-workflows), [`multi_hit`](#mod-multi-hit), [`prefiltering`](#mod-prefiltering), [`profiles`](#mod-profiles), [`result_handling`](#mod-result-handling), [`sequence_manipulation`](#mod-sequence-manipulation), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-search), [Dependency entry](#depcmd-search).
+| References | [Full CLI](#refcmd-search) · [Dependency entry](#depcmd-search) |
 
 #### Key Options
 

@@ -1,29 +1,20 @@
-## `view` {#refcmd-view}
+### `view` {#refcmd-view}
 
 Print DB entries given in --id-list to stdout.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`utilities`](#mod-utilities) |
-| Category flags | `COMMAND_DB` |
+This command family provides compositional utilities for custom pipelines, migration tasks, and diagnostics. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-view) |
+Dependency entry: [Open in map](#depcmd-view); functional module: [`utilities`](#mod-utilities).
 
-### Usage
+**Usage**
 
 `usage: mmseqs view <i:DB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -32,7 +23,7 @@ Print DB entries given in --id-list to stdout.
 | `--idx-entry-type` | 0: sequence, 1: src sequence, 2: header, 3: src header |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs view <i:DB> [options]
@@ -51,7 +42,3 @@ examples:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-view), [command reference index](#sec-command-reference), and [functional module page](#mod-utilities).
-

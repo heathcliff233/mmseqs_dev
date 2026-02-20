@@ -1,29 +1,20 @@
-## `result2profile` {#refcmd-result2profile}
+### `result2profile` {#refcmd-result2profile}
 
 Compute profile DB from a result DB.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`profiles`](#mod-profiles) |
-| Category flags | `COMMAND_PROFILE` |
+This command family preserves profile semantics across conversion and search steps. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `2` |
-| Detailed dependency entry | [Open in map](#depcmd-result2profile) |
+Dependency entry: [Open in map](#depcmd-result2profile); functional module: [`profiles`](#mod-profiles).
 
-### Usage
+**Usage**
 
 `usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Compute profile DB from a result DB.
 | `--max-seq-id` | Reduce redundancy of output MSA using max. pairwise sequence identity [0.0,1.0] |
 | `--qid` | Reduce diversity of output MSAs using min.seq. identity with query sequences |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs result2profile <i:queryDB> <i:targetDB> <i:resultDB> <o:profileDB> [options]
@@ -81,7 +72,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-result2profile), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
-

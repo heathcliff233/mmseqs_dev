@@ -1,29 +1,20 @@
-## `linsearch` {#refcmd-linsearch}
+### `linsearch` {#refcmd-linsearch}
 
 Fast, less sensitive homology search.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`search_workflows`](#mod-search-workflows) |
-| Category flags | `COMMAND_MAIN|COMMAND_EXPERT` |
+This command family balances sensitivity against runtime by controlling candidate generation, alignment workload, and split policy. The current dependency map records 2 upstream caller(s) and 9 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control over search sensitivity, filtering, and alignment behavior for DB-to-DB runs.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `2` |
-| Downstream command count | `9` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-linsearch) |
+Dependency entry: [Open in map](#depcmd-linsearch); functional module: [`search_workflows`](#mod-search-workflows).
 
-### Usage
+**Usage**
 
 `usage: mmseqs linsearch <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Fast, less sensitive homology search.
 | `--alignment-mode` | How to compute the alignment: |
 | `--alignment-output-mode` | How to compute the alignment: |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs linsearch <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
@@ -137,7 +128,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-linsearch), [command reference index](#sec-command-reference), and [functional module page](#mod-search-workflows).
-

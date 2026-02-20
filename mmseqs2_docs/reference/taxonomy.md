@@ -1,29 +1,20 @@
-## `taxonomy` {#refcmd-taxonomy}
+### `taxonomy` {#refcmd-taxonomy}
 
 Taxonomic classification.
 
-### Classification
+Execution role: high-level API command that exposes a complete task path over MMseqs2 databases.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `high_level_api` |
-| Primary functional group | [`taxonomy`](#mod-taxonomy) |
-| Category flags | `COMMAND_MAIN` |
+This command family maps sequence evidence into taxonomy labels and reports under explicit aggregation rules. The current dependency map records 2 upstream caller(s) and 15 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `2` |
-| Downstream command count | `15` |
-| Workflow script count | `2` |
-| Detailed dependency entry | [Open in map](#depcmd-taxonomy) |
+Dependency entry: [Open in map](#depcmd-taxonomy); functional module: [`taxonomy`](#mod-taxonomy).
 
-### Usage
+**Usage**
 
 `usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Taxonomic classification.
 | `--split` | Split input into N equally distributed chunks. 0: set the best split automatically |
 | `--split-mode` | 0: split target db; 1: split query db; 2: auto, depending on main memory |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs taxonomy <i:queryDB> <i:targetDB> <o:taxaDB> <tmpDir> [options]
@@ -213,7 +204,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Breitwieser F, Soding J, Levy Karin E: Fast and sensitive taxonomic assignment to metagenomic contigs. Bioinformatics, btab184 (2021)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-taxonomy), [command reference index](#sec-command-reference), and [functional module page](#mod-taxonomy).
-

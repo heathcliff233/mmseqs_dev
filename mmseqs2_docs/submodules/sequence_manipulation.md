@@ -1,22 +1,24 @@
 ## Sequence Manipulation {#mod-sequence-manipulation}
 
-Modules that transform sequence content, frames, ORFs, and masked/aligned regions.
+Sequence-level transform modules for ORFs, frames, masking, coordinate transforms, and related preprocessing.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ```{=typst}
 #doc_warning[
-Validate database-type and sidecar compatibility before chaining modules. Most pipeline failures come from DB contract mismatches.
+Validate DB-type and sidecar contracts before chaining modules. Most pipeline failures are contract mismatches, not algorithmic defects.
 ]
 ```
 
 ### `extractalignedregion` {#modcmd-extractalignedregion}
 
 Extract aligned sequence region from query.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -25,9 +27,8 @@ Extract aligned sequence region from query.
 | Category flags | `COMMAND_SEQUENCE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-extractalignedregion), [Dependency entry](#depcmd-extractalignedregion).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-extractalignedregion) · [Dependency entry](#depcmd-extractalignedregion) |
 
 #### Key Options
 
@@ -43,6 +44,8 @@ Reference links: [Full CLI](#refcmd-extractalignedregion), [Dependency entry](#d
 
 Extract frames from a nucleotide sequence DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 4 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs extractframes <i:sequenceDB> <o:sequenceDB> [options]` |
@@ -51,8 +54,7 @@ Extract frames from a nucleotide sequence DB.
 | Upstream command count | `4` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`database`](#mod-database), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-extractframes), [Dependency entry](#depcmd-extractframes).
+| References | [Full CLI](#refcmd-extractframes) · [Dependency entry](#depcmd-extractframes) |
 
 #### Key Options
 
@@ -71,6 +73,8 @@ Reference links: [Full CLI](#refcmd-extractframes), [Dependency entry](#depcmd-e
 
 Six-frame extraction of open reading frames.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 6 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]` |
@@ -79,8 +83,7 @@ Six-frame extraction of open reading frames.
 | Upstream command count | `6` |
 | Downstream command count | `0` |
 | Related functional groups | [`database`](#mod-database), [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows), [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-extractorfs), [Dependency entry](#depcmd-extractorfs).
+| References | [Full CLI](#refcmd-extractorfs) · [Dependency entry](#depcmd-extractorfs) |
 
 #### Key Options
 
@@ -99,6 +102,8 @@ Reference links: [Full CLI](#refcmd-extractorfs), [Dependency entry](#depcmd-ext
 
 Soft mask sequence DB using tantan.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs masksequence <i:sequenceDB> <o:sequenceDB> [options]` |
@@ -106,9 +111,8 @@ Soft mask sequence DB using tantan.
 | Category flags | `COMMAND_SEQUENCE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-masksequence), [Dependency entry](#depcmd-masksequence).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-masksequence) · [Dependency entry](#depcmd-masksequence) |
 
 #### Key Options
 
@@ -126,6 +130,8 @@ Reference links: [Full CLI](#refcmd-masksequence), [Dependency entry](#depcmd-ma
 
 Write ORF locations in alignment format.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs orftocontig <i:contigsSequenceDB> <i:extractedOrfsHeadersDB> <o:orfsAlignedToContigDB> [options]` |
@@ -134,8 +140,7 @@ Write ORF locations in alignment format.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`multi_hit`](#mod-multi-hit) |
-
-Reference links: [Full CLI](#refcmd-orftocontig), [Dependency entry](#depcmd-orftocontig).
+| References | [Full CLI](#refcmd-orftocontig) · [Dependency entry](#depcmd-orftocontig) |
 
 #### Key Options
 
@@ -149,6 +154,8 @@ Reference links: [Full CLI](#refcmd-orftocontig), [Dependency entry](#depcmd-orf
 
 Recover longest ORF for taxonomy annotation after elimination.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs recoverlongestorf <i:orfDB> <i:resultDB> <o:tsvFile> [options]` |
@@ -157,8 +164,7 @@ Recover longest ORF for taxonomy annotation after elimination.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`taxonomy`](#mod-taxonomy) |
-
-Reference links: [Full CLI](#refcmd-recoverlongestorf), [Dependency entry](#depcmd-recoverlongestorf).
+| References | [Full CLI](#refcmd-recoverlongestorf) · [Dependency entry](#depcmd-recoverlongestorf) |
 
 #### Key Options
 
@@ -171,6 +177,8 @@ Reference links: [Full CLI](#refcmd-recoverlongestorf), [Dependency entry](#depc
 
 Reverse (without complement) sequences.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs reverseseq <i:sequenceDB> <o:revSequenceDB> [options]` |
@@ -178,9 +186,8 @@ Reverse (without complement) sequences.
 | Category flags | `COMMAND_SEQUENCE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-reverseseq), [Dependency entry](#depcmd-reverseseq).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-reverseseq) · [Dependency entry](#depcmd-reverseseq) |
 
 #### Key Options
 
@@ -194,6 +201,8 @@ Reference links: [Full CLI](#refcmd-reverseseq), [Dependency entry](#depcmd-reve
 
 Translate proteins to lexicographically lowest codons.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs translateaa <i:sequenceDB> <o:sequenceDB> [options]` |
@@ -201,9 +210,8 @@ Translate proteins to lexicographically lowest codons.
 | Category flags | `COMMAND_SEQUENCE` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-translateaa), [Dependency entry](#depcmd-translateaa).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-translateaa) · [Dependency entry](#depcmd-translateaa) |
 
 #### Key Options
 
@@ -217,6 +225,8 @@ Reference links: [Full CLI](#refcmd-translateaa), [Dependency entry](#depcmd-tra
 
 Translate nucleotides to proteins.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is sequence-space normalization before heavy compute, especially for translated or masked workflows. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs translatenucs <i:sequenceDB> <o:sequenceDB> [options]` |
@@ -225,8 +235,7 @@ Translate nucleotides to proteins.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`multi_hit`](#mod-multi-hit) |
-
-Reference links: [Full CLI](#refcmd-translatenucs), [Dependency entry](#depcmd-translatenucs).
+| References | [Full CLI](#refcmd-translatenucs) · [Dependency entry](#depcmd-translatenucs) |
 
 #### Key Options
 

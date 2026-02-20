@@ -1,29 +1,20 @@
-## `extractorfs` {#refcmd-extractorfs}
+### `extractorfs` {#refcmd-extractorfs}
 
 Six-frame extraction of open reading frames.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`sequence_manipulation`](#mod-sequence-manipulation) |
-| Category flags | `COMMAND_SEQUENCE` |
+This command family transforms sequence space before or after major compute stages. The current dependency map records 6 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `6` |
-| Downstream command count | `0` |
-| Workflow script count | `4` |
-| Detailed dependency entry | [Open in map](#depcmd-extractorfs) |
+Dependency entry: [Open in map](#depcmd-extractorfs); functional module: [`sequence_manipulation`](#mod-sequence-manipulation).
 
-### Usage
+**Usage**
 
 `usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Six-frame extraction of open reading frames.
 | `--use-all-table-starts` | Use all alternatives for a start codon in the genetic table, if false - only ATG (AUG) |
 | `--id-offset` | Numeric ids in index file are offset by this value |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs extractorfs <i:sequenceDB> <o:sequenceDB> [options]
@@ -72,7 +63,3 @@ expert:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-extractorfs), [command reference index](#sec-command-reference), and [functional module page](#mod-sequence-manipulation).
-

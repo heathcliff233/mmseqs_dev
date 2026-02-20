@@ -1,29 +1,20 @@
-## `kmermatcher` {#refcmd-kmermatcher}
+### `kmermatcher` {#refcmd-kmermatcher}
 
 Find bottom-m-hashed k-mer matches within sequence DB.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`prefiltering`](#mod-prefiltering) |
-| Category flags | `COMMAND_PREFILTER` |
+This command family is the main acceleration gate that prunes candidate pairs before expensive alignment. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command in custom pipelines that must expose candidate-generation behavior before alignment stages.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `1` |
-| Detailed dependency entry | [Open in map](#depcmd-kmermatcher) |
+Dependency entry: [Open in map](#depcmd-kmermatcher); functional module: [`prefiltering`](#mod-prefiltering).
 
-### Usage
+**Usage**
 
 `usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Find bottom-m-hashed k-mer matches within sequence DB.
 | `--cov-mode` | 0: coverage of query and target |
 | `-c` | List matches above this fraction of aligned (covered) residues (see --cov-mode) |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs kmermatcher <i:sequenceDB> <o:prefilterDB> [options]
@@ -83,7 +74,3 @@ common:
 references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-kmermatcher), [command reference index](#sec-command-reference), and [functional module page](#mod-prefiltering).
-

@@ -1,41 +1,30 @@
-## `fwbw` {#refcmd-fwbw}
+### `fwbw` {#refcmd-fwbw}
 
 Forward Backward Alignment.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`alignment`](#mod-alignment) |
-| Category flags | `COMMAND_ALIGNMENT` |
+This command family computes pair quality and coordinates and usually dominates per-pair compute cost after prefiltering. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-fwbw) |
+Dependency entry: [Open in map](#depcmd-fwbw); functional module: [`alignment`](#mod-alignment).
 
-### Usage
+**Usage**
 
-No local help snapshot usage line is available.
+`usage: mmseqs fwbw <inputDB(s)> <outputDB> [options]`
 
-### Key Options
+The syntax line above is source-derived from command layer/category metadata. Run `mmseqs fwbw` locally for exact positional arguments in your build.
 
-No parsed options are available for this command.
+**Key Options**
 
-### Full CLI Help Snapshot
+Local CLI option snapshots are not available for this command. Use the dependency entry and calling workflow source files to recover parameter bundles for your runtime path.
+
+**Full CLI Help Snapshot**
 
 ```{=typst}
-#doc_warning[
-Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.
+#doc_note[
+This page keeps a source-derived summary because no local help snapshot was found for this command.
 ]
 ```
-
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-fwbw), [command reference index](#sec-command-reference), and [functional module page](#mod-alignment).
 

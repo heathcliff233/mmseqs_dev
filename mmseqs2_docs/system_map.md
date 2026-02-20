@@ -1,47 +1,35 @@
 # System Map: Cascaded APIs and Module Connections {#sec-system-map}
 
-MMseqs2 commands are layered. Workflow and high-level commands orchestrate lower-level modules, and those modules enforce the actual data contracts. This layering is both an architecture map and a performance map: most runtime and correctness characteristics are inherited from the lower levels each workflow chooses.
+MMseqs2 commands are intentionally layered. Easy workflows and high-level entrypoints decide orchestration, while lower-level modules enforce data contracts and execute the expensive kernels. Understanding this layering is essential for both correctness and performance debugging: the command you invoke is often only the visible front of a deeper module chain.
 
-Primary generated maps are [Command Reference Index](#sec-command-reference) and [Dependency Map](#sec-dependency-map).
+The generated topology views, [Command Reference Index](#sec-command-reference) and [Dependency Map](#sec-dependency-map), provide the complete command-level map. This chapter explains how to interpret that map.
 
-## API Layers
+## Layered API Model
 
-| Layer | Typical Role | Representative Commands |
-| :--- | :--- | :--- |
-| `workflow` | Easy entry points over FASTA/FASTQ with default orchestration | `easy-search`, `easy-cluster`, `easy-taxonomy` |
-| `high_level_api` | End-to-end MMseqs DB workflows for search, clustering, taxonomy, or set workflows | `search`, `cluster`, `taxonomy`, `linsearch`, `multihitsearch` |
-| `mid_level_api` | Core compute modules used inside workflows | `prefilter`, `align`, `clust`, `kmermatcher` |
-| `low_level_api` | DB operations, conversion, utilities, and composition helpers | `createdb`, `convertalis`, `filterdb`, `createtsv` |
+At the top, workflow commands prioritize usability and sensible defaults. They hide many internal steps but still inherit all low-level behavior from their called modules. High-level API commands expose full DB-to-DB task execution and are typically the right interface for reproducible production pipelines.
 
-## Cascade Pattern
+Mid-level API commands are where core algorithmic work happens: prefiltering, alignment, clustering kernels, and related computational modules. Low-level API commands perform DB creation, conversion, indexing, filtering, and utility operations. These lower layers are frequently used in custom pipelines and debugging workflows where explicit control matters more than convenience.
 
-Most pipelines follow the same execution shape: an orchestration command selects a path, prefiltering narrows candidate pairs, alignment or rescoring computes pair quality, and downstream modules transform or aggregate outputs. Not every command uses every stage, but this pattern explains most runtime and output behavior.
+## Cascade Pattern in Practice
 
-The important operational consequence is that changing a high-level workflow can silently switch lower-level modules and therefore change both output semantics and resource profile. Dependency links should be read as behavior links, not only call graph links.
+Most workflows follow a common shape: first reduce the candidate space, then score surviving pairs with progressively more expensive methods, then transform outputs into task-specific artifacts. Search and clustering differ in final objectives, but they share this backbone.
+
+That shared backbone creates an important operational rule: changing a high-level command can silently switch lower-level modules and therefore change output semantics, runtime profile, or both. Dependency edges should therefore be read as behavior links, not merely as call graph arrows.
 
 ```{=typst}
 #doc_note[
-Functional grouping and API layer are orthogonal. A command can be in the taxonomy group and still be low-level API.
+Functional group and API layer are orthogonal. A command can belong to one functional group but live in a different API layer than neighboring commands in that group.
 ]
 ```
 
-## Crosslink Model Used in Submodule Pages
+## How Submodule Pages Encode This Map
 
-Each command entry in `submodules/*.md` includes a structured metadata table with:
+Each entry in `submodules/*.md` now combines prose and compact metadata. The prose explains what a command does, how it participates in the cascade, and when to use it. The compact metadata table records API layer, category flags, and coupling counts so readers can quickly assess execution context.
 
-| Field | Purpose |
-| :--- | :--- |
-| API layer and category | Places command in the execution stack |
-| Upstream/downstream counts | Shows coupling intensity without repeating full edge lists |
-| Related functional groups | Shows cross-domain coupling |
-| Reference links | Links to full CLI help and dependency-map anchor |
+To avoid duplication, full upstream/downstream edge lists and script evidence are centralized in [Dependency Map](#sec-dependency-map).
 
-Full upstream/downstream command lists and workflow-script evidence are centralized in `reference/dependency_map.md`.
+## Choosing Your Entry View
 
-## When to Start from the Dependency View
+Start from [Functional Modules Manual](#sec-functional-modules-manual) when your task intent is clear and you need command candidates quickly. Start from [Dependency Map](#sec-dependency-map) when behavior is surprising, performance is unstable, or you are composing a custom low-level pipeline and need exact topology evidence.
 
-Start with [Dependency Map](#sec-dependency-map) when tuning runtime at workflow level, debugging unexpected output semantics, or composing custom pipelines from low-level modules. Start with [Functional Modules Manual](#sec-functional-modules-manual) and submodule pages when task intent is clear and you need command selection guidance first.
-
-## Transition to Performance Foundations
-
-This chapter explains where commands sit in the cascade. The next chapter, [Performance Foundations](#sec-performance-foundations), explains why that cascade is fast in practice: internal storage format, index and load mechanics, memory and split tradeoffs, and parallel execution strategies.
+Use [Performance Foundations](#sec-performance-foundations) with this chapter to connect architecture placement with storage, index, split, and parallel execution consequences.

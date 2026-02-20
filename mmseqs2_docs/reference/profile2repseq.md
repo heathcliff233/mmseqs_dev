@@ -1,41 +1,30 @@
-## `profile2repseq` {#refcmd-profile2repseq}
+### `profile2repseq` {#refcmd-profile2repseq}
 
 Extract representative sequence DB from a profile DB.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`profiles`](#mod-profiles) |
-| Category flags | `COMMAND_PROFILE` |
+This command family preserves profile semantics across conversion and search steps. The current dependency map records 0 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when you need explicit control of this stage instead of relying on workflow defaults.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `0` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-profile2repseq) |
+Dependency entry: [Open in map](#depcmd-profile2repseq); functional module: [`profiles`](#mod-profiles).
 
-### Usage
+**Usage**
 
-No local help snapshot usage line is available.
+`usage: mmseqs profile2repseq <DB> [args] [options]`
 
-### Key Options
+The syntax line above is source-derived from command layer/category metadata. Run `mmseqs profile2repseq` locally for exact positional arguments in your build.
 
-No parsed options are available for this command.
+**Key Options**
 
-### Full CLI Help Snapshot
+Local CLI option snapshots are not available for this command. Use the dependency entry and calling workflow source files to recover parameter bundles for your runtime path.
+
+**Full CLI Help Snapshot**
 
 ```{=typst}
-#doc_warning[
-Help snapshot missing in mmseqs_help_output. Refresh local snapshots before relying on exact options/defaults.
+#doc_note[
+This page keeps a source-derived summary because no local help snapshot was found for this command.
 ]
 ```
-
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-profile2repseq), [command reference index](#sec-command-reference), and [functional module page](#mod-profiles).
 

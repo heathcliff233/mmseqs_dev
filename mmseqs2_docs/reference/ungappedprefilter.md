@@ -1,29 +1,20 @@
-## `ungappedprefilter` {#refcmd-ungappedprefilter}
+### `ungappedprefilter` {#refcmd-ungappedprefilter}
 
 Optimal diagonal score search.
 
-### Classification
+Execution role: core compute module typically called by workflows and advanced custom pipelines.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `mid_level_api` |
-| Primary functional group | [`prefiltering`](#mod-prefiltering) |
-| Category flags | `COMMAND_PREFILTER` |
+This command family is the main acceleration gate that prunes candidate pairs before expensive alignment. The current dependency map records 1 upstream caller(s) and 0 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command in custom pipelines that must expose candidate-generation behavior before alignment stages.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `1` |
-| Downstream command count | `0` |
-| Workflow script count | `2` |
-| Detailed dependency entry | [Open in map](#depcmd-ungappedprefilter) |
+Dependency entry: [Open in map](#depcmd-ungappedprefilter); functional module: [`prefiltering`](#mod-prefiltering).
 
-### Usage
+**Usage**
 
 `usage: mmseqs ungappedprefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Optimal diagonal score search.
 | `--db-load-mode` | Database preload mode 0: auto, 1: fread, 2: mmap, 3: mmap+touch |
 | `--gpu` | Use GPU (CUDA) if possible |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs ungappedprefilter <i:queryDB> <i:targetDB> <o:prefilterDB> [options]
@@ -76,7 +67,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Kallenborn F, Chacon A, Hundt C, Sirelkhatim H, Didi K, Dallago C, Mirdita M, Schmidt B, Steinegger M: GPU-accelerated homology search with MMseqs2. bioRxiv, 2024.11.13.623350 (2024)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-ungappedprefilter), [command reference index](#sec-command-reference), and [functional module page](#mod-prefiltering).
-

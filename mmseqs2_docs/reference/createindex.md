@@ -1,29 +1,20 @@
-## `createindex` {#refcmd-createindex}
+### `createindex` {#refcmd-createindex}
 
 Store precomputed index on disk to reduce search overhead.
 
-### Classification
+Execution role: low-level command used for DB management, conversion, and pipeline composition.
 
-| Aspect | Value |
-| :--- | :--- |
-| API layer | `low_level_api` |
-| Primary functional group | [`database`](#mod-database) |
-| Category flags | `COMMAND_DATABASE_CREATION` |
+This command family enforces DB contracts and storage/index integrity used by all workflows. The current dependency map records 0 upstream caller(s) and 4 downstream call(s), which indicates how broadly parameter changes can propagate.
 
-### Topology
+Typical use case: choose this command when preparing or restructuring DB artifacts to satisfy downstream module contracts.
 
-| Aspect | Value |
-| :--- | :--- |
-| Upstream command count | `0` |
-| Downstream command count | `4` |
-| Workflow script count | `0` |
-| Detailed dependency entry | [Open in map](#depcmd-createindex) |
+Dependency entry: [Open in map](#depcmd-createindex); functional module: [`database`](#mod-database).
 
-### Usage
+**Usage**
 
 `usage: mmseqs createindex <i:sequenceDB> <tmpDir> [options]`
 
-### Key Options
+**Key Options**
 
 | Option | Purpose |
 | :--- | :--- |
@@ -40,7 +31,7 @@ Store precomputed index on disk to reduce search overhead.
 | `--spaced-kmer-mode` | 0: use consecutive positions in k-mers; 1: use spaced k-mers |
 | `--spaced-kmer-pattern` | User-specified spaced k-mer pattern |
 
-### Full CLI Help Snapshot
+**Full CLI Help Snapshot**
 
 ```text
 usage: mmseqs createindex <i:sequenceDB> <tmpDir> [options]
@@ -115,7 +106,3 @@ references:
  - Steinegger M, Soding J: MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. Nature Biotechnology, 35(11), 1026-1028 (2017)
  - Mirdita M, Steinegger M, Soding J: MMseqs2 desktop and local web server app for fast, interactive sequence searches. Bioinformatics, 35(16), 2856-2858 (2019)
 ```
-### Cross References
-
-See [Dependency map section](#sec-dependency-map), [dependency entry](#depcmd-createindex), [command reference index](#sec-command-reference), and [functional module page](#mod-database).
-

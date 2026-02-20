@@ -1,16 +1,16 @@
 ## Result Handling {#mod-result-handling}
 
-Modules that transform, filter, summarize, and export result databases.
+Modules that filter, summarize, reshape, and export result databases for downstream analysis.
 
 ```{=typst}
 #doc_note[
-This page focuses on task-oriented usage and practical options. Detailed call topology is centralized in the Dependency Map to reduce duplicated edge listings.
+This page is task-oriented. Detailed call topology is centralized in the Dependency Map to avoid repeating large edge lists.
 ]
 ```
 
 ```{=typst}
 #doc_warning[
-Validate database-type and sidecar compatibility before chaining modules. Most pipeline failures come from DB contract mismatches.
+Validate DB-type and sidecar contracts before chaining modules. Most pipeline failures are contract mismatches, not algorithmic defects.
 ]
 ```
 
@@ -18,20 +18,25 @@ Validate database-type and sidecar compatibility before chaining modules. Most p
 
 Convert sequence DB to FASTA format.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs convert2fasta <DB> [args] [options]` (source-derived synopsis; run `mmseqs convert2fasta` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_FORMAT_CONVERSION` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-convert2fasta) · [Dependency entry](#depcmd-convert2fasta) |
 
-Reference links: [Full CLI](#refcmd-convert2fasta), [Dependency entry](#depcmd-convert2fasta).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `convertalis` {#modcmd-convertalis}
 
 Convert alignment DB to BLAST-tab, SAM or custom format.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 4 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -41,8 +46,7 @@ Convert alignment DB to BLAST-tab, SAM or custom format.
 | Upstream command count | `4` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-convertalis), [Dependency entry](#depcmd-convertalis).
+| References | [Full CLI](#refcmd-convertalis) · [Dependency entry](#depcmd-convertalis) |
 
 #### Key Options
 
@@ -61,6 +65,8 @@ Reference links: [Full CLI](#refcmd-convertalis), [Dependency entry](#depcmd-con
 
 Create a DB of unaligned FASTA entries.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs createseqfiledb <i:sequenceDB> <i:resultDB> <o:fastaDB> [options]` |
@@ -69,8 +75,7 @@ Create a DB of unaligned FASTA entries.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-createseqfiledb), [Dependency entry](#depcmd-createseqfiledb).
+| References | [Full CLI](#refcmd-createseqfiledb) · [Dependency entry](#depcmd-createseqfiledb) |
 
 #### Key Options
 
@@ -88,6 +93,8 @@ Reference links: [Full CLI](#refcmd-createseqfiledb), [Dependency entry](#depcmd
 
 Convert result DB to tab-separated flat file.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs createtsv <i:queryDB> [<i:targetDB>] <i:resultDB> <o:tsvFile> [options]` |
@@ -96,8 +103,7 @@ Convert result DB to tab-separated flat file.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-createtsv), [Dependency entry](#depcmd-createtsv).
+| References | [Full CLI](#refcmd-createtsv) · [Dependency entry](#depcmd-createtsv) |
 
 #### Key Options
 
@@ -116,20 +122,25 @@ Reference links: [Full CLI](#refcmd-createtsv), [Dependency entry](#depcmd-creat
 
 Extract highest scoring alignment regions for each sequence from BLAST-tab file.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs extractdomains <DB> [args] [options]` (source-derived synopsis; run `mmseqs extractdomains` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-extractdomains) · [Dependency entry](#depcmd-extractdomains) |
 
-Reference links: [Full CLI](#refcmd-extractdomains), [Dependency entry](#depcmd-extractdomains).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `filterresult` {#modcmd-filterresult}
 
 Pairwise alignment result filter.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -139,8 +150,7 @@ Pairwise alignment result filter.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-filterresult), [Dependency entry](#depcmd-filterresult).
+| References | [Full CLI](#refcmd-filterresult) · [Dependency entry](#depcmd-filterresult) |
 
 #### Key Options
 
@@ -159,6 +169,8 @@ Reference links: [Full CLI](#refcmd-filterresult), [Dependency entry](#depcmd-fi
 
 Compute MSA DB with out insertions in the query for DNA sequences.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs result2dnamsa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]` |
@@ -166,9 +178,8 @@ Compute MSA DB with out insertions in the query for DNA sequences.
 | Category flags | `COMMAND_RESULT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-result2dnamsa), [Dependency entry](#depcmd-result2dnamsa).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-result2dnamsa) · [Dependency entry](#depcmd-result2dnamsa) |
 
 #### Key Options
 
@@ -183,6 +194,8 @@ Reference links: [Full CLI](#refcmd-result2dnamsa), [Dependency entry](#depcmd-r
 
 Create flat file by adding FASTA headers to DB entries.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs result2flat <i:queryDB> <i:targetDB> <i:resultDB> <o:fastaDB> [options]` |
@@ -191,8 +204,7 @@ Create flat file by adding FASTA headers to DB entries.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-result2flat), [Dependency entry](#depcmd-result2flat).
+| References | [Full CLI](#refcmd-result2flat) · [Dependency entry](#depcmd-result2flat) |
 
 #### Key Options
 
@@ -205,6 +217,8 @@ Reference links: [Full CLI](#refcmd-result2flat), [Dependency entry](#depcmd-res
 
 Compute MSA DB from a result DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs result2msa <i:queryDB> <i:targetDB> <i:resultDB> <o:msaDB> [options]` |
@@ -213,8 +227,7 @@ Compute MSA DB from a result DB.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering) |
-
-Reference links: [Full CLI](#refcmd-result2msa), [Dependency entry](#depcmd-result2msa).
+| References | [Full CLI](#refcmd-result2msa) · [Dependency entry](#depcmd-result2msa) |
 
 #### Key Options
 
@@ -233,6 +246,8 @@ Reference links: [Full CLI](#refcmd-result2msa), [Dependency entry](#depcmd-resu
 
 Filter a merged result DB to retain only reciprocal best hits.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs result2rbh <i:resultDB> <o:resultDB> [options]` |
@@ -241,8 +256,7 @@ Filter a merged result DB to retain only reciprocal best hits.
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-result2rbh), [Dependency entry](#depcmd-result2rbh).
+| References | [Full CLI](#refcmd-result2rbh) · [Dependency entry](#depcmd-result2rbh) |
 
 #### Key Options
 
@@ -256,6 +270,8 @@ Reference links: [Full CLI](#refcmd-result2rbh), [Dependency entry](#depcmd-resu
 
 Get representative sequences from result DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 3 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs result2repseq <i:sequenceDB> <i:resultDB> <o:sequenceDb> [options]` |
@@ -264,8 +280,7 @@ Get representative sequences from result DB.
 | Upstream command count | `3` |
 | Downstream command count | `0` |
 | Related functional groups | [`clustering`](#mod-clustering), [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-result2repseq), [Dependency entry](#depcmd-result2repseq).
+| References | [Full CLI](#refcmd-result2repseq) · [Dependency entry](#depcmd-result2repseq) |
 
 #### Key Options
 
@@ -280,6 +295,8 @@ Reference links: [Full CLI](#refcmd-result2repseq), [Dependency entry](#depcmd-r
 
 Compute statistics for each entry in a DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs result2stats <i:queryDB> <i:targetDB> <i:resultDB> <o:statsDB> [options]` |
@@ -288,8 +305,7 @@ Compute statistics for each entry in a DB.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`multi_hit`](#mod-multi-hit), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-result2stats), [Dependency entry](#depcmd-result2stats).
+| References | [Full CLI](#refcmd-result2stats) · [Dependency entry](#depcmd-result2stats) |
 
 #### Key Options
 
@@ -305,6 +321,8 @@ Reference links: [Full CLI](#refcmd-result2stats), [Dependency entry](#depcmd-re
 
 Sort a result DB in the same order as the prefilter or align module.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs sortresult <i:resultbDB> <o:resultDB> [options]` |
@@ -312,9 +330,8 @@ Sort a result DB in the same order as the prefilter or align module.
 | Category flags | `COMMAND_RESULT` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
-
-Reference links: [Full CLI](#refcmd-sortresult), [Dependency entry](#depcmd-sortresult).
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-sortresult) · [Dependency entry](#depcmd-sortresult) |
 
 #### Key Options
 
@@ -328,6 +345,8 @@ Reference links: [Full CLI](#refcmd-sortresult), [Dependency entry](#depcmd-sort
 
 Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.).
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 1 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs summarizealis <i:alignmentDB> <o:summerizedDB> [options]` |
@@ -336,8 +355,7 @@ Summarize alignment result to one row (uniq. cov., cov., avg. seq. id.).
 | Upstream command count | `1` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-summarizealis), [Dependency entry](#depcmd-summarizealis).
+| References | [Full CLI](#refcmd-summarizealis) · [Dependency entry](#depcmd-summarizealis) |
 
 #### Key Options
 
@@ -351,20 +369,25 @@ Reference links: [Full CLI](#refcmd-summarizealis), [Dependency entry](#depcmd-s
 
 Summarize FASTA headers of result DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 0 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
-| Usage | Help snapshot unavailable locally. |
+| Usage | `usage: mmseqs summarizeheaders <DB> [args] [options]` (source-derived synopsis; run `mmseqs summarizeheaders` for exact syntax) |
 | API layer | `low_level_api` |
 | Category flags | `COMMAND_SPECIAL` |
 | Upstream command count | `0` |
 | Downstream command count | `0` |
-| Related functional groups | `n/a` |
+| Related functional groups | No direct cross-group coupling detected in the current dependency map. |
+| References | [Full CLI](#refcmd-summarizeheaders) · [Dependency entry](#depcmd-summarizeheaders) |
 
-Reference links: [Full CLI](#refcmd-summarizeheaders), [Dependency entry](#depcmd-summarizeheaders).
+No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
 ### `summarizeresult` {#modcmd-summarizeresult}
 
 Extract annotations from alignment DB.
+
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 2 upstream caller(s) and 0 downstream call(s).
 
 | Aspect | Value |
 | :--- | :--- |
@@ -374,8 +397,7 @@ Extract annotations from alignment DB.
 | Upstream command count | `2` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows) |
-
-Reference links: [Full CLI](#refcmd-summarizeresult), [Dependency entry](#depcmd-summarizeresult).
+| References | [Full CLI](#refcmd-summarizeresult) · [Dependency entry](#depcmd-summarizeresult) |
 
 #### Key Options
 
@@ -392,6 +414,8 @@ Reference links: [Full CLI](#refcmd-summarizeresult), [Dependency entry](#depcmd
 
 Transpose prefilter/alignment DB.
 
+Low-level DB or utility command used for composition and contract enforcement. Design priority is transforming outputs without silently changing scoring semantics inherited from upstream modules. Current coupling is 4 upstream caller(s) and 0 downstream call(s).
+
 | Aspect | Value |
 | :--- | :--- |
 | Usage | `usage: mmseqs swapresults <i:queryDB> <i:targetDB> <i:resultDB> <o:resultDB> [options]` |
@@ -400,8 +424,7 @@ Transpose prefilter/alignment DB.
 | Upstream command count | `4` |
 | Downstream command count | `0` |
 | Related functional groups | [`easy_workflows`](#mod-easy-workflows), [`search_workflows`](#mod-search-workflows) |
-
-Reference links: [Full CLI](#refcmd-swapresults), [Dependency entry](#depcmd-swapresults).
+| References | [Full CLI](#refcmd-swapresults) · [Dependency entry](#depcmd-swapresults) |
 
 #### Key Options
 

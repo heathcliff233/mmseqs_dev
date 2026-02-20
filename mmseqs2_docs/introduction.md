@@ -1,51 +1,40 @@
 # MMseqs2 Documentation Overview {#sec-overview}
 
-MMseqs2 is a cascaded system for large-scale sequence analysis. User-facing workflows are orchestration layers that route data through lower-level modules with strict database contracts, resource tradeoffs, and mode-specific semantics. This manual follows the same architecture so readers can move from intent to execution detail without switching mental models.
+MMseqs2 is designed for a difficult constraint set: very large sequence collections, sensitivity targets close to established alignment tools, and runtime envelopes that still fit production workflows. The project solves this by treating performance as a systems property instead of a single-kernel optimization problem. Workflows, core compute modules, storage format, and split policy are all part of one execution model.
 
-At a high level, MMseqs2 gains speed by combining three design choices: compact internal databases, staged candidate reduction before expensive alignment, and parallel execution across cores and servers. Accuracy, runtime, and resource usage are therefore not independent concerns. They are coupled through the pipeline path, indexing strategy, and split policy selected for a run.
+This manual follows that same model. It starts from the big picture, then moves to algorithmic and systems acceleration details, then to functional modules and command-level references. The goal is that a reader can move from a task question ("what should I run?") to a design question ("why does this run behave this way?") without switching mental frameworks.
 
-## Reading Path
+## What This Manual Assumes
 
-| Stage | Goal | Entry Point |
-| :--- | :--- | :--- |
-| Overall idea | Understand how MMseqs2 turns large search spaces into tractable stages | [Overview](#sec-overview) |
-| Sharp bits | Avoid expensive correctness and performance mistakes | [Sharp Bits](#sec-sharp-bits) |
-| System view | See API layers and dependency topology | [System Map](#sec-system-map) |
-| Performance foundations | Understand storage, indexing, memory-split tradeoffs, and parallel execution model | [Performance Foundations](#sec-performance-foundations) |
-| Functional modules | Navigate by task domain and submodule relationships | [Functional Modules Manual](#sec-functional-modules-manual) |
-| Expert behavior | Compose robust custom pipelines and maintain doc quality | [Expert Manual](#sec-expert-manual) |
+The documentation assumes that you will run MMseqs2 as a cascade of stages, not as isolated commands. In practice, prefiltering and indexing choices set the candidate volume and memory behavior, alignment settings control the quality-cost boundary, and result-handling choices decide how downstream interpretation is constrained. If one stage is misconfigured, later stages may still produce outputs, but those outputs may no longer be comparable across runs.
 
-## Cascade Model
+For that reason, this manual repeatedly emphasizes contract stability: database type compatibility, sidecar availability, mode consistency, and reproducible parameter sets. These are not housekeeping details; they are part of algorithmic correctness at scale.
 
-A typical MMseqs2 pipeline starts with database preparation, narrows candidates through prefiltering, computes alignment or rescoring on the reduced candidate set, and then applies downstream transforms such as clustering, taxonomy assignment, or export. This staged execution is the core scaling mechanism: expensive operations are deferred until cheap filters reduce the search space.
+## Reading Strategy
 
-For practical work, this means that most large performance wins come from upstream decisions, not late-stage tweaking. Index reuse, split strategy, and load behavior can dominate total wall time before sensitivity or filtering changes even become visible.
+Start with the conceptual chapters before diving into command pages:
 
-## Navigation Axes
+1. Read [Performance Foundations](#sec-performance-foundations) for algorithmic acceleration, storage/indexing behavior, split policy, and parallel execution tradeoffs.
+2. Read [System Map](#sec-system-map) to understand the layered API model and command cascade.
+3. Use [Functional Modules Manual](#sec-functional-modules-manual) for task-oriented command discovery.
+4. Use [Command Reference Index](#sec-command-reference) and [Dependency Map](#sec-dependency-map) for exact command topology and CLI details.
 
-The documentation exposes two orthogonal views of the same commands. The functional view answers what to run for a task; the API-layer view answers where that command sits in the cascade and what it depends on.
+If you already know your task and only need command selection, you can jump directly to [Functional Modules Manual](#sec-functional-modules-manual). If you are diagnosing runtime or output drift, read the conceptual chapters first; they explain the cross-stage couplings that usually cause expensive surprises.
 
-| View | Question It Answers | Main Files |
-| :--- | :--- | :--- |
-| Functional modules | Which commands solve this workflow goal? | [Functional Modules Manual](#sec-functional-modules-manual), [Functional Module Pages](#mod-easy-workflows) |
-| Dependency and API layer | Which modules call this command, and which modules it calls | [System Map](#sec-system-map), [Dependency Map](#sec-dependency-map), [Command Reference Index](#sec-command-reference) |
+## Why the Cascade Matters
+
+A typical MMseqs2 workflow performs database preparation, candidate generation, alignment or rescoring on surviving pairs, and downstream transformation such as clustering, taxonomy assignment, or export. This order is the primary scaling mechanism. Expensive operations are delayed until fast filters shrink the search space.
+
+The practical consequence is that late-stage tuning often has less impact than early-stage tuning. Raising sensitivity or adding richer alignment outputs can be useful, but only after index strategy, load behavior, and split policy are stable. In large production runs, infrastructure misalignment can dominate wall time long before algorithmic thresholds are the true bottleneck.
+
+## Source-of-Truth Policy
+
+Narrative chapters explain design and usage strategy. Command snapshots in `mmseqs_help_output` define concrete CLI behavior for this repository state. Source code under `MMseqs2/src/` and workflow scripts under `MMseqs2/data/workflow/` remain the final authority when you need implementation-level confirmation.
+
+Use [Expert Manual](#sec-expert-manual) and [MMseqs2 Source Development Guide](#sec-expert-dev-guide) when you need strict reproducibility discipline or source-level debugging and extension guidance.
 
 ```{=typst}
 #doc_note[
-When narrative text and command defaults disagree, treat local help snapshots in `mmseqs_help_output` as canonical for CLI behavior. Treat #link(<sec-performance-foundations>)[Performance Foundations] as the canonical summary of storage and parallel mechanics in this manual.
+When narrative guidance and local command snapshots diverge, treat local snapshots and source code as canonical for exact behavior.
 ]
 ```
-
-## How to Use This Manual Efficiently
-
-If you are selecting commands for a known task, start with [Functional Modules Manual](#sec-functional-modules-manual) and then open the linked submodule page. If you are diagnosing runtime, memory, or output interpretation problems, read [System Map](#sec-system-map) and [Performance Foundations](#sec-performance-foundations) first, then inspect dependency links in [Dependency Map](#sec-dependency-map). If you are composing custom pipelines, finish with [Expert Manual](#sec-expert-manual) for contract and reproducibility discipline.
-
-## Source of Truth
-
-| Topic | Canonical Source |
-| :--- | :--- |
-| Visible command set and one-line intent | `MMseqs2/src/MMseqsBase.cpp` |
-| Workflow orchestration logic | `MMseqs2/src/workflow/*.cpp`, `MMseqs2/data/workflow/*.sh` |
-| Exact options and defaults | `mmseqs_help_output/*.txt` |
-| Crosslinked command/module references | `mmseqs2_docs/reference/`, `mmseqs2_docs/submodules/` |
-| Legacy long-form historical material | `mmseqs2_docs/wiki.md` |
