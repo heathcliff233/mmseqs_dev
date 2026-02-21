@@ -1,155 +1,44 @@
-# Introduction to Foldseek Core Concepts
+# Introduction to Foldseek {#fs-introduction}
 
-Foldseek is a revolutionary software suite for fast and sensitive protein structure searching and clustering. It achieves unprecedented speed by representing protein structures using a compact 3D-interaction (3Di) alphabet, enabling structural comparisons at sequence-like speeds while maintaining high sensitivity.
+Foldseek is a structure search and clustering system that keeps the throughput profile of sequence search while preserving the discriminative power needed for structural biology. It does this by converting protein structures into a structural alphabet, then running a cascaded search pipeline that aggressively prunes candidates before expensive scoring. The result is that search, clustering, and multimer analysis share one backbone, but each mode applies different scoring, filtering, and reporting layers.
 
-## Why is Foldseek so fast? The 3Di Revolution
+This manual is organized around that backbone. The practical entry points are described in the [manual](#fs-manual) and [module chapters](#fs-modules-root), while algorithmic and implementation details are centralized in the [expert manual](#fs-expert-root) and [developer manual](#fs-dev-root).
 
-The key innovation behind Foldseek's speed is the **3Di alphabet** - a compact representation that captures essential structural information while dramatically reducing the complexity of structural comparisons.
+## Structural Representation and 3Di {#fs-3di-overview}
 
-### The 3Di Alphabet: Two-Tier System
+Foldseek does not compare raw coordinates in the prefilter. During `createdb`, each chain is converted into synchronized data streams: amino-acid sequence, 3Di sequence, C-alpha coordinates, and headers. The 3Di stream is produced by feature extraction from local geometric context followed by embedding and discretization in `foldseek/lib/3di/structureto3di.cpp`. This representation is compact enough for fast k-mer indexing and prefiltering, but still captures local structural context that sequence-only scoring misses.
 
-Traditional structural alignment methods compare full 3D coordinates, which is computationally expensive. Foldseek uses a sophisticated **two-tier system** for structural representation:
+A key design choice is that Foldseek keeps AA and 3Di views aligned at the residue level. This enables `--alignment-type 2` (3Di+AA) to combine structural and sequence evidence in a single alignment stage instead of forcing separate post-hoc rescoring. The same design also allows fast fallback paths (`--alignment-type 0` or `1`) without changing database layout.
 
-#### Internal Classification (20 States)
-- **20 structural centroids** (states 0-19) trained via neural network embedding
-- Each residue is assigned to the closest centroid using Euclidean distance
-- Provides maximum structural discrimination for accurate similarity detection
-- **Used in**: Structure-to-structure alignment and initial classification
+## Search and Clustering Backbone {#fs-backbone-overview}
 
-#### External Representation (3-Letter Alphabet)
-- **H** (Helix): α-helical conformations
-- **E** (Strand): β-strand conformations
-- **C** (Coil): Loop and irregular conformations
-- **Used in**: Database storage and all search operations
+The core search path is staged:
 
-#### Internal vs. Output Representation
+1. K-mer driven candidate generation on structural descriptors.
+2. Ungapped and/or diagonal rescoring to cut candidate volume.
+3. Full alignment (`structurealign` or `tmalign`) with optional TM-score/LDDT gating.
+4. Optional post-processing such as multimer assignment, report creation, clustering, or conversion.
 
-The 3Di system uses a sophisticated two-tier approach for structural classification:
+The workflow layer in `foldseek/src/workflow/StructureSearch.cpp` wires these stages and adjusts behavior based on options like `--prefilter-mode`, `--alignment-type`, and `--gpu`. The same structural backbone is reused by `search`, `cluster`, `rbh`, and multimer workflows, which is why tuning one stage often affects multiple commands.
 
-1. **Internal Classification**: Uses **20 centroids** (states 0-19) trained on structural features to provide detailed structural discrimination
-2. **Final Output**: Maps these 20 internal states to the **3-letter alphabet** (H/E/C) through a substitution matrix for efficient k-mer matching and alignment
+## Structural Scoring Modes {#fs-scoring-overview}
 
-This design enables:
-- **Rich structural classification** with 20 internal states for high sensitivity
-- **Compact representation** with 3-letter output for fast searching
-- **Memory efficiency** with ~1 byte per residue instead of ~8 bytes for coordinates
-- **10,000x faster** prefiltering compared to coordinate-based methods
+Foldseek exposes three primary alignment modes through `--alignment-type`:
 
-#### AA and 3Di Integration
+- `0` (3Di alignment): fastest structural-only local alignment path.
+- `1` (TM alignment): TM-align-based global structural alignment.
+- `2` (3Di+AA): combined local scoring, default for many workflows.
 
-Foldseek stores and uses both amino acid (AA) sequences and 3Di sequences together:
+TM-score and LDDT can be used as explicit thresholds (`--tmscore-threshold`, `--lddt-threshold`) and also influence ranking when structure-bit sorting is enabled (`--sort-by-structure-bits 1`). Those interactions are not purely cosmetic; they affect which hits survive and how hits are ordered.
 
-- **AA sequences** (20-letter alphabet): Stored in `database` files for sequence-based operations
-- **3Di sequences** (3-letter alphabet): Stored in `database_ss` files for structural operations
-- **Combined alignment**: Uses both AA and 3Di scoring matrices for optimal sensitivity
-- **Synchronized storage**: Both sequence types have identical structure and indexing
+## Multimer Extension {#fs-multimer-overview}
 
-### Multi-Stage Structural Search Strategy
+Foldseek-Multimer extends the same single-chain backbone by adding chain expansion, chain-to-chain assignment, and complex-level scoring stages. In practice, `multimersearch` and `multimercluster` call additional modules (`expandmultimer`, `scoremultimer`, internal filtering/reporting) after base alignment so that complex-level quality is computed from concrete chain assignments rather than inferred from monomer hits.
 
-Foldseek employs a hierarchical search strategy similar to sequence-based tools but optimized for structural data:
+## Database and Index Model {#fs-db-overview}
 
-1. **3Di K-mer Matching**: Fast identification of structurally similar regions using 3Di k-mers
-2. **Structural Prefiltering**: Double consecutive k-mer matches on the same diagonal identify promising candidates
-3. **Ungapped Structural Alignment**: Fast verification of structural similarity
-4. **Full Structural Alignment**: TM-align or 3Di+AA Smith-Waterman alignment for final scoring
+Foldseek databases are split by data role (`DB`, `DB_ss`, `DB_ca`, `DB_h`, plus indices). This split is central to performance tuning: index and coordinate exclusions can reduce memory and I/O, but they also remove capabilities needed by specific ranking or alignment settings. The practical rules and exact file layout are documented in [Database Management](#fs-db-modules), especially [Core File Formats](#fs-db-file-format), and the runtime implications are documented in [Expert Manual: Data and Performance](#fs-expert-data).
 
-## The Foldseek Database
+## Reading Order {#fs-reading-order}
 
-High-level overview: Foldseek uses compact 3Di sequences plus optional coordinates to enable fast structural search. For file layout and operational details, see:
-- Databases (`foldseek_docs/submodules/databases.md`)
-- Developer Manual (`foldseek_docs/developer_manual.md`)
-
-## Structural Similarity Measures
-
-### 3Di Score
-The primary scoring mechanism uses 3Di sequences with position-specific scoring matrices optimized for structural similarity detection.
-
-### TM-Score
-For high-precision alignment, Foldseek can use TM-score, which provides:
-- **Global alignment** quality assessment
-- **Statistical significance** estimates
-- **Superposition** capabilities for visualization
-
-### LDDT Score
-Local Distance Difference Test (LDDT) provides residue-level quality assessment, particularly useful for:
-- **Local structural conservation** analysis
-- **Domain identification**
-- **Quality assessment** of predicted structures
-
-## The Power of Modularity: Building Structural Workflows
-
-Foldseek inherits MMseqs2's modular architecture, allowing users to build custom structural analysis pipelines:
-
-### Example: Custom Structure-Based Clustering
-
-```bash
-# Create structural database
-foldseek createdb structures/ structDB
-
-# Perform structural search
-foldseek search structDB structDB aln tmp
-
-# Convert to structural clustering
-foldseek cluster structDB structDB aln structDB_clu tmp
-
-# Extract representatives
-foldseek createsubdb structDB_clu structDB structDB_reps
-foldseek convert2fasta structDB_reps structDB_reps.fasta
-```
-
-### Integration with External Tools
-
-The modular design enables seamless integration with other structural biology tools:
-
-```bash
-# Extract cluster members
-foldseek createseqfiledb structDB structDB_clu structDB_members
-
-# Run external analysis on each cluster
-foldseek apply structDB_members structDB_analysis -- your_analysis_tool -i -
-```
-
-## Foldseek vs MMseqs2: Key Differences
-
-While Foldseek builds upon the MMseqs2 framework, it introduces fundamental differences in search methodology, database structure, and alignment algorithms to enable efficient structural comparisons.
-
-### Search Methodology Comparison
-
-| Aspect | MMseqs2 | Foldseek |
-|--------|---------|----------|
-| **Core Algorithm** | K-mer based sequence similarity search | 3Di-based structural similarity search |
-| **Alphabet** | 20 amino acids (reduced alphabet for sensitivity) | 3-letter 3Di alphabet (H/E/C) with 20 internal centroids |
-| **Search Strategy** | 1. K-mer matching<br>2. Double consecutive k-mer filtering<br>3. Ungapped alignment<br>4. SIMD-accelerated Smith-Waterman | 1. 3Di k-mer matching<br>2. Structural prefiltering<br>3. Ungapped structural alignment<br>4. 3Di+AA or TM-align |
-| **Speed Advantage** | 10,000x faster than BLAST | 10,000x faster than coordinate-based methods |
-| **Memory Usage** | ~7 bytes per residue for index | ~1 byte per residue for 3Di sequences |
-
-<!-- Database structure comparison moved to databases.md to avoid duplication. -->
-
-### Alignment Algorithm Comparison
-
-| Feature | MMseqs2 | Foldseek |
-|---------|---------|----------|
-| **Primary Algorithm** | Smith-Waterman sequence alignment | 3Di+AA combined alignment |
-| **Scoring** | Sequence identity, E-values | TM-score, LDDT, 3Di scores |
-| **Structural Alignment** | Not available | TM-align integration |
-| **GPU Support** | Yes (sequence search) | Yes (structural search) |
-| **Substitution Matrix** | BLOSUM62, VTML matrices | 3Di substitution matrix |
-
-## Applications of Foldseek
-
-### Large-Scale Structure Comparison
-- **AlphaFold Database** screening
-- **PDB-wide** structural similarity searches
-- **Metagenomic** structure annotation
-
-### Structure-Based Function Prediction
-- **SCOPe/CATH** domain classification
-- **EC number** assignment via structural similarity
-- **GO term** prediction from structural neighbors
-
-### Drug Discovery
-- **Binding site** identification
-- **Off-target** effect prediction
-- **Lead optimization** through structural similarity
-
-This modular, efficient approach makes Foldseek not just a tool, but a comprehensive platform for structural bioinformatics research.
+For new users, start with [Manual](#fs-manual), then go to [Easy Workflows](#fs-easy-root) and [Structure Search](#fs-search-root). For optimization and interpretation, continue with [Expert Manual](#fs-expert-root). For source-level debugging or extension work, use [Developer Manual](#fs-dev-root).

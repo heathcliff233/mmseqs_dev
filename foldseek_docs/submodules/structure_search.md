@@ -1,240 +1,98 @@
-# Structure Search Modules
+### Structure Search Modules {#fs-search-root}
 
-Foldseek provides several modules for performing structural similarity searches, from high-level workflows to low-level alignment algorithms.
+This chapter covers the core single-chain search stack. The key distinction is orchestration versus execution: `search` is a workflow driver, while `structurealign`, `structurerescorediagonal`, and `tmalign` are lower-level alignment/rescoring modules.
 
-## Core Search Modules
+In source terms, orchestration is in `foldseek/src/workflow/StructureSearch.cpp`, and alignment kernels are in `foldseek/src/strucclustutils/` plus `foldseek/src/commons/`.
 
-### `search`
+#### Pipeline Model {#fs-search-pipeline}
 
-**Description**: Main structural search module combining prefiltering and alignment.
+The standard path is prefilter -> optional diagonal rescoring -> alignment. `--prefilter-mode` governs which prefilter stages run, and `--alignment-type` chooses the final alignment kernel. The workflow can change behavior under GPU mode; for example, the code path in `StructureSearch.cpp` forces ungapped prefilter defaults when needed.
 
-**Usage**:
-```bash
-foldseek search queryDB targetDB resultDB tmpDir [options]
-```
+`--sort-by-structure-bits` changes ranking from plain bit score to a structure-aware term. Because that ranking depends on TM/LDDT information, disabling structure-bit sorting changes how threshold options interact with final ordering.
 
-**Parameters**:
+#### `search` {#fs-search-command}
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `-s <float>` | Sensitivity (1.0-9.5, higher = more sensitive) | 9.5 |
-| `--alignment-type <int>` | 0=3Di only, 1=TMalign, 2=3Di+AA | 2 |
-| `--max-seqs <int>` | Maximum sequences per query | 1000 |
-| `-e <float>` | E-value threshold | 10.0 |
-| `--max-accept <int>` | Maximum accepted alignments per query | 2147483647 |
-| `--max-rejected <int>` | Maximum consecutive rejections before stopping | 2147483647 |
-| `--prefilter-mode <int>` | 0=3Di k-mer, 1=ungapped alignment | 0 |
-| `--diag-score <bool>` | Enable diagonal score computation | true |
-| `--min-ungapped-score <int>` | Minimum ungapped alignment score | 30 |
-| `--comp-bias-corr <int>` | Compositional bias correction | 1 |
-| `--mask <int>` | Low complexity masking | 0 |
-| `--mask-prob <float>` | Masking probability threshold | 1.0 |
-| `--gpu <int>` | Enable GPU acceleration | 0 |
-
-**Examples**:
+**Usage**
 
 ```bash
-# Basic structural search
-foldseek search queryDB targetDB results tmp
-
-# High sensitivity search
-foldseek search queryDB targetDB results tmp -s 9.5 --alignment-type 1
-
-# Fast search with lower sensitivity
-foldseek search queryDB targetDB results tmp -s 7.5 --max-seqs 300
-
-# GPU-accelerated search
-foldseek search queryDB targetDB results tmp --gpu 1 --prefilter-mode 1
+foldseek search <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
 ```
 
-### `structurealign`
+`search` is the canonical entry point for DB-to-DB structural search. Important controls:
 
-**Description**: Direct structural alignment between two structure sets.
+| Option | Effect |
+| :--- | :--- |
+| `-s` | Primary sensitivity/speed tradeoff in candidate generation. |
+| `--prefilter-mode` | `0`: k-mer+ungapped, `1`: ungapped only, `2`: nofilter, `3`: ungapped+gapped. |
+| `--alignment-type` | `0`: 3Di, `1`: TM-align, `2`: 3Di+AA. |
+| `--sort-by-structure-bits` | Enables structure-aware ranking. |
+| `--tmscore-threshold`, `--lddt-threshold` | Structural quality filtering. |
+| `--cluster-search` | Representative-first search for clustered targets. |
+| `--gpu` | CUDA search path when supported by the current build. |
 
-**Usage**:
-```bash
-foldseek structurealign queryDB targetDB resultDB [options]
-```
+`search` should be preferred over direct low-level modules unless you intentionally control intermediate artifacts.
 
-**Parameters**:
+#### `structurealign` {#fs-search-structurealign}
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--alignment-type <int>` | 0=3Di only, 1=TMalign, 2=3Di+AA | 2 |
-| `--tmscore-threshold <float>` | TM-score threshold | 0.0 |
-| `--lddt-threshold <float>` | LDDT threshold | 0.0 |
-| `--max-seqs <int>` | Maximum sequences per query | 1000 |
-| `-e <float>` | E-value threshold | 0.001 |
-| `--comp-bias-corr <int>` | Compositional bias correction | 1 |
-| `--mask <int>` | Low complexity masking | 1 |
-
-**Examples**:
+**Usage**
 
 ```bash
-# Direct structural alignment
-foldseek structurealign queryDB targetDB alignments
-
-# TM-align based alignment
-foldseek structurealign queryDB targetDB alignments --alignment-type 1 --tmscore-threshold 0.5
-
-# High-quality alignments only
-foldseek structurealign queryDB targetDB alignments --lddt-threshold 0.7
+foldseek structurealign <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
 ```
 
-### `tmalign`
+`structurealign` consumes a candidate list (`prefilterDB`) and performs full structural alignment on those pairs. It is the right tool when you already own candidate generation, or when you need to re-align candidate pairs under different thresholds without rerunning prefilter.
 
-**Description**: TM-align based structural alignment.
+Notable behavior from `structurealign.cpp`:
 
-**Usage**:
-```bash
-foldseek tmalign queryDB targetDB resultDB [options]
-```
+- TM/LDDT thresholding is enforced during alignment output.
+- Some option combinations are normalized with warnings, especially around `--sort-by-structure-bits` versus lightweight alignment-output modes.
 
-**Parameters**:
+#### `structurerescorediagonal` {#fs-search-rescorediagonal}
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--tmscore-threshold <float>` | TM-score threshold | 0.0 |
-| `--tmscore-threshold-mode <int>` | 0=alignment, 1=query, 2=target | 0 |
-| `--max-seqs <int>` | Maximum sequences per query | 1000 |
-| `-e <float>` | E-value threshold | 0.001 |
-
-**Examples**:
+**Usage**
 
 ```bash
-# TM-align with default settings
-foldseek tmalign queryDB targetDB tm_results
-
-# Strict TM-score threshold
-foldseek tmalign queryDB targetDB tm_results --tmscore-threshold 0.6
-
-# Query-normalized TM-scores
-foldseek tmalign queryDB targetDB tm_results --tmscore-threshold-mode 1
+foldseek structurerescorediagonal <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
 ```
 
-<!-- Moved `aln2tmscore` to structure_manipulation.md to avoid duplication. -->
+This module rescales candidate diagonals using structural scoring and can apply TM/LDDT gating earlier than full workflow composition. It is useful when you want to refine candidate quality in a modular pipeline before deciding on final alignment/reporting stages.
 
-### `structurerescorediagonal`
+#### `tmalign` {#fs-search-tmalign}
 
-**Description**: Structure-based rescoring of diagonals from prefiltering.
-
-**Usage**:
-```bash
-foldseek structurerescorediagonal queryDB targetDB prefilterDB resultDB [options]
-```
-
-**Parameters**:
-
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--alignment-type <int>` | 0=3Di only, 1=TMalign, 2=3Di+AA | 2 |
-| `--tmscore-threshold <float>` | TM-score threshold | 0.0 |
-| `--lddt-threshold <float>` | LDDT threshold | 0.0 |
-| `-e <float>` | E-value threshold | 10.0 |
-| `-c <float>` | Coverage threshold | 0.0 |
-| `--cov-mode <int>` | 0=bidirectional, 1=target, 2=query | 0 |
-| `--exact-tmscore <int>` | Use exact TM-score calculation | 0 |
-
-**Examples**:
+**Usage**
 
 ```bash
-# Rescore diagonals with structural alignment
-foldseek structurerescorediagonal queryDB targetDB prefilterDB rescored_results
-
-# TM-align based rescoring
-foldseek structurerescorediagonal queryDB targetDB prefilterDB rescored_results --alignment-type 1
-
-# Filter by TM-score during rescoring
-foldseek structurerescorediagonal queryDB targetDB prefilterDB rescored_results --tmscore-threshold 0.5
+foldseek tmalign <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
 ```
 
+`tmalign` runs TM-align directly on candidate pairs. Use it when global structural superposition quality is the primary objective and you already have candidate pairs prepared.
 
+Important options are `--tmscore-threshold`, `--tmscore-threshold-mode`, `--tmalign-hit-order`, and `--tmalign-fast`.
 
-<!-- Moved `convert2pdb` to structure_manipulation.md to avoid duplication. -->
+#### `rbh` {#fs-search-rbh}
 
-## Advanced Search Features
+**Usage**
 
-### Iterative Search
-
-**Description**: Perform iterative structural search for improved sensitivity.
-
-**Usage**:
 ```bash
-foldseek structuresearch queryDB targetDB iter1 tmp -s 9.5 --num-iterations 1
-foldseek result2structprofile queryDB targetDB iter1 profileDB
-foldseek structuresearch profileDB targetDB iter2 tmp --profile-search
+foldseek rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
 ```
 
-### Profile-Based Search
+`rbh` runs reciprocal best-hit filtering on top of the structural search stack. It is the low-level counterpart to `easy-rbh`, with full DB-based workflow control.
 
-**Description**: Search using structural profiles for improved sensitivity.
+#### Practical Composition Patterns {#fs-search-patterns}
 
-**Usage**:
+A common advanced pattern is to keep stages explicit:
+
 ```bash
-# Create structural profiles
-foldseek result2structprofile queryDB targetDB search_results profileDB
-
-# Search with profiles
-foldseek structuresearch profileDB targetDB profile_results tmp --profile-search
+foldseek search queryDB targetDB alnDB tmp
+foldseek convertalis queryDB targetDB alnDB result.tsv --format-output query,target,alntmscore,lddt,evalue,bits
 ```
 
-### GPU-Accelerated Search
+For explicit candidate reuse:
 
-**Description**: Use GPU acceleration for faster searches.
-
-**Usage**:
 ```bash
-# Prepare database for GPU
-foldseek makepaddeddb targetDB targetDB_gpu
-
-# GPU-accelerated search
-foldseek structuresearch queryDB targetDB_gpu results tmp --gpu 1 --prefilter-mode 1
+foldseek structurerescorediagonal queryDB targetDB prefilterDB rescoredDB
+foldseek structurealign queryDB targetDB rescoredDB alnDB
 ```
 
-## Search Output Formats
-
-### Tab-Separated Format (Default)
-```
-query target fident alnlen mismatch gapopen qstart qend tstart tend evalue bits
-```
-
-### Custom Output with Structural Information
-```
-query target alntmscore qtmscore ttmscore lddt u t
-```
-
-### SAM Format
-```sam
-@SQ	SN:target1	LN:150
-query1	0	target1	1	255	50M	*	0	0	*	*	AS:i:100	NM:i:0
-```
-
-### BLAST Format
-```blast
-# BLASTP 2.2.26+
-# Query: query1
-# Database: targetDB
-query1	target1	95.67	150	6	2	1	150	1	150	0.0	300
-```
-
-## Performance Optimization
-
-### Search Speed Optimization
-- Use lower `-s` values for faster searches
-- Enable GPU acceleration with `--gpu 1 --prefilter-mode 1`
-- Use `--max-seqs` to limit results per query
-- Use `--max-rejected` to stop early when no good hits are found
-
-### Search Sensitivity Optimization
-- Use higher `-s` values for distant homology detection
-- Enable `--num-iterations` for iterative refinement
-- Use `--alignment-type 1` for TM-align based scoring
-- Adjust `-e` threshold based on requirements
-
-### Memory Optimization
-- Use `--sort-by-structure-bits 0` to reduce memory usage
-- Split large searches into smaller batches
-- Use precomputed indexes for repeated searches
-- Monitor memory usage with `-v 2`
-
-These structure search modules provide comprehensive functionality for structural similarity analysis, from basic searches to advanced GPU-accelerated and profile-based methods.
+This separation is especially useful for benchmarking alternative scoring thresholds or alignment modes on the same candidate set.

@@ -1,6 +1,6 @@
 ```{=typst}
 #pagebreak()
 #v(0.6em)
-#outline()
+#outline(depth: 4)
 #pagebreak()
 ```

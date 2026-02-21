@@ -1,326 +1,62 @@
-# Structure Clustering Modules
+### Structure Clustering Modules {#fs-cluster-root}
 
-Foldseek provides specialized modules for clustering protein structures based on structural similarity, supporting both single-chain and multi-chain (multimer) clustering.
+Foldseek clustering is built on the same search/alignment backbone used for hit finding, followed by graph or greedy clustering in `clust`. The high-level command (`cluster`) runs this sequence end-to-end, while `clust` performs clustering from an existing result graph.
 
+#### `cluster` {#fs-cluster-command}
 
-### `cluster`
-
-**Description**: Core clustering algorithm for structural data.
-
-**Usage**:
-```bash
-foldseek cluster sequenceDB alignmentDB resultDB [options]
-```
-
-**Parameters**:
-
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--cluster-mode <int>` | 0=set cover, 1=connected component, 2=greedy | 0 |
-| `-c <float>` | Coverage threshold | 0.8 |
-| `--min-seq-id <float>` | Minimum sequence identity | 0.3 |
-| `--max-seqs <int>` | Maximum sequences per query | 1000 |
-| `--cluster-reassign <bool>` | Reassign sequences after clustering | false |
-
-**Examples**:
+**Usage**
 
 ```bash
-# Set cover clustering (default)
-foldseek cluster structuresDB alignments cluster_results
-
-# Connected component clustering
-foldseek cluster structuresDB alignments cluster_results --cluster-mode 1
-
-# Greedy incremental clustering
-foldseek cluster structuresDB alignments cluster_results --cluster-mode 2
+foldseek cluster <i:sequenceDB> <o:clusterDB> <tmpDir> [options]
 ```
 
-### `clust`
+`cluster` runs candidate generation, alignment filtering, and clustering in one workflow. It is the preferred command when you start from a structure DB and want production clustering output.
 
-**Description**: Core clustering algorithm for structural data with advanced options.
+Core controls:
 
-**Usage**:
-```bash
-foldseek clust sequenceDB resultDB clusterDB [options]
-```
+| Option | Effect |
+| :--- | :--- |
+| `-s` | Search sensitivity before clustering. |
+| `-c` and `--cov-mode` | Coverage gating before edges become cluster links. |
+| `--min-seq-id` | Sequence-identity threshold for accepting edges. |
+| `--cluster-mode` | `0`: set-cover, `1`: connected component, `2/3`: greedy by length. |
+| `--single-step-clustering` | Disables cascaded workflow and runs one clustering pass. |
+| `--cluster-steps` | Number of cascaded stages in cascaded mode. |
+| `--cluster-reassign` | Reassignment pass to correct cascade artifacts. |
 
-**Parameters**:
+Although the command name says sequence DB, in Foldseek this DB includes structural channels (`_ss`, `_ca`) used by structural scoring modules.
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--cluster-mode <int>` | 0=Set-Cover (greedy), 1=Connected component, 2=Greedy by length | 0 |
-| `--max-iterations <int>` | Maximum depth for connected component clustering | 1000 |
-| `--similarity-type <int>` | 1=alignment score, 2=sequence identity | 2 |
-| `--weights <string>` | Weights for cluster prioritization | "" |
-| `--cluster-weight-threshold <float>` | Weight threshold for cluster prioritization | 0.9 |
+#### `clust` {#fs-cluster-clust}
 
-**Examples**:
+**Usage**
 
 ```bash
-# Set cover clustering (default)
-foldseek clust structuresDB alignments cluster_results
-
-# Connected component clustering
-foldseek clust structuresDB alignments cluster_results --cluster-mode 1
-
-# Greedy clustering by length
-foldseek clust structuresDB alignments cluster_results --cluster-mode 2
-
-# Custom cluster weights
-foldseek clust structuresDB alignments cluster_results --weights "0.5,0.3,0.2"
+foldseek clust <i:sequenceDB> <i:resultDB> <o:clusterDB> [options]
 ```
 
-## Clustering Algorithms
+`clust` performs only the clustering stage from a precomputed edge/result DB. Use this when you want to rerun cluster strategy without recomputing search/alignment.
 
-### Set Cover Clustering (Mode 0)
+The most relevant options are `--cluster-mode`, `--max-iterations`, `--similarity-type`, and optional weighting knobs (`--weights`, `--cluster-weight-threshold`).
 
-**Description**: Approximates the NP-complete set cover problem using a greedy algorithm.
+#### Clustering Semantics {#fs-cluster-semantics}
 
-**Algorithm**:
-1. Iteratively selects the structure with most connections
-2. Forms cluster with all connected structures
-3. Removes clustered structures from consideration
-4. Repeats until all structures are clustered
+Set-cover mode tends to produce compact representative sets. Connected-component mode favors transitive closure and typically creates larger, looser clusters. Greedy length-prioritized modes are useful when representative length should dominate assignment order.
 
-**Use Case**: Optimal for finding representative structures with minimal redundancy.
+In practical tuning, the edge-generation parameters (`-c`, `--cov-mode`, `--min-seq-id`, and structural thresholds inherited from search) usually affect outcomes more strongly than switching between clustering algorithms on the same edge set.
 
-### Connected Component Clustering (Mode 1)
+#### Result Interpretation {#fs-cluster-results}
 
-**Description**: Uses transitive connections to form larger clusters.
-
-**Algorithm**:
-1. Starts with structure having most connections
-2. Performs breadth-first search to find all reachable structures
-3. Forms cluster with all connected structures
-4. Repeats with remaining structures
-
-**Use Case**: Good for finding all related structures in a similarity graph.
-
-### Greedy Incremental Clustering (Mode 2)
-
-**Description**: Similar to CD-HIT algorithm, sorts by length and clusters incrementally.
-
-**Algorithm**:
-1. Sorts structures by length (longest first)
-2. For each structure, finds all similar structures
-3. Forms cluster with representative and similar structures
-4. Removes clustered structures from consideration
-
-**Use Case**: Good for length-biased clustering where longer structures are preferred as representatives.
-
-## Clustering Output
-
-### Cluster Database Format
-
-The clustering result database contains cluster assignments:
-
-```
-# Cluster 0 (representative: structure_0)
-structure_0
-structure_1
-structure_2
-
-# Cluster 1 (representative: structure_5)
-structure_5
-structure_3
-structure_4
-```
-
-### Tab-Separated Format
-
-Convert to tab-separated format for analysis:
+Cluster output is stored as a cluster DB. Typical post-processing is:
 
 ```bash
-foldseek createtsv structuresDB structuresDB clusterDB cluster_results.tsv
+foldseek createsubdb clusterDB sequenceDB repDB
+foldseek convert2fasta repDB rep.fasta
 ```
 
-Output format:
-```
-#cluster-representative	cluster-member
-structure_0	structure_0
-structure_0	structure_1
-structure_0	structure_2
-structure_5	structure_5
-structure_5	structure_3
-structure_5	structure_4
-```
+For adjacency-style exports, convert through standard result/TSV tooling depending on downstream format requirements.
 
-### Representative Sequences
+#### Related Modules {#fs-cluster-related}
 
-Extract representative sequences:
-
-```bash
-foldseek createsubdb clusterDB structuresDB representativesDB
-foldseek convert2fasta representativesDB representatives.fasta
-```
-
-### All Member Sequences
-
-Extract all sequences with cluster markers:
-
-```bash
-foldseek createseqfiledb structuresDB clusterDB all_membersDB
-foldseek result2flat structuresDB structuresDB all_membersDB all_members.fasta
-```
-
-## Advanced Clustering Features
-
-### Cascaded Clustering
-
-**Description**: Multi-step clustering for improved sensitivity and speed.
-
-**Process**:
-1. **Step 1**: Fast clustering with low sensitivity to find initial clusters
-2. **Step 2**: Cluster representatives from step 1 with higher sensitivity
-3. **Step 3**: Final clustering with maximum sensitivity
-4. **Merge**: Combine results from all steps
-
-**Usage**:
-```bash
-foldseek structurecluster structuresDB cluster_results tmp --single-step-clustering false
-```
-
-### Cluster Reassignment
-
-**Description**: Reassigns sequences to better clusters after initial clustering.
-
-**Usage**:
-```bash
-foldseek structurecluster structuresDB cluster_results tmp --cluster-reassign
-```
-
-### Custom Clustering Criteria
-
-**Description**: Use custom similarity thresholds for clustering.
-
-**Usage**:
-```bash
-# High similarity clustering
-foldseek structurecluster structuresDB cluster_results tmp \
-  --tmscore-threshold 0.8 --lddt-threshold 0.9 -c 0.9
-
-# Low similarity clustering (more clusters)
-foldseek structurecluster structuresDB cluster_results tmp \
-  --tmscore-threshold 0.3 --lddt-threshold 0.5 -c 0.5
-```
-
-## Multimer Clustering
-
-### `multimercluster`
-
-**Description**: Core multimer clustering functionality.
-
-**Usage**:
-```bash
-foldseek multimercluster inputDB resultDB tmpDir [options]
-```
-
-**Parameters**:
-
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--multimer-tm-threshold <float>` | Complex TM-score threshold | 0.65 |
-| `--chain-tm-threshold <float>` | Individual chain TM-score threshold | 0.5 |
-| `--interface-lddt-threshold <float>` | Interface LDDT threshold | 0.65 |
-| `--cov-mode <int>` | Coverage mode | 0 |
-| `--cluster-mode <int>` | Clustering algorithm | 0 |
-| `-e <float>` | E-value threshold | 0.001 |
-
-**Examples**:
-
-```bash
-# Basic multimer clustering
-foldseek multimercluster complexesDB multimer_clusters tmp
-
-# Strict multimer clustering
-foldseek multimercluster complexesDB multimer_clusters tmp \
-  --multimer-tm-threshold 0.8 --chain-tm-threshold 0.7 --interface-lddt-threshold 0.8
-```
-
-## Clustering Evaluation
-
-### Cluster Quality Assessment
-
-**Description**: Evaluate clustering quality using various metrics.
-
-**Usage**:
-```bash
-# Calculate cluster statistics
-foldseek result2stats structuresDB clusterDB cluster_stats
-
-# Convert to TSV for analysis
-foldseek createtsv structuresDB clusterDB cluster_stats cluster_stats.tsv
-```
-
-### Cluster Size Distribution
-
-**Description**: Analyze the distribution of cluster sizes.
-
-**Usage**:
-```bash
-# Get cluster sizes
-foldseek createtsv structuresDB structuresDB clusterDB cluster_sizes.tsv
-
-# Analyze with standard tools
-awk 'NR>1 {print $2}' cluster_sizes.tsv | sort | uniq -c | sort -nr
-```
-
-## Performance Optimization
-
-### Speed Optimization
-- Use `--single-step-clustering` for faster clustering
-- Lower `-s` values for faster prefiltering
-- Use `--max-seqs` to limit sequences per query
-- Enable GPU acceleration when available
-
-### Memory Optimization
-- Use `--sort-by-structure-bits 0` to reduce memory usage
-- Split large datasets into smaller chunks
-- Use precomputed indexes for repeated clustering
-- Monitor memory usage with `-v 2`
-
-### Sensitivity Optimization
-- Use higher `-s` values for distant homology detection
-- Enable `--cluster-reassign` for better cluster assignments
-- Use `--alignment-type 1` for TM-align based clustering
-- Adjust coverage and identity thresholds based on requirements
-
-## Integration Examples
-
-### With Structure Prediction
-```bash
-# Predict structures
-colabfold_batch sequences.fasta predicted_structures/
-
-# Cluster predicted structures
-foldseek structurecluster predicted_structures/ predicted_clusters tmp
-
-# Extract representatives
-foldseek createsubdb predicted_clusters predicted_structures/ representativesDB
-foldseek convert2fasta representativesDB representatives.fasta
-```
-
-### With Experimental Validation
-```bash
-# Cluster experimental structures
-foldseek structurecluster experimental_structures/ experimental_clusters tmp
-
-# Compare with predicted structures
-foldseek structuresearch predicted_structures/ experimental_structures/ comparison_results tmp
-```
-
-### Large-Scale Clustering
-```bash
-# Split large dataset
-foldseek splitdb large_structuresDB large_structuresDB_split --split 10
-
-# Cluster each split
-for i in {0..9}; do
-    foldseek structurecluster large_structuresDB_split_${i}_10 cluster_results_${i} tmp_${i}
-done
-
-# Merge cluster results
-foldseek mergeclusters large_structuresDB final_clusters cluster_results_*
-```
-
-These clustering modules provide comprehensive functionality for structural similarity-based grouping, supporting various algorithms and evaluation methods for different use cases.
+- Raw-input wrapper: [easy-cluster](#fs-easy-cluster)
+- Complex-level clustering: [multimercluster](#fs-multimercluster)
+- Index/layout preparation for repeated search+cluster loops: [Database Management](#fs-db-modules)
