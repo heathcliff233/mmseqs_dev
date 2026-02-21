@@ -1,470 +1,150 @@
-# Database Management Modules
+### Database Management Modules {#fs-db-modules}
 
-Foldseek provides comprehensive database management capabilities, from downloading pre-built databases to creating custom indexes and managing large-scale structural data collections.
+Foldseek performance is tightly coupled to how databases are stored on disk. The search and clustering workflows do not read one monolithic file; they read coordinated channels (`DB`, `DB_ss`, `DB_ca`, `DB_h`) plus index and metadata sidecars. This chapter documents those files as an operational format specification, then explains how `databases`, `createindex`, and `createclusearchdb` manipulate that layout.
 
-## Database Download and Setup
+#### Canonical Database Layout {#fs-db-layout}
 
-### `databases`
+A standard `createdb` output with prefix `X` produces a synchronized family of files:
 
-**Description**: Download and set up pre-built structural databases.
+| Path | Role | Primary readers |
+| :--- | :--- | :--- |
+| `X`, `X.index`, `X.dbtype` | Amino-acid channel (one entry per chain) | `search`, `structurealign`, `cluster`, `convertalis` |
+| `X_ss`, `X_ss.index`, `X_ss.dbtype` | 3Di channel, residue-aligned to `X` | prefilter/alignment stages |
+| `X_ca`, `X_ca.index`, `X_ca.dbtype` | C-alpha coordinates for TM/LDDT/structure-bit sorting | `structurealign`, `tmalign`, converters |
+| `X_h`, `X_h.index`, `X_h.dbtype` | Header channel (entry identifiers/metadata text) | converters/reporting |
+| `X.lookup` | Entry mapping `id -> accession -> fileNumber` | lookup-based conversion and tooling |
+| `X.source` | `fileNumber -> source file/model label` | provenance-aware exports |
+| `X_mapping` (optional) | `id -> taxId` mapping (`--write-mapping 1`) | taxonomy-aware downstream workflows |
 
-**Usage**:
+The key design invariant is shared IDs across channels: for a given internal key, `X`, `X_ss`, `X_ca`, and `X_h` describe the same chain entry.
+
+#### Core File Formats {#fs-db-file-format}
+
+`<DB>.index` is a tab-separated text index. Each line is:
+
+```text
+<id>\t<offset>\t<length>\n
+```
+
+`id` is the internal key, `offset` points into `<DB>` data payload, and `length` is the stored entry length. This format is written in `DBWriter::indexToBuffer` (`MMseqs2/src/commons/DBWriter.cpp`) and parsed by `DBReader::readIndex` (`MMseqs2/src/commons/DBReader.cpp`).
+
+`<DB>.dbtype` is a 4-byte integer (`int32`) describing logical DB type plus compression flag. The high bit (bit 31) indicates compressed storage; the lower bits hold the base DB type (`DBTYPE_AMINO_ACIDS`, `DBTYPE_GENERIC_DB`, Foldseek `DBTYPE_CA_ALPHA=101`, and so on).
+
+`<DB>` stores concatenated entry payloads separated by a null terminator. In compressed writer mode, per-entry framing is handled by the writer and the same index file still resolves entry boundaries.
+
+`<DB>.lookup` is line-based text with exactly three columns:
+
+```text
+<id>\t<entryName>\t<fileNumber>\n
+```
+
+This is the exact serializer used by `DBReader<unsigned int>::lookupEntryToBuffer` in `MMseqs2/src/commons/DBReader.cpp`.
+
+`<DB>.source` maps `fileNumber` to an original source label:
+
+```text
+<fileNumber>\t<sourceName>\n
+```
+
+It is written during `createdb` lookup generation in `foldseek/src/strucclustutils/structcreatedb.cpp`.
+
+#### Channel Payload Semantics {#fs-db-payload-semantics}
+
+For `createdb` outputs, the payload format inside each channel is:
+
+| Channel | Entry payload |
+| :--- | :--- |
+| `X` | Amino-acid one-letter sequence plus trailing newline (`\n`) |
+| `X_ss` | 3Di token sequence (one residue, one symbol) plus trailing newline |
+| `X_h` | Header text plus trailing newline |
+| `X_ca` | Binary or text coordinate encoding (`--coord-store-mode`) |
+
+`X` and `X_ss` are residue-synchronized: position `i` in `X_ss` describes the same residue as position `i` in `X`. That invariant is what enables 3Di+AA alignment (`--alignment-type 2`) without conversion steps.
+
+#### C-alpha Storage Modes (`X_ca`) {#fs-db-ca-format}
+
+`X_ca` has three encodings, selected at creation time (`createdb`) or rewritten later (`compressca`).
+
+| Mode | Option | On-disk payload | Notes |
+| :--- | :--- | :--- | :--- |
+| Float | `--coord-store-mode 1` | `3 * L` float32 values (`x[0..L-1], y[0..L-1], z[0..L-1]`) | Highest compatibility, largest footprint |
+| Diff16 | `--coord-store-mode 2` | Per axis: `start:int32` + `(L-1)` deltas `int16`; packed for x, y, z, plus one trailing compatibility byte | Default mode in Foldseek; values are scaled by 1000 before integer encoding |
+| Plain text | `compressca --coord-store-mode 3` | Comma-separated float list + newline | Stored as generic DB type; useful for inspection/interchange |
+
+In Diff16 mode, `createdb` attempts integer delta encoding and falls back to float payload for entries that overflow `int16` during conversion. Decoding is handled by `Coordinate16::read` (`foldseek/src/commons/Coordinate16.h`).
+
+#### `databases` {#fs-databases-command}
+
+**Usage**
+
 ```bash
 foldseek databases <name> <o:sequenceDB> <tmpDir> [options]
 ```
 
-**Available Databases**:
+`databases` downloads curated structural datasets and model assets (AlphaFold subsets, PDB snapshots, BFMD/BFVD, ProstT5 weights). Use `--tsv 1` when you need a machine-readable catalog for reproducible provisioning scripts.
 
-| Database | Type | Taxonomy | URL |
-|----------|------|-----|-----------|
-| Alphafold/UniProt | Aminoacid | yes | https://alphafold.ebi.ac.uk/ |
-| Alphafold/UniProt50-minimal | Aminoacid | yes | https://alphafold.ebi.ac.uk/ |
-| Alphafold/UniProt50 | Aminoacid | yes | https://alphafold.ebi.ac.uk/ |
-| Alphafold/Proteome | Aminoacid | yes | https://alphafold.ebi.ac.uk/ |
-| Alphafold/Swiss-Prot | Aminoacid | yes | https://alphafold.ebi.ac.uk/ |
-| ESMAtlas30 | Aminoacid | - | https://esmatlas.com |
-| PDB | Aminoacid | yes | https://www.rcsb.org |
-| CATH50 | Aminoacid | yes | https://www.cath.info |
-| BFMD | Aminoacid | yes | https://foldseek.steineggerlab.workers.dev/bfmd.version |
-| BFVD | Aminoacid | yes | https://bfvd.steineggerlab.workers.dev |
-| ProstT5 | Aminoacid | - | https://huggingface.co/Rostlab/ProstT5 |
+#### `createindex` {#fs-createindex}
 
-**Parameters**:
+**Usage**
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--tsv <bool>` | Return output in TSV format | 0 |
-| `--force-reuse <bool>` | Reuse tmp files in tmp/latest folder ignoring parameters and version changes | 0 |
-| `--remove-tmp-files <bool>` | Delete temporary files | 0 |
-| `--compressed <int>` | Write compressed output | 0 |
-| `--threads <int>` | Number of CPU-cores used (all by default) | 10 |
-
-**Examples**:
-
-```bash
-# Download AlphaFold database for Swiss-Prot
-foldseek databases Alphafold/Swiss-Prot afdb_swissprot tmp
-
-# Download PDB database
-foldseek databases PDB pdb tmp
-
-# Download with multiple threads
-foldseek databases Alphafold/UniProt afdb_uniprot tmp --threads 8
-
-# Get database list in TSV format
-foldseek databases --tsv
-```
-
-## Index Creation and Management
-
-### `createindex`
-
-**Description**: Create precomputed index for faster structural searches.
-
-**Usage**:
 ```bash
 foldseek createindex <i:sequenceDB> <tmpDir> [options]
 ```
 
-**Parameters**:
+`createindex` is a Foldseek workflow wrapper around MMseqs indexing plus Foldseek-specific channel handling (`foldseek/src/workflow/StructureIndex.cpp` and `foldseek/data/structureindex.sh`). Operationally it does three things:
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--index-subset <int>` | Create specialized index with subset of entries: 0: normal index, 1: index without headers, 2: index without prefiltering data, 4: index without aln (for cluster db), Flags can be combined bit wise | 0 |
-| `--check-compatible <int>` | 0: Always recreate index, 1: Check if recreating index is needed, 2: Fail if index is incompatible | 0 |
-| `--split <int>` | Split input into N equally distributed chunks. 0: set the best split automatically | 0 |
-| `--split-memory-limit <byte>` | Set max memory per split. E.g. 800B, 5K, 10M, 1G. Default (0) to all available system memory | 0 |
-| `--kmer-size <int>` | k-mer length (0: automatically set to optimum) | 0 |
-| `--seed-sub-mat <twin>` | Substitution matrix file for k-mer generation | "aa:3di.out,nucl:3di.out" |
-| `--comp-bias-corr <int>` | Correct for locally biased amino acid composition (range 0-1) | 1 |
-| `--comp-bias-corr-scale <float>` | Correct for locally biased amino acid composition (range 0-1) | 1.000 |
-| `--max-seqs <int>` | Maximum results per query sequence allowed to pass the prefilter (affects sensitivity) | 1000 |
-| `--mask <int>` | Mask sequences in prefilter stage with tantan: 0: w/o low complexity masking, 1: with low complexity masking | 0 |
-| `--mask-prob <float>` | Mask sequences is probablity is above threshold | 1.000 |
-| `--mask-lower-case <int>` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region | 1 |
-| `--mask-n-repeat <int>` | Repeat letters that occure > threshold in a rwo | 6 |
-| `--spaced-kmer-mode <int>` | 0: use consecutive positions in k-mers; 1: use spaced k-mers | 1 |
-| `--spaced-kmer-pattern <string>` | User-specified spaced k-mer pattern | "" |
-| `-s <float>` | Sensitivity: 1.0 faster; 4.0 fast; 7.5 sensitive | 9.500 |
-| `--k-score <twin>` | k-mer threshold for generating similar k-mer lists | "seq:2147483647,prof:2147483647" |
-| `--threads <int>` | Number of CPU-cores used (all by default) | 10 |
-| `--compressed <int>` | Write compressed output | 0 |
-| `--remove-tmp-files <bool>` | Delete temporary files | 1 |
+1. Builds index data for the AA channel and the 3Di channel.
+2. Links header/cluster side channels needed by Foldseek workflows.
+3. Optionally appends C-alpha channels into the `.idx` container unless excluded.
 
-**Examples**:
+The two high-impact controls are:
 
-```bash
-# Create protein sequence index
-foldseek createindex sequenceDB tmp
+| Option | Effect |
+| :--- | :--- |
+| `--index-subset` | Drops selected index components (`1`: no headers, `2`: no prefilter data, `4`: no alignment payloads) to reduce index size. |
+| `--index-exclude` | Bit flags for Foldseek-specific exclusions (`1`: omit k-mer index, `2`: omit C-alpha append into index). |
 
-# Create specialized index with subset of entries
-foldseek createindex targetDB tmp --index-subset 2
+When `--index-exclude 2` is used, coordinate-aware ranking and threshold paths may be disabled later unless raw `_ca` side databases are still available.
 
-# Create index with custom parameters
-foldseek createindex targetDB tmp --kmer-size 6 --spaced-kmer-mode 1
-```
+#### `createclusearchdb` {#fs-createclusearchdb}
 
-### `createclusearchdb`
+**Usage**
 
-**Description**: Create searchable databases from clustered results.
-
-**Usage**:
 ```bash
 foldseek createclusearchdb <i:sequenceDB> <i:clusterDB> <o:sequenceDB> [options]
 ```
 
-**Parameters**:
+`createclusearchdb` transforms clustering output into representative/member search layout for `--cluster-search 1`. For each selected suffix (default `_h,_ss,_ca` in Foldseek help), it writes:
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--db-suffix-list <string>` | Suffixes for database to be split in rep/seq | "_h,_ss,_ca" |
-| `--threads <int>` | Number of CPU-cores used (all by default) | 10 |
-| `--compressed <int>` | Write compressed output | 0 |
+- representative channel: `<out><suffix>`
+- member channel: `<out>_seq<suffix>`
 
-**Examples**:
+It also copies cluster topology to `<out>_clu` and propagates metadata sidecars (`.lookup`, `.source`, `_mapping`, taxonomy files) with aliases for `_seq` views.
+
+A source-level detail that matters for debugging: `_seq` channels are assembled as a two-part DB where representatives and non-representatives can live in separate backing files, while one merged `_seq.index` maps IDs to the correct offsets. This is normal and expected.
+
+For cluster-search compatibility, `StructureSearch.cpp` checks for at least:
+
+- `<target>_seq`, `<target>_seq_ss`, `<target>_seq_h`
+- one of `<target>_clu` or `<target>_aln`
+
+If coordinate-aware ranking/filtering is required, keep `<target>_seq_ca` available as well.
+
+#### Practical Layout Strategies {#fs-db-strategy}
+
+If you run repeated searches on a fixed target, build and validate indices once (`--check-compatible 1`) and keep full coordinate channels. If you are strictly ungapped or no-structure-bit ranking, excluding selected index parts can reduce RAM and startup time, but apply those exclusions only after confirming that downstream modules do not need TM/LDDT or structure-bit sorting.
+
+#### Minimal End-to-End Example {#fs-db-example}
 
 ```bash
-# Cluster database and build a searchable db
-foldseek cluster sequenceDB clusterDB tmp --min-seq-id 0.3
-foldseek createclusearchdb sequenceDB clusterDB clusterSearchDb
-foldseek search sequenceDB clusterSearchDb aln tmp --cluster-search 1
+foldseek databases Alphafold/Swiss-Prot afdb tmp
+foldseek createindex afdb tmp --check-compatible 1
+foldseek search queryDB afdb alnDB tmp
 ```
 
-## Database Operations
-
-### Database Information and Utilities
-
-Database information can be obtained using standard system tools:
+For sequence-to-3Di prediction workflows:
 
 ```bash
-# List database files
-ls -la structDB*
-
-# Check database size
-du -sh structDB*
-
-# Verify database integrity
-foldseek createindex structDB tmp --check-compatible 1
-```
-
-## Custom Database Creation
-
-### From Structure Files
-
-```bash
-# 1. Create basic database
-foldseek createdb structures/ customDB
-
-# 2. Create index
-foldseek createindex customDB tmp
-```
-
-### From Sequence Files with ProstT5
-
-```bash
-# 1. Download ProstT5 model
 foldseek databases ProstT5 weights tmp
-
-# 2. Create database with 3Di prediction
-foldseek createdb sequences.fasta structDB --prostt5-model weights/
-
-# 3. GPU-accelerated creation
-foldseek createdb sequences.fasta structDB --prostt5-model weights/ --gpu 1
-
-# 4. Create index
-foldseek createindex structDB tmp
+foldseek createdb query.fasta queryDB --prostt5-model weights
 ```
-
-### From AlphaFold Results
-
-```bash
-# 1. Organize AlphaFold results
-mkdir alphafold_results
-# Copy AlphaFold PDB files to alphafold_results/
-
-# 2. Create database
-foldseek createdb alphafold_results/ afdb
-
-# 3. Create index
-foldseek createindex afdb tmp
-```
-
-## Database Maintenance
-
-### Database Validation
-
-```bash
-# Check database integrity
-foldseek createindex structDB tmp --check-compatible 1
-
-# Validate against original files
-foldseek convertalis structDB structDB structDB validation_results --format-output query
-```
-
-### Database Cleanup
-
-```bash
-# Remove temporary files
-rm -f structDB.tmp*
-
-# Compress database
-foldseek createdb structDB structDB_compressed --compressed 1
-
-# Remove original
-rm -rf structDB*
-
-# Rename compressed version
-mv structDB_compressed* structDB
-```
-
-### Database Backup
-
-```bash
-# Create compressed backup
-tar -czf structDB_backup.tar.gz structDB*
-
-# Create index backup
-tar -czf structDB_index_backup.tar.gz structDB.idx*
-
-# Verify backup
-foldseek createindex structDB tmp --check-compatible 1
-```
-
-## Performance Optimization
-
-### Index Optimization
-
-```bash
-# Create optimal index for structural search
-foldseek createindex structDB tmp --index-subset 2
-
-# Create optimal index for sequence search
-foldseek createindex structDB tmp --index-subset 1
-
-# Create comprehensive index
-foldseek createindex structDB tmp --index-subset 0
-```
-
-### Memory Optimization
-
-```bash
-# Use memory-efficient indexing
-foldseek createindex structDB tmp --split 8
-
-# Use compressed databases
-foldseek createdb structDB structDB_compressed --compressed 1
-```
-
-### GPU Optimization
-
-```bash
-# Use GPU acceleration for database creation
-foldseek createdb sequences.fasta structDB --prostt5-model weights/ --gpu 1
-
-# Create index for GPU-optimized database
-foldseek createindex structDB tmp
-```
-
-## Large-Scale Database Management
-
-### Batch Processing
-
-```bash
-# Process large datasets in batches
-for i in {1..100}; do
-    foldseek createdb batch_${i}/ batch_${i}_db
-    foldseek createindex batch_${i}_db tmp_${i}
-done
-
-# Create cluster search database
-foldseek cluster largeDB clusterDB tmp
-foldseek createclusearchdb largeDB clusterDB largeDB_search
-
-# Create final index
-foldseek createindex largeDB_search tmp
-```
-
-### Distributed Processing
-
-```bash
-# Process large datasets in parallel
-for i in {1..100}; do
-    foldseek createdb batch_${i}/ batch_${i}_db
-    foldseek createindex batch_${i}_db tmp_${i} &
-done
-wait
-
-# Create cluster search database
-foldseek cluster largeDB clusterDB tmp
-foldseek createclusearchdb largeDB clusterDB largeDB_search
-```
-
-### Creating Searchable Databases from New Structures
-
-```bash
-# Create new database with additional structures
-foldseek createdb new_structures/ newDB
-
-# Create cluster search database for efficient searching
-foldseek cluster newDB clusterDB tmp
-foldseek createclusearchdb newDB clusterDB newDB_search
-
-# Create index for fast search operations
-foldseek createindex newDB_search tmp
-```
-
-## Integration Examples
-
-### With High-Performance Computing
-
-```bash
-# Use MPI for large database operations
-mpirun -np 64 foldseek createindex largeDB tmp
-
-# Use job scheduler
-sbatch --nodes=4 --ntasks=128 create_index_job.sh
-```
-
-### With Cloud Storage
-
-```bash
-# Download from cloud storage
-aws s3 cp s3://bucket/structures/ ./structures/ --recursive
-
-# Create database
-foldseek createdb structures/ structDB
-
-# Upload to cloud storage
-aws s3 cp structDB* s3://bucket/databases/ --recursive
-```
-
-### With Version Control
-
-```bash
-# Create versioned database
-foldseek createdb structures/ structDB_v1.0
-
-# Create index
-foldseek createindex structDB_v1.0 tmp
-
-# Tag version
-git tag -a v1.0 -m "Initial database version"
-
-# Create backup
-tar -czf structDB_v1.0_backup.tar.gz structDB_v1.0*
-```
-
-These database management modules provide comprehensive functionality for handling large-scale structural databases, from initial creation and indexing to maintenance and optimization.
-
-## Database Format Comparison with MMseqs2
-
-### Structural vs Sequence Databases
-
-| Feature | MMseqs2 Database | Foldseek Database | Key Difference |
-|---------|------------------|-------------------|----------------|
-| **Data Types** | Amino acid sequences<br>Nucleotide sequences<br>Profile databases | 3Di sequences<br>Amino acid sequences<br>Cα coordinates<br>Secondary structure | Foldseek adds structural data |
-| **File Components** | `database`, `database.index`<br>`database_h`, `database_h.index`<br>`database.lookup`, `database.dbtype` | `database`, `database.index`<br>`database_h`, `database_h.index`<br>`database_ca`, `database_ss`<br>`database.lookup`, `database.dbtype` | Additional structural files |
-| **Memory Usage** | ~7 bytes per residue (index)<br>~1 byte per residue (sequences) | ~1 byte per residue (3Di)<br>~8 bytes per residue (Cα coords)<br>~1 byte per residue (sequences) | More compact for structural data |
-| **Index Structure** | K-mer index for sequences | 3Di k-mer index<br>Structural descriptors | Optimized for structural search |
-
-### Database Creation Process
-
-#### MMseqs2 Database Creation
-```bash
-# Convert FASTA sequences to MMseqs2 database
-mmseqs createdb sequences.fasta seqDB
-
-# Files created:
-# - seqDB (amino acid sequences)
-# - seqDB.index (sequence index)
-# - seqDB_h (FASTA headers)
-# - seqDB_h.index (header index)
-# - seqDB.lookup (ID mapping)
-# - seqDB.dbtype (database type)
-```
-
-#### Foldseek Database Creation
-```bash
-# Convert structures to Foldseek database
-foldseek createdb structures/ structDB
-
-# Files created:
-# - structDB (3Di + AA sequences)
-# - structDB.index (structural index)
-# - structDB_h (structure headers)
-# - structDB_h.index (header index)
-# - structDB_ca (Cα coordinates)
-# - structDB_ss (secondary structure)
-# - structDB.lookup (ID mapping)
-# - structDB.dbtype (database type)
-```
-
-### Index Structure Differences
-
-#### MMseqs2 Index
-- **K-mer size**: Variable (6-14 amino acids)
-- **Alphabet**: 20 amino acids (or reduced alphabet)
-- **Memory usage**: ~7 bytes per residue
-- **Search type**: Sequence similarity
-- **Substitution matrix**: BLOSUM62, VTML matrices
-
-#### Foldseek Index
-- **K-mer size**: Variable (3Di alphabet)
-- **Alphabet**: 3-letter 3Di (H/E/C)
-- **Memory usage**: ~1 byte per residue
-- **Search type**: Structural similarity
-- **Substitution matrix**: 3Di-specific matrix
-- **Additional data**: Structural descriptors, Cα coordinates
-
-### Database Type Specifications
-
-| Database Type | MMseqs2 | Foldseek | Description |
-|---------------|---------|----------|-------------|
-| **Amino Acid** | 0 | 0 | Standard protein sequences |
-| **Nucleotide** | 1 | 1 | DNA/RNA sequences |
-| **Profiles** | 2 | 2 | Profile databases |
-| **Structural** | N/A | 3 | 3Di + structural data |
-| **Alignment Results** | 5 | 5 | Search results |
-| **Clustering Results** | 6 | 6 | Cluster assignments |
-| **Prefiltering Results** | 7 | 7 | Prefilter hits |
-| **Taxonomy Results** | 8 | 8 | Taxonomic assignments |
-
-### Performance Implications
-
-#### Memory Efficiency
-- **MMseqs2**: Requires ~7 bytes per residue for k-mer indexing
-- **Foldseek**: Requires ~1 byte per residue for 3Di indexing
-- **Advantage**: Foldseek uses ~7x less memory for indexing
-
-#### I/O Efficiency
-- **MMseqs2**: Memory-maps sequence data and k-mer indices
-- **Foldseek**: Memory-maps 3Di data, Cα coordinates, and structural indices
-- **Advantage**: Foldseek's smaller indices enable faster loading
-
-#### Search Speed
-- **MMseqs2**: Optimized for sequence similarity search
-- **Foldseek**: Optimized for structural similarity search
-- **Trade-off**: Different optimization targets for different data types
-
-### Compatibility and Integration
-
-#### Shared Database Operations
-Both tools support:
-- Memory-mapped I/O for efficient access
-- Compressed database storage
-- Index creation and management
-- Database splitting for large datasets
-- Sub-database creation
-
-#### Unique Foldseek Operations
-- 3Di sequence generation from structures
-- Cα coordinate extraction and storage
-- Secondary structure assignment
-- Structural index creation
-- GPU-optimized database creation
-
-#### Cross-Compatibility
-- Foldseek can read MMseqs2 sequence databases
-- MMseqs2 cannot read Foldseek structural databases
-- Both use compatible result formats
-- Shared taxonomy and clustering modules
