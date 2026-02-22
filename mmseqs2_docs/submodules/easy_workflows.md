@@ -101,6 +101,20 @@ Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design p
 | `--mask-lower-case` | Lowercase letters will be excluded from k-mer search 0: include region, 1: exclude region |
 | `--mask-n-repeat` | Repeat letters that occure > threshold in a rwo |
 
+### `easy-proteomecluster` {#modcmd-easy-proteomecluster}
+
+Cluster proteomes and identify reference proteomes.
+
+Workflow-level entrypoint for proteome-level clustering pipelines. This command is visible in `MMseqs2/src/MMseqsBase.cpp`, but may not be available in every packaged binary build.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs easy-proteomecluster <inputFileOrDB> <outputPrefixOrFile> <tmpDir> [options]` (source-derived synopsis) |
+| API layer | `workflow` |
+| Category flags | `COMMAND_EASY` |
+
+Run `mmseqs easy-proteomecluster` locally in your target runtime to confirm exact argument support and option availability.
+
 ### `easy-rbh` {#modcmd-easy-rbh}
 
 Find reciprocal best hit.
@@ -187,4 +201,3 @@ Workflow-level entrypoint that orchestrates downstream MMseqs2 modules. Design p
 | `-k` | k-mer length (0: automatically set to optimum) |
 | `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
 | `--k-score` | k-mer threshold for generating similar k-mer lists |
-

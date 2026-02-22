@@ -101,6 +101,20 @@ High-level API command for end-to-end DB workflows with explicit controls. Desig
 | `--target-search-mode` | target search mode (0: regular k-mer, 1: similar k-mer) |
 | `--k-score` | k-mer threshold for generating similar k-mer lists |
 
+### `proteomecluster` {#modcmd-proteomecluster}
+
+Cluster proteomes and identify reference proteomes.
+
+High-level API command for proteome-level clustering workflows. This command is registered in `MMseqs2/src/MMseqsBase.cpp`, but may be absent from some packaged MMseqs builds.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs proteomecluster <inputDB> <targetOrResultDB> <outputDB> [tmpDir] [options]` (source-derived synopsis) |
+| API layer | `high_level_api` |
+| Category flags | `COMMAND_MAIN` |
+
+Run `mmseqs proteomecluster` locally in your deployment environment to verify exact usage and supported options.
+
 ### `clusthash` {#modcmd-clusthash}
 
 Hash-based clustering of equal length sequences.
@@ -200,4 +214,3 @@ Mid-level compute module used directly in advanced pipelines and by workflows. D
 | References | [Full CLI](#refcmd-pickconsensusrep) · [Dependency entry](#depcmd-pickconsensusrep) |
 
 No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
-
