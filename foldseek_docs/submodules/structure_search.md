@@ -69,6 +69,16 @@ foldseek tmalign <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
 
 Important options are `--tmscore-threshold`, `--tmscore-threshold-mode`, `--tmalign-hit-order`, and `--tmalign-fast`.
 
+#### `lolalign` {#fs-search-lolalign}
+
+`lolalign` is a source-visible alignment module (`foldseek/src/FoldseekBase.cpp`) for local distance log-odds optimization. In current packaged Foldseek releases, this command may be unavailable even though it appears in source.
+
+When enabled in your build, it follows the low-level aligner input pattern:
+
+```bash
+foldseek lolalign <i:queryDB> <i:targetDB> <i:prefilterDB> <o:resultDB> [options]
+```
+
 #### `rbh` {#fs-search-rbh}
 
 **Usage**
@@ -78,6 +88,16 @@ foldseek rbh <i:queryDB> <i:targetDB> <o:alignmentDB> <tmpDir> [options]
 ```
 
 `rbh` runs reciprocal best-hit filtering on top of the structural search stack. It is the low-level counterpart to `easy-rbh`, with full DB-based workflow control.
+
+#### `samplemulambda` {#fs-search-samplemulambda}
+
+**Usage**
+
+```bash
+foldseek samplemulambda <i:queryDB> <i:targetDB> <o:resultDB> [options]
+```
+
+`samplemulambda` estimates score-distribution parameters from shuffled/randomized samples and is mainly for calibration or diagnostics. The main control is `--n-sample` (random sample count).
 
 #### Practical Composition Patterns {#fs-search-patterns}
 

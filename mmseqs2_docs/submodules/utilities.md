@@ -73,6 +73,20 @@ Low-level DB or utility command used for composition and contract enforcement. D
 
 No local option snapshot was parsed for this command. Use the Full CLI reference page for details.
 
+### `convertblastdb` {#modcmd-convertblastdb}
+
+Convert BLAST database to a sequence DB.
+
+Low-level conversion utility registered in `MMseqs2/src/MMseqsBase.cpp`. In some packaged builds this command is not exposed in the public CLI, so treat availability as build-dependent.
+
+| Aspect | Value |
+| :--- | :--- |
+| Usage | `usage: mmseqs convertblastdb <DB> [args] [options]` (source-derived synopsis) |
+| API layer | `low_level_api` |
+| Category flags | `COMMAND_EXPERT` |
+
+Run `mmseqs convertblastdb` locally on your target installation to confirm whether this command is compiled and enabled.
+
 ### `decompress` {#modcmd-decompress}
 
 Decompress DB entries.
@@ -371,4 +385,3 @@ Low-level DB or utility command used for composition and contract enforcement. D
 | `--id-mode` | Select DB entries based on 0: database keys, 1: FASTA identifiers (.lookup) |
 | `--idx-entry-type` | 0: sequence, 1: src sequence, 2: header, 3: src header |
 | `-v` | Verbosity level: 0: quiet, 1: +errors, 2: +warnings, 3: +info |
-

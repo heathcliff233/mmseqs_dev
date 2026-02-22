@@ -26,6 +26,18 @@ Important options:
 | `--coord-store-mode` | C-alpha storage encoding (`float` or `uint16` diff). |
 | `--write-lookup`, `--write-mapping` | Metadata mapping outputs for downstream integration. |
 
+#### `createsubdb` {#fs-createsubdb}
+
+**Usage**
+
+```bash
+foldseek createsubdb <i:subsetFile|DB> <i:DB> <o:DB> [options]
+```
+
+`createsubdb` creates a keyed subset from an existing Foldseek DB while preserving synchronized structure channels. Typical uses are extracting representatives after clustering or constructing curated subsets for downstream searches.
+
+High-impact options are `--subdb-mode` (copy vs soft-link index view) and `--id-mode` (select by internal keys or FASTA identifiers from `.lookup`).
+
 #### `compressca` {#fs-compressca}
 
 **Usage**
