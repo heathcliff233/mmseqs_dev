@@ -39,7 +39,7 @@ Foldseek-Multimer builds complex scores from chain-level evidence in explicit st
 
 `expandmultimer` generates expanded chain-pair candidates. `scoremultimer` then groups those hits by query/target complex and solves assignment consistency before calculating complex-level scores. In `scoremultimer.cpp`, assignment selection uses clustering and chain reuse controls so one local chain optimum does not destabilize the whole complex mapping.
 
-`filtermultimer.cpp` adds interface-aware quality gates (including interface LDDT) on top of global TM-style metrics. This is why multimer thresholds such as `--multimer-tm-threshold`, `--chain-tm-threshold`, and `--interface-lddt-threshold` are complementary rather than interchangeable.
+Multimer filtering is implemented inside `scoremultimer.cpp` (`ComplexFilter`), not in a separate module. The filter stack combines global complex TM, coverage, per-chain TM, and interface LDDT gates. This is why thresholds such as `--multimer-tm-threshold`, `--chain-tm-threshold`, and `--interface-lddt-threshold` are complementary rather than interchangeable. For command-level details and field semantics, see [Multimer Modules](#fs-multimer-root).
 
 ## Data Layout, Storage Format, and Memory Behavior {#fs-expert-data}
 

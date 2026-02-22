@@ -51,7 +51,7 @@ Structural kernels and transformations are in `foldseek/src/strucclustutils/`.
 | Structure DB creation | `structcreatedb.cpp`, `structureto3didescriptor.cpp`, `GemmiWrapper.*`, `PulchraWrapper.*` |
 | Search alignment kernels | `structurealign.cpp`, `structurerescorediagonal.cpp`, `tmalign.cpp` |
 | Conversion/reporting | `structureconvertalis.cpp`, `convert2pdb.cpp`, `createmultimerreport.cpp` |
-| Multimer internals | `expandmultimer.cpp`, `scoremultimer.cpp`, `filtermultimer.cpp`, `MultimerUtil.h` |
+| Multimer internals | `expandmultimer.cpp`, `scoremultimer.cpp`, `MultimerUtil.h` |
 | Utility transforms | `compressca.cpp`, `aln2tmscore.cpp`, `result2structprofile.cpp` |
 
 When changing scoring semantics, always check both runtime modules and conversion modules; output columns may recompute or reinterpret metrics.
@@ -103,7 +103,7 @@ Because multiple commands share the same DB channels, schema changes in `created
 | Option accepted but ignored | `foldseek/src/commons/LocalParameters.cpp`, workflow bundle composition |
 | Unexpected stage order | `foldseek/src/workflow/*.cpp`, generated workflow shell templates |
 | Score/ranking mismatch | `structurealign.cpp`, `structurerescorediagonal.cpp`, `StructureSmithWaterman.*`, `TMaligner.*`, `LDDT.*` |
-| Multimer assignment anomalies | `scoremultimer.cpp`, `expandmultimer.cpp`, `filtermultimer.cpp`, `MultimerUtil.h` |
+| Multimer assignment anomalies | `scoremultimer.cpp`, `expandmultimer.cpp`, `MultimerUtil.h` |
 | Output field inconsistency | `structureconvertalis.cpp`, `createmultimerreport.cpp` |
 
 ## Documentation Sync Rule {#fs-dev-doc-sync}
