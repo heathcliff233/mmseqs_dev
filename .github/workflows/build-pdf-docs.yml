@@ -1,0 +1,43 @@
+name: Build PDF Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/build-pdf-docs.yml"
+      - "mmseqs2_docs/**"
+      - "foldseek_docs/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Install typst
+        uses: typst-community/setup-typst@v3
+
+      - name: Build MMseqs2 PDF
+        run: bash mmseqs2_docs/build_pdf.sh
+
+      - name: Build Foldseek PDF
+        run: bash foldseek_docs/build_pdf.sh
+
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-pdfs
+          path: |
+            mmseqs2_docs/mmseqs2_doc.pdf
+            foldseek_docs/foldseek_doc.pdf
