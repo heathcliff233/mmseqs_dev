@@ -7,3 +7,6 @@ foldseek_docs/test.md
 # Python cache artifacts from doc-generation scripts
 **/__pycache__/
 *.pyc
+
+# Generated static website output
+public/
