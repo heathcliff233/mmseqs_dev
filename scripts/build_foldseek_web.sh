@@ -5,7 +5,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DOCS_DIR="${ROOT_DIR}/foldseek_docs"
 OUT_DIR="${ROOT_DIR}/public/foldseek"
-BANNER_FILE="${ROOT_DIR}/site/templates/foldseek_banner.html"
+SHELL_BEFORE_FILE="${ROOT_DIR}/site/templates/docs_shell_before.html"
+SHELL_AFTER_FILE="${ROOT_DIR}/site/templates/docs_shell_after.html"
 
 if ! command -v pandoc >/dev/null 2>&1; then
   echo "Error: pandoc is required to build web docs." >&2
@@ -23,7 +24,8 @@ pandoc \
   --toc-depth=4 \
   --metadata title="Foldseek Documentation" \
   --css ../assets/style.css \
-  --include-before-body="${BANNER_FILE}" \
+  --include-before-body="${SHELL_BEFORE_FILE}" \
+  --include-after-body="${SHELL_AFTER_FILE}" \
   "${DOCS_DIR}/introduction.md" \
   "${DOCS_DIR}/wiki.md" \
   "${DOCS_DIR}/manual.md" \
