@@ -5,7 +5,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DOCS_DIR="${ROOT_DIR}/mmseqs2_docs"
 OUT_DIR="${ROOT_DIR}/public/mmseqs"
-SHELL_BEFORE_FILE="${ROOT_DIR}/site/templates/docs_shell_before.html"
+SHELL_BEFORE_FILE="${ROOT_DIR}/site/templates/docs_shell_before_mmseqs.html"
 SHELL_AFTER_FILE="${ROOT_DIR}/site/templates/docs_shell_after.html"
 
 if ! command -v pandoc >/dev/null 2>&1; then
@@ -54,5 +54,9 @@ pandoc \
   "${reference_pages[@]}" \
   "${DOCS_DIR}/reference/dependency_map.md" \
   -o "${OUT_DIR}/index.html"
+
+if [[ -f "${DOCS_DIR}/mmseqs2_doc.pdf" ]]; then
+  cp "${DOCS_DIR}/mmseqs2_doc.pdf" "${OUT_DIR}/mmseqs2_doc.pdf"
+fi
 
 echo "MMseqs2 web documentation built: ${OUT_DIR}/index.html"

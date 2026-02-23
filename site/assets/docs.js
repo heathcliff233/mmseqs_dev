@@ -6,6 +6,7 @@
   var contentPane = document.getElementById("content-pane");
   var tocContainer = document.getElementById("toc-container");
   var pageIndex = document.getElementById("page-index");
+  var themeToggleBtn = document.getElementById("theme-toggle");
   var tocOpenBtn = document.getElementById("toc-open");
   var tocPane = document.getElementById("toc-pane");
   var tocBackdrop = document.getElementById("toc-backdrop");
@@ -16,17 +17,19 @@
   }
 
   markActiveProductLink();
+  setupTheme(themeToggleBtn);
   movePandocContentIntoShell();
 
   var toc = document.getElementById("TOC");
   setupTocBranches(toc);
 
+  var tocAnchors = getTocAnchors(toc);
+  var syncTargets = collectSyncTargets(tocAnchors);
   var headings = collectHeadings();
   var indexAnchors = buildRightIndex(headings);
-  var tocAnchors = getTocAnchors(toc);
 
   setupHashNavigation(tocContainer, pageIndex);
-  activateScrollSync(headings, tocAnchors, indexAnchors);
+  activateScrollSync(syncTargets, tocAnchors, indexAnchors);
   setupDrawer(tocOpenBtn, tocPane, tocBackdrop);
   setupBackToTop(backToTopBtn);
   applyInitialHashOffset();
@@ -53,7 +56,8 @@
     var keepIds = {
       "docs-shell": true,
       "toc-backdrop": true,
-      "back-to-top": true
+      "back-to-top": true,
+      "doc-page-footer": true
     };
 
     var children = Array.prototype.slice.call(body.children);
@@ -80,6 +84,74 @@
     var tocNode = document.getElementById("TOC");
     if (tocNode) {
       tocNode.classList.add("toc-nav");
+    }
+  }
+
+  function setupTheme(btn) {
+    var storageKey = "docs-theme";
+    var root = document.documentElement;
+    var media = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    var stored = readStoredTheme(storageKey);
+
+    applyTheme(stored || (media && media.matches ? "dark" : "light"));
+    refreshThemeButton(btn, root.getAttribute("data-theme") || "light");
+
+    if (!btn) {
+      return;
+    }
+
+    btn.addEventListener("click", function () {
+      var current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      var next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+      storeTheme(storageKey, next);
+      refreshThemeButton(btn, next);
+    });
+
+    if (media && media.addEventListener) {
+      media.addEventListener("change", function (event) {
+        if (readStoredTheme(storageKey)) {
+          return;
+        }
+        var theme = event.matches ? "dark" : "light";
+        applyTheme(theme);
+        refreshThemeButton(btn, theme);
+      });
+    }
+  }
+
+  function refreshThemeButton(btn, theme) {
+    if (!btn) {
+      return;
+    }
+    var isDark = theme === "dark";
+    btn.textContent = isDark ? "Dark" : "Light";
+    btn.setAttribute("aria-pressed", String(isDark));
+    btn.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+    btn.setAttribute("data-theme-state", theme);
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme === "dark" ? "dark" : "light");
+  }
+
+  function readStoredTheme(key) {
+    try {
+      var value = window.localStorage.getItem(key);
+      if (value === "dark" || value === "light") {
+        return value;
+      }
+      return "";
+    } catch (err) {
+      return "";
+    }
+  }
+
+  function storeTheme(key, value) {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (err) {
+      // Ignore storage errors (private mode / blocked storage).
     }
   }
 
@@ -225,6 +297,29 @@
     return Array.prototype.slice.call(tocNode.querySelectorAll("a[href^='#']"));
   }
 
+  function collectSyncTargets(tocAnchors) {
+    var seen = {};
+    var targets = [];
+
+    for (var i = 0; i < tocAnchors.length; i++) {
+      var href = tocAnchors[i].getAttribute("href");
+      var target = getTargetFromHash(href);
+      if (!target || !target.id || seen[target.id]) {
+        continue;
+      }
+      seen[target.id] = true;
+      targets.push({
+        id: target.id,
+        node: resolveScrollTarget(target)
+      });
+    }
+
+    targets.sort(function (a, b) {
+      return a.node.offsetTop - b.node.offsetTop;
+    });
+    return targets;
+  }
+
   function setupHashNavigation(tocNode, indexNode) {
     function handleClick(event) {
       var link = event.target.closest("a[href^='#']");
@@ -243,7 +338,7 @@
       } else {
         window.location.hash = hash;
       }
-      scrollToHashTarget(hash, "smooth");
+      scrollToHashTarget(hash, "auto");
     }
 
     if (tocNode) {
@@ -320,24 +415,26 @@
     return Math.ceil(headerHeight + gap);
   }
 
-  function activateScrollSync(headings, tocAnchors, indexAnchors) {
-    if (!headings.length) {
+  function activateScrollSync(syncTargets, tocAnchors, indexAnchors) {
+    if (!syncTargets.length) {
       return;
     }
 
     var ticking = false;
     var activeId = "";
-    var anchorPool = tocAnchors.concat(indexAnchors);
 
     function sync() {
       ticking = false;
-      var next = findActiveHeading(headings);
+      var next = findActiveTarget(syncTargets);
       if (!next || next.id === activeId) {
         return;
       }
       activeId = next.id;
-      applyActiveLinkState(anchorPool, activeId);
-      expandTocBranchForActive(tocAnchors, activeId);
+      var activeTocLink = getVisibleTocLinkForId(tocAnchors, activeId);
+      var tocHref = activeTocLink ? activeTocLink.getAttribute("href") : "";
+      applyActiveLinkState(tocAnchors, tocHref);
+      applyActiveLinkState(indexAnchors, "#" + activeId);
+      keepElementInPaneView(activeTocLink, tocContainer);
     }
 
     function onScroll() {
@@ -353,12 +450,12 @@
     onScroll();
   }
 
-  function findActiveHeading(headings) {
+  function findActiveTarget(targets) {
     var marker = window.scrollY + computeAnchorOffset() + 40;
-    var current = headings[0];
-    for (var i = 0; i < headings.length; i++) {
-      if (headings[i].offsetTop <= marker) {
-        current = headings[i];
+    var current = targets[0];
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i].node.offsetTop <= marker) {
+        current = targets[i];
       } else {
         break;
       }
@@ -366,15 +463,14 @@
     return current;
   }
 
-  function applyActiveLinkState(anchors, id) {
-    var targetHref = "#" + id;
+  function applyActiveLinkState(anchors, targetHref) {
     for (var i = 0; i < anchors.length; i++) {
       var a = anchors[i];
       a.classList.toggle("active", a.getAttribute("href") === targetHref);
     }
   }
 
-  function expandTocBranchForActive(tocAnchors, id) {
+  function getVisibleTocLinkForId(tocAnchors, id) {
     var targetHref = "#" + id;
     var link = null;
     for (var i = 0; i < tocAnchors.length; i++) {
@@ -384,19 +480,52 @@
       }
     }
     if (!link) {
-      return;
+      return null;
+    }
+
+    if (isElementVisible(link)) {
+      return link;
     }
 
     var node = link.closest("li");
     while (node && node.id !== "TOC") {
-      if (node.tagName === "LI" && node.classList.contains("toc-branch")) {
-        var sub = node.querySelector(":scope > ul");
-        var btn = node.querySelector(":scope > .toc-row > .toc-toggle");
-        if (sub && btn) {
-          applyBranchState(node, btn, sub, false);
+      if (node.tagName === "LI") {
+        var rowLink = node.querySelector(":scope > .toc-row > .toc-link");
+        if (rowLink && isElementVisible(rowLink)) {
+          return rowLink;
         }
       }
-      node = node.parentElement;
+      var parentList = node.parentElement;
+      node = parentList ? parentList.closest("li") : null;
+    }
+
+    return null;
+  }
+
+  function isElementVisible(el) {
+    return !!(el && el.getClientRects().length);
+  }
+
+  function keepElementInPaneView(el, pane) {
+    if (!el || !pane) {
+      return;
+    }
+
+    var paneRect = pane.getBoundingClientRect();
+    var elRect = el.getBoundingClientRect();
+    var viewTop = pane.scrollTop;
+    var viewBottom = viewTop + pane.clientHeight;
+    var itemTop = elRect.top - paneRect.top + pane.scrollTop;
+    var itemBottom = itemTop + elRect.height;
+    var edgePadding = Math.min(90, Math.floor(pane.clientHeight * 0.18));
+    var outsideView = itemTop < viewTop + edgePadding || itemBottom > viewBottom - edgePadding;
+
+    if (outsideView) {
+      var targetTop = itemTop - (pane.clientHeight - elRect.height) / 2;
+      pane.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: "auto"
+      });
     }
   }
 
