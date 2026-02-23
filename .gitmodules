@@ -1,6 +1,0 @@
-[submodule "MMseqs2"]
-	path = MMseqs2
-	url = https://github.com/soedinglab/MMseqs2.git
-[submodule "foldseek"]
-	path = foldseek
-	url = https://github.com/steineggerlab/foldseek.git

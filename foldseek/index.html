@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Foldseek Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header class="docs-header">
+  <div class="docs-header-inner">
+    <a class="home-link" href="../index.html">Docs Home</a>
+    <nav class="product-nav" aria-label="Documentation products">
+      <a data-product-link="mmseqs" href="../mmseqs/index.html">MMseqs2</a>
+      <a data-product-link="foldseek" href="../foldseek/index.html">Foldseek</a>
+    </nav>
+    <button
+      id="theme-toggle"
+      class="theme-toggle"
+      type="button"
+      aria-label="Toggle dark mode"
+      aria-pressed="false"
+    >
+      Theme
+    </button>
+    <button
+      id="toc-open"
+      class="toc-drawer-toggle"
+      type="button"
+      aria-controls="toc-pane"
+      aria-expanded="false"
+    >
+      Contents
+    </button>
+  </div>
+</header>
+
+<section class="doc-meta-strip" aria-label="Project credits and downloads">
+  <div class="doc-meta-grid">
+    <article class="doc-meta-card">
+      <h2>Foldseek Contributors</h2>
+      <p>
+        Foldseek is developed by Martin Steinegger, Milot Mirdita, M. van Kempen, S. Kim, C.
+        Tumescheit, the Steinegger Lab, and the wider open-source contributor community.
+      </p>
+      <p class="doc-meta-links">
+        <a href="https://github.com/steineggerlab/foldseek/graphs/contributors">Contributors graph</a>
+        <a href="./foldseek_doc.pdf" download>Download precompiled PDF</a>
+      </p>
+    </article>
+  </div>
+</section>
+
+<div class="docs-shell" id="docs-shell">
+  <aside class="toc-pane" id="toc-pane" aria-label="Contents">
+    <div class="pane-title">Contents</div>
+    <div class="pane-scroll" id="toc-container"></div>
+  </aside>
+
+  <main class="content-pane" id="content-pane"></main>
+
+  <aside class="index-pane" id="index-pane" aria-label="On this page">
+    <div class="pane-title">On This Page</div>
+    <nav class="pane-scroll" id="page-index"></nav>
+  </aside>
+</div>
+<header id="title-block-header">
+<h1 class="title">Foldseek Documentation</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#fs-introduction">Introduction to Foldseek</a>
+<ul>
+<li><a href="#fs-3di-overview">Structural Representation and 3Di</a></li>
+<li><a href="#fs-backbone-overview">Search and Clustering Backbone</a></li>
+<li><a href="#fs-scoring-overview">Structural Scoring Modes</a></li>
+<li><a href="#fs-multimer-overview">Multimer Extension</a></li>
+<li><a href="#fs-db-overview">Database and Index Model</a></li>
+<li><a href="#fs-reading-order">Reading Order</a></li>
+</ul></li>
+<li><a href="#fs-user-guide">Foldseek User Guide</a>
+<ul>
+<li><a href="#fs-user-system-requirements">Platform and System Requirements</a>
+<ul>
+<li><a href="#fs-user-simd-checks">Quick CPU Capability Checks</a></li>
+<li><a href="#fs-user-gpu-requirements">GPU Requirements</a></li>
+</ul></li>
+<li><a href="#fs-user-memory">Memory Planning for Large Searches</a></li>
+<li><a href="#fs-user-installation">Installation Paths</a>
+<ul>
+<li><a href="#fs-user-install-prebuilt">Precompiled Binaries</a></li>
+<li><a href="#fs-user-install-conda">Conda Installation</a></li>
+<li><a href="#fs-user-build-linux-cpu">Build from Source (Linux CPU)</a></li>
+<li><a href="#fs-user-build-linux-gpu">Build from Source (Linux GPU)</a></li>
+<li><a href="#fs-user-build-macos">Build from Source (macOS)</a></li>
+<li><a href="#fs-user-build-customization">Build Customization</a></li>
+</ul></li>
+<li><a href="#fs-user-postinstall">Operational Checklist After Installation</a></li>
+<li><a href="#fs-user-faq">FAQ and Troubleshooting</a>
+<ul>
+<li><a href="#fs-user-faq-probability">What does Foldseek hit probability represent?</a></li>
+<li><a href="#fs-user-faq-structure-bits">Why can ranking change when <code>--sort-by-structure-bits</code> changes?</a></li>
+<li><a href="#fs-user-faq-alignment-type">When should I use <code>--alignment-type 1</code> (TM-align) instead of <code>2</code> (3Di+AA)?</a></li>
+<li><a href="#fs-user-faq-ca-warnings">Why do I get warnings about C-alpha data or disabled thresholds?</a></li>
+<li><a href="#fs-user-faq-ut-transform">How do I apply <code>U</code> and <code>T</code> transforms to coordinates?</a></li>
+<li><a href="#fs-user-faq-pairwise">How can I align only specific known query-target pairs?</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#fs-manual">Foldseek Manual</a>
+<ul>
+<li><a href="#fs-workflow-selection">Workflow Selection</a></li>
+<li><a href="#fs-shared-exec-model">Shared Execution Model</a></li>
+<li><a href="#fs-global-options">High-Impact Global Options</a></li>
+<li><a href="#fs-output-path">Output and Reporting Path</a></li>
+<li><a href="#fs-manual-next">Advanced Reading</a></li>
+<li><a href="#fs-modules-root">Module Manual</a>
+<ul>
+<li><a href="#fs-easy-root">Easy Workflows</a>
+<ul>
+<li><a href="#fs-easy-search"><code>easy-search</code></a></li>
+<li><a href="#fs-easy-cluster"><code>easy-cluster</code></a></li>
+<li><a href="#fs-easy-rbh"><code>easy-rbh</code></a></li>
+<li><a href="#fs-easy-multimersearch"><code>easy-multimersearch</code></a></li>
+<li><a href="#fs-easy-multimercluster"><code>easy-multimercluster</code></a></li>
+<li><a href="#fs-easy-when-lowlevel">When to Drop to Low-Level Commands</a></li>
+</ul></li>
+<li><a href="#fs-search-root">Structure Search Modules</a>
+<ul>
+<li><a href="#fs-search-pipeline">Pipeline Model</a></li>
+<li><a href="#fs-search-command"><code>search</code></a></li>
+<li><a href="#fs-search-structurealign"><code>structurealign</code></a></li>
+<li><a href="#fs-search-rescorediagonal"><code>structurerescorediagonal</code></a></li>
+<li><a href="#fs-search-tmalign"><code>tmalign</code></a></li>
+<li><a href="#fs-search-lolalign"><code>lolalign</code></a></li>
+<li><a href="#fs-search-rbh"><code>rbh</code></a></li>
+<li><a href="#fs-search-samplemulambda"><code>samplemulambda</code></a></li>
+<li><a href="#fs-search-patterns">Practical Composition Patterns</a></li>
+</ul></li>
+<li><a href="#fs-cluster-root">Structure Clustering Modules</a>
+<ul>
+<li><a href="#fs-cluster-command"><code>cluster</code></a></li>
+<li><a href="#fs-cluster-clust"><code>clust</code></a></li>
+<li><a href="#fs-cluster-semantics">Clustering Semantics</a></li>
+<li><a href="#fs-cluster-results">Result Interpretation</a></li>
+<li><a href="#fs-cluster-related">Related Modules</a></li>
+</ul></li>
+<li><a href="#fs-multimer-root">Multimer Modules</a>
+<ul>
+<li><a href="#fs-multimer-pipeline">Complex Search Pipeline</a></li>
+<li><a href="#fs-multimersearch"><code>multimersearch</code></a></li>
+<li><a href="#fs-expandmultimer"><code>expandmultimer</code></a></li>
+<li><a href="#fs-scoremultimer"><code>scoremultimer</code></a></li>
+<li><a href="#fs-createmultimerreport"><code>createmultimerreport</code></a></li>
+<li><a href="#fs-multimercluster"><code>multimercluster</code></a></li>
+<li><a href="#fs-multimer-easy">Easy Multimer Wrappers</a></li>
+</ul></li>
+<li><a href="#fs-manip-root">Structure Manipulation Modules</a>
+<ul>
+<li><a href="#fs-createdb"><code>createdb</code></a></li>
+<li><a href="#fs-createsubdb"><code>createsubdb</code></a></li>
+<li><a href="#fs-compressca"><code>compressca</code></a></li>
+<li><a href="#fs-convertalis"><code>convertalis</code></a></li>
+<li><a href="#fs-convert2pdb"><code>convert2pdb</code></a></li>
+<li><a href="#fs-aln2tmscore"><code>aln2tmscore</code></a></li>
+<li><a href="#fs-result2profile"><code>result2profile</code></a></li>
+<li><a href="#fs-manip-flow">Typical Data-Preparation Flow</a></li>
+</ul></li>
+<li><a href="#fs-db-modules">Database Management Modules</a>
+<ul>
+<li><a href="#fs-db-layout">Canonical Database Layout</a></li>
+<li><a href="#fs-db-file-format">Core File Formats</a></li>
+<li><a href="#fs-db-payload-semantics">Channel Payload Semantics</a></li>
+<li><a href="#fs-db-ca-format">C-alpha Storage Modes (<code>X_ca</code>)</a></li>
+<li><a href="#fs-databases-command"><code>databases</code></a></li>
+<li><a href="#fs-createindex"><code>createindex</code></a></li>
+<li><a href="#fs-createclusearchdb"><code>createclusearchdb</code></a></li>
+<li><a href="#fs-db-strategy">Practical Layout Strategies</a></li>
+<li><a href="#fs-db-example">Minimal End-to-End Example</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#fs-expert-root">Foldseek Expert Manual</a>
+<ul>
+<li><a href="#fs-expert-3di">3Di Encoding Engine</a></li>
+<li><a href="#fs-expert-prefilter">Prefilter and Candidate Generation</a></li>
+<li><a href="#fs-expert-alignment">Alignment Core: 3Di, 3Di+AA, and TM-align</a></li>
+<li><a href="#fs-expert-tm-lddt">TM-score and LDDT in Filtering and Ranking</a></li>
+<li><a href="#fs-expert-multimer">Multimer Assignment and Complex Scoring</a></li>
+<li><a href="#fs-expert-data">Data Layout, Storage Format, and Memory Behavior</a>
+<ul>
+<li><a href="#fs-expert-data-containers">On-disk Containers and Sidecars</a></li>
+<li><a href="#fs-expert-data-ca">C-alpha Encoding Trade-offs</a></li>
+<li><a href="#fs-expert-data-index">Indexed Targets and Exclusion Flags</a></li>
+<li><a href="#fs-expert-data-cluster">Cluster-search Data Model</a></li>
+</ul></li>
+<li><a href="#fs-expert-gpu">GPU Paths and Constraints</a></li>
+<li><a href="#fs-expert-tuning">Practical Tuning Order</a></li>
+</ul></li>
+<li><a href="#fs-dev-root">Foldseek Developer Manual</a>
+<ul>
+<li><a href="#fs-dev-command-registry">Command Registration and Ownership</a></li>
+<li><a href="#fs-dev-parameters">Parameter System</a></li>
+<li><a href="#fs-dev-workflow-layer">Workflow Layer</a></li>
+<li><a href="#fs-dev-algo-layer">Algorithm and Utility Layer</a></li>
+<li><a href="#fs-dev-core-libs">Core Libraries and Shared Engines</a></li>
+<li><a href="#fs-dev-data-flow">End-to-End Data Flow (Developer View)</a></li>
+<li><a href="#fs-dev-guidelines">Editing Guidelines</a></li>
+<li><a href="#fs-dev-debugging-map">Debugging Map</a></li>
+<li><a href="#fs-dev-doc-sync">Documentation Sync Rule</a></li>
+</ul></li>
+</ul>
+</nav>
+<section id="fs-introduction" class="level1">
+<h1>Introduction to Foldseek</h1>
+<p>Foldseek is a structure search and clustering system that keeps the throughput profile of sequence search while preserving the discriminative power needed for structural biology. It does this by converting protein structures into a structural alphabet, then running a cascaded search pipeline that aggressively prunes candidates before expensive scoring. The result is that search, clustering, and multimer analysis share one backbone, but each mode applies different scoring, filtering, and reporting layers.</p>
+<p>This manual is organized around that backbone. The practical entry points are described in the <a href="#fs-manual">manual</a> and <a href="#fs-modules-root">module chapters</a>, while algorithmic and implementation details are centralized in the <a href="#fs-expert-root">expert manual</a> and <a href="#fs-dev-root">developer manual</a>.</p>
+<section id="fs-3di-overview" class="level2">
+<h2>Structural Representation and 3Di</h2>
+<p>Foldseek does not compare raw coordinates in the prefilter. During <code>createdb</code>, each chain is converted into synchronized data streams: amino-acid sequence, 3Di sequence, C-alpha coordinates, and headers. The 3Di stream is produced by feature extraction from local geometric context followed by embedding and discretization in <code>foldseek/lib/3di/structureto3di.cpp</code>. This representation is compact enough for fast k-mer indexing and prefiltering, but still captures local structural context that sequence-only scoring misses.</p>
+<p>A key design choice is that Foldseek keeps AA and 3Di views aligned at the residue level. This enables <code>--alignment-type 2</code> (3Di+AA) to combine structural and sequence evidence in a single alignment stage instead of forcing separate post-hoc rescoring. The same design also allows fast fallback paths (<code>--alignment-type 0</code> or <code>1</code>) without changing database layout.</p>
+</section>
+<section id="fs-backbone-overview" class="level2">
+<h2>Search and Clustering Backbone</h2>
+<p>The core search path is staged:</p>
+<ol type="1">
+<li>K-mer driven candidate generation on structural descriptors.</li>
+<li>Ungapped and/or diagonal rescoring to cut candidate volume.</li>
+<li>Full alignment (<code>structurealign</code> or <code>tmalign</code>) with optional TM-score/LDDT gating.</li>
+<li>Optional post-processing such as multimer assignment, report creation, clustering, or conversion.</li>
+</ol>
+<p>The workflow layer in <code>foldseek/src/workflow/StructureSearch.cpp</code> wires these stages and adjusts behavior based on options like <code>--prefilter-mode</code>, <code>--alignment-type</code>, and <code>--gpu</code>. The same structural backbone is reused by <code>search</code>, <code>cluster</code>, <code>rbh</code>, and multimer workflows, which is why tuning one stage often affects multiple commands.</p>
+</section>
+<section id="fs-scoring-overview" class="level2">
+<h2>Structural Scoring Modes</h2>
+<p>Foldseek exposes three primary alignment modes through <code>--alignment-type</code>:</p>
+<ul>
+<li><code>0</code> (3Di alignment): fastest structural-only local alignment path.</li>
+<li><code>1</code> (TM alignment): TM-align-based global structural alignment.</li>
+<li><code>2</code> (3Di+AA): combined local scoring, default for many workflows.</li>
+</ul>
+<p>TM-score and LDDT can be used as explicit thresholds (<code>--tmscore-threshold</code>, <code>--lddt-threshold</code>) and also influence ranking when structure-bit sorting is enabled (<code>--sort-by-structure-bits 1</code>). Those interactions are not purely cosmetic; they affect which hits survive and how hits are ordered.</p>
+</section>
+<section id="fs-multimer-overview" class="level2">
+<h2>Multimer Extension</h2>
+<p>Foldseek-Multimer extends the same single-chain backbone by adding chain expansion, chain-to-chain assignment, and complex-level scoring stages. In practice, <code>multimersearch</code> and <code>multimercluster</code> call additional modules (<code>expandmultimer</code>, <code>scoremultimer</code>, internal filtering/reporting) after base alignment so that complex-level quality is computed from concrete chain assignments rather than inferred from monomer hits.</p>
+</section>
+<section id="fs-db-overview" class="level2">
+<h2>Database and Index Model</h2>
+<p>Foldseek databases are split by data role (<code>DB</code>, <code>DB_ss</code>, <code>DB_ca</code>, <code>DB_h</code>, plus indices). This split is central to performance tuning: index and coordinate exclusions can reduce memory and I/O, but they also remove capabilities needed by specific ranking or alignment settings. The practical rules and exact file layout are documented in <a href="#fs-db-modules">Database Management</a>, especially <a href="#fs-db-file-format">Core File Formats</a>, and the runtime implications are documented in <a href="#fs-expert-data">Expert Manual: Data and Performance</a>.</p>
+</section>
+<section id="fs-reading-order" class="level2">
+<h2>Reading Order</h2>
+<p>For new users, start with <a href="#fs-manual">Manual</a>, then go to <a href="#fs-easy-root">Easy Workflows</a> and <a href="#fs-search-root">Structure Search</a>. For optimization and interpretation, continue with <a href="#fs-expert-root">Expert Manual</a>. For source-level debugging or extension work, use <a href="#fs-dev-root">Developer Manual</a>.</p>
+</section>
+</section>
+<section id="fs-user-guide" class="level1">
+<h1>Foldseek User Guide</h1>
+<p>This chapter focuses on operational readiness: platform prerequisites, installation strategies, memory planning, and troubleshooting patterns that affect real runs. For command selection and workflow design, continue to the <a href="#fs-manual">manual</a>.</p>
+<section id="fs-user-system-requirements" class="level2">
+<h2>Platform and System Requirements</h2>
+<p>Foldseek supports modern Linux and macOS environments. On x86_64 platforms, performance depends strongly on SIMD support. AVX2 is the fastest CPU path, while SSE4.1 and SSE2 compatibility paths exist for older hardware. ARM64 and PPC64LE are also supported with architecture-specific SIMD backends.</p>
+<p>For production usage, validate CPU capabilities before benchmarking. A run that silently falls back to a lower SIMD tier can look like a configuration bug when it is actually a hardware-path mismatch.</p>
+<section id="fs-user-simd-checks" class="level3">
+<h3>Quick CPU Capability Checks</h3>
+<p>Linux:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> <span class="va">$(</span><span class="fu">uname</span> <span class="at">-m</span><span class="va">)</span> <span class="ot">=</span> <span class="st">&quot;x86_64&quot;</span> <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;64bit: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;64bit: No&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-q</span> avx2 /proc/cpuinfo <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;AVX2: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;AVX2: No&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-q</span> sse4_1 /proc/cpuinfo <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;SSE4.1: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;SSE4.1: No&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-q</span> sse2 /proc/cpuinfo <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;SSE2: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;SSE2: No&quot;</span></span></code></pre></div>
+<p>macOS:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> <span class="va">$(</span><span class="fu">uname</span> <span class="at">-m</span><span class="va">)</span> <span class="ot">=</span> <span class="st">&quot;x86_64&quot;</span> <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;64bit: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;64bit: No&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> machdep.cpu.leaf7_features <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-q</span> AVX2 <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;AVX2: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;AVX2: No&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> machdep.cpu.features <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-q</span> SSE4.1 <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;SSE4.1: Yes&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;SSE4.1: No&quot;</span></span></code></pre></div>
+</section>
+<section id="fs-user-gpu-requirements" class="level3">
+<h3>GPU Requirements</h3>
+<p>Foldseek supports CUDA acceleration for search workflows and ProstT5-assisted 3Di prediction. Full speed is typically achieved on Ampere-generation or newer NVIDIA GPUs, while older Tesla-generation hardware can still run with reduced throughput.</p>
+<p>For GPU search and GPU-backed <code>createdb</code> runs, verify both driver/runtime compatibility and the command path (<code>--gpu</code>, plus workflow-specific constraints such as prefilter mode behavior).</p>
+</section>
+</section>
+<section id="fs-user-memory" class="level2">
+<h2>Memory Planning for Large Searches</h2>
+<p>Memory footprint is dominated by database representation and index settings. A practical baseline for structure-aware runs is:</p>
+<pre class="text"><code>RAM ≈ (6 bytes C-alpha + 1 byte 3Di + 1 byte AA) × total residues</code></pre>
+<p>For AFDB50-scale workloads, this can exceed 100 GB depending on index and scoring mode. If you disable structure-bit sorting (<code>--sort-by-structure-bits 0</code>) and rely on paths that do not require C-alpha coordinates during ranking, effective runtime memory can drop substantially.</p>
+<p>A safe planning approach is:</p>
+<ol type="1">
+<li>Estimate peak RAM from residue counts.</li>
+<li>Decide whether coordinate-aware ranking/metrics are required.</li>
+<li>Choose index subset/exclusion options that remain compatible with downstream scoring and output requirements.</li>
+</ol>
+</section>
+<section id="fs-user-installation" class="level2">
+<h2>Installation Paths</h2>
+<section id="fs-user-install-prebuilt" class="level3">
+<h3>Precompiled Binaries</h3>
+<p>Linux AVX2:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://mmseqs.com/foldseek/foldseek-linux-avx2.tar.gz</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xvzf foldseek-linux-avx2.tar.gz</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH=$(</span><span class="bu">pwd</span><span class="va">)</span>/foldseek/bin/:<span class="va">$PATH</span></span></code></pre></div>
+<p>Linux SSE4.1:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://mmseqs.com/foldseek/foldseek-linux-sse41.tar.gz</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xvzf foldseek-linux-sse41.tar.gz</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH=$(</span><span class="bu">pwd</span><span class="va">)</span>/foldseek/bin/:<span class="va">$PATH</span></span></code></pre></div>
+<p>macOS universal build:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://mmseqs.com/foldseek/foldseek-osx-universal.tar.gz</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xvzf foldseek-osx-universal.tar.gz</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH=$(</span><span class="bu">pwd</span><span class="va">)</span>/foldseek/bin/:<span class="va">$PATH</span></span></code></pre></div>
+</section>
+<section id="fs-user-install-conda" class="level3">
+<h3>Conda Installation</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda foldseek</span></code></pre></div>
+</section>
+<section id="fs-user-build-linux-cpu" class="level3">
+<h3>Build from Source (Linux CPU)</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/steineggerlab/foldseek.git</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> foldseek</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> build</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>RELEASE <span class="at">-DCMAKE_INSTALL_PREFIX</span><span class="op">=</span>. ..</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j</span><span class="va">$(</span><span class="ex">nproc</span><span class="va">)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH=$(</span><span class="bu">pwd</span><span class="va">)</span>/bin/:<span class="va">$PATH</span></span></code></pre></div>
+</section>
+<section id="fs-user-build-linux-gpu" class="level3">
+<h3>Build from Source (Linux GPU)</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> nvcc <span class="at">-c</span> conda-forge cuda-nvcc cuda-cudart-dev libcublas-dev libcublas-static cuda-version=12.6 cmake</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate nvcc</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> build</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>RELEASE <span class="at">-DCMAKE_INSTALL_PREFIX</span><span class="op">=</span>. <span class="at">-DENABLE_CUDA</span><span class="op">=</span>1 <span class="at">-DCMAKE_CUDA_ARCHITECTURES</span><span class="op">=</span><span class="st">&quot;75;80;86;89;90&quot;</span> ..</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> <span class="at">-j8</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> install</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH=$(</span><span class="bu">pwd</span><span class="va">)</span>/bin/:<span class="va">$PATH</span></span></code></pre></div>
+</section>
+<section id="fs-user-build-macos" class="level3">
+<h3>Build from Source (macOS)</h3>
+<p>Clang path:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install cmake libomp zlib bzip2</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./util/build_osx.sh</span> PATH_TO_FOLDSEEK_REPO OUTPUT_DIR</span></code></pre></div>
+<p>GCC path:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install cmake gcc@11 zlib bzip2</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">CC</span><span class="op">=</span><span class="st">&quot;gcc-14&quot;</span> <span class="va">CXX</span><span class="op">=</span><span class="st">&quot;g++-14&quot;</span> <span class="fu">cmake</span> <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>RELEASE <span class="at">-DCMAKE_INSTALL_PREFIX</span><span class="op">=</span>. ..</span></code></pre></div>
+</section>
+<section id="fs-user-build-customization" class="level3">
+<h3>Build Customization</h3>
+<p>Most relevant MMseqs2 CMake flags apply to Foldseek. For example, Google Cloud Storage support for <code>createdb</code> can be enabled using <code>vcpkg</code> and <code>-DHAVE_GCS=1</code>.</p>
+</section>
+</section>
+<section id="fs-user-postinstall" class="level2">
+<h2>Operational Checklist After Installation</h2>
+<p>Before starting large jobs:</p>
+<ol type="1">
+<li>Confirm <code>foldseek</code> is on <code>PATH</code> and binary architecture matches host capabilities.</li>
+<li>Run a small <code>createdb</code> and <code>search</code> smoke test.</li>
+<li>Validate temporary storage path throughput and capacity.</li>
+<li>If using GPU, verify CUDA visibility and run one GPU-enabled search trial.</li>
+</ol>
+</section>
+<section id="fs-user-faq" class="level2">
+<h2>FAQ and Troubleshooting</h2>
+<section id="fs-user-faq-probability" class="level3">
+<h3>What does Foldseek hit probability represent?</h3>
+<p>Hit probability is an empirical estimate of true-positive likelihood as a function of structural bit score, calibrated on benchmark distributions. It is useful for ranking interpretation, not a direct replacement for domain-specific validation.</p>
+</section>
+<section id="fs-user-faq-structure-bits" class="level3">
+<h3>Why can ranking change when <code>--sort-by-structure-bits</code> changes?</h3>
+<p>With structure-bit sorting enabled, ranking uses structural quality terms derived from TM/LDDT-aware scoring. Disabling it reverts ordering closer to raw bit-score behavior. E-values are not necessarily affected in the same way as ranking order.</p>
+</section>
+<section id="fs-user-faq-alignment-type" class="level3">
+<h3>When should I use <code>--alignment-type 1</code> (TM-align) instead of <code>2</code> (3Di+AA)?</h3>
+<p>Use TM-align mode when global superposition quality is the primary objective. Use 3Di+AA when balancing structural and sequence evidence for high-throughput screening and clustering pipelines.</p>
+</section>
+<section id="fs-user-faq-ca-warnings" class="level3">
+<h3>Why do I get warnings about C-alpha data or disabled thresholds?</h3>
+<p>Some scoring and filtering paths require coordinate channels (<code>_ca</code>). If the database layout omits required coordinate components, Foldseek disables incompatible threshold/ranking features to prevent invalid outputs.</p>
+</section>
+<section id="fs-user-faq-ut-transform" class="level3">
+<h3>How do I apply <code>U</code> and <code>T</code> transforms to coordinates?</h3>
+<p>Foldseek reports transform parameters for superposition. For direct coordinate transformation workflows, you can use custom scripts or generate superposed outputs through <code>convert2pdb</code>/<code>convertalis</code> modes that already apply transforms.</p>
+</section>
+<section id="fs-user-faq-pairwise" class="level3">
+<h3>How can I align only specific known query-target pairs?</h3>
+<p>Construct a custom prefilter DB containing only the desired pair IDs, then run <code>structurealign</code> on that prefilter result. A practical template is:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createdb inputs1/ db1</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createdb inputs2/ db2</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a pair list mapped to internal IDs, then:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> tsv2db keys.tsv pref <span class="at">--output-dbtype</span> 7</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> structurealign db1 db2 pref aln</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> convertalis db1 db2 aln aln.m8</span></code></pre></div>
+<p>This approach avoids full all-vs-all candidate generation when pair identities are known in advance.</p>
+</section>
+</section>
+</section>
+<section id="fs-manual" class="level1">
+<h1>Foldseek Manual</h1>
+<p>This chapter is the operational map for Foldseek. It does not duplicate command pages; it explains which command family to choose, how stages connect, and which options govern behavior across modules.</p>
+<section id="fs-workflow-selection" class="level2">
+<h2>Workflow Selection</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Goal</th>
+<th style="text-align: left;">Primary entry point</th>
+<th style="text-align: left;">Next chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Single-chain structure search from raw files</td>
+<td style="text-align: left;"><code>easy-search</code></td>
+<td style="text-align: left;"><a href="#fs-easy-root">Easy Workflows</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Single-chain search from existing DBs</td>
+<td style="text-align: left;"><code>search</code></td>
+<td style="text-align: left;"><a href="#fs-search-root">Structure Search</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reciprocal best-hit screening</td>
+<td style="text-align: left;"><code>easy-rbh</code> or <code>rbh</code></td>
+<td style="text-align: left;"><a href="#fs-easy-rbh">Easy Workflows</a> / <a href="#fs-search-rbh">Structure Search</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Single-chain structural clustering</td>
+<td style="text-align: left;"><code>easy-cluster</code> or <code>cluster</code></td>
+<td style="text-align: left;"><a href="#fs-easy-cluster">Easy Workflows</a> / <a href="#fs-cluster-root">Structure Clustering</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Complex-level (multimer) search</td>
+<td style="text-align: left;"><code>easy-multimersearch</code> or <code>multimersearch</code></td>
+<td style="text-align: left;"><a href="#fs-multimer-root">Multimer Modules</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Complex-level clustering</td>
+<td style="text-align: left;"><code>easy-multimercluster</code> or <code>multimercluster</code></td>
+<td style="text-align: left;"><a href="#fs-multimer-root">Multimer Modules</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Build/maintain databases and indexes</td>
+<td style="text-align: left;"><code>createdb</code>, <code>createindex</code>, <code>databases</code></td>
+<td style="text-align: left;"><a href="#fs-manip-root">Structure Manipulation</a>, <a href="#fs-db-modules">Database Management</a></td>
+</tr>
+</tbody>
+</table>
+<p>The easy workflows are wrappers around lower-level commands. They are best for starting quickly from PDB/mmCIF inputs, while low-level commands are better for controlled pipelines, reproducibility, and performance tuning.</p>
+</section>
+<section id="fs-shared-exec-model" class="level2">
+<h2>Shared Execution Model</h2>
+<p>Most workflows pass through the same stages: database preparation, candidate generation, alignment, and conversion/reporting. This is why options such as <code>-s</code>, <code>--prefilter-mode</code>, <code>--alignment-type</code>, and <code>--sort-by-structure-bits</code> are visible across many commands and have similar effects.</p>
+<p>In <code>foldseek/src/workflow/StructureSearch.cpp</code>, the workflow selects prefilter and alignment subcommands dynamically. In multimer workflows (<code>foldseek/src/workflow/MultimerSearch.cpp</code>, <code>foldseek/src/workflow/MultimerCluster.cpp</code>), the same base stages are followed by chain expansion and complex-level scoring.</p>
+</section>
+<section id="fs-global-options" class="level2">
+<h2>High-Impact Global Options</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Where it matters most</th>
+<th style="text-align: left;">Practical effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>-s</code></td>
+<td style="text-align: left;">Search and cluster workflows</td>
+<td style="text-align: left;">Higher sensitivity increases candidate volume and runtime.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--prefilter-mode</code></td>
+<td style="text-align: left;"><code>search</code>, <code>multimersearch</code>, easy workflows</td>
+<td style="text-align: left;">Controls whether the pipeline uses k-mer prefilter, ungapped-only, no prefilter, or mixed mode.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--alignment-type</code></td>
+<td style="text-align: left;">Search, clustering, multimer</td>
+<td style="text-align: left;">Chooses 3Di-only, TM-align, or 3Di+AA alignment engine.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--sort-by-structure-bits</code></td>
+<td style="text-align: left;">Search/alignment workflows</td>
+<td style="text-align: left;">Enables ranking that uses structural quality terms in addition to bit score.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--tmscore-threshold</code>, <code>--lddt-threshold</code></td>
+<td style="text-align: left;"><code>structurealign</code>, <code>structurerescorediagonal</code>, clustered/multimer flows</td>
+<td style="text-align: left;">Hard filters on structural quality; can change both recall and ranking.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--gpu</code></td>
+<td style="text-align: left;">Search workflows, ProstT5-backed <code>createdb</code></td>
+<td style="text-align: left;">Enables CUDA paths where implemented; may impose prefilter constraints.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--index-subset</code>, <code>--index-exclude</code></td>
+<td style="text-align: left;"><code>createindex</code></td>
+<td style="text-align: left;">Trade memory and build size against downstream feature availability.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fs-output-path" class="level2">
+<h2>Output and Reporting Path</h2>
+<p>Most search and clustering commands produce internal result databases. Text, HTML, SAM, and superposed structure outputs are generated in later conversion steps, typically via <code>convertalis</code>, <code>createmultimerreport</code>, or <code>convert2pdb</code>. For reproducible pipelines, treat conversion as a separate stage instead of embedding output concerns into search parameter tuning.</p>
+</section>
+<section id="fs-manual-next" class="level2">
+<h2>Advanced Reading</h2>
+<p>For algorithm details and performance behavior, continue with the <a href="#fs-expert-root">Expert Manual</a>. For source-code ownership, module boundaries, and extension points, continue with the <a href="#fs-dev-root">Developer Manual</a>.</p>
+</section>
+<section id="fs-modules-root" class="level2">
+<h2>Module Manual</h2>
+<p>The following module chapters are the canonical command reference for Foldseek. They are organized by workflow role and intentionally share options where they share execution stages.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Module</th>
+<th style="text-align: left;">Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="#fs-easy-root">Easy Workflows</a></td>
+<td style="text-align: left;">High-level commands from raw structures to final outputs.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="#fs-search-root">Structure Search</a></td>
+<td style="text-align: left;">Core search/alignment commands and RBH.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="#fs-cluster-root">Structure Clustering</a></td>
+<td style="text-align: left;">Cascaded and graph-based structural clustering.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="#fs-multimer-root">Multimer Modules</a></td>
+<td style="text-align: left;">Complex-level search, scoring, expansion, and clustering.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="#fs-manip-root">Structure Manipulation</a></td>
+<td style="text-align: left;">Database creation, conversion, coordinate and output utilities.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="#fs-db-modules">Database Management</a></td>
+<td style="text-align: left;">Downloaded datasets, indexing, and cluster-search DB preparation.</td>
+</tr>
+</tbody>
+</table>
+<section id="fs-easy-root" class="level3">
+<h3>Easy Workflows</h3>
+<p>The easy workflows are front doors that accept structure files directly and orchestrate database creation, search/alignment, and output conversion. They trade fine-grained control for speed of setup and are ideal when you want reliable defaults with minimal command composition.</p>
+<p>Internally, these workflows are orchestrated in <code>foldseek/src/workflow/Easy*.cpp</code> and shell templates in <code>foldseek/data/</code>. If you need strict stage control, use the low-level commands in <a href="#fs-search-root">Structure Search</a>, <a href="#fs-cluster-root">Structure Clustering</a>, and <a href="#fs-multimer-root">Multimer Modules</a>.</p>
+<section id="fs-easy-search" class="level4">
+<h4><code>easy-search</code></h4>
+<p><code>easy-search</code> runs end-to-end single-chain structural search from raw structure input to text output.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> easy-search <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;</span> ... <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;|&lt;</span>i:stdin<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetFastaFile[.gz]<span class="op">&gt;|&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:alignmentFile<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p>High-impact options are <code>-s</code>, <code>--prefilter-mode</code>, <code>--alignment-type</code>, <code>--tmscore-threshold</code>, <code>--lddt-threshold</code>, <code>--format-mode</code>, <code>--format-output</code>, and <code>--gpu</code>.</p>
+<p><code>--alignment-type</code> controls whether hits are finalized by 3Di local alignment (<code>0</code>), TM-align (<code>1</code>), or combined 3Di+AA (<code>2</code>). <code>--prefilter-mode</code> determines how aggressively candidates are pruned before alignment. <code>--format-mode 3</code> produces HTML output and <code>--format-mode 5</code> writes superposed C-alpha PDB views.</p>
+</section>
+<section id="fs-easy-cluster" class="level4">
+<h4><code>easy-cluster</code></h4>
+<p><code>easy-cluster</code> performs structure clustering from raw files and produces representative/member outputs.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> easy-cluster <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;</span> ... <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;</span> <span class="op">&lt;</span>o:clusterPrefix<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p>This workflow wraps search, alignment filtering, and <code>clust</code>. The most important controls are <code>-c</code>, <code>--cov-mode</code>, <code>--cluster-mode</code>, <code>--alignment-type</code>, and quality thresholds (<code>--tmscore-threshold</code>, <code>--lddt-threshold</code>).</p>
+</section>
+<section id="fs-easy-rbh" class="level4">
+<h4><code>easy-rbh</code></h4>
+<p><code>easy-rbh</code> computes reciprocal best hits through a bidirectional structure-search workflow.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> easy-rbh <span class="op">&lt;</span>i:queryFastaFile1[.gz<span class="kw">|</span><span class="ex">.bz2]</span><span class="op">&gt;</span> <span class="op">&lt;</span>i:targetFastaFile[.gz<span class="kw">|</span><span class="ex">.bz2]</span><span class="op">&gt;|&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:alignmentFile<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p>This is appropriate when orthology-style reciprocal filtering is required but you still want the structural scoring stack available through <code>--alignment-type</code>, TM-score, and LDDT settings.</p>
+</section>
+<section id="fs-easy-multimersearch" class="level4">
+<h4><code>easy-multimersearch</code></h4>
+<p><code>easy-multimersearch</code> is the multimer counterpart of <code>easy-search</code>: it accepts raw complex files and runs complex-aware expansion, assignment, and reporting.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> easy-multimersearch <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;</span> ... <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;|&lt;</span>i:stdin<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetFastaFile[.gz]<span class="op">&gt;|&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:outputFileName<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p>In addition to standard search controls, multimer workflows expose <code>--min-assigned-chains-ratio</code>, <code>--monomer-include-mode</code>, <code>--expand-multimer-evalue</code>, and <code>--multimer-report-mode</code>.</p>
+</section>
+<section id="fs-easy-multimercluster" class="level4">
+<h4><code>easy-multimercluster</code></h4>
+<p><code>easy-multimercluster</code> performs clustering at complex level.</p>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> easy-multimercluster <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;</span> ... <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]&gt;</span> <span class="op">&lt;</span>o:clusterPrefix<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p>Compared with <code>easy-cluster</code>, this workflow adds complex-aware filters such as <code>--multimer-tm-threshold</code>, <code>--chain-tm-threshold</code>, and <code>--interface-lddt-threshold</code>.</p>
+</section>
+<section id="fs-easy-when-lowlevel" class="level4">
+<h4>When to Drop to Low-Level Commands</h4>
+<p>Use easy workflows when you need rapid execution from raw inputs. Switch to low-level commands when you need to reuse intermediate DBs, enforce exact prefilter/alignment stages, tune memory/index compatibility, or insert custom conversion/scoring steps between stages.</p>
+</section>
+</section>
+<section id="fs-search-root" class="level3">
+<h3>Structure Search Modules</h3>
+<p>This chapter covers the core single-chain search stack. The key distinction is orchestration versus execution: <code>search</code> is a workflow driver, while <code>structurealign</code>, <code>structurerescorediagonal</code>, and <code>tmalign</code> are lower-level alignment/rescoring modules.</p>
+<p>In source terms, orchestration is in <code>foldseek/src/workflow/StructureSearch.cpp</code>, and alignment kernels are in <code>foldseek/src/strucclustutils/</code> plus <code>foldseek/src/commons/</code>.</p>
+<section id="fs-search-pipeline" class="level4">
+<h4>Pipeline Model</h4>
+<p>The standard path is prefilter -&gt; optional diagonal rescoring -&gt; alignment. <code>--prefilter-mode</code> governs which prefilter stages run, and <code>--alignment-type</code> chooses the final alignment kernel. The workflow can change behavior under GPU mode; for example, the code path in <code>StructureSearch.cpp</code> forces ungapped prefilter defaults when needed.</p>
+<p><code>--sort-by-structure-bits</code> changes ranking from plain bit score to a structure-aware term. Because that ranking depends on TM/LDDT information, disabling structure-bit sorting changes how threshold options interact with final ordering.</p>
+</section>
+<section id="fs-search-command" class="level4">
+<h4><code>search</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> search <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:alignmentDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>search</code> is the canonical entry point for DB-to-DB structural search. Important controls:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>-s</code></td>
+<td style="text-align: left;">Primary sensitivity/speed tradeoff in candidate generation.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--prefilter-mode</code></td>
+<td style="text-align: left;"><code>0</code>: k-mer+ungapped, <code>1</code>: ungapped only, <code>2</code>: nofilter, <code>3</code>: ungapped+gapped.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--alignment-type</code></td>
+<td style="text-align: left;"><code>0</code>: 3Di, <code>1</code>: TM-align, <code>2</code>: 3Di+AA.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--sort-by-structure-bits</code></td>
+<td style="text-align: left;">Enables structure-aware ranking.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--tmscore-threshold</code>, <code>--lddt-threshold</code></td>
+<td style="text-align: left;">Structural quality filtering.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--cluster-search</code></td>
+<td style="text-align: left;">Representative-first search for clustered targets.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--gpu</code></td>
+<td style="text-align: left;">CUDA search path when supported by the current build.</td>
+</tr>
+</tbody>
+</table>
+<p><code>search</code> should be preferred over direct low-level modules unless you intentionally control intermediate artifacts.</p>
+</section>
+<section id="fs-search-structurealign" class="level4">
+<h4><code>structurealign</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> structurealign <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:prefilterDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:resultDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>structurealign</code> consumes a candidate list (<code>prefilterDB</code>) and performs full structural alignment on those pairs. It is the right tool when you already own candidate generation, or when you need to re-align candidate pairs under different thresholds without rerunning prefilter.</p>
+<p>Notable behavior from <code>structurealign.cpp</code>:</p>
+<ul>
+<li>TM/LDDT thresholding is enforced during alignment output.</li>
+<li>Some option combinations are normalized with warnings, especially around <code>--sort-by-structure-bits</code> versus lightweight alignment-output modes.</li>
+</ul>
+</section>
+<section id="fs-search-rescorediagonal" class="level4">
+<h4><code>structurerescorediagonal</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> structurerescorediagonal <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:prefilterDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:resultDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p>This module rescales candidate diagonals using structural scoring and can apply TM/LDDT gating earlier than full workflow composition. It is useful when you want to refine candidate quality in a modular pipeline before deciding on final alignment/reporting stages.</p>
+</section>
+<section id="fs-search-tmalign" class="level4">
+<h4><code>tmalign</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> tmalign <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:prefilterDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:resultDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>tmalign</code> runs TM-align directly on candidate pairs. Use it when global structural superposition quality is the primary objective and you already have candidate pairs prepared.</p>
+<p>Important options are <code>--tmscore-threshold</code>, <code>--tmscore-threshold-mode</code>, <code>--tmalign-hit-order</code>, and <code>--tmalign-fast</code>.</p>
+</section>
+<section id="fs-search-lolalign" class="level4">
+<h4><code>lolalign</code></h4>
+<p><code>lolalign</code> is a source-visible alignment module (<code>foldseek/src/FoldseekBase.cpp</code>) for local distance log-odds optimization. In current packaged Foldseek releases, this command may be unavailable even though it appears in source.</p>
+<p>When enabled in your build, it follows the low-level aligner input pattern:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> lolalign <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:prefilterDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:resultDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+</section>
+<section id="fs-search-rbh" class="level4">
+<h4><code>rbh</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> rbh <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:alignmentDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>rbh</code> runs reciprocal best-hit filtering on top of the structural search stack. It is the low-level counterpart to <code>easy-rbh</code>, with full DB-based workflow control.</p>
+</section>
+<section id="fs-search-samplemulambda" class="level4">
+<h4><code>samplemulambda</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> samplemulambda <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:resultDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>samplemulambda</code> estimates score-distribution parameters from shuffled/randomized samples and is mainly for calibration or diagnostics. The main control is <code>--n-sample</code> (random sample count).</p>
+</section>
+<section id="fs-search-patterns" class="level4">
+<h4>Practical Composition Patterns</h4>
+<p>A common advanced pattern is to keep stages explicit:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> search queryDB targetDB alnDB tmp</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> convertalis queryDB targetDB alnDB result.tsv <span class="at">--format-output</span> query,target,alntmscore,lddt,evalue,bits</span></code></pre></div>
+<p>For explicit candidate reuse:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> structurerescorediagonal queryDB targetDB prefilterDB rescoredDB</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> structurealign queryDB targetDB rescoredDB alnDB</span></code></pre></div>
+<p>This separation is especially useful for benchmarking alternative scoring thresholds or alignment modes on the same candidate set.</p>
+</section>
+</section>
+<section id="fs-cluster-root" class="level3">
+<h3>Structure Clustering Modules</h3>
+<p>Foldseek clustering is built on the same search/alignment backbone used for hit finding, followed by graph or greedy clustering in <code>clust</code>. The high-level command (<code>cluster</code>) runs this sequence end-to-end, while <code>clust</code> performs clustering from an existing result graph.</p>
+<section id="fs-cluster-command" class="level4">
+<h4><code>cluster</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> cluster <span class="op">&lt;</span>i:sequenceDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:clusterDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>cluster</code> runs candidate generation, alignment filtering, and clustering in one workflow. It is the preferred command when you start from a structure DB and want production clustering output.</p>
+<p>Core controls:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>-s</code></td>
+<td style="text-align: left;">Search sensitivity before clustering.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>-c</code> and <code>--cov-mode</code></td>
+<td style="text-align: left;">Coverage gating before edges become cluster links.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--min-seq-id</code></td>
+<td style="text-align: left;">Sequence-identity threshold for accepting edges.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--cluster-mode</code></td>
+<td style="text-align: left;"><code>0</code>: set-cover, <code>1</code>: connected component, <code>2/3</code>: greedy by length.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--single-step-clustering</code></td>
+<td style="text-align: left;">Disables cascaded workflow and runs one clustering pass.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--cluster-steps</code></td>
+<td style="text-align: left;">Number of cascaded stages in cascaded mode.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--cluster-reassign</code></td>
+<td style="text-align: left;">Reassignment pass to correct cascade artifacts.</td>
+</tr>
+</tbody>
+</table>
+<p>Although the command name says sequence DB, in Foldseek this DB includes structural channels (<code>_ss</code>, <code>_ca</code>) used by structural scoring modules.</p>
+</section>
+<section id="fs-cluster-clust" class="level4">
+<h4><code>clust</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> clust <span class="op">&lt;</span>i:sequenceDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:resultDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:clusterDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>clust</code> performs only the clustering stage from a precomputed edge/result DB. Use this when you want to rerun cluster strategy without recomputing search/alignment.</p>
+<p>The most relevant options are <code>--cluster-mode</code>, <code>--max-iterations</code>, <code>--similarity-type</code>, and optional weighting knobs (<code>--weights</code>, <code>--cluster-weight-threshold</code>).</p>
+</section>
+<section id="fs-cluster-semantics" class="level4">
+<h4>Clustering Semantics</h4>
+<p>Set-cover mode tends to produce compact representative sets. Connected-component mode favors transitive closure and typically creates larger, looser clusters. Greedy length-prioritized modes are useful when representative length should dominate assignment order.</p>
+<p>In practical tuning, the edge-generation parameters (<code>-c</code>, <code>--cov-mode</code>, <code>--min-seq-id</code>, and structural thresholds inherited from search) usually affect outcomes more strongly than switching between clustering algorithms on the same edge set.</p>
+</section>
+<section id="fs-cluster-results" class="level4">
+<h4>Result Interpretation</h4>
+<p>Cluster output is stored as a cluster DB. Typical post-processing is:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createsubdb clusterDB sequenceDB repDB</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> convert2fasta repDB rep.fasta</span></code></pre></div>
+<p>For adjacency-style exports, convert through standard result/TSV tooling depending on downstream format requirements.</p>
+</section>
+<section id="fs-cluster-related" class="level4">
+<h4>Related Modules</h4>
+<ul>
+<li>Raw-input wrapper: <a href="#fs-easy-cluster">easy-cluster</a></li>
+<li>Complex-level clustering: <a href="#fs-multimercluster">multimercluster</a></li>
+<li>Index/layout preparation for repeated search+cluster loops: <a href="#fs-db-modules">Database Management</a></li>
+</ul>
+</section>
+</section>
+<section id="fs-multimer-root" class="level3">
+<h3>Multimer Modules</h3>
+<p>Foldseek-Multimer extends the single-chain Foldseek backbone into complex-level comparison. It still starts from chain-to-chain candidates, but adds complex-aware expansion, assignment discovery, global superposition scoring, and interface-aware filtering before final reporting.</p>
+<p>Workflow orchestration is implemented in <code>foldseek/src/workflow/MultimerSearch.cpp</code>, <code>foldseek/src/workflow/MultimerCluster.cpp</code>, and shell templates under <code>foldseek/data/</code>. Assignment search, geometric clustering, and all multimer-specific filters are implemented in <code>foldseek/src/strucclustutils/expandmultimer.cpp</code>, <code>scoremultimer.cpp</code>, and <code>MultimerUtil.h</code>. <code>createmultimerreport.cpp</code> is a reporting layer that restructures already-scored assignments.</p>
+<section id="fs-multimer-pipeline" class="level4">
+<h4>Complex Search Pipeline</h4>
+<p>In the default <code>multimersearch</code> workflow (<code>foldseek/data/multimersearch.sh</code>), the stages are executed in this order:</p>
+<ol type="1">
+<li><code>search</code>: run the standard Foldseek chain-level search backbone.</li>
+<li><code>expandmultimer</code>: convert sparse chain hits into complex-consistent chain-pair candidate lists.</li>
+<li><code>structurealign</code> or <code>tmalign</code>: realign expanded chain pairs when expansion is enabled.</li>
+<li><code>scoremultimer</code>: construct chain assignments, score complex-level superposition, apply multimer filters, and emit complex-aware alignment records.</li>
+<li>Optional conversion/reporting (<code>convertalis</code>, <code>createmultimerreport</code>) in the easy wrapper.</li>
+</ol>
+<p>This staged design postpones one-to-one chain assignment until enough evidence has been collected. A single early chain hit does not immediately lock the complex mapping.</p>
+</section>
+<section id="fs-multimersearch" class="level4">
+<h4><code>multimersearch</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> multimersearch <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:alignmentDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>multimersearch</code> is the main DB-to-DB multimer pipeline. Besides standard structure-search options, the multimer-specific controls that change behavior most are <code>--expand-multimer-evalue</code>, <code>--min-assigned-chains-ratio</code>, and <code>--monomer-include-mode</code>.</p>
+<p>Implementation detail that matters for tuning: in non-exhaustive mode, the workflow performs an initial fast search and then realigns expanded chain pairs before complex scoring. In exhaustive mode (<code>--exhaustive-search 1</code>), the expansion/re-alignment branch is skipped and scoring runs directly on exhaustive pairwise alignments.</p>
+</section>
+<section id="fs-expandmultimer" class="level4">
+<h4><code>expandmultimer</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> expandmultimer <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:alignmentDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:prefilterDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>expandmultimer</code> is the candidate-space completion step before assignment scoring. It reads query and target <code>.lookup</code> mappings to recover complex membership, then executes the following logic:</p>
+<ol type="1">
+<li>For each query complex, collect target complex IDs that have at least one chain hit in <code>alignmentDB</code>.</li>
+<li>For each collected target complex, generate all query-chain × target-chain pairs for that complex pair.</li>
+<li>Write per-query-chain candidate target-chain lists into <code>prefilterDB</code> for downstream alignment/scoring.</li>
+</ol>
+<p>This step deliberately expands sparse chain evidence into complex-consistent candidate sets so later assignment can test complete mappings instead of isolated local hits.</p>
+</section>
+<section id="fs-scoremultimer" class="level4">
+<h4><code>scoremultimer</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> scoremultimer <span class="op">&lt;</span>i:queryDb<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDb<span class="op">&gt;</span> <span class="op">&lt;</span>i:alignmentDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:complexDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>scoremultimer</code> is the core multimer algorithm. It parses chain-level alignments with backtraces, builds candidate chain-to-chain alignment objects, clusters them into assignment hypotheses, computes complex-level superposition/TM, and applies multimer-specific filters.</p>
+<section id="fs-scoremultimer-assignment" class="level5">
+<h5>Assignment construction</h5>
+<p>For each query complex and target complex pair, <code>scoremultimer</code> (<code>ComplexScorer</code> in <code>scoremultimer.cpp</code>) converts chain-level records into <code>ChainToChainAln</code> objects. Each object stores matched C-alpha coordinates, chain keys, chain-level TM score, and the 12-parameter rigid transform vector (<code>u</code> rotation and <code>t</code> translation).</p>
+<p>Before clustering, transforms are standardized component-wise (z-score style, with low-variance dimensions damped) so geometric distance between alignments is comparable across parameters.</p>
+</section>
+<section id="fs-scoremultimer-clustering" class="level5">
+<h5>Assignment clustering and one-to-one consistency</h5>
+<p>Assignment discovery uses a DBSCAN-like clustering layer (<code>DBSCANCluster</code>):</p>
+<ul>
+<li><code>--min-assigned-chains-ratio</code> sets the minimum cluster size as <code>ceil(query_chain_count * ratio)</code>.</li>
+<li>A reciprocal-best-hit-style pruning keeps alignments whose chain TM score is within <code>0.7 * max(best(query_chain), best(target_chain))</code>.</li>
+<li>Distance is computed in transform space. If a cluster contains repeated query or target chains, nearest-neighbor truncation enforces one-to-one chain usage.</li>
+</ul>
+<p>Each surviving cluster is converted into one <code>Assignment</code>: matched residues from member chain alignments are concatenated, then a complex-level rigid transform and TM score are recomputed over the merged coordinate set.</p>
+<p>Complex TM is normalized both ways:</p>
+<p><code>qTM = tmscore * min(qLen, tLen) / qLen</code>, <code>tTM = tmscore * min(qLen, tLen) / tLen</code></p>
+<p>so asymmetric complex sizes remain interpretable.</p>
+</section>
+<section id="fs-scoremultimer-filter-order" class="level5">
+<h5>Filtering order in <code>scoremultimer</code></h5>
+<p>Filtering is executed in a strict order (<code>ComplexFilter::filterAssignment</code>), and early failures stop evaluation:</p>
+<ol type="1">
+<li>Minimum aligned chains (<code>--min-aligned-chains</code>).</li>
+<li>Complex-level TM gate (<code>--multimer-tm-threshold</code>, interpreted by <code>--cov-mode</code>).</li>
+<li>Complex coverage gate (<code>-c</code>, <code>--cov-mode</code>).</li>
+<li>Chain-level TM gate (<code>--chain-tm-threshold</code>), also interpreted by <code>--cov-mode</code>.</li>
+<li>Interface gate (<code>--interface-lddt-threshold</code>) using query-defined interface residues and LDDT on matched interface atoms.</li>
+</ol>
+<p>Interface residues are precomputed on the query complex from inter-chain C-alpha proximity (8 A cutoff constant in code). If only one chain is aligned and <code>--interface-lddt-threshold &gt; 0</code>, the assignment is rejected.</p>
+<p>After filtering, only the best assignment per target complex is retained for output (selected by adjusted coverage according to <code>--cov-mode</code>).</p>
+</section>
+<section id="fs-scoremultimer-fields" class="level5">
+<h5>Output fields produced by <code>scoremultimer</code></h5>
+<p>In addition to chain-level alignment fields, <code>scoremultimer</code> appends multimer fields consumed by <code>convertalis</code> and <code>createmultimerreport</code>, including:</p>
+<ul>
+<li><code>complexqtmscore</code>, <code>complexttmscore</code></li>
+<li><code>complexu</code>, <code>complext</code></li>
+<li><code>qcomplexcoverage</code>, <code>tcomplexcoverage</code></li>
+<li><code>qchaintms</code>, <code>tchaintms</code></li>
+<li><code>interfacelddt</code></li>
+<li><code>complexassignid</code></li>
+</ul>
+</section>
+</section>
+<section id="fs-createmultimerreport" class="level4">
+<h4><code>createmultimerreport</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createmultimerreport <span class="op">&lt;</span>i:queryDb<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDb<span class="op">&gt;</span> <span class="op">&lt;</span>i:complexDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:complexFile<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>createmultimerreport</code> groups chain-level records by assignment ID and emits one complex-level row per assignment. It is a formatter, not a rescoring stage.</p>
+<p>The report columns are:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Column</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>query_complex</code>, <code>target_complex</code></td>
+<td style="text-align: left;">Complex identifiers parsed from chain headers.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>query_chains</code>, <code>target_chains</code></td>
+<td style="text-align: left;">Chain-name lists assigned in this solution.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>qTM</code>, <code>tTM</code></td>
+<td style="text-align: left;">Complex TM normalized by query and target lengths.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>u</code>, <code>t</code></td>
+<td style="text-align: left;">3x3 rotation and translation vector of complex superposition.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>qComplexCov</code>, <code>tComplexCov</code></td>
+<td style="text-align: left;">Coverage fractions computed during filtering.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>qChainTms</code>, <code>tChainTms</code></td>
+<td style="text-align: left;">Comma-separated per-chain TM values.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>interfaceLddt</code></td>
+<td style="text-align: left;">Interface LDDT for the selected assignment.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>assId</code></td>
+<td style="text-align: left;">Assignment identifier (stable within each query complex result set).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fs-multimercluster" class="level4">
+<h4><code>multimercluster</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> multimercluster <span class="op">&lt;</span>i:sequenceDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:clusterDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>multimercluster</code> runs <code>multimersearch</code> followed by clustering (<code>clust</code>) on multimer-filtered edges. The command sets stricter runtime defaults than generic search (<code>setMultimerClusterDefaults</code> in <code>MultimerCluster.cpp</code>):</p>
+<ul>
+<li><code>--multimer-tm-threshold 0.65</code></li>
+<li><code>--chain-tm-threshold 0.001</code></li>
+<li><code>--interface-lddt-threshold 0.5</code></li>
+</ul>
+<p>These gates act on different failure modes and are intentionally complementary:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Threshold</th>
+<th style="text-align: left;">What it screens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>--multimer-tm-threshold</code></td>
+<td style="text-align: left;">Global complex-level alignment quality.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--chain-tm-threshold</code></td>
+<td style="text-align: left;">Per-chain geometric compatibility within assignments.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--interface-lddt-threshold</code></td>
+<td style="text-align: left;">Interface preservation quality across assigned complexes.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fs-multimer-easy" class="level4">
+<h4>Easy Multimer Wrappers</h4>
+<ul>
+<li><a href="#fs-easy-multimersearch">easy-multimersearch</a>: raw structure input to complex search output.</li>
+<li><a href="#fs-easy-multimercluster">easy-multimercluster</a>: raw structure input to complex clusters.</li>
+</ul>
+<p>These wrappers are convenient for direct file-based workflows, but the core algorithmic stages remain <code>multimersearch</code>/<code>scoremultimer</code>/<code>multimercluster</code>. For deeper algorithm context, see <a href="#fs-expert-multimer">Multimer Assignment and Complex Scoring</a>.</p>
+</section>
+</section>
+<section id="fs-manip-root" class="level3">
+<h3>Structure Manipulation Modules</h3>
+<p>This chapter covers modules that prepare structure databases, transform structural data layouts, and convert internal result DBs into analysis outputs.</p>
+<section id="fs-createdb" class="level4">
+<h4><code>createdb</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createdb <span class="op">&lt;</span>i:directory<span class="kw">|</span><span class="ex">.tsv</span><span class="op">&gt;|&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]</span><span class="kw">|</span><span class="va">tar</span><span class="op">[</span>.gz<span class="op">]</span><span class="kw">|</span><span class="ex">DB</span><span class="op">&gt;</span> ... <span class="op">&lt;</span>i:PDB<span class="kw">|</span><span class="va">mmCIF</span><span class="op">[</span>.gz<span class="op">]</span><span class="kw">|</span><span class="fu">tar</span><span class="kw">|</span><span class="ex">DB</span><span class="op">&gt;</span> <span class="op">&lt;</span>o:sequenceDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>createdb</code> is the ingestion point for Foldseek. It parses structures, builds synchronized AA/3Di/CA/header channels, and writes the DB layout consumed by all search and clustering modules.</p>
+<p>The exact on-disk file specification for these channels is documented in <a href="#fs-db-file-format">Database Management: Core File Formats</a> and <a href="#fs-db-ca-format">Database Management: C-alpha Storage Modes</a>.</p>
+<p>Important options:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>--db-extraction-mode</code></td>
+<td style="text-align: left;"><code>0</code>: chain-level entries, <code>1</code>: interface extraction mode.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--input-format</code></td>
+<td style="text-align: left;">Force parser mode when autodetection is not sufficient.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--file-include</code>, <code>--file-exclude</code></td>
+<td style="text-align: left;">Regex-based filtering for directory/tar inputs.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--prostt5-model</code></td>
+<td style="text-align: left;">Enables 3Di prediction from sequence input using ProstT5.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--gpu</code></td>
+<td style="text-align: left;">Enables GPU path for ProstT5 inference when available.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--coord-store-mode</code></td>
+<td style="text-align: left;">C-alpha storage encoding (<code>float</code> or <code>uint16</code> diff).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>--write-lookup</code>, <code>--write-mapping</code></td>
+<td style="text-align: left;">Metadata mapping outputs for downstream integration.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fs-createsubdb" class="level4">
+<h4><code>createsubdb</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createsubdb <span class="op">&lt;</span>i:subsetFile<span class="kw">|</span><span class="ex">DB</span><span class="op">&gt;</span> <span class="op">&lt;</span>i:DB<span class="op">&gt;</span> <span class="op">&lt;</span>o:DB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>createsubdb</code> creates a keyed subset from an existing Foldseek DB while preserving synchronized structure channels. Typical uses are extracting representatives after clustering or constructing curated subsets for downstream searches.</p>
+<p>High-impact options are <code>--subdb-mode</code> (copy vs soft-link index view) and <code>--id-mode</code> (select by internal keys or FASTA identifiers from <code>.lookup</code>).</p>
+</section>
+<section id="fs-compressca" class="level4">
+<h4><code>compressca</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> compressca <span class="op">&lt;</span>i:DB<span class="op">&gt;</span> <span class="op">&lt;</span>o:caDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>compressca</code> rewrites C-alpha coordinate storage, typically to reduce I/O and footprint. <code>--coord-store-mode</code> controls encoding (<code>1</code> float, <code>2</code> diff16, <code>3</code> plain text floats).</p>
+</section>
+<section id="fs-convertalis" class="level4">
+<h4><code>convertalis</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> convertalis <span class="op">&lt;</span>i:queryDb<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDb<span class="op">&gt;</span> <span class="op">&lt;</span>i:alignmentDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:alignmentFile<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>convertalis</code> is the primary result exporter. It converts internal alignment DBs to tabular, SAM, HTML, or superposed-structure style outputs and can expose structural metrics such as TM-score and LDDT columns.</p>
+<p><code>--format-output</code> is central for custom analysis pipelines. When requesting columns like <code>alntmscore</code>, <code>qtmscore</code>, <code>ttmscore</code>, <code>lddt</code>, <code>u</code>, or <code>t</code>, <code>convertalis</code> triggers the required internal computations from stored coordinates and backtraces.</p>
+</section>
+<section id="fs-convert2pdb" class="level4">
+<h4><code>convert2pdb</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> convert2pdb <span class="op">&lt;</span>i:Db<span class="op">&gt;</span> <span class="op">&lt;</span>o:pdbFile<span class="kw">|</span><span class="ex">pdbDir</span><span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>convert2pdb</code> materializes superposed C-alpha coordinates into PDB output. <code>--pdb-output-mode</code> selects whether output is one multi-model file, per-chain files, or per-complex files.</p>
+</section>
+<section id="fs-aln2tmscore" class="level4">
+<h4><code>aln2tmscore</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> aln2tmscore <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:alnDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:resultDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>aln2tmscore</code> converts existing alignment DBs into TM-score-focused result DBs. This is useful when TM-score conversion is needed as a standalone post-processing stage.</p>
+</section>
+<section id="fs-result2profile" class="level4">
+<h4><code>result2profile</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> result2profile <span class="op">&lt;</span>i:queryDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:targetDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:resultDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:profileDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>result2profile</code> builds profile DBs from result alignments. It is mainly relevant for iterative/profile-oriented workflows where profile diversity and redundancy controls (<code>--max-seq-id</code>, <code>--qid</code>, <code>--cov</code>, <code>--diff</code>) matter.</p>
+</section>
+<section id="fs-manip-flow" class="level4">
+<h4>Typical Data-Preparation Flow</h4>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createdb structures/ structDB</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createindex structDB tmp</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> search structDB targetDB alnDB tmp</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> convertalis structDB targetDB alnDB result.tsv <span class="at">--format-output</span> query,target,alntmscore,lddt,bits,evalue</span></code></pre></div>
+<p>This flow keeps ingestion, indexing, search, and conversion explicitly separated, which makes reruns and parameter sweeps easier to reproduce.</p>
+</section>
+</section>
+<section id="fs-db-modules" class="level3">
+<h3>Database Management Modules</h3>
+<p>Foldseek performance is tightly coupled to how databases are stored on disk. The search and clustering workflows do not read one monolithic file; they read coordinated channels (<code>DB</code>, <code>DB_ss</code>, <code>DB_ca</code>, <code>DB_h</code>) plus index and metadata sidecars. This chapter documents those files as an operational format specification, then explains how <code>databases</code>, <code>createindex</code>, and <code>createclusearchdb</code> manipulate that layout.</p>
+<section id="fs-db-layout" class="level4">
+<h4>Canonical Database Layout</h4>
+<p>A standard <code>createdb</code> output with prefix <code>X</code> produces a synchronized family of files:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Path</th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Primary readers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>X</code>, <code>X.index</code>, <code>X.dbtype</code></td>
+<td style="text-align: left;">Amino-acid channel (one entry per chain)</td>
+<td style="text-align: left;"><code>search</code>, <code>structurealign</code>, <code>cluster</code>, <code>convertalis</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>X_ss</code>, <code>X_ss.index</code>, <code>X_ss.dbtype</code></td>
+<td style="text-align: left;">3Di channel, residue-aligned to <code>X</code></td>
+<td style="text-align: left;">prefilter/alignment stages</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>X_ca</code>, <code>X_ca.index</code>, <code>X_ca.dbtype</code></td>
+<td style="text-align: left;">C-alpha coordinates for TM/LDDT/structure-bit sorting</td>
+<td style="text-align: left;"><code>structurealign</code>, <code>tmalign</code>, converters</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>X_h</code>, <code>X_h.index</code>, <code>X_h.dbtype</code></td>
+<td style="text-align: left;">Header channel (entry identifiers/metadata text)</td>
+<td style="text-align: left;">converters/reporting</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>X.lookup</code></td>
+<td style="text-align: left;">Entry mapping <code>id -&gt; accession -&gt; fileNumber</code></td>
+<td style="text-align: left;">lookup-based conversion and tooling</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>X.source</code></td>
+<td style="text-align: left;"><code>fileNumber -&gt; source file/model label</code></td>
+<td style="text-align: left;">provenance-aware exports</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>X_mapping</code> (optional)</td>
+<td style="text-align: left;"><code>id -&gt; taxId</code> mapping (<code>--write-mapping 1</code>)</td>
+<td style="text-align: left;">taxonomy-aware downstream workflows</td>
+</tr>
+</tbody>
+</table>
+<p>The key design invariant is shared IDs across channels: for a given internal key, <code>X</code>, <code>X_ss</code>, <code>X_ca</code>, and <code>X_h</code> describe the same chain entry.</p>
+</section>
+<section id="fs-db-file-format" class="level4">
+<h4>Core File Formats</h4>
+<p><code>&lt;DB&gt;.index</code> is a tab-separated text index. Each line is:</p>
+<pre class="text"><code>&lt;id&gt;\t&lt;offset&gt;\t&lt;length&gt;\n</code></pre>
+<p><code>id</code> is the internal key, <code>offset</code> points into <code>&lt;DB&gt;</code> data payload, and <code>length</code> is the stored entry length. This format is written in <code>DBWriter::indexToBuffer</code> (<code>MMseqs2/src/commons/DBWriter.cpp</code>) and parsed by <code>DBReader::readIndex</code> (<code>MMseqs2/src/commons/DBReader.cpp</code>).</p>
+<p><code>&lt;DB&gt;.dbtype</code> is a 4-byte integer (<code>int32</code>) describing logical DB type plus compression flag. The high bit (bit 31) indicates compressed storage; the lower bits hold the base DB type (<code>DBTYPE_AMINO_ACIDS</code>, <code>DBTYPE_GENERIC_DB</code>, Foldseek <code>DBTYPE_CA_ALPHA=101</code>, and so on).</p>
+<p><code>&lt;DB&gt;</code> stores concatenated entry payloads separated by a null terminator. In compressed writer mode, per-entry framing is handled by the writer and the same index file still resolves entry boundaries.</p>
+<p><code>&lt;DB&gt;.lookup</code> is line-based text with exactly three columns:</p>
+<pre class="text"><code>&lt;id&gt;\t&lt;entryName&gt;\t&lt;fileNumber&gt;\n</code></pre>
+<p>This is the exact serializer used by <code>DBReader&lt;unsigned int&gt;::lookupEntryToBuffer</code> in <code>MMseqs2/src/commons/DBReader.cpp</code>.</p>
+<p><code>&lt;DB&gt;.source</code> maps <code>fileNumber</code> to an original source label:</p>
+<pre class="text"><code>&lt;fileNumber&gt;\t&lt;sourceName&gt;\n</code></pre>
+<p>It is written during <code>createdb</code> lookup generation in <code>foldseek/src/strucclustutils/structcreatedb.cpp</code>.</p>
+</section>
+<section id="fs-db-payload-semantics" class="level4">
+<h4>Channel Payload Semantics</h4>
+<p>For <code>createdb</code> outputs, the payload format inside each channel is:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Channel</th>
+<th style="text-align: left;">Entry payload</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>X</code></td>
+<td style="text-align: left;">Amino-acid one-letter sequence plus trailing newline (<code>\n</code>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>X_ss</code></td>
+<td style="text-align: left;">3Di token sequence (one residue, one symbol) plus trailing newline</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>X_h</code></td>
+<td style="text-align: left;">Header text plus trailing newline</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>X_ca</code></td>
+<td style="text-align: left;">Binary or text coordinate encoding (<code>--coord-store-mode</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><code>X</code> and <code>X_ss</code> are residue-synchronized: position <code>i</code> in <code>X_ss</code> describes the same residue as position <code>i</code> in <code>X</code>. That invariant is what enables 3Di+AA alignment (<code>--alignment-type 2</code>) without conversion steps.</p>
+</section>
+<section id="fs-db-ca-format" class="level4">
+<h4>C-alpha Storage Modes (<code>X_ca</code>)</h4>
+<p><code>X_ca</code> has three encodings, selected at creation time (<code>createdb</code>) or rewritten later (<code>compressca</code>).</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">On-disk payload</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Float</td>
+<td style="text-align: left;"><code>--coord-store-mode 1</code></td>
+<td style="text-align: left;"><code>3 * L</code> float32 values (<code>x[0..L-1], y[0..L-1], z[0..L-1]</code>)</td>
+<td style="text-align: left;">Highest compatibility, largest footprint</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diff16</td>
+<td style="text-align: left;"><code>--coord-store-mode 2</code></td>
+<td style="text-align: left;">Per axis: <code>start:int32</code> + <code>(L-1)</code> deltas <code>int16</code>; packed for x, y, z, plus one trailing compatibility byte</td>
+<td style="text-align: left;">Default mode in Foldseek; values are scaled by 1000 before integer encoding</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Plain text</td>
+<td style="text-align: left;"><code>compressca --coord-store-mode 3</code></td>
+<td style="text-align: left;">Comma-separated float list + newline</td>
+<td style="text-align: left;">Stored as generic DB type; useful for inspection/interchange</td>
+</tr>
+</tbody>
+</table>
+<p>In Diff16 mode, <code>createdb</code> attempts integer delta encoding and falls back to float payload for entries that overflow <code>int16</code> during conversion. Decoding is handled by <code>Coordinate16::read</code> (<code>foldseek/src/commons/Coordinate16.h</code>).</p>
+</section>
+<section id="fs-databases-command" class="level4">
+<h4><code>databases</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> databases <span class="op">&lt;</span>name<span class="op">&gt;</span> <span class="op">&lt;</span>o:sequenceDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>databases</code> downloads curated structural datasets and model assets (AlphaFold subsets, PDB snapshots, BFMD/BFVD, ProstT5 weights). Use <code>--tsv 1</code> when you need a machine-readable catalog for reproducible provisioning scripts.</p>
+</section>
+<section id="fs-createindex" class="level4">
+<h4><code>createindex</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createindex <span class="op">&lt;</span>i:sequenceDB<span class="op">&gt;</span> <span class="op">&lt;</span>tmpDir<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>createindex</code> is a Foldseek workflow wrapper around MMseqs indexing plus Foldseek-specific channel handling (<code>foldseek/src/workflow/StructureIndex.cpp</code> and <code>foldseek/data/structureindex.sh</code>). Operationally it does three things:</p>
+<ol type="1">
+<li>Builds index data for the AA channel and the 3Di channel.</li>
+<li>Links header/cluster side channels needed by Foldseek workflows.</li>
+<li>Optionally appends C-alpha channels into the <code>.idx</code> container unless excluded.</li>
+</ol>
+<p>The two high-impact controls are:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>--index-subset</code></td>
+<td style="text-align: left;">Drops selected index components (<code>1</code>: no headers, <code>2</code>: no prefilter data, <code>4</code>: no alignment payloads) to reduce index size.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>--index-exclude</code></td>
+<td style="text-align: left;">Bit flags for Foldseek-specific exclusions (<code>1</code>: omit k-mer index, <code>2</code>: omit C-alpha append into index).</td>
+</tr>
+</tbody>
+</table>
+<p>When <code>--index-exclude 2</code> is used, coordinate-aware ranking and threshold paths may be disabled later unless raw <code>_ca</code> side databases are still available.</p>
+</section>
+<section id="fs-createclusearchdb" class="level4">
+<h4><code>createclusearchdb</code></h4>
+<p><strong>Usage</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createclusearchdb <span class="op">&lt;</span>i:sequenceDB<span class="op">&gt;</span> <span class="op">&lt;</span>i:clusterDB<span class="op">&gt;</span> <span class="op">&lt;</span>o:sequenceDB<span class="op">&gt;</span> [options]</span></code></pre></div>
+<p><code>createclusearchdb</code> transforms clustering output into representative/member search layout for <code>--cluster-search 1</code>. For each selected suffix (default <code>_h,_ss,_ca</code> in Foldseek help), it writes:</p>
+<ul>
+<li>representative channel: <code>&lt;out&gt;&lt;suffix&gt;</code></li>
+<li>member channel: <code>&lt;out&gt;_seq&lt;suffix&gt;</code></li>
+</ul>
+<p>It also copies cluster topology to <code>&lt;out&gt;_clu</code> and propagates metadata sidecars (<code>.lookup</code>, <code>.source</code>, <code>_mapping</code>, taxonomy files) with aliases for <code>_seq</code> views.</p>
+<p>A source-level detail that matters for debugging: <code>_seq</code> channels are assembled as a two-part DB where representatives and non-representatives can live in separate backing files, while one merged <code>_seq.index</code> maps IDs to the correct offsets. This is normal and expected.</p>
+<p>For cluster-search compatibility, <code>StructureSearch.cpp</code> checks for at least:</p>
+<ul>
+<li><code>&lt;target&gt;_seq</code>, <code>&lt;target&gt;_seq_ss</code>, <code>&lt;target&gt;_seq_h</code></li>
+<li>one of <code>&lt;target&gt;_clu</code> or <code>&lt;target&gt;_aln</code></li>
+</ul>
+<p>If coordinate-aware ranking/filtering is required, keep <code>&lt;target&gt;_seq_ca</code> available as well.</p>
+</section>
+<section id="fs-db-strategy" class="level4">
+<h4>Practical Layout Strategies</h4>
+<p>If you run repeated searches on a fixed target, build and validate indices once (<code>--check-compatible 1</code>) and keep full coordinate channels. If you are strictly ungapped or no-structure-bit ranking, excluding selected index parts can reduce RAM and startup time, but apply those exclusions only after confirming that downstream modules do not need TM/LDDT or structure-bit sorting.</p>
+</section>
+<section id="fs-db-example" class="level4">
+<h4>Minimal End-to-End Example</h4>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> databases Alphafold/Swiss-Prot afdb tmp</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createindex afdb tmp <span class="at">--check-compatible</span> 1</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> search queryDB afdb alnDB tmp</span></code></pre></div>
+<p>For sequence-to-3Di prediction workflows:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> databases ProstT5 weights tmp</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="ex">foldseek</span> createdb query.fasta queryDB <span class="at">--prostt5-model</span> weights</span></code></pre></div>
+</section>
+</section>
+</section>
+</section>
+<section id="fs-expert-root" class="level1">
+<h1>Foldseek Expert Manual</h1>
+<p>This chapter explains the algorithmic and systems design decisions that determine Foldseek behavior at scale. Command syntax and user-facing workflows are covered in the <a href="#fs-manual">manual</a> and <a href="#fs-modules-root">module chapters</a>; here the focus is model internals, scoring semantics, and data-path constraints.</p>
+<section id="fs-expert-3di" class="level2">
+<h2>3Di Encoding Engine</h2>
+<p>Foldseek converts structure geometry to discrete 3Di symbols in <code>foldseek/lib/3di/structureto3di.cpp</code>. The implementation is a staged encoder rather than a direct heuristic labeler: virtual centers are computed from backbone/side-chain atoms, residue partners are selected, ten geometric features are assembled per pair, features are projected into a learned low-dimensional embedding, and the embedding is quantized to one of twenty centroids.</p>
+<p>That architecture is central to throughput. The prefilter does not operate on raw coordinates, and it does not need dynamic structural superposition during candidate generation. It operates on a residue-aligned symbolic stream that preserves enough local geometry to remain discriminative while keeping indexing and k-mer operations cheap.</p>
+</section>
+<section id="fs-expert-prefilter" class="level2">
+<h2>Prefilter and Candidate Generation</h2>
+<p>For large databases, the prefilter is still the main runtime gate. Foldseek inherits MMseqs-style index and k-mer mechanics, but applies them to 3Di channels (<code>_ss</code>) and Foldseek-specific workflow defaults.</p>
+<p>Two options define most candidate behavior:</p>
+<ul>
+<li><code>--target-search-mode</code> chooses exact k-mer search or similar-k-mer expansion.</li>
+<li><code>--exact-kmer-matching 1</code> disables similar-k-mer expansion and forces strict seed matching.</li>
+</ul>
+<p><code>--prefilter-mode</code> then controls how candidates are refined before full alignment. In workflow code (<code>foldseek/src/workflow/StructureSearch.cpp</code>), GPU mode can enforce ungapped-first behavior when other prefilter combinations are incompatible. This is one reason CPU and GPU runs can produce different candidate sets under nominally similar settings.</p>
+</section>
+<section id="fs-expert-alignment" class="level2">
+<h2>Alignment Core: 3Di, 3Di+AA, and TM-align</h2>
+<p>Foldseek supports three alignment families through <code>--alignment-type</code>.</p>
+<p>Type <code>0</code> uses 3Di local alignment; type <code>1</code> uses TM-align-style structural superposition; type <code>2</code> combines 3Di and amino-acid evidence in one local alignment objective. In <code>foldseek/src/strucclustutils/structurealign.cpp</code>, type <code>0</code> and <code>2</code> run through <code>StructureSmithWaterman</code> (<code>foldseek/src/commons/StructureSmithWaterman.cpp</code>) with vectorized query profiles and forward/reverse scoring.</p>
+<p>The combined 3Di+AA path is not a cosmetic rerank. It changes the score landscape during alignment itself, so candidate acceptance, tie-breaking, and downstream ranking can differ substantially from pure 3Di or pure TM-oriented runs.</p>
+</section>
+<section id="fs-expert-tm-lddt" class="level2">
+<h2>TM-score and LDDT in Filtering and Ranking</h2>
+<p>TM-score and LDDT are integrated into runtime filtering and sorting, not only reporting. <code>TMaligner</code> (<code>foldseek/src/commons/TMaligner.cpp</code>) and <code>LDDTCalculator</code> (<code>foldseek/src/commons/LDDT.cpp</code>) are invoked in alignment workflows when thresholds or structure-aware sorting require coordinate-derived quality terms.</p>
+<p>When <code>--sort-by-structure-bits 1</code> is active, <code>structurealign.cpp</code> applies a composite structural ranking term (<code>score * sqrt(lddt * tmscore)</code>). If required C-alpha channels are missing, Foldseek disables incompatible thresholds/sorting paths with warnings instead of silently producing invalid rankings.</p>
+</section>
+<section id="fs-expert-multimer" class="level2">
+<h2>Multimer Assignment and Complex Scoring</h2>
+<p>Foldseek-Multimer builds complex scores from chain-level evidence in explicit stages.</p>
+<p><code>expandmultimer</code> generates expanded chain-pair candidates. <code>scoremultimer</code> then groups those hits by query/target complex and solves assignment consistency before calculating complex-level scores. In <code>scoremultimer.cpp</code>, assignment selection uses clustering and chain reuse controls so one local chain optimum does not destabilize the whole complex mapping.</p>
+<p>Multimer filtering is implemented inside <code>scoremultimer.cpp</code> (<code>ComplexFilter</code>), not in a separate module. The filter stack combines global complex TM, coverage, per-chain TM, and interface LDDT gates. This is why thresholds such as <code>--multimer-tm-threshold</code>, <code>--chain-tm-threshold</code>, and <code>--interface-lddt-threshold</code> are complementary rather than interchangeable. For command-level details and field semantics, see <a href="#fs-multimer-root">Multimer Modules</a>.</p>
+</section>
+<section id="fs-expert-data" class="level2">
+<h2>Data Layout, Storage Format, and Memory Behavior</h2>
+<p>Foldseek databases are multi-channel by design. A single logical entry is distributed across AA (<code>DB</code>), 3Di (<code>DB_ss</code>), coordinates (<code>DB_ca</code>), and headers (<code>DB_h</code>), all keyed by the same internal ID. This lets workflows load only the channels needed by the current stage while preserving residue alignment between AA and 3Di streams.</p>
+<section id="fs-expert-data-containers" class="level3">
+<h3>On-disk Containers and Sidecars</h3>
+<p>Every channel uses the same MMseqs container pattern: <code>&lt;name&gt;</code>, <code>&lt;name&gt;.index</code>, <code>&lt;name&gt;.dbtype</code>. The index stores <code>&lt;id, offset, length&gt;</code> triplets; <code>.dbtype</code> stores type and compression flags; optional <code>.lookup</code> and <code>.source</code> sidecars encode identifier and provenance mappings.</p>
+<p>For format-level details (line and payload layout), see <a href="#fs-db-file-format">Database Management: Core File Formats</a>.</p>
+</section>
+<section id="fs-expert-data-ca" class="level3">
+<h3>C-alpha Encoding Trade-offs</h3>
+<p><code>DB_ca</code> can be stored as float32 coordinates or as delta-encoded int16 (<code>--coord-store-mode 2</code>, default). Delta mode stores one int32 start value plus int16 increments per residue and per axis, which cuts footprint and I/O while preserving enough precision for downstream scoring. If a chain overflows int16 deltas during creation, Foldseek falls back to float storage for that entry.</p>
+<p>A practical implication is mixed storage at entry granularity: one database can contain mostly diff16 entries plus float fallbacks. The decoder (<code>Coordinate16::read</code>) handles both by inspecting entry length.</p>
+</section>
+<section id="fs-expert-data-index" class="level3">
+<h3>Indexed Targets and Exclusion Flags</h3>
+<p><code>createindex</code> on Foldseek databases is not a single index build; it is a workflow that indexes AA/3Di channels and can append coordinate channels into the <code>.idx</code> container. Exclusion flags (<code>--index-exclude</code>) and subset flags (<code>--index-subset</code>) reduce footprint but remove capabilities.</p>
+<p>The important compatibility rule is simple: if ranking or filtering needs coordinate-derived metrics (TM/LDDT/structure-bit sorting), coordinate channels must remain reachable either as side DBs (<code>_ca</code>) or appended index components.</p>
+</section>
+<section id="fs-expert-data-cluster" class="level3">
+<h3>Cluster-search Data Model</h3>
+<p><code>createclusearchdb</code> materializes representative/member split channels (<code>&lt;db&gt;</code> and <code>&lt;db&gt;_seq*</code>) plus cluster topology (<code>&lt;db&gt;_clu</code>). Cluster-search workflows (<code>--cluster-search 1</code>) depend on this layout to search representatives first and expand to members without rebuilding mappings at query time.</p>
+<p>That split is a major speed lever for very large clustered targets: representative pruning reduces expensive downstream alignment volume, while member expansion restores sensitivity in the final result set.</p>
+</section>
+</section>
+<section id="fs-expert-gpu" class="level2">
+<h2>GPU Paths and Constraints</h2>
+<p>Foldseek exposes two major GPU paths:</p>
+<ol type="1">
+<li>Search workflow acceleration with <code>--gpu</code> where compatible prefilter/alignment combinations exist.</li>
+<li>ProstT5-backed 3Di prediction during <code>createdb</code> when <code>--prostt5-model</code> is provided and GPU backends are available.</li>
+</ol>
+<p>Workflow code enforces compatibility constraints (especially around prefilter mode). For reproducible benchmarking, always report CPU/GPU mode, prefilter mode, and alignment type together.</p>
+</section>
+<section id="fs-expert-tuning" class="level2">
+<h2>Practical Tuning Order</h2>
+<p>For production optimization, tune in dependency order instead of isolated flags.</p>
+<ol type="1">
+<li>Control candidate volume first (<code>-s</code>, <code>--max-seqs</code>, <code>--prefilter-mode</code>, k-mer mode).</li>
+<li>Choose alignment objective (<code>--alignment-type</code>) and structural thresholds.</li>
+<li>Choose ranking semantics (<code>--sort-by-structure-bits</code>, TM/LDDT columns).</li>
+<li>Only then trim storage/index footprint (<code>--index-subset</code>, <code>--index-exclude</code>, coordinate mode).</li>
+</ol>
+<p>Most wall-clock gains come from reducing candidate volume and avoiding incompatible scoring paths early, not from late-stage filtering changes alone.</p>
+</section>
+</section>
+<section id="fs-dev-root" class="level1">
+<h1>Foldseek Developer Manual</h1>
+<p>This chapter documents Foldseek source architecture and extension points. It is for contributors modifying Foldseek behavior, not for user-level command tutorials.</p>
+<section id="fs-dev-command-registry" class="level2">
+<h2>Command Registration and Ownership</h2>
+<p>Public command registration is centralized in <code>foldseek/src/FoldseekBase.cpp</code>. This file is the first source of truth for:</p>
+<ul>
+<li>command visibility (main/easy/hidden categories),</li>
+<li>usage signatures,</li>
+<li>command descriptions and examples,</li>
+<li>command-to-function entrypoint mapping.</li>
+</ul>
+<p>When behavior changes but docs are stale, check <code>FoldseekBase.cpp</code> first, then the target implementation.</p>
+</section>
+<section id="fs-dev-parameters" class="level2">
+<h2>Parameter System</h2>
+<p>Foldseek-specific parameters and workflow parameter bundles are defined in <code>foldseek/src/commons/LocalParameters.cpp</code> and declared in <code>LocalParameters.h</code>.</p>
+<p>This layer controls:</p>
+<ul>
+<li>option defaults and validation regexes,</li>
+<li>semantic groupings (prefilter, align, clust, misc, expert),</li>
+<li>workflow parameter composition (<code>structuresearchworkflow</code>, <code>multimersearchworkflow</code>, easy workflow bundles),</li>
+<li>output-column dependency flags used by converters.</li>
+</ul>
+<p>If an option appears in help but not in expected workflow behavior, inspect the workflow’s parameter bundle composition in <code>LocalParameters.cpp</code>.</p>
+</section>
+<section id="fs-dev-workflow-layer" class="level2">
+<h2>Workflow Layer</h2>
+<p>Workflow commands live in <code>foldseek/src/workflow/</code> and primarily orchestrate stage composition rather than numerical kernels.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">File</th>
+<th style="text-align: left;">Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>StructureSearch.cpp</code></td>
+<td style="text-align: left;">Main search workflow composition and mode switching.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>StructureCluster.cpp</code></td>
+<td style="text-align: left;">Structural clustering workflow orchestration.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>StructureRbh.cpp</code></td>
+<td style="text-align: left;">Reciprocal-best-hit workflow.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>MultimerSearch.cpp</code></td>
+<td style="text-align: left;">Complex-level search orchestration.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>MultimerCluster.cpp</code></td>
+<td style="text-align: left;">Complex clustering orchestration.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Easy*.cpp</code></td>
+<td style="text-align: left;">Raw-input wrappers that call <code>createdb</code> + workflow stages + conversion.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>StructureIndex.cpp</code></td>
+<td style="text-align: left;">Index workflow wrapper for Foldseek DBs.</td>
+</tr>
+</tbody>
+</table>
+<p>Most “why did this pipeline run this module” questions are answered in these files and their generated shell templates under <code>foldseek/data/</code>.</p>
+</section>
+<section id="fs-dev-algo-layer" class="level2">
+<h2>Algorithm and Utility Layer</h2>
+<p>Structural kernels and transformations are in <code>foldseek/src/strucclustutils/</code>.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Area</th>
+<th style="text-align: left;">Key files</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Structure DB creation</td>
+<td style="text-align: left;"><code>structcreatedb.cpp</code>, <code>structureto3didescriptor.cpp</code>, <code>GemmiWrapper.*</code>, <code>PulchraWrapper.*</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Search alignment kernels</td>
+<td style="text-align: left;"><code>structurealign.cpp</code>, <code>structurerescorediagonal.cpp</code>, <code>tmalign.cpp</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Conversion/reporting</td>
+<td style="text-align: left;"><code>structureconvertalis.cpp</code>, <code>convert2pdb.cpp</code>, <code>createmultimerreport.cpp</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Multimer internals</td>
+<td style="text-align: left;"><code>expandmultimer.cpp</code>, <code>scoremultimer.cpp</code>, <code>MultimerUtil.h</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Utility transforms</td>
+<td style="text-align: left;"><code>compressca.cpp</code>, <code>aln2tmscore.cpp</code>, <code>result2structprofile.cpp</code></td>
+</tr>
+</tbody>
+</table>
+<p>When changing scoring semantics, always check both runtime modules and conversion modules; output columns may recompute or reinterpret metrics.</p>
+</section>
+<section id="fs-dev-core-libs" class="level2">
+<h2>Core Libraries and Shared Engines</h2>
+<p>Foldseek reuses MMseqs infrastructure but adds structural engines in dedicated components:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Files</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">3Di encoder</td>
+<td style="text-align: left;"><code>foldseek/lib/3di/structureto3di.*</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TM-align backend</td>
+<td style="text-align: left;"><code>foldseek/lib/tmalign/*</code>, <code>foldseek/src/commons/TMaligner.*</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LDDT scoring</td>
+<td style="text-align: left;"><code>foldseek/src/commons/LDDT.*</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Structure-aware SW</td>
+<td style="text-align: left;"><code>foldseek/src/commons/StructureSmithWaterman.*</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Shared command/DB infra</td>
+<td style="text-align: left;">MMseqs-derived <code>DBReader</code>, <code>DBWriter</code>, <code>IndexReader</code>, <code>Parameters</code></td>
+</tr>
+</tbody>
+</table>
+<p>The 3Di encoder is isolated from workflow code, which allows algorithm updates without rewriting orchestration paths.</p>
+</section>
+<section id="fs-dev-data-flow" class="level2">
+<h2>End-to-End Data Flow (Developer View)</h2>
+<ol type="1">
+<li><code>createdb</code> builds synchronized DB channels from structures or ProstT5 inference output.</li>
+<li>Workflow module (<code>search</code>, <code>cluster</code>, <code>multimersearch</code>, etc.) composes prefilter/alignment stages.</li>
+<li>Alignment/result DBs are written in internal formats.</li>
+<li>Conversion/report modules derive user-facing outputs.</li>
+</ol>
+<p>Because multiple commands share the same DB channels, schema changes in <code>createdb</code> impact almost every downstream module.</p>
+</section>
+<section id="fs-dev-guidelines" class="level2">
+<h2>Editing Guidelines</h2>
+<ol type="1">
+<li>For command behavior changes, update all three layers together:</li>
+</ol>
+<ul>
+<li><code>FoldseekBase.cpp</code> command declaration,</li>
+<li><code>LocalParameters.cpp</code> option bundles/defaults,</li>
+<li>implementation file(s).</li>
+</ul>
+<ol start="2" type="1">
+<li>For score or ranking changes, validate:</li>
+</ol>
+<ul>
+<li>runtime filtering paths (<code>structurealign</code>, <code>structurerescorediagonal</code>, multimer filters),</li>
+<li>conversion paths (<code>structureconvertalis</code>, reports),</li>
+<li>sorting/threshold side effects.</li>
+</ul>
+<ol start="3" type="1">
+<li>For DB/index changes, test both:</li>
+</ol>
+<ul>
+<li>non-indexed and indexed targets,</li>
+<li>coordinate-dependent and coordinate-light modes (<code>--sort-by-structure-bits</code>, TM/LDDT outputs).</li>
+</ul>
+</section>
+<section id="fs-dev-debugging-map" class="level2">
+<h2>Debugging Map</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Symptom</th>
+<th style="text-align: left;">First files to inspect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Wrong command usage/help</td>
+<td style="text-align: left;"><code>foldseek/src/FoldseekBase.cpp</code>, regenerated <code>foldseek_help_output/*.txt</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Option accepted but ignored</td>
+<td style="text-align: left;"><code>foldseek/src/commons/LocalParameters.cpp</code>, workflow bundle composition</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unexpected stage order</td>
+<td style="text-align: left;"><code>foldseek/src/workflow/*.cpp</code>, generated workflow shell templates</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Score/ranking mismatch</td>
+<td style="text-align: left;"><code>structurealign.cpp</code>, <code>structurerescorediagonal.cpp</code>, <code>StructureSmithWaterman.*</code>, <code>TMaligner.*</code>, <code>LDDT.*</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Multimer assignment anomalies</td>
+<td style="text-align: left;"><code>scoremultimer.cpp</code>, <code>expandmultimer.cpp</code>, <code>MultimerUtil.h</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Output field inconsistency</td>
+<td style="text-align: left;"><code>structureconvertalis.cpp</code>, <code>createmultimerreport.cpp</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fs-dev-doc-sync" class="level2">
+<h2>Documentation Sync Rule</h2>
+<p>Whenever command interfaces or defaults change, refresh help snapshots with <code>generate_foldseek_docs.sh</code> and reconcile the module chapters before generating <code>foldseek_doc.pdf</code>.</p>
+</section>
+</section>
+<footer id="doc-page-footer" class="doc-page-footer">
+  <div class="doc-page-footer-inner">Documentation curation: Liang HONG.</div>
+</footer>
+
+<button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top">
+  Top
+</button>
+<div id="toc-backdrop" class="toc-backdrop" hidden></div>
+<script src="../assets/docs.js" defer></script>
+</body>
+</html>
